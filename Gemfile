@@ -32,3 +32,4 @@ end
 gem "haml-rails", "~> 2.0"
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
+gem 'font-awesome-sass', '~> 5.12.0'
