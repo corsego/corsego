@@ -1,7 +1,41 @@
-- if current_user
-  = current_user.email
-  = link_to 'Account settings', edit_user_registration_path
-  = link_to 'Sign out', destroy_user_session_path, method: :delete
-- else
-  = link_to 'Sign Up', new_user_registration_path
-  = link_to 'Log In', new_user_session_path
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  %a.navbar-brand{:href => "#"} Rubygems
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    - if current_user
+      %ul.navbar-nav.mr-auto
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
+          = link_to root_path, class: 'nav-link' do
+            .fa.fa-home
+            Home
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(courses_path)}"}
+          = link_to courses_path, class: 'nav-link' do
+            .fa.fa-book
+            Courses
+      .form-inline.my-2.my-lg-0
+        = form_tag(root_path, method: :get) do
+          .input-group
+            = text_field_tag :name, params[:name], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
+            %span.input-group-append
+              %button.btn.btn-primary.btn-sm{:type => "submit"}
+                %span.fa.fa-search{"aria-hidden" => "true"}
+      %ul.navbar-nav.mr-right
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
+          = link_to root_path, class: 'nav-link' do
+            .fa.fa-home
+            Another link
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %b= current_user.email
+          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+            = link_to edit_user_registration_path, class: "dropdown-item" do
+              .fa.fa-cog
+              %b Account settings
+            = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
+              .fa.fa-sign-out-alt
+              %b Sign out
+    - else
+      %ul.navbar-nav
+        %li.nav-item= link_to 'Sign Up', new_user_registration_path, class: 'nav-link'
+        %li.nav-item= link_to 'Log In', new_user_session_path, class: 'nav-link'
