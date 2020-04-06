@@ -21,4 +21,9 @@
     .row
     = 'last_sign_in_ip'.humanize
     = user.last_sign_in_ip
-
+  .card-footer
+    Confirmed email?
+    - if user.confirmed_at.present?
+      .badge.badge-success Yes
+    - else
+      .badge.badge-danger No
