@@ -1,3 +1,10 @@
+%h3
+  .text-center
+    Users
+    .badge.badge-info
+      = @users.count
+%p
+
 .card-columns
   - @users.each do |user|
     = render 'users/user', user: user

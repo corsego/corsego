@@ -5,13 +5,21 @@
   
   .p-4
 
-  .form-inline.my-2.my-lg-0
-    = form_tag(courses_path, method: :get) do
+  - if current_user
+    = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       .input-group
-        = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Search", class: 'form-control-sm'
+        = f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
         %span.input-group-append
           %button.btn.btn-primary.btn-sm{:type => "submit"}
             %span.fa.fa-search{"aria-hidden" => "true"}
+
+  /.form-inline.my-2.my-lg-0
+  /  = form_tag(courses_path, method: :get) do
+  /    .input-group
+  /      = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Find a course", class: 'form-control-sm'
+  /      %span.input-group-append
+  /        %button.btn.btn-primary.btn-sm{:type => "submit"}
+  /          %span.fa.fa-search{"aria-hidden" => "true"}
 
 .card-group
   .card.card-body
