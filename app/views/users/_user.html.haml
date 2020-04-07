@@ -27,3 +27,7 @@
       .badge.badge-success Yes
     - else
       .badge.badge-danger No
+  .card-footer
+    - user.roles.each do |role|
+      .badge.badge-info
+        = role.name
