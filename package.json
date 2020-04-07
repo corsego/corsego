@@ -1,5 +1,5 @@
 {
-  "name": "rubygems",
+  "name": "corsego",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",
