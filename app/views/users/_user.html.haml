@@ -1,7 +1,7 @@
 .card
   .card-header
     .fa.fa-user
-    = user.email
+    = link_to user.email, user_path(user)
   .card-footer
     Signed up
     = time_ago_in_words(user.created_at)
