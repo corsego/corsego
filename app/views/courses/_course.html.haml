@@ -25,7 +25,9 @@
         .text-right
           .fa.fa-chalkboard-teacher
           = course.user.username
-  .card-footer
-    = link_to 'Show', course, class: 'btn btn-sm btn-primary'
-    = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
-    = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+  - if policy(course).edit?
+    .card-footer
+      /- if policy(course).edit?
+      = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
+      /- if policy(course).destroy?
+      = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'

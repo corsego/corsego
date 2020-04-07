@@ -31,4 +31,5 @@
     - user.roles.each do |role|
       .badge.badge-info
         = role.name
-    = link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning'
+    - if policy(user).edit?
+      = link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning'
