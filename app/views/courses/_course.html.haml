@@ -24,7 +24,7 @@
       .col-md-6
         .text-right
           .fa.fa-chalkboard-teacher
-          = course.user
+          = course.user.username
   .card-footer
     = link_to 'Show', course, class: 'btn btn-sm btn-primary'
     = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
