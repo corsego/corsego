@@ -1,6 +1,10 @@
 .card
   .card-header
     .fa.fa-user
+    - if user.online?
+      .text-success.far.fa-circle
+    - else
+      .text-danger.far.fa-circle
     = link_to user.email, user_path(user)
   .card-footer
     Signed up
