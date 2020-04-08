@@ -1,4 +1,9 @@
-%p#notice= notice
+= link_to 'Courses', courses_path
+\/
+= link_to @lesson.course.title, course_path(@lesson.course)
+\/
+= link_to @lesson.title, lesson_path(@lesson)
+%p
 
 = render 'lessons/lesson', lesson: @lesson
 

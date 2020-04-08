@@ -5,7 +5,10 @@
 
   .form-inputs
     = f.input :title
-    = f.input :content
+    /= f.input :content
+    = f.label :content
+    = f.rich_text_area :content
+
     /= f.association :course
     = f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}, as: :hidden
 
