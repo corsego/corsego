@@ -2,5 +2,10 @@
 \/
 = link_to @course.title, course_path(@course)
 %p
-= render 'courses/course', course: @course
 
+.row
+  .col-lg-6
+    = render 'courses/course', course: @course
+  .col-lg-6
+    - @lessons.each do |lesson|
+      = render 'lessons/lesson', lesson: lesson
