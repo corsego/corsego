@@ -7,5 +7,7 @@
   .col-lg-6
     = render 'courses/course', course: @course
   .col-lg-6
+    = link_to 'Add lesson', new_lesson_path(course_id: @course.id)
     - @lessons.each do |lesson|
       = render 'lessons/lesson', lesson: lesson
+
