@@ -1,6 +1,7 @@
 Rails.application.configure do
   config.hosts << "fd010b77ba5942ee8876046b9e2e436c.vfs.cloud9.eu-central-1.amazonaws.com"
   config.action_mailer.default_url_options = { host: 'https://fd010b77ba5942ee8876046b9e2e436c.vfs.cloud9.eu-central-1.amazonaws.com' }
+  config.action_mailer.delivery_method = :test
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
