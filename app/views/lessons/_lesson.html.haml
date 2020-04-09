@@ -1,10 +1,10 @@
 .card
   .card-header
+    .far.fa-check-square
     = link_to lesson.title, course_lesson_path(@course, lesson)
   - if policy(lesson).show?
     .card-body
       = lesson.content
-      = lesson.course
   - if policy(lesson).edit?
     .card-footer
       = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
