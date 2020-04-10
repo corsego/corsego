@@ -9,6 +9,8 @@ class Enrollment < ApplicationRecord
 
   validate :cant_subscribe_to_own_course  #user can't create a subscription if course.user == current_user.id
 
+  scope :pending_review, -> { where(rating: [0, nil, ""], review: [0, nil, ""]) }
+
   def to_s
     user.to_s + " " + course.to_s
   end
