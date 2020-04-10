@@ -6,7 +6,7 @@
     %small= simple_format(course.short_description)
   .card-footer
     .text-center
-      = number_to_currency(course.price)
+      = enrollment_button(course)
   .card-footer
     .fa.fa-tasks
     = course.lessons.count
