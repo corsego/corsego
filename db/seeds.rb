@@ -1,14 +1,15 @@
-#User.create!(email: 'admin@example.com', password: 'admin@example.com', password_confirmation: 'admin@example.com')
-#user = User.new(
-#  email: 'admin@example.com', 
-#  password: 'admin@example.com', 
-#  password_confirmation: 'admin@example.com'
-#)
-#user.skip_confirmation!
-#user.save!
+User.create!(email: 'student@example.com', password: 'student@example.com', password_confirmation: 'student@example.com', confirmed_at: Time.now)
+
+user = User.new(
+  email: 'admin@example.com', 
+  password: 'admin@example.com', 
+  password_confirmation: 'admin@example.com'
+)
+user.skip_confirmation!
+user.save!
 
 PublicActivity.enabled = false
-30.times do
+2.times do
   Course.create!([{
     title: Faker::Educator.course_name,
     description: Faker::TvShows::GameOfThrones.quote,

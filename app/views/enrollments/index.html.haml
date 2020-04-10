@@ -1,0 +1,40 @@
+- content_for :title do
+  Corsego 
+  \| 
+  All Enrollments
+
+%h3
+  .text-center
+    Enrollments
+    .badge.badge-info
+      = @enrollments.count
+%p
+
+.table-responsive
+  %table.table.table-bordered.table-striped.table-sm
+    %thead
+      %tr
+        %th Course
+        %th User
+        %th Rating
+        %th Review
+        %th Price
+        %th
+        %th
+        %th
+  
+    %tbody
+      - @enrollments.each do |enrollment|
+        %tr
+          %td= enrollment.course
+          %td= enrollment.user
+          %td= enrollment.rating
+          %td= enrollment.review
+          %td= number_to_currency(enrollment.price)
+          %td= link_to 'Show', enrollment
+          %td= link_to 'Edit', edit_enrollment_path(enrollment)
+          %td= link_to 'Destroy', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Enrollment', new_enrollment_path

@@ -1,0 +1,14 @@
+- content_for :title do
+  Corsego 
+  \| 
+  New enrollment
+
+.card
+  .card-header
+    %h3
+      .fa.fa-lock-open
+      New enrollment
+  .card-body
+    = render 'form'
+  .card-footer
+    = link_to 'Back', enrollments_path
