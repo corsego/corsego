@@ -1,3 +1,8 @@
+- content_for :title do
+  Corsego 
+  \| 
+  All Users
+
 %h3
   .text-center
     Users
@@ -35,7 +40,12 @@
     - @users.each do |user|
       %tr
         %td= user.id
-        %td= user.email
+        %td
+          - if user.online?
+            .text-success.far.fa-circle
+          - else
+            .text-danger.far.fa-circle
+          = link_to user.email, user_path(user)
         %td= user.created_at
         %td= user.sign_in_count
         %td= user.current_sign_in_at
