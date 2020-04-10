@@ -57,7 +57,5 @@
           %td= link_to 'See Review', enrollment
           %td= link_to 'Add Review', edit_enrollment_path(enrollment)
           %td= link_to 'Delete Enrollment', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
-
+!= pagy_bootstrap_nav(@pagy)
 %br
-
-= link_to 'New Enrollment', new_enrollment_path
