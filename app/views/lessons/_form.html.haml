@@ -8,6 +8,7 @@
     /= f.input :content
     = f.label :content
     = f.rich_text_area :content
+    %small= f.error :content, class: 'text-danger'
     %p
 
     /= f.association :course
