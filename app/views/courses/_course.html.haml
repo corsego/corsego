@@ -10,6 +10,9 @@
       .row
       = review_button(course)
   .card-footer
+    .text-warning.fa.fa-star
+    %b= course.average_rating
+  .card-footer
     .fa.fa-tasks
     = course.lessons.count
   .card-footer
