@@ -13,7 +13,7 @@
 .row
   .col-md-2
     /= search_form_for @q do |f|
-    = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+    = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f|
       = f.label :title
       = f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm'
       = f.label :description
@@ -30,7 +30,7 @@
       = f.label :teacher
       = f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm'
       = f.submit
-    = link_to 'refresh', courses_path
+    = link_to 'refresh', @ransack_path
 
 
   .col-md-10
