@@ -10,28 +10,44 @@
       = @enrollments.count
 %p
 
+= search_form_for @q do |f|
+  = f.search_field :user_email_cont, placeholder: 'user email'
+  = f.search_field :course_title_cont, placeholder: 'course title'
+  = f.search_field :price_eq, placeholder: 'price'
+  = f.search_field :rating_eq, placeholder: 'rating'
+  = f.search_field :review_cont, placeholder: 'review'
+  = f.submit
+= link_to 'refresh', enrollments_path
+
 .table-responsive
   %table.table.table-bordered.table-striped.table-sm
     %thead
       %tr
         %th ID
         %th
-          .fa.fa-user
-          User
+          = sort_link(@q, :user_email)
+          /.fa.fa-user
+          /User
         %th
-          .fa.fa-clock
-          .fa.fa-lock-open
-          bought
+          = sort_link(@q, :created_at)
+          /.fa.fa-clock
+          /.fa.fa-lock-open
+          /bought
         %th
-          .fa.fa-graduation-cap
-          Course
+          = sort_link(@q, :course_title)
+          /.fa.fa-graduation-cap
+          /Course
         %th 
-          .fa.fa-dollar-sign
-          Price
+          = sort_link(@q, :price)
+          /.fa.fa-dollar-sign
+          /Price
         %th 
+          = sort_link(@q, :updated_at)
+          .row
           .text-warning.fa.fa-clock
           Reviewed on
         %th 
+          = sort_link(@q, :rating)
           .text-warning.fa.fa-star
           Rating
         %th 
