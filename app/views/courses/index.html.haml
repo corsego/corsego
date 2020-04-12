@@ -1,11 +1,14 @@
 - content_for :title do
   Corsego 
   \| 
-  All Courses
+  = action_name.humanize
+  courses
 
 %h3
   .text-center
-    Courses
+    .fa.fa-graduation-cap
+    = action_name.humanize
+    courses
     .badge.badge-info
       = @courses.count
 %p

@@ -7,6 +7,8 @@ class Course < ApplicationRecord
   has_many :lessons, dependent: :destroy
   has_many :enrollments
 
+  validates :title, uniqueness: true
+
   def to_s
     title
   end
