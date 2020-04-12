@@ -12,6 +12,13 @@
   .card-footer
     .text-warning.fa.fa-star
     %b= course.average_rating
+
+    /Enrollments count:
+    /= course.enrollments.count
+    Counter cache enrollments count:
+    = course.enrollments_count
+    
+
   .card-footer
     .fa.fa-tasks
     = course.lessons.count
