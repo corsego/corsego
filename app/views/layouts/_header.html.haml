@@ -48,7 +48,7 @@
                 .fa.fa-graduation-cap
                 Purchased Courses
                 .badge.badge-danger
-                  = current_user.enrollments.count
+                  = current_user.enrollments_count
               = link_to pending_review_courses_path, class: "dropdown-item" do
                 .fa.fa-star
                 Pending Review
@@ -68,7 +68,7 @@
                 .fa.fa-graduation-cap
                 My courses
                 .badge.badge-danger
-                  = current_user.courses.count
+                  = current_user.courses_count
               = link_to my_students_enrollments_path, class: "dropdown-item" do
                 .fa.fa-users
                 My students

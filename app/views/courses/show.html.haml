@@ -12,7 +12,7 @@
   .col-lg-6
     = render 'courses/course', course: @course
   .col-lg-6
-    - if policy(@course).edit?
+    - if policy(@course).owner?
       = link_to 'Add lesson', new_course_lesson_path(@course, @lesson), class: 'btn btn-primary btn-sm btn-block'
       %p
     - @lessons.each do |lesson|

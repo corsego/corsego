@@ -26,6 +26,12 @@
     %b= 'last_sign_in_ip'.humanize + ":"
     = user.last_sign_in_ip
   .card-footer
+    Courses created:
+    = user.courses_count
+    .row
+    Enrollments:
+    = user.enrollments_count
+  .card-footer
     Confirmed email?
     - if user.confirmed_at.present?
       .badge.badge-success Yes

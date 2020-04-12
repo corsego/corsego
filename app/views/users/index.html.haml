@@ -35,6 +35,8 @@
         %th= 'last_sign_in_at'.humanize
         %th= 'current_sign_in_ip'.humanize
         %th= 'last_sign_in_ip'.humanize
+        %th= 'courses_count'.humanize
+        %th= 'enrollments_count'.humanize
         %th Confirmed?
         %th Roles
     %tbody
@@ -53,6 +55,8 @@
           %td= user.last_sign_in_at
           %td= user.current_sign_in_ip
           %td= user.last_sign_in_ip
+          %td= user.courses_count
+          %td= user.enrollments_count
           %td= user.confirmed?
           %td
             - user.roles.each do |role|
