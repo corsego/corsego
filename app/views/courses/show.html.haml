@@ -9,12 +9,47 @@
 %p
 
 .row
-  .col-lg-6
-    = render 'courses/course', course: @course
-  .col-lg-6
-    - if policy(@course).owner?
-      = link_to 'Add lesson', new_course_lesson_path(@course, @lesson), class: 'btn btn-primary btn-sm btn-block'
-      %p
-    - @lessons.each do |lesson|
-      = render 'lessons/lesson', lesson: lesson
+  .col-lg-8.order-1.order-lg-1
+    .jumbotron
+      %h3
+        .fa.fa-graduation-cap
+        = @course.title
+      .p-3
+      .row
+      .fa.fa-clock
+      = @course.updated_at.strftime("%m/%Y")
+      .row
+      .fa.fa-globe-africa
+      = @course.language
+      .row
+      .fa.fa-signal
+      = @course.level
+      .p-3
+      = @course.description
 
+    %h4
+      .fa.fa-tasks
+      Lessons:
+      = @course.lessons_count
+      .float-right
+        .fa.fa-spinner
+        = number_to_percentage(@course.progress(current_user), precision: 0)
+    %ul.list-group
+      - @lessons.each do |lesson|
+        = render 'lessons/lesson_preview', lesson: lesson
+    %p
+
+    %h4
+      .fa.fa-comment
+      Reviews:
+      = @enrollments_with_review.count
+
+    - @enrollments_with_review.each do |enrollment|
+      = render 'enrollments/enrollment', enrollment: enrollment
+      %p
+
+
+  .col-lg-4.order-0.order-lg-1
+    .sticky-top
+      = render 'courses/course', course: @course
+    %p

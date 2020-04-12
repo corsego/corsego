@@ -48,6 +48,8 @@
   - if current_user
     - if policy(course).edit?
       .card-footer
+        - if policy(course).owner?
+          = link_to 'Add lesson', new_course_lesson_path(course, @lesson), class: 'btn btn-primary btn-sm'
         /- if policy(course).edit?
         = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
         /- if policy(course).destroy?
