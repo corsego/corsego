@@ -15,6 +15,7 @@
       /= f.input :level, collection: [ "Beginner", "Intermediate", "Advanced"]
       = f.input :level, collection: Course.levels, include_blank: true
       = f.input :price
+      = f.input :published
   
   
     .form-actions
