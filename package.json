@@ -8,6 +8,8 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "bootstrap": "4.3.1",
+    "chart.js": "^2.9.3",
+    "chartkick": "^3.2.0",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
     "trix": "^1.0.0",

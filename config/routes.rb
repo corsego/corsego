@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'home/index'
   get 'activity', to: 'home#activity'
+  get 'analytics', to: 'home#analytics'
 
   resources :enrollments do
     get :my_students, on: :collection

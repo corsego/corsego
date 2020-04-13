@@ -43,4 +43,6 @@ gem "rolify"
 gem "pundit"
 gem 'exception_notification', group: :production
 gem 'pagy'
+gem "chartkick"
+gem 'groupdate'
 
