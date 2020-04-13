@@ -10,9 +10,13 @@
 
 = link_to 'Courses', courses_path
 \/
-= link_to @lesson.course.title, course_path(@lesson.course)
+= link_to course_path(@lesson.course) do
+  .fa.fa-graduation-cap
+  = @lesson.course.title
 \/
-= link_to @lesson.title, course_lesson_path(@course, @lesson)
+= link_to course_lesson_path(@course, @lesson) do
+  .fa.fa-check-square
+  = @lesson.title
 %p
 
 = render 'lessons/lesson', lesson: @lesson

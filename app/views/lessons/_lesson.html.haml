@@ -1,20 +1,19 @@
 .card
   .card-header
     - if lesson.viewed(current_user) == true
-      .text-success.far.fa-check-square
+      .text-success.fa.fa-check-square
       /VIEWED
     - else
-      .text-danger.far.fa-check-square
+      .text-danger.fa.fa-check-square
       /NOT VIEWED
 
 
     /.far.fa-check-square
     = link_to lesson.title, course_lesson_path(@course, lesson)
-  - if policy(lesson).show?
-    .card-body
-      = lesson.content
+  /- if policy(lesson).show?
+  .card-body
+    = lesson.content
   - if policy(lesson).edit?
     .card-footer
       = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
       = link_to 'Destroy', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
-%p
