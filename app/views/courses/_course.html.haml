@@ -46,14 +46,14 @@
   /        .fa.fa-chalkboard-teacher
   /        = link_to course.user.username, user_path(course.user)
   - if current_user
-    - if policy(course).edit?
+    - if policy(course).destroy?
       .card-footer
         - if policy(course).owner?
           = link_to 'Add lesson', new_course_lesson_path(course, @lesson), class: 'btn btn-primary btn-sm'
-        /- if policy(course).edit?
-        = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
-        /- if policy(course).destroy?
-        = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+        - if policy(course).edit?
+          = link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning'
+        - if policy(course).destroy?
+          = link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
     - if policy(course).destroy?
       .card-footer
         - if course.published?
