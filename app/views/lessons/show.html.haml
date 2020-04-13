@@ -19,6 +19,8 @@
   = @lesson.title
 %p
 
+/= @lesson.user_lessons.where(user: current_user).first.impressions
+
 .row
   .col-lg-8
     = render 'lessons/lesson', lesson: @lesson
