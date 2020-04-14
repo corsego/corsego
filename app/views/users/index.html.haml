@@ -29,14 +29,14 @@
       %tr
         %th id
         %th= sort_link(@q, :email)
-        %th created_at
+        %th= sort_link(@q, :created_at)
         %th= 'sign_in_count'.humanize
         %th= 'current_sign_in_at'.humanize
         %th= 'last_sign_in_at'.humanize
         %th= 'current_sign_in_ip'.humanize
         %th= 'last_sign_in_ip'.humanize
-        %th= 'courses_count'.humanize
-        %th= 'enrollments_count'.humanize
+        %th= sort_link(@q, :courses_count)
+        %th= sort_link(@q, :enrollments_count)
         %th Confirmed?
         %th Roles
     %tbody
@@ -49,7 +49,7 @@
             - else
               .text-danger.far.fa-circle
             = link_to user.email, user_path(user)
-          %td= user.created_at
+          %td= user.created_at.strftime('%d/%m/%y - %H:%M')
           %td= user.sign_in_count
           %td= user.current_sign_in_at
           %td= user.last_sign_in_at
