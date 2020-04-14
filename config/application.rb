@@ -11,6 +11,12 @@ module Corsego
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
+    if Rails.env.development? #for rails-erd gem to generate a diagram
+      def eager_load!
+        Zeitwerk::Loader.eager_load_all
+      end
+    end
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
