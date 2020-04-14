@@ -16,9 +16,9 @@
 = search_form_for @q, url: @ransack_path do |f|
   = f.search_field :user_email_cont, placeholder: 'user email'
   = f.search_field :course_title_cont, placeholder: 'course title'
+  = f.search_field :course_user_email_cont, placeholder: 'teacher'
   = f.search_field :price_eq, placeholder: 'price'
   = f.search_field :rating_eq, placeholder: 'rating'
-  = f.search_field :review_cont, placeholder: 'review'
   = f.submit
 = link_to 'refresh', @ransack_path
 
@@ -26,7 +26,7 @@
   %table.table.table-bordered.table-striped.table-sm
     %thead
       %tr
-        %th ID
+        /%th ID
         %th
           = sort_link(@q, :user_email, "User")
           /.fa.fa-user
@@ -40,6 +40,7 @@
           = sort_link(@q, :course_title, "Course")
           /.fa.fa-graduation-cap
           /Course
+        %th Teacher
         %th 
           = sort_link(@q, :price)
           /.fa.fa-dollar-sign
@@ -63,10 +64,11 @@
     %tbody
       - @enrollments.each do |enrollment|
         %tr
-          %td= enrollment.id
+          /%td= enrollment.id
           %td= link_to enrollment.user.email, user_path(enrollment.user)
           %td= enrollment.created_at.strftime("%d/%b/%Y, %H:%M")
           %td= link_to enrollment.course, course_path(enrollment.course)
+          %td= link_to enrollment.course.user, user_path(enrollment.course.user)
           %td= number_to_currency(enrollment.price)
           %td
             - if enrollment.rating.present?

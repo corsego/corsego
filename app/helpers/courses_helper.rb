@@ -2,7 +2,10 @@ module CoursesHelper
   def enrollment_button(course)
     if current_user
       if course.user == current_user
-        link_to "You created this course. View analytics", course_path(course)
+        link_to course_path(course) do
+          "You created this course " +
+          number_to_currency(course.price)
+        end
       elsif course.enrollments.where(user: current_user).any?
         link_to course_path(course) do
           #"You bought this course. Keep learning" +
@@ -34,7 +37,7 @@ module CoursesHelper
           link_to enrollment_path(user_course.first) do
             "<i class='text-warning fa fa-star'></i>".html_safe + " " +
             "<i class='fa fa-check'></i>".html_safe + " " +
-            'Thanks for reviewing! Your Review'
+            'Thanks for reviewing!'
           end
         end
       end
