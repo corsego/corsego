@@ -1,3 +1,8 @@
+- content_for :title do
+  Corsego 
+  \| 
+  Analytics
+
 %h4.text-center
   New users per day
 /= line_chart @users.group_by_day(:created_at).count

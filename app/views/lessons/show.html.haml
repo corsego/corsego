@@ -1,19 +1,19 @@
 - content_for :title do
   Corsego 
-  \/
+  |
   Course
   = @course.title
-  \/
+  |
   Lesson
   = @lesson.title
 
 
 = link_to 'Courses', courses_path
-\/
+|
 = link_to course_path(@lesson.course) do
   .fa.fa-graduation-cap
   = @lesson.course.title
-\/
+|
 = link_to course_lesson_path(@course, @lesson) do
   .fa.fa-check-square
   = @lesson.title
