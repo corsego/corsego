@@ -18,6 +18,9 @@ class Enrollment < ApplicationRecord
   scope :reviewed, -> { where.not(review: [0, nil, ""]) }
   scope :latest_good_reviews, -> { order(rating: :desc, created_at: :desc).limit(3) }
 
+  include PublicActivity::Model
+  tracked owner: Proc.new{ |controller, model| controller.current_user }
+
   extend FriendlyId
   friendly_id :to_s, use: :slugged
 

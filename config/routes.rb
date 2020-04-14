@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'analytics', to: 'home#analytics'
 
   resources :enrollments do
-    get :my_students, on: :collection
+    get :my, on: :collection
   end
 
   resources :courses do

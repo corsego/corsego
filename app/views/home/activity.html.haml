@@ -29,7 +29,6 @@
       = activity.key
       = crud_label(activity.key.match(/\.(.*)/)[1])
       /= activity.key.match(/\.(.*)/)[1]
-
       /= activity.owner
       by
       = link_to activity.owner, user_path(activity.owner)
