@@ -16,6 +16,7 @@
       /= activity.id
       = activity.created_at.strftime('%d-%m-%Y %H:%m')
       (#{time_ago_in_words(activity.created_at)})
+      = model_label(activity.trackable_type)
       = activity.trackable_type
       /= activity.trackable_id
       - if activity.trackable_type == "Lesson"
@@ -26,6 +27,8 @@
       - else
         = link_to activity.trackable, activity.trackable
       = activity.key
+      = crud_label(activity.key.match(/\.(.*)/)[1])
+      /= activity.key.match(/\.(.*)/)[1]
 
       /= activity.owner
       by
