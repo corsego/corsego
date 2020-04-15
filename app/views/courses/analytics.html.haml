@@ -1,0 +1,36 @@
+- content_for :title do
+  Corsego 
+  |
+  = @course.title
+  Analtycs
+
+= link_to 'Courses', courses_path
+|
+= link_to course_path(@course) do
+  .fa.fa-graduation-cap
+  = @course.title
+|
+= link_to analytics_course_path(@course) do
+  .fa.fa-chart-bar
+  Analtycs
+
+/%h4.text-center 
+/  Analtycs for #{@course.title}
+
+%h4.text-center
+  Enrollments per day, quantity
+= line_chart @course.enrollments.group_by_day(:created_at).count
+
+%h4.text-center
+  Enrollments per day, revenue
+= line_chart @course.enrollments.group_by_day(:created_at).sum(:price)
+
+%h4.text-center
+  Unique user views (how many unique users viewed the lesson)
+= bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').count
+
+%h4.text-center
+  Impressions per lesson (how many times the lesson was opened)
+= bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').sum(:impressions)
+
+
