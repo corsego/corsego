@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :courses do
-    get :purchased, :pending_review, :created, :unapproved, on: :collection
+    get :learning, :pending_review, :teaching, :unapproved, on: :collection
     member do
       get :analytics
       patch :approve

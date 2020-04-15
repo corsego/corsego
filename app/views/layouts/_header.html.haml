@@ -44,7 +44,7 @@
               .fa.fa-graduation-cap
               Learn
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "studentDropdown"}
-              = link_to purchased_courses_path, class: "dropdown-item" do
+              = link_to learning_courses_path, class: "dropdown-item" do
                 .fa.fa-graduation-cap
                 Purchased Courses
                 .badge.badge-danger
@@ -64,9 +64,9 @@
                 .fa.fa-graduation-cap
                 .fa.fa-plus
                 Create Course
-              = link_to created_courses_path, class: "dropdown-item" do
+              = link_to teaching_courses_path, class: "dropdown-item" do
                 .fa.fa-graduation-cap
-                Created Courses
+                My Courses
                 .badge.badge-danger
                   = current_user.courses_count
               = link_to my_enrollments_path, class: "dropdown-item" do
