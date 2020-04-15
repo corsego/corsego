@@ -4,6 +4,15 @@
   Editing
   = @course.title
 
+= link_to 'Courses', courses_path
+|
+= link_to course_path(@course) do
+  .fa.fa-graduation-cap
+  = @course.title
+  |
+= link_to edit_course_path(@course) do
+  Edit
+
 .card
   .card-header
     %h3

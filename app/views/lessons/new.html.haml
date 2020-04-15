@@ -8,10 +8,11 @@
 
 = link_to 'Courses', courses_path
 \/
-= link_to @course.title, course_path(@course)
+= link_to course_path(@course) do
+  .fa.fa-graduation-cap
+  = @course.title
 \/
-new lesson
-%p
+New lesson
 
 .card
   .card-header
