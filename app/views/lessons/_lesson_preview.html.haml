@@ -8,13 +8,15 @@
     .fa.fa-check-square
   = link_to course_lesson_path(@course, lesson) do 
     /= lesson.row_order
-    = lesson.row_order_rank + 1
+    %b
+      #{lesson.row_order_rank + 1}.
     = lesson.title
 - else
   .fa.fa-check-square
   = link_to course_lesson_path(@course, lesson) do 
     /= lesson.row_order
-    = lesson.row_order_rank + 1
+    %b
+      #{lesson.row_order_rank + 1}.
     = lesson.title
 
 
