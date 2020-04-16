@@ -35,12 +35,12 @@ gem 'jquery-rails' #for bootstrap to work
 gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling
 gem 'simple_form'
 gem 'faker' #fake data for seeds.rb
-gem 'devise'
+gem 'devise' #authentication as a User
 gem 'friendly_id', '~> 5.2.4'
 gem 'ransack' #filter and sort data
 gem 'public_activity' #see all activity in the app
-gem "rolify" #give users roles
-gem "pundit" #authorization
+gem "rolify" #give users roles (admin, teacher, student)
+gem "pundit" #authorization (different roles have different accesses)
 gem 'exception_notification', group: :production #notify if errors in production
 gem 'pagy' #pagination
 gem "chartkick" #charts

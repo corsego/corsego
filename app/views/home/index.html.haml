@@ -29,31 +29,34 @@
   .card.card-body
     %h1
       .fa.fa-graduation-cap
-    = Course.count
-    online courses
+    = pluralize(Course.count, 'online courses')
+    /= Course.count
+    /online courses
     .row
-    Explore a variety of fresh topics
+    %small Explore a variety of fresh topics
   .card.card-body
     %h1
       .fa.fa-chalkboard-teacher
       /.fa.fa-brain
-    = Course.distinct.count(:user_id)
-    expert instructors
+    = pluralize(Course.distinct.count(:user_id), 'expert instructors')
+    /= Course.distinct.count(:user_id)
+    /expert instructors
     .row
-    Find the right instructor for you
+    %small Find the right instructor for you
   .card.card-body
     %h1
       .fa.fa-user-graduate
-    = User.count
-    active learners
+    = pluralize(User.count, 'active learners')
+    /= User.count
+    /active learners
     .row
-    Join the knowledge sharing community
+    %small Join the knowledge sharing community
   .card.card-body
     %h1
       .fa.fa-infinity
     Lifetime access
     .row
-    Learn on your schedule
+    %small Learn on your schedule
 
 %p
 
@@ -94,7 +97,7 @@
   - @latest.each do |course|
     = render 'courses/course', course: course
 .text-right
-  = link_to 'More new courses', courses_path(courses_search: {s: 'created_at desc'})
+  = link_to 'More recent courses', courses_path(courses_search: {s: 'created_at desc'})
 
 %hr
 %h2 

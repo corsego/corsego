@@ -45,9 +45,9 @@
           %td= user.id
           %td
             - if user.online?
-              .text-success.far.fa-circle
+              .text-success.fa.fa-signal
             - else
-              .text-danger.far.fa-circle
+              .text-danger.fa.fa-signal
             = link_to user.email, user_path(user)
           %td= user.created_at.strftime('%d/%m/%y - %H:%M')
           %td= user.sign_in_count
