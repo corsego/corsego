@@ -201,6 +201,8 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.20.3, < 2.0)
     rake (13.0.1)
+    ranked-model (0.4.6)
+      activerecord (>= 4.2)
     ransack (2.3.2)
       activerecord (>= 5.2.1)
       activesupport (>= 5.2.1)
@@ -306,6 +308,7 @@ DEPENDENCIES
   pundit
   rails (~> 6.0.2)
   rails-erd
+  ranked-model
   ransack
   rolify
   sass-rails (>= 6)
