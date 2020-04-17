@@ -4,8 +4,9 @@
     = link_to course.title, course_path(course)
   - if course.avatar.attached?
     .card-img-top
-      = image_tag course.avatar, height: "200px", width: "100%"
-
+      = link_to course_path(course) do
+        = image_tag course.avatar, height: "200px", width: "100%"
+        /= image_tag course.avatar.variant(resize_to_limit: [100, 100])
   .card-body
     %small= simple_format(course.short_description)
   .card-footer
