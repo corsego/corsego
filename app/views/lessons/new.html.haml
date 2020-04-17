@@ -1,18 +1,18 @@
 - content_for :title do
   Corsego 
-  \/
+  |
   Course
   = @course.title
-  \/
-  New lesson
+  |
+  New Lesson
 
 = link_to 'Courses', courses_path
-\/
+|
 = link_to course_path(@course) do
   .fa.fa-graduation-cap
   = @course.title
-\/
-New lesson
+|
+= link_to 'New lesson', new_course_lesson_path(@course, @lesson)
 
 .card
   .card-header

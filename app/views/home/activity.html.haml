@@ -20,7 +20,7 @@
       = activity.trackable_type
       /= activity.trackable_id
       - if activity.trackable_type == "Lesson"
-        - if Lesson.where(id: activity.trackable_id).present?
+        - if Lesson.where(id: activity.trackable_id).any?
           = link_to activity.trackable, course_lesson_path(activity.trackable.course, activity.trackable)
         - else
           Lesson was deleted
@@ -34,6 +34,6 @@
       = link_to activity.owner, user_path(activity.owner)
       - if activity.parameters.any?
         = activity.parameters
-
+%p
 != pagy_bootstrap_nav(@pagy)
 %br

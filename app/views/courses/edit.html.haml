@@ -1,7 +1,7 @@
 - content_for :title do
   Corsego 
   \| 
-  Edit course
+  Editing course
   = @course.title
 
 = link_to 'Courses', courses_path
@@ -9,7 +9,7 @@
 = link_to course_path(@course) do
   .fa.fa-graduation-cap
   = @course.title
-  |
+|
 = link_to edit_course_path(@course) do
   Edit
 
@@ -21,6 +21,4 @@
   .card-body
     = render 'form'
   .card-footer
-    = link_to 'Show', @course
-    \|
-    = link_to 'Back', courses_path
+    = link_to 'Cancel', @course

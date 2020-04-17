@@ -1,8 +1,16 @@
 - content_for :title do
   Corsego 
-  \| 
-  Editing
-  = @enrollment.to_s
+  |
+  Review
+  = @enrollment.course
+
+= link_to 'Courses', courses_path
+|
+= link_to course_path(@enrollment.course) do
+  .fa.fa-graduation-cap
+  = @enrollment.course.title
+|
+= link_to 'Add Review', edit_enrollment_path(@enrollment)
 
 .card
   .card-header
