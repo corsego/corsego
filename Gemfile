@@ -46,6 +46,7 @@ gem 'pagy' #pagination
 gem "chartkick" #charts
 gem 'groupdate' #group records by day/week/year
 gem 'rails-erd', group: :development #sudo apt-get install graphviz; bundle exec erd
-gem 'ranked-model'
-gem "aws-sdk-s3", require: false
+gem 'ranked-model' #give serial/index numbers to items in a list
+gem "aws-sdk-s3", require: false #save images and files in production
+gem 'active_storage_validations' #validate image and file uploads
 

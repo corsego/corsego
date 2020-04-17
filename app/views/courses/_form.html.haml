@@ -1,31 +1,38 @@
-.container
-  -# frozen_string_literal: true
-  = simple_form_for(@course) do |f|
-    = f.error_notification
-    = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-  
-    .form-inputs
-      = f.input :title
+-# frozen_string_literal: true
+= simple_form_for(@course) do |f|
+  = f.error_notification
+  = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
 
-      = f.label :avatar
-      .row
-      - if @course.avatar.attached?
-        = image_tag @course.avatar, width: "200px"
-      .row
-      = f.file_field :avatar 
+  .form-inputs
+    = f.input :title
 
+    = f.label :avatar
+    .row
+    - if @course.avatar.attached?
+      = image_tag @course.avatar, width: "200px"
+      /= @course.avatar.content_type
+      /= @course.avatar.key
       .row
-      = f.label :description
-      = f.rich_text_area :description
-      %small= f.error :description, class: 'text-danger'
-      = f.input :short_description
-      /= f.input :language, collection: [ "English", "Polish", "Russian"]
-      = f.input :language, collection: Course.languages, include_blank: true
-      /= f.input :level, collection: [ "Beginner", "Intermediate", "Advanced"]
-      = f.input :level, collection: Course.levels, include_blank: true
-      = f.input :price
-      = f.input :published
-  
-  
-    .form-actions
-      = f.button :submit
+      = @course.avatar.filename
+      /= @course.avatar.metadata
+      /= @course.avatar.byte_size
+      /= @course.avatar.checksum
+    .row
+    = f.file_field :avatar 
+    %small= f.error :avatar, class: 'text-danger'
+
+    .row
+    = f.label :description
+    = f.rich_text_area :description
+    %small= f.error :description, class: 'text-danger'
+    = f.input :short_description
+    /= f.input :language, collection: [ "English", "Polish", "Russian"]
+    = f.input :language, collection: Course.languages, include_blank: true
+    /= f.input :level, collection: [ "Beginner", "Intermediate", "Advanced"]
+    = f.input :level, collection: Course.levels, include_blank: true
+    = f.input :price
+    = f.input :published
+
+
+  .form-actions
+    = f.button :submit
