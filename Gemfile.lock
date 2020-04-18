@@ -150,6 +150,7 @@ GEM
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
+    json (2.3.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -234,6 +235,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    recaptcha (5.5.0)
+      json
     regexp_parser (1.7.0)
     responders (3.0.0)
       actionpack (>= 5.0)
@@ -338,6 +341,7 @@ DEPENDENCIES
   rails-erd
   ranked-model
   ransack
+  recaptcha
   rolify
   sass-rails (>= 6)
   selenium-webdriver

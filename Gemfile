@@ -50,4 +50,4 @@ gem 'ranked-model' #give serial/index numbers to items in a list
 gem "aws-sdk-s3", require: false #save images and files in production
 gem 'active_storage_validations' #validate image and file uploads
 gem 'image_processing' #sudo apt install imagemagick
-
+gem 'recaptcha'
