@@ -22,3 +22,5 @@ require("@rails/actiontext")
 
 require("chartkick")
 require("chart.js")
+
+import "../trix-editor-overrides"
