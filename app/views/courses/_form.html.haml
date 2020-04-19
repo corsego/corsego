@@ -6,7 +6,7 @@
   .form-inputs
     = f.input :title
 
-    = f.label :avatar
+    /= f.label :avatar
     .row
     - if @course.avatar.attached?
       = image_tag @course.avatar, width: "200px"
@@ -18,8 +18,9 @@
       /= @course.avatar.byte_size
       /= @course.avatar.checksum
     .row
-    = f.file_field :avatar 
-    %small= f.error :avatar, class: 'text-danger'
+    /= f.file_field :avatar 
+    /%small= f.error :avatar, class: 'text-danger'
+    = f.input :avatar
 
     .row
     = f.label :description

@@ -4,6 +4,7 @@ class Lesson < ApplicationRecord
   has_many :user_lessons, dependent: :destroy
 
   validates :title, :content, :course, presence: true
+  validates :title, uniqueness: true, length: { maximum: 70 }
 
   has_rich_text :content
 
