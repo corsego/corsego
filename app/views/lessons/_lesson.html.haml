@@ -24,6 +24,7 @@
       - else
         %video(controls="true" width="100%" preload="metadata")
           %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
+
     = lesson.content
 
   - if policy(lesson).edit?
