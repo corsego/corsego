@@ -10,7 +10,14 @@
     = f.rich_text_area :content
     %small= f.error :content, class: 'text-danger'
     %p
+    - if @lesson.video.attached?
+      = @lesson.video.filename
     = f.input :video
+    - if @lesson.video_thumbnail.attached?
+      /= image_tag @course.avatar, width: "200px"
+      /.row
+      = @lesson.video_thumbnail.filename
+
     = f.input :video_thumbnail
 
     /= f.association :course
