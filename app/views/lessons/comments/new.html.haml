@@ -1,3 +1,8 @@
-= render 'lessons/comments/form'
-
-= link_to 'Back to lesson', course_lesson_path(@course, @lesson)
+.card
+  .card-header
+    Add comment to lesson:
+    = @lesson
+  .card-body
+    = render 'lessons/comments/form'
+  .card-footer
+    = link_to 'Back to lesson', course_lesson_path(@course, @lesson)
