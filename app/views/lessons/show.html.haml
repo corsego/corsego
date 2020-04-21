@@ -44,3 +44,12 @@
           %li.list-group-item
             = render 'lessons/lesson_preview', lesson: lesson
 
+All comments
+/= Comment.count
+= @comments.count
+- @comments.each do |comment|
+  = render 'lessons/comments/comment', comment: comment
+  %p
+%hr
+New comment:
+= render 'lessons/comments/form'
