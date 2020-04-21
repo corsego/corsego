@@ -38,6 +38,10 @@
     .fa.fa-comment
     Comments:
     = user.comments_count
+    .row
+    .fa.fa-eye
+    Lessons viewed:
+    = user.user_lessons_count
   .card-footer
     Confirmed email?
     - if user.confirmed_at.present?
