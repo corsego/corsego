@@ -25,8 +25,7 @@ require("chart.js")
 
 import "../trix-editor-overrides"
 
-require("jquery") // yarn add jquery
-require("jquery-ui-dist/jquery-ui"); // yarn add jquery-ui-dist 
+require("jquery-ui-dist/jquery-ui");
 
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
