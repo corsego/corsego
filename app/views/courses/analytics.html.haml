@@ -20,18 +20,26 @@
 
 %h4.text-center
   Enrollments per day, quantity
-= line_chart @course.enrollments.group_by_day(:created_at).count
+.card
+  .card-body
+    = line_chart @course.enrollments.group_by_day(:created_at).count
 
 %h4.text-center
   Enrollments per day, revenue
-= line_chart @course.enrollments.group_by_day(:created_at).sum(:price)
+.card
+  .card-body
+    = line_chart @course.enrollments.group_by_day(:created_at).sum(:price)
 
 %h4.text-center
   Unique user views (how many unique users viewed the lesson)
-= bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').count
+.card
+  .card-body
+    = bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').count
 
 %h4.text-center
   Impressions per lesson (how many times the lesson was opened)
-= bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').sum(:impressions)
+.card
+  .card-body
+    = bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').sum(:impressions)
 
 

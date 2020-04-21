@@ -12,9 +12,9 @@
   - if current_user
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       .input-group
-        = f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
+        = f.search_field :title_cont, class: 'form-control-lg', style: 'float: left; width: 175px; ', placeholder: 'Find a course', :autocomplete => :off
         %span.input-group-append
-          %button.btn.btn-primary.btn-sm{:type => "submit"}
+          %button.btn.btn-primary.btn-lg{:type => "submit"}
             %span.fa.fa-search{"aria-hidden" => "true"}
 
   /.form-inline.my-2.my-lg-0
@@ -117,4 +117,3 @@
 .card-columns
   - @latest_good_reviews.each do |enrollment|
     = render 'enrollments/enrollment', enrollment: enrollment
-
