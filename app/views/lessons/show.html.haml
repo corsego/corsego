@@ -11,12 +11,12 @@
 
 = link_to 'Courses', courses_path
 |
+.fa.fa-graduation-cap
 = link_to course_path(@lesson.course) do
-  .fa.fa-graduation-cap
   = @lesson.course.title
 |
+.fa.fa-check-square
 = link_to course_lesson_path(@course, @lesson) do
-  .fa.fa-check-square
   = @lesson.title
 %p
 
@@ -29,8 +29,8 @@
   .col-lg-4
     %ul.list-group
       %li.list-group-item
+        .fa.fa-graduation-cap
         = link_to course_path(@lesson.course) do
-          .fa.fa-graduation-cap
           = @lesson.course.title
         .row
         .fa.fa-spinner

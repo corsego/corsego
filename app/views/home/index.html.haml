@@ -60,16 +60,27 @@
 
 %p
 
-- if current_user && current_user.enrollments.any?
-  %h2
-    .fa.fa-user-graduate
-    Continue Learning
-  .card-columns
-    - @purchased_courses.each do |course|
-      = render 'courses/course', course: course
-  .text-right
-    = link_to 'All my courses', learning_courses_path
-  %hr
+- if current_user 
+  - if current_user.enrollments.any?
+    %h2
+      .fa.fa-user-graduate
+      Continue Learning
+    .card-columns
+      - @learning_courses.each do |course|
+        = render 'courses/course', course: course
+    .text-right
+      = link_to 'All that I am learning ', learning_courses_path
+    %hr
+  - if current_user.courses.any?
+    %h2
+      .fa.fa-chalkboard-teacher
+      You are teaching
+    .card-columns
+      - @teaching_courses.each do |course|
+        = render 'courses/course', course: course
+    .text-right
+      = link_to 'All that I am teaching', teaching_courses_path
+    %hr
 
 %h2
   .fa.fa-chart-line

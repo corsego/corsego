@@ -14,7 +14,7 @@
 %p
 
 .row
-  .col-md-2
+  .col-lg-2
     /= search_form_for @q do |f|
     = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f|
       = f.label :title
@@ -24,10 +24,14 @@
       /= f.search_field :language_cont, placeholder: 'Language', class: 'form-control form-control-sm'
       /= f.select :language_cont, ['English', 'Polish', 'Russian'], include_blank: true, class: 'form-control form-control-sm'
       = f.label :language
+      .row
       = f.select :language_cont, Course.languages, include_blank: true
       /= f.search_field :level_cont, placeholder: 'Level', class: 'form-control form-control-sm'
+      .row
       = f.label :level
+      .row
       = f.select :level_cont, Course.levels, include_blank: true
+      .row
       = f.label :price
       = f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm'
       = f.label :teacher
@@ -45,7 +49,7 @@
     = link_to 'refresh', @ransack_path
 
 
-  .col-md-10
+  .col-lg-10
     .card-columns
       - @courses.each do |course|
         = render 'courses/course', course: course
