@@ -29,6 +29,7 @@ class CommentsController < ApplicationController
     @course = Course.friendly.find(params[:course_id])
     @lesson = Lesson.friendly.find(params[:lesson_id])
     @comment = Comment.find(params[:id])
+    authorize @comment
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Comment was successfully destroyed.' }
