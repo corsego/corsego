@@ -25,7 +25,7 @@ class LessonsController < ApplicationController
     current_user.view_lesson(@lesson)
     @lessons = @course.lessons.rank(:row_order)
     @comment = Comment.new
-    @comments = @lesson.comments
+    @comments = @lesson.comments.order(created_at: :desc)
   end
 
   def new
