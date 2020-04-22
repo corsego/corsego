@@ -68,6 +68,7 @@
                 = role.name
             - if policy(user).edit?
               = link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning'
+%p
 != pagy_bootstrap_nav(@pagy)
 
 %br
