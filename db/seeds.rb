@@ -1,8 +1,8 @@
-
 if User.find_by_email('admin@example.com').nil?
   admin = User.create!(email: 'admin@example.com', password: 'admin@example.com', password_confirmation: 'admin@example.com', confirmed_at: Time.now)
   #admin.skip_confirmation!
   admin.add_role(:admin) unless admin.has_role?(:admin)
+  admin.add_role(:teacher) unless admin.has_role?(:teacher)
 end
 
 if User.find_by_email('studentteacher@example.com').nil?

@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def update
     authorize @user
     if @user.update(user_params)
-      redirect_to users_path, notice: 'User roles were successfully updated.'
+      redirect_to root_path, notice: 'User roles were successfully updated.'
     else
       render :edit
     end
