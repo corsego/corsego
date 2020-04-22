@@ -27,10 +27,6 @@ import "../trix-editor-overrides"
 
 require("jquery-ui-dist/jquery-ui");
 
-import videojs from 'video.js'
-import 'video.js/dist/video-js.css'
-
-
 $(document).on('turbolinks:load', function(){
   $('.lesson-sortable').sortable({
     cursor: "grabbing",
@@ -53,20 +49,4 @@ $(document).on('turbolinks:load', function(){
     }
   });
 
-  let videoPlayer = videojs(document.getElementById('my-video'), {
-    controls: true,
-    playbackRates: [0.5, 1, 1.5],
-    autoplay: false,
-    fluid: true,
-    preload: false,
-    autoplay: false,
-    liveui: true,
-    responsive: true,
-    loop: false,
-    poster: "https://i.imgur.com/EihmtGG.jpg"
-  })
-  videoPlayer.addClass('video-js')
-  videoPlayer.addClass('vjs-big-play-centered')
-
-  
 });

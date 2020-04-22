@@ -14,8 +14,7 @@
     "jquery-ui-dist": "^1.12.1",
     "popper.js": "^1.16.1",
     "trix": "^1.0.0",
-    "turbolinks": "^5.2.0",
-    "video.js": "^7.7.5"
+    "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
