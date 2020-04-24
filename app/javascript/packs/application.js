@@ -27,6 +27,8 @@ import "../trix-editor-overrides"
 
 require("jquery-ui-dist/jquery-ui");
 
+require("selectize")
+
 $(document).on('turbolinks:load', function(){
   $('.lesson-sortable').sortable({
     cursor: "grabbing",
@@ -52,5 +54,11 @@ $(document).on('turbolinks:load', function(){
   $("video").bind("contextmenu",function(){
       return false;
   });
+
+  if ($('.selectize')){
+      $('.selectize').selectize({
+          sortField: 'text'
+      });
+  }
 
 });

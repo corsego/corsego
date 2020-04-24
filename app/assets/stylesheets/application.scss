@@ -3,6 +3,9 @@
 @import "font-awesome";
 @import "./actiontext.scss";
 
+@import "selectize/dist/css/selectize";
+@import "selectize/dist/css/selectize.default";
+
 body { background: #2a4054; color: #ebedf0; }
 .card, .jumbotron, .list-group-item { color: #2a4054; }
 .purple-background { background-color: #563d7c; }
