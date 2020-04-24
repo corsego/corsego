@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'activity', to: 'home#activity'
   get 'analytics', to: 'home#analytics'
+  get 'privacy_policy', to: 'home#privacy_policy'
 
   resources :enrollments do
     get :my, on: :collection
