@@ -1,33 +1,62 @@
+# Corsego - online learning platform.
 
+###### Best udemy clone on the market. Set up your online school in minutes!
 
+[![N|Solid](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
 
+### Schema
 
-22 devise confirmable in development
-https://github.com/heartcombo/devise/wiki/How-To:-Add-:confirmable-to-Users
+[![N|Solid](https://i.imgur.com/hU1K8V5.png)](https://corsego.herokuapp.com)
 
-23 devise confirmable in production. sendgrid
+### Installation Requirements 
 
-heroku addons:create sendgrid:starter
+ruby v 2.7.1 +
+rails 6.0.2 +
+postgresql database
 
-environment.rb
+### Connected services required
+google recaptcha for signing up **in development** & production
+google analytics in production
+AWS S3 - file storage in production
 
-ActionMailer::Base.smtp_settings = {
-  :address => 'smtp.sendgrid.net', 
-  :port => '587', 
-  :authentication => :plain, 
-  :user_name => ENV['SENDGRID_USERNAME'], 
-  :password => ENV['SENDGRID_PASSWORD'], 
-  :domain => 'heroku.com', 
-  :enable_starttls_auto => true 
-}
+### Installation
 
-development.rb
-  config.action_mailer.default_url_options = { :host => 'https://9f35a94073a74b9fae5c783f44d04737.vfs.cloud9.us-east-1.amazonaws.com'}
+1. Create app
+```
+git clone https://github.com/yshmarov/corsego
+cd corsego
+bundle
+bundle update
+rake db:create
+rake db:migrate
+```
+2. Set up your secret credentials:
 
-production.rb
-
-  config.action_mailer.default_url_options = { :host => 'edurge.herokuapp.com', :protocol => 'https' }
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-
-  ActionMailer::Base.delivery_method = :smtp
+Go to **config** folder and delete the file `credentials.yml.enc`
+```
+EDITOR=vim rails credentials:edit
+```
+and inside the file:
+```
+aws:
+   access_key_id: YOUR_CODE_FOR_S3_STORAGE
+   secret_access_key: YOUR_CODE_FOR_S3_STORAGE
+google_analytics: YOUR_CODE_FOR_GOOGLE_ANALYTICS
+recaptcha:
+   site_key: YOUR_CODE_FOR_RECAPTCHA
+   secret_key: YOUR_CODE_FOR_RECAPTCHA
+```
+3. Run the server
+```
+rails s
+```
+### For production environments
+```
+heroku create
+heroku rename *your-app-name*
+heroku git:remote -a *your-app-name*
+git push heroku master
+heroku run rake db:migrate
+heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
+```
+If you have troubles running the app or any questions don't hesitate to contact me 🧐 
