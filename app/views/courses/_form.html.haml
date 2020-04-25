@@ -6,7 +6,7 @@
   .form-inputs
     = f.input :title, input_html: { autocomplete: 'off' }
     
-    = f.select :tag_ids, Tag.all.pluck(:name, :id), {}, { multiple: true, class: "selectize" }
+    = f.select :tag_ids, @tags.all.pluck(:name, :id), {}, { multiple: true, class: "selectize" }
 
     /= f.label :avatar
     .row
