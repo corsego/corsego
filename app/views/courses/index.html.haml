@@ -52,10 +52,14 @@
       = f.submit
 
     = link_to 'refresh', @ransack_path
+    /= controller_name
+    /= action_name
+    /= link_to 'current page', controller: controller_name, action: action_name
 
     .row
     - @tags.all.order(course_tags_count: :desc).each do |tag|
-      = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
+      /= link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
+      = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
         .badge.badge-info
           = tag.name
           = tag.course_tags_count
