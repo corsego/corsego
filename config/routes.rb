@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     get :my, on: :collection
   end
 
-  resources :tags, only: :create
+  resources :tags, only: [:create, :index, :destroy]
   resources :courses do
     get :learning, :pending_review, :teaching, :unapproved, on: :collection
     member do
