@@ -1,0 +1,29 @@
+%center
+  %h1 
+    Certificate of Completion
+
+%p
+%center
+  This is to certify that the owner of the email address
+  %b
+    = @enrollment.user.email
+  has successfully completed the course
+  %b
+    = @enrollment.course.title
+  on the Corsego.com platform
+
+%p
+
+%b Certificate id: 
+#{@enrollment.slug}
+
+%p
+
+%b Certificate url: 
+#{request.base_url}#{request.original_fullpath}
+
+%center
+  %h3
+    = image_tag wicked_pdf_asset_base64('logo-bootstrap.png'), height: "30", width: "auto"
+    %p
+    www.Corsego.com

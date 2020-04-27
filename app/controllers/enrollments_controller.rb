@@ -1,5 +1,6 @@
 class EnrollmentsController < ApplicationController
-  before_action :set_enrollment, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_user!, :only => [:certificate]
+  before_action :set_enrollment, only: [:show, :edit, :update, :destroy, :certificate]
   before_action :set_coruse, only: [:new, :create]
 
   def index
@@ -20,6 +21,22 @@ class EnrollmentsController < ApplicationController
     @q = Enrollment.joins(:course).where(courses: {user: current_user}).ransack(params[:q])
     @pagy, @enrollments = pagy(@q.result.includes(:user))
     render 'index'
+  end
+
+  def certificate
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
+        page_size: 'A4',
+        template: "enrollments/show.pdf.haml",
+        layout: "pdf.html.haml",
+        orientation: "Landscape",
+        lowquality: true,
+        zoom: 1,
+        dpi: 75
+      end
+    end
   end
 
   def show

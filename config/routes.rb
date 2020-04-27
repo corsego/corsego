@@ -11,6 +11,9 @@ Rails.application.routes.draw do
 
   resources :enrollments do
     get :my, on: :collection
+    member do
+      get :certificate
+    end
   end
 
   resources :tags, only: [:create, :index, :destroy]
