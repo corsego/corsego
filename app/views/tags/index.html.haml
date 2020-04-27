@@ -6,6 +6,8 @@
   .card-body
     - @tags.each do |tag|
       .row
-      = tag.name + ":"
-      = tag.course_tags_count
+      .badge.badge-info
+        = tag.name + ":"
+        %span.badge.badge-light
+          = tag.course_tags_count
       = link_to 'Destory', tag, method: :delete, data: { confirm: 'Are you sure?' }

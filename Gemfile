@@ -3,8 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
 
-#gem 'rails', '~> 6.0.2'
-gem 'rails', github: 'rails/rails', branch: 'master'
+gem 'rails', '~> 6.0.2.2'
+#gem 'rails', github: 'rails/rails', branch: 'master'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'sass-rails', '>= 6'
@@ -30,8 +30,8 @@ group :test do
   gem 'webdrivers'
 end
 
-gem "haml-rails", "~> 2.0"
-gem 'bootstrap', '~> 4.4.1'
+gem "haml-rails", "~> 2.0" #HTML abstraction markup language
+gem 'bootstrap', '~> 4.4.1' #getbootstrap.com
 gem 'jquery-rails' #for bootstrap to work
 gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling
 gem 'simple_form' #creating forms made easier
@@ -42,7 +42,7 @@ gem 'ransack' #filter and sort data
 gem 'public_activity' #see all activity in the app
 gem "rolify" #give users roles (admin, teacher, student)
 gem "pundit" #authorization (different roles have different accesses)
-gem 'exception_notification', group: :production #notify if errors in production
+gem 'exception_notification', group: :production #email notifications if any errors in production
 gem 'pagy' #pagination
 gem "chartkick" #charts #yarn add chartkick chart.js
 gem 'groupdate' #group records by day/week/year
@@ -51,4 +51,4 @@ gem 'ranked-model' #give serial/index numbers to items in a list
 gem "aws-sdk-s3", require: false #save images and files in production
 gem 'active_storage_validations' #validate image and file uploads
 gem 'image_processing' #sudo apt install imagemagick
-gem 'recaptcha'
+gem 'recaptcha' #for new user registration

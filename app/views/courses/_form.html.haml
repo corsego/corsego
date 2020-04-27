@@ -28,10 +28,10 @@
     %small= f.error :description, class: 'text-danger'
     = f.input :short_description
     /= f.input :language, collection: [ "English", "Polish", "Russian"]
-    = f.input :language, collection: Course.languages, include_blank: true
+    = f.input :language, collection: Course.languages, include_blank: true, as: :radio_buttons
     /= f.input :level, collection: [ "Beginner", "Intermediate", "Advanced"]
-    = f.input :level, collection: Course.levels, include_blank: true
-    = f.input :price
+    = f.input :level, collection: Course.levels, include_blank: true, as: :radio_buttons
+    = f.input :price, collection: [9, 19, 49, 99, 149, 199], as: :radio_buttons
     = f.input :published
 
     = f.label :tags

@@ -12,7 +12,7 @@ class Course < ApplicationRecord
   has_many :tags, through: :course_tags
 
   validates :title, uniqueness: true, length: { maximum: 70 }
-  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :price, numericality: { greater_than_or_equal_to: 0, less_than: 500000 }
 
   scope :latest, -> { limit(3).order(created_at: :desc) }
   scope :top_rated, -> { limit(3).order(average_rating: :desc, created_at: :desc) }

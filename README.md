@@ -4,20 +4,19 @@
 
 [![N|Solid](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
 
-### Schema
+### Entity-Relationship Diagram
 
-[![N|Solid](https://i.imgur.com/hU1K8V5.png)](https://corsego.herokuapp.com)
+[![N|Solid](https://i.imgur.com/IIWWYxW.png)](https://corsego.herokuapp.com)
 
 ### Installation Requirements 
-
-ruby v 2.7.1 +
-rails 6.0.2 +
-postgresql database
+* ruby v 2.7.1 +
+* rails 6.0.2.2 +
+* postgresql database
 
 ### Connected services required
-google recaptcha for signing up **in development** & production
-google analytics in production
-AWS S3 - file storage in production
+* google recaptcha for signing up **in development** & production
+* google analytics in production
+* AWS S3 - file storage in production
 
 ### Installation
 
@@ -46,6 +45,9 @@ recaptcha:
    site_key: YOUR_CODE_FOR_RECAPTCHA
    secret_key: YOUR_CODE_FOR_RECAPTCHA
 ```
+* i = to make the file editable
+* ESC + : + w + q + Enter = save changes in the file
+
 3. Run the server
 ```
 rails s
