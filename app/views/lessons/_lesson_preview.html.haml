@@ -35,5 +35,7 @@
         Impressions:
         = lesson.user_lessons.map(&:impressions).sum
       .row
-      = link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning'
-      = link_to 'Destroy', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+      = link_to edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning mr-1' do
+        .fa.fa-edit
+      = link_to [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
+        .fa.fa-trash
