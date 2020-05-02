@@ -53,4 +53,6 @@ gem 'active_storage_validations' #validate image and file uploads
 gem 'image_processing' #sudo apt install imagemagick
 gem 'recaptcha' #for new user registration
 gem 'wicked_pdf' #PDF for Ruby on Rails
-gem 'wkhtmltopdf-binary' #PDF dependancy
+gem 'wkhtmltopdf-binary', group: :development
+gem 'wkhtmltopdf-heroku', group: :production
+
