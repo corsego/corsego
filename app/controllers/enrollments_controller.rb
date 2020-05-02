@@ -28,12 +28,7 @@ class EnrollmentsController < ApplicationController
       format.pdf do
         render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
         page_size: 'A4',
-        template: "enrollments/show.pdf.haml",
-        layout: "pdf.html.haml",
-        orientation: "Landscape",
-        lowquality: true,
-        zoom: 1,
-        dpi: 75
+        template: "enrollments/show.pdf.haml"
       end
     end
 
