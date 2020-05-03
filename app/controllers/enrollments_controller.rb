@@ -24,32 +24,14 @@ class EnrollmentsController < ApplicationController
   end
 
   def certificate
+    authorize @enrollment, :certificate?
     respond_to do |format|
       format.pdf do
         render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
         page_size: 'A4',
-        template: "enrollments/show.pdf.haml"
+        template: "enrollments/certificate.pdf.haml"
       end
     end
-
-    #user_lessons_count = ???????
-    #lessons_count = @enrollment.course.lessons_count
-    #if user_lessons_count = lessons_count
-    #  respond_to do |format|
-    #    format.pdf do
-    #      render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
-    #      page_size: 'A4',
-    #      template: "enrollments/show.pdf.haml",
-    #      layout: "pdf.html.haml",
-    #      orientation: "Landscape",
-    #      lowquality: true,
-    #      zoom: 1,
-    #      dpi: 75
-    #    end
-    #  end
-    #else
-    #  redirect_to root_path, notice: "Course has not been completed yet"
-    #end
   end
 
   def show
