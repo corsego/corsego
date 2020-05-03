@@ -60,6 +60,17 @@
 
 %p
 
+%h2 
+  .fa.fa-tags
+  Top Categories
+- @popular_tags.each do |tag|
+  = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
+    .badge.badge-info
+      = tag.name
+      %span.badge.badge-light
+        = tag.course_tags_count
+%hr
+
 - if current_user 
   - if current_user.enrollments.any?
     %h2
@@ -111,20 +122,31 @@
   = link_to 'More recent courses', courses_path(courses_search: {s: 'created_at desc'})
 
 %hr
-%h2 
-  .fa.fa-tags
-  Most popular tags
-- @popular_tags.each do |tag|
-  = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
-    .badge.badge-info
-      = tag.name
-      %span.badge.badge-light
-        = tag.course_tags_count
 
-%hr
 %h2 
   .fa.fa-comment
   What our students have to say
 .card-columns
   - @latest_good_reviews.each do |enrollment|
     = render 'enrollments/enrollment', enrollment: enrollment
+
+%br
+.card-group
+  .card.card-body
+    %b
+      .far.fa-clock
+      Go at your own pace
+    %small
+      Enjoy lifetime access to courses on Udemy’s website and app
+  .card.card-body
+    %b
+      .far.fa-check-circle
+      Learn from industry experts
+    %small
+      Select from top instructors around the world
+  .card.card-body
+    %b
+      .far.fa-play-circle
+      Find video courses on almost any topic
+    %small
+      Build your library for your career and personal growth
