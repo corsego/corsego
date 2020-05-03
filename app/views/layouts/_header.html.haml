@@ -8,6 +8,7 @@
   #navbarSupportedContent.collapse.navbar-collapse
     /- if current_user && current_user.has_role?(:admin)
     - if current_user
+      = link_to 'course creator', course_creator_index_path
       %ul.navbar-nav.mr-auto
         %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
           = link_to root_path, class: 'nav-link' do

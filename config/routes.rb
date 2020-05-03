@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
     resources :enrollments, only: [:new, :create]
   end
+  resources :course_creator
 
   resources :users, only: [:index, :edit, :show, :update]
 

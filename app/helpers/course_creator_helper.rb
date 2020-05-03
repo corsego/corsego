@@ -1,0 +1,2 @@
+module CourseCreatorHelper
+end
