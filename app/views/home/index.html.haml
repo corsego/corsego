@@ -69,7 +69,7 @@
   Top Categories
 - @popular_tags.each do |tag|
   = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
-    .badge.badge-info
+    .mt-1.btn.btn-info
       = tag.name
       %span.badge.badge-light
         = tag.course_tags_count
