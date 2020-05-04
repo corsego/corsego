@@ -56,4 +56,4 @@ gem 'wicked_pdf' #PDF for Ruby on Rails
 gem 'wkhtmltopdf-binary', group: :development
 gem 'wkhtmltopdf-heroku', group: :production
 gem 'wicked' #multistep forms
-
+gem 'omniauth-google-oauth2' #sign in with google
