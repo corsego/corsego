@@ -29,12 +29,13 @@
       /= f.select :language_cont, ['English', 'Polish', 'Russian'], include_blank: true, class: 'form-control form-control-sm'
       = f.label :language
       .row
-      = f.select :language_cont, Course.languages, include_blank: true
-      /= f.search_field :level_cont, placeholder: 'Level', class: 'form-control form-control-sm'
+      /= f.select :language_cont, Course.languages, include_blank: true
+      = f.select :language_cont, Course.languages, {include_blank: true}, class: "form-control  form-control-sm"
       .row
       = f.label :level
       .row
-      = f.select :level_cont, Course.levels, include_blank: true
+      /= f.select :level_cont, Course.levels, include_blank: true
+      = f.select :level_cont, Course.levels, {include_blank: true}, class: "form-control  form-control-sm"
       .row
       = f.label :price
       = f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm'
