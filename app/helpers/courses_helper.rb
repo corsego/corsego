@@ -36,9 +36,25 @@ module CoursesHelper
         else
           link_to enrollment_path(user_course.first) do
             "<i class='text-warning fa fa-star'></i>".html_safe + " " +
-            "<i class='fa fa-check'></i>".html_safe + " " +
+            "<i class='text-success fa fa-check'></i>".html_safe + " " +
             'Thanks for reviewing!'
           end
+        end
+      end
+    end
+  end
+  
+  def certificate_button(course)
+    user_course = course.enrollments.where(user: current_user)
+    if current_user
+      if user_course.any?
+        if course.progress(current_user) == 100
+          link_to certificate_enrollment_path(user_course.first, format: :pdf) do
+            "<i class='text-danger fa fa-file-pdf'></i>".html_safe + " " +
+            "Certificate of Completion"
+          end
+        else
+          "Certificate available after completion"
         end
       end
     end
