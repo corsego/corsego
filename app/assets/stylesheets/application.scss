@@ -19,6 +19,15 @@ hr { background-color: white; }
 //highlight drag and drop
 .ui-state-highlight { height: 3em; line-height: 1.2em; background-color: yellow; }
 
+//custom bootstrap button color
+$mynewcolor:#563d7c;
+.btn-custompurple {
+    @include button-variant($mynewcolor, darken($mynewcolor, 7.5%), darken($mynewcolor, 10%), lighten($mynewcolor,5%), lighten($mynewcolor, 10%), darken($mynewcolor,30%));
+}
+.btn-outline-custompurple {
+    @include button-outline-variant($mynewcolor, #fff2f2, lighten($mynewcolor,5%), $mynewcolor);
+}
+
 //no action_text attachment button
 //.trix-button-group--file-tools { display: none !important; }
 

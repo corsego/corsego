@@ -83,6 +83,6 @@
 /.row
 /All course tags
 .card-columns
-  - Course.all.where.not(id: @course.id).each do |course|
+  - Course.approved.published.where.not(id: @course.id).each do |course|
     - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
       = render 'courses/course', course: course
