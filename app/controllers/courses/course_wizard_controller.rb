@@ -1,10 +1,11 @@
-class CourseCreatorController < ApplicationController
+class Courses::CourseWizardController < ApplicationController
   include Wicked::Wizard
   before_action :set_progress, only: [:show]
 
   steps :basic_info, :details
 
   def show
+    @course = Course.friendly.find params[:course_id]
     #@user = current_user
     #case step
     #when :find_friends
@@ -14,7 +15,9 @@ class CourseCreatorController < ApplicationController
   end
 
   def finish_wizard_path
-    courses_path
+    #courses_path
+    @course = Course.friendly.find params[:course_id]
+    course_path(@course)
   end
   
   private
