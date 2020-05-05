@@ -8,7 +8,11 @@
       = wizard_steps.count
       = step.to_s.humanize
   .card-body
-    = @course.title
+    = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
+      = f.input :title
+      = f.input :short_description
+      = f.input :language, collection: Course.languages, include_blank: true, as: :radio_buttons
+      = f.button :submit
   .card-footer
     .float-left
       = link_to previous_wizard_path, class: 'btn btn-sm btn-info' do

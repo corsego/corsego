@@ -8,6 +8,15 @@
       = wizard_steps.count
       = step.to_s.humanize
   .card-body
+    = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
+      = f.input :level, collection: Course.levels, include_blank: true, as: :radio_buttons
+      = f.input :price, collection: [0, 9, 19, 49, 99, 149, 199], as: :radio_buttons
+      = f.input :published
+  
+      = f.label :tags
+      = f.select :tag_ids, @tags.all.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
+
+      = f.button :submit
   .card-footer
     .float-left
       = link_to previous_wizard_path, class: 'btn btn-sm btn-info' do
