@@ -37,3 +37,6 @@ $mynewcolor:#563d7c;
     -moz-column-count:2;
     column-count:2;
 }
+
+//dropdown on top of all other content
+.dropdown {z-index: 9999;}
