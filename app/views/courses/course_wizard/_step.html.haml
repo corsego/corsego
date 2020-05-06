@@ -1,0 +1,36 @@
+- content_for :title do
+  Corsego 
+  \| 
+  Editing course
+  = @course.title
+
+= link_to 'Courses', courses_path
+|
+.fa.fa-graduation-cap
+= link_to course_path(@course) do
+  = @course.title
+|
+= link_to course_course_wizard_path(@course, :basic_info) do
+  Edit
+  = step.to_s.humanize
+
+.card
+  .progress
+    .progress-bar{style: "width: #{@progress}%"}
+  .card-header
+    %h5
+      = wizard_steps.index(step) + 1
+      \/
+      = wizard_steps.count
+      = step.to_s.humanize
+  .card-body
+    = yield
+  .card-footer
+    .float-left
+      = link_to previous_wizard_path, class: 'btn btn-sm btn-info' do
+        .fa.fa-arrow-left
+        Previous
+    .float-right
+      = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
+        .fa.fa-arrow-right
+        Skip

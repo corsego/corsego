@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   resources :tags, only: [:create, :index, :destroy]
-  resources :courses do
+  resources :courses, except: [:edit] do
     get :learning, :pending_review, :teaching, :unapproved, on: :collection
     member do
       get :analytics
