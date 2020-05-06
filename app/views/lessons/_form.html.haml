@@ -6,9 +6,11 @@
   .form-inputs
     = f.input :title, input_html: { autocomplete: 'off' }
     /= f.input :content
-    = f.label :content
-    = f.rich_text_area :content
-    %small= f.error :content, class: 'text-danger'
+    /= f.label :content
+    /= f.rich_text_area :content
+    /%small= f.error :content, class: 'text-danger'
+    = f.input :content, as: :rich_text_area
+
     %p
     - if @lesson.video.attached?
       = @lesson.video.filename

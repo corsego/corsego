@@ -23,9 +23,11 @@
     = f.input :avatar
 
     .row
-    = f.label :description
-    = f.rich_text_area :description
-    %small= f.error :description, class: 'text-danger'
+    /= f.label :description
+    /= f.rich_text_area :description
+    /%small= f.error :description, class: 'text-danger'
+    = f.input :description, as: :rich_text_area
+
     = f.input :short_description
     /= f.input :language, collection: [ "English", "Polish", "Russian"]
     = f.input :language, collection: Course.languages, include_blank: true, as: :radio_buttons

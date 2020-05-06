@@ -16,7 +16,7 @@ hr { background-color: white; }
 .form-control.is-invalid{ background-image: none; }
 .form-control.is-valid{ background-image: none; }
 
-//highlight drag and drop
+//highlight for drag and drop functionality
 .ui-state-highlight { height: 3em; line-height: 1.2em; background-color: yellow; }
 
 //custom bootstrap button color
@@ -31,12 +31,17 @@ $mynewcolor:#563d7c;
 //no action_text attachment button
 //.trix-button-group--file-tools { display: none !important; }
 
-//2 cards in a column row
+//2 cards in a column row (not default 3)
 .card-columns {
     -webkit-column-count:2;
     -moz-column-count:2;
     column-count:2;
 }
 
-//dropdown on top of all other content
+//header navbar dropdown on top of all other content
 .dropdown {z-index: 9999;}
+
+//simple_form input for rich_text_area
+trix-editor.form-control {
+  height: auto;
+}
