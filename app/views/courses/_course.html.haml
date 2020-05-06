@@ -59,6 +59,8 @@
         = link_to 'Add lesson', new_course_lesson_path(course, @lesson), class: 'btn btn-primary btn-sm'
         = link_to edit_course_path(course), class: 'btn btn-sm btn-warning mr-1' do
           .fa.fa-edit
+        = link_to course_course_wizard_index_path(course), class: 'btn btn-sm btn-warning mr-1' do
+          wizard
         = link_to analytics_course_path(course), class: 'btn btn-sm btn-info mr-1' do
           .fa.fa-chart-bar
           Analtycs
