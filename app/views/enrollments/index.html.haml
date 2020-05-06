@@ -1,14 +1,14 @@
 - content_for :title do
   Corsego 
   |
+  = controller_name.humanize
   = action_name.humanize
-  enrollments
 
 %h3
   .text-center
     .fa.fa-lock-open
+    = controller_name.humanize + ":"
     = action_name.humanize
-    enrollments
     .badge.badge-info
       = @enrollments.count
 %p

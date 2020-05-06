@@ -1,6 +1,5 @@
 .row
   .col-md-7
-    .fa.fa-sort.all-scroll{:style => "cursor: grab;"}
     - if current_user
       /- if lesson.course.bought(current_user) || @course.user == current_user
       - if policy(lesson).show?

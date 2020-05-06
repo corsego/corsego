@@ -53,7 +53,7 @@
     .list-group.lesson-sortable
       - @lessons.each do |lesson|
         = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
-          .list-group-item
+          .list-group-item{:style => "cursor: grab;"}
             = render 'lessons/lesson_preview', lesson: lesson
     %p
 
@@ -82,7 +82,9 @@
 
 /.row
 /All course tags
-.card-columns
+.row
   - Course.approved.published.where.not(id: @course.id).each do |course|
     - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
-      = render 'courses/course', course: course
+      .col-md-6
+        = render 'courses/course', course: course
+        %p

@@ -20,6 +20,8 @@
     %h4 Join to access all the courses
     = link_to 'Register', new_user_registration_path, class: 'btn btn-outline-custompurple btn-lg'
     = link_to 'Login', new_user_session_path, class: 'btn btn-outline-custompurple btn-lg'
+    = link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-outline-custompurple btn-lg' do
+      .fab.fa-google
 
   /.form-inline.my-2.my-lg-0
   /  = form_tag(courses_path, method: :get) do
@@ -79,66 +81,62 @@
   - if current_user.enrollments.any?
     %h2
       .fa.fa-user-graduate
-      Continue Learning
-    .card-columns
+      = link_to 'Continue learning ', learning_courses_path
+    .row
       - @learning_courses.each do |course|
-        = render 'courses/course', course: course
-    .text-right
-      = link_to 'All that I am learning ', learning_courses_path
+        .col-md-6
+          = render 'courses/course', course: course
     %hr
   - if current_user.courses.any?
     %h2
       .fa.fa-chalkboard-teacher
-      You are teaching
-    .card-columns
+      = link_to 'You are teaching', teaching_courses_path
+    .row
       - @teaching_courses.each do |course|
-        = render 'courses/course', course: course
-    .text-right
-      = link_to 'All that I am teaching', teaching_courses_path
+        .col-md-6
+          = render 'courses/course', course: course
     %hr
 
 %h2
   .fa.fa-chart-line
-  Popular courses
-.card-columns
+  = link_to 'Popular courses', courses_path(courses_search: {s: 'enrollments_count desc'})
+.row
   - @popular.each do |course|
-    = render 'courses/course', course: course
-.text-right
-  = link_to 'More popular courses', courses_path(courses_search: {s: 'enrollments_count desc'})
+    .col-md-6
+      = render 'courses/course', course: course
 %hr
 %h2 
   .fa.fa-star
-  Top rated courses
-.card-columns
+  = link_to 'Top rated courses', courses_path(courses_search: {s: 'average_rating desc'})
+.row
   - @top_rated.each do |course|
-    = render 'courses/course', course: course
-.text-right
-  = link_to 'Best rated courses', courses_path(courses_search: {s: 'average_rating desc'})
+    .col-md-6
+      = render 'courses/course', course: course
 
 %hr
 %h2 
   .fa.fa-clock
-  Latest courses
-.card-columns
+  = link_to 'Latest courses', courses_path(courses_search: {s: 'created_at desc'})
+.row
   - @latest.each do |course|
-    = render 'courses/course', course: course
-.text-right
-  = link_to 'More recent courses', courses_path(courses_search: {s: 'created_at desc'})
+    .col-md-6
+      = render 'courses/course', course: course
 
 %hr
 
 %h2 
   .fa.fa-comment
   What our students have to say
-.card-columns
+.row
   - @latest_good_reviews.each do |enrollment|
-    = render 'enrollments/enrollment', enrollment: enrollment
+    .col-md-6
+      = render 'enrollments/enrollment', enrollment: enrollment
 
 %br
 .card-group
   .card.card-body
     %b
-      .far.fa-clock
+      .fa.fa-clock
       Go at your own pace
     %small
       Enjoy lifetime access to courses on Udemy’s website and app

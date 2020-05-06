@@ -32,11 +32,11 @@ $mynewcolor:#563d7c;
 //.trix-button-group--file-tools { display: none !important; }
 
 //2 cards in a column row (not default 3)
-.card-columns {
-    -webkit-column-count:2;
-    -moz-column-count:2;
-    column-count:2;
-}
+//.card-columns {
+//    -webkit-column-count:2;
+//    -moz-column-count:2;
+//    column-count:2;
+//}
 
 //header navbar dropdown on top of all other content
 .dropdown {z-index: 9999;}

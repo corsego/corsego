@@ -46,12 +46,12 @@
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "studentDropdown"}
               = link_to learning_courses_path, class: "dropdown-item" do
                 .fa.fa-graduation-cap
-                Purchased Courses
+                Courses: Learning
                 .badge.badge-danger
                   = current_user.enrollments_count
               = link_to pending_review_courses_path, class: "dropdown-item" do
                 .fa.fa-star
-                Pending Review
+                Courses: Pending Review
                 .badge.badge-danger
                   = current_user.enrollments.pending_review.count
         - if current_user.has_role?(:teacher)
@@ -61,17 +61,16 @@
               Teach
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "teacherDropdown"}
               = link_to new_course_path, class: "dropdown-item" do
-                .fa.fa-graduation-cap
                 .fa.fa-plus
                 Create Course
               = link_to teaching_courses_path, class: "dropdown-item" do
                 .fa.fa-graduation-cap
-                My Courses
+                Courses: Teaching
                 .badge.badge-danger
                   = current_user.courses_count
               = link_to teaching_enrollments_path, class: "dropdown-item" do
                 .fa.fa-lock-open
-                Teaching enrollments
+                Enrollments: Teaching
                 .badge.badge-danger
                   = Enrollment.joins(:course).where(courses: {user: current_user}).count
         - if current_user.has_role?(:admin)
@@ -82,7 +81,7 @@
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "adminDropdown"}
               = link_to unapproved_courses_path, class: "dropdown-item" do
                 .fa.fa-graduation-cap
-                Unapproved courses
+                Courses: Unapproved 
                 .badge.badge-danger
                   = Course.unapproved.count
               = link_to users_path, class: "dropdown-item" do

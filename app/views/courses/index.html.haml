@@ -1,14 +1,14 @@
 - content_for :title do
   Corsego 
   \| 
+  = controller_name.humanize
   = action_name.humanize
-  courses
 
 %h3
   .text-center
     .fa.fa-graduation-cap
+    = controller_name.humanize + ":"
     = action_name.humanize
-    courses
     .badge.badge-info
       = @courses.count
 %p
@@ -22,7 +22,8 @@
         = f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm'
   
         = f.label :tag
-        = f.search_field :course_tags_tag_name_cont, placeholder: 'Tag name', class: 'form-control form-control-sm'
+        /= f.search_field :course_tags_tag_name_cont, placeholder: 'Tag name', class: 'form-control form-control-sm'
+        = f.select :course_tags_tag_name_cont, @tags, {include_blank: true}, class: "form-control  form-control-sm"
   
         = f.label :description
         = f.search_field :short_description_cont, placeholder: 'Description', class: 'form-control form-control-sm'
@@ -67,9 +68,12 @@
             %span.badge.badge-light
               = tag.course_tags_count
   .col-lg-10.order-1.order-lg-1
-    .card-columns
+    .row
       - @courses.each do |course|
-        = render 'courses/course', course: course
+        .col-md-6
+          = render 'courses/course', course: course
+          %p
+    %p
     /!= pagy_nav(@pagy)
     != pagy_bootstrap_nav(@pagy)
 %br
