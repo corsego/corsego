@@ -69,9 +69,9 @@
                 My Courses
                 .badge.badge-danger
                   = current_user.courses_count
-              = link_to my_enrollments_path, class: "dropdown-item" do
+              = link_to teaching_enrollments_path, class: "dropdown-item" do
                 .fa.fa-lock-open
-                My enrollments
+                Teaching enrollments
                 .badge.badge-danger
                   = Enrollment.joins(:course).where(courses: {user: current_user}).count
         - if current_user.has_role?(:admin)

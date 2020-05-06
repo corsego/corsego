@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   get 'privacy_policy', to: 'home#privacy_policy'
 
   resources :enrollments do
-    get :my, on: :collection
+    get :teaching, on: :collection
     member do
       get :certificate
     end
