@@ -37,6 +37,15 @@
     %b= 'last_sign_in_ip'.humanize + ":"
     = user.last_sign_in_ip
   .card-footer
+    %b= 'course_income'.humanize + ":"
+    = user.course_income
+    .row
+    %b= 'enrollment_expences'.humanize + ":"
+    = user.enrollment_expences
+    .row
+    %b= 'balance'.humanize + ":"
+    = user.balance
+  .card-footer
     .fa.fa-plus
     .fa.fa-graduation-cap
     Courses created:

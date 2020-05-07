@@ -2,6 +2,7 @@
   .card-header
     .fa.fa-graduation-cap
     = link_to course.title, course_path(course)
+    /= course.income
   - if course.avatar.attached?
     .card-img-top
       = link_to course_path(course) do

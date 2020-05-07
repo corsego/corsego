@@ -67,6 +67,11 @@ class Course < ApplicationRecord
       user_lessons.where(user: user).count/self.lessons_count.to_f*100
     end
   end
+  
+  def calculate_income
+    update_column :income, (enrollments.map(&:price).sum)
+    user.calculate_course_income
+  end
 
   def update_rating
     if enrollments.any? && enrollments.where.not(rating: nil).any?
