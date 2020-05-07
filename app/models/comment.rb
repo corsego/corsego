@@ -10,6 +10,8 @@ class Comment < ApplicationRecord
 
   validates :content, presence: true
   
+  has_rich_text :content
+  
   def to_s
     content
   end

@@ -35,6 +35,9 @@
       .fa.fa-signal
       = @course.level
       .row
+      .fa.fa-tasks
+      = pluralize(@course.lessons_count, 'Lesson')
+      .row
       .fa.fa-file-pdf
       Certificate of Completion
       %hr
