@@ -78,11 +78,11 @@
           .badge.badge-danger unapproved
         - if policy(course).approve?
           - if course.approved?
-            = link_to 'unapprove', unapprove_course_path(course), method: :patch, class: 'btn btn-sm btn-danger'
+            = link_to 'unapprove', unapprove_course_path(course), method: :patch, class: 'btn btn-sm btn-outline-danger'
           - else
-            = link_to 'approve', approve_course_path(course), method: :patch, class: 'btn btn-sm btn-success'
+            = link_to 'approve', approve_course_path(course), method: :patch, class: 'btn btn-sm btn-outline-success'
         - if policy(course).destroy?
-          = link_to course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
+          = link_to course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' do
             .fa.fa-trash
   - if course.tags.any?
     .card-footer
