@@ -5,39 +5,6 @@
 
   .form-inputs
     = f.input :title, input_html: { autocomplete: 'off' }
-    
-    /= f.label :avatar
-    .row
-    - if @course.avatar.attached?
-      = image_tag @course.avatar, width: "200px"
-      /= @course.avatar.content_type
-      /= @course.avatar.key
-      .row
-      = @course.avatar.filename
-      /= @course.avatar.metadata
-      /= @course.avatar.byte_size
-      /= @course.avatar.checksum
-    .row
-    /= f.file_field :avatar 
-    /%small= f.error :avatar, class: 'text-danger'
-    = f.input :avatar
-
-    .row
-    /= f.label :description
-    /= f.rich_text_area :description
-    /%small= f.error :description, class: 'text-danger'
-    = f.input :description, as: :rich_text_area
-
-    = f.input :short_description
-    /= f.input :language, collection: [ "English", "Polish", "Russian"]
-    = f.input :language, collection: Course.languages, include_blank: true, as: :radio_buttons
-    /= f.input :level, collection: [ "Beginner", "Intermediate", "Advanced"]
-    = f.input :level, collection: Course.levels, include_blank: true, as: :radio_buttons
-    = f.input :price, collection: [0, 9, 19, 49, 99, 149, 199], as: :radio_buttons
-    = f.input :published
-
-    = f.label :tags
-    = f.select :tag_ids, @tags.all.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
 
   .form-actions
     = f.button :submit

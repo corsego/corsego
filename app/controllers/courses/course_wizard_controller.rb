@@ -3,7 +3,7 @@ class Courses::CourseWizardController < ApplicationController
   before_action :set_progress, only: [:show, :update]
   before_action :set_course, only: [:show, :update, :finish_wizard_path]
 
-  steps :basic_info, :details
+  steps :basic_info, :details, :publish
 
   def show
     authorize @course, :edit?
@@ -12,6 +12,7 @@ class Courses::CourseWizardController < ApplicationController
     when :basic_info
     when :details
       @tags = Tag.all
+    when :publish
     end
     render_wizard
   end
@@ -20,11 +21,11 @@ class Courses::CourseWizardController < ApplicationController
     authorize @course, :edit?
     case step
     when :basic_info
-      @course.update_attributes(course_params)
     when :details
       @tags = Tag.all
-      @course.update_attributes(course_params)
+    when :publish
     end
+    @course.update_attributes(course_params)
     render_wizard @course
   end
 
