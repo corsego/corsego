@@ -11,6 +11,10 @@ class User < ApplicationRecord
   has_many :enrollments, dependent: :nullify
   has_many :user_lessons, dependent: :nullify
   has_many :comments, dependent: :nullify
+  #has_many :enrolled_courses, through: :enrollments, source: :course
+  #def enrolled_in?(course)
+  #  return enrolled_courses.include?(course)
+  #end
 
   def self.from_omniauth(access_token)
       data = access_token.info

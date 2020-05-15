@@ -10,13 +10,15 @@
 
 ### Installation Requirements 
 * ruby v 2.7.1 +
-* rails 6.0.2.2 +
+* rails 6.0.3 +
 * postgresql database
+* yarn
 
 ### Connected services required
-* google recaptcha for signing up **in development** & production
+* google recaptcha for signing up ** in development & production **
 * google analytics in production
 * AWS S3 - file storage in production
+* google oauth ** in development and production **
 
 ### Installation
 
@@ -25,6 +27,7 @@
 git clone https://github.com/yshmarov/corsego
 cd corsego
 bundle
+yarn
 bundle update
 rake db:create
 rake db:migrate
@@ -44,6 +47,10 @@ google_analytics: YOUR_CODE_FOR_GOOGLE_ANALYTICS
 recaptcha:
    site_key: YOUR_CODE_FOR_RECAPTCHA
    secret_key: YOUR_CODE_FOR_RECAPTCHA
+google_oauth2:
+   client_id: YOUR_CODE_FOR_OAUTH
+   client_secret: YOUR_CODE_FOR_OAUTH
+
 ```
 * i = to make the file editable
 * ESC + : + w + q + Enter = save changes in the file
@@ -61,4 +68,4 @@ git push heroku master
 heroku run rake db:migrate
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 ```
-If you have troubles running the app or any questions don't hesitate to contact me 🧐 
+If you have troubles running the app or any questions don't hesitate to contact me at yashm@outlook.com 🧐 
