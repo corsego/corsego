@@ -1,6 +1,6 @@
 = render layout: 'courses/course_wizard/step' do
   = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
-
-    = f.input :published
   
+    = f.input :price, collection: [0, 9, 19, 49, 99, 149, 199], as: :radio_buttons
+
     = f.button :submit, "Save & Continue"
