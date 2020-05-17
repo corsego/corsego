@@ -32,7 +32,7 @@
       /= Comment.count
       /= @comments.count
       = @lesson.comments_count
-    .card
+    .card.shadow
       .card-header
         New comment
       .card-body
@@ -43,7 +43,7 @@
       %p
 
   .col-lg-4
-    %ul.list-group
+    %ul.list-group.shadow
       %li.list-group-item
         .fa.fa-graduation-cap
         = link_to course_path(@lesson.course) do
