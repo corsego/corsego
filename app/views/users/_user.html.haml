@@ -61,6 +61,10 @@
     .fa.fa-eye
     Lessons viewed:
     = user.user_lessons_count
+    .row
+    .fa.fa-user-graduate
+    Students:
+    = user.students.count
   .card-footer
     Confirmed email?
     - if user.confirmed_at.present?
