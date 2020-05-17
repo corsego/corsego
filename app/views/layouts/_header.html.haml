@@ -72,7 +72,8 @@
                 .fa.fa-lock-open
                 Enrollments: Teaching
                 .badge.badge-danger
-                  = Enrollment.joins(:course).where(courses: {user: current_user}).count
+                  = current_user.students.count
+                  /= Enrollment.joins(:course).where(courses: {user: current_user}).count
         - if current_user.has_role?(:admin)
           %li.nav-item.dropdown
             %a#adminDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
