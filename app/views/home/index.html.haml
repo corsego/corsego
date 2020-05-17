@@ -3,7 +3,7 @@
   \| 
   Online Courses - Learn Anything, On Your Schedule
 
-.jumbotron
+.jumbotron.shadow
   .display-4
     What do you want to learn today?
   
@@ -31,38 +31,42 @@
   /        %button.btn.btn-primary.btn-sm{:type => "submit"}
   /          %span.fa.fa-search{"aria-hidden" => "true"}
 
-.card-group
-  .card.card-body
-    %h1
-      .fa.fa-graduation-cap
-    = pluralize(Course.approved.published.count, 'online courses')
-    /= Course.count
-    /online courses
-    .row
-    %small Explore a variety of fresh topics
-  .card.card-body
-    %h1
-      .fa.fa-chalkboard-teacher
-      /.fa.fa-brain
-    = pluralize(Course.distinct.count(:user_id), 'expert instructors')
-    /= Course.distinct.count(:user_id)
-    /expert instructors
-    .row
-    %small Find the right instructor for you
-  .card.card-body
-    %h1
-      .fa.fa-user-graduate
-    = pluralize(User.count, 'active learners')
-    /= User.count
-    /active learners
-    .row
-    %small Join the knowledge sharing community
-  .card.card-body
-    %h1
-      .fa.fa-infinity
-    Lifetime access
-    .row
-    %small Learn on your schedule
+.card-group.shadow
+  .card
+    .card-body
+      %h1
+        .fa.fa-graduation-cap
+      = pluralize(Course.approved.published.count, 'online courses')
+      /= Course.count
+      /online courses
+      .row
+      %small Explore a variety of fresh topics
+  .card
+    .card-body
+      %h1
+        .fa.fa-chalkboard-teacher
+        /.fa.fa-brain
+      = pluralize(Course.distinct.count(:user_id), 'expert instructors')
+      /= Course.distinct.count(:user_id)
+      /expert instructors
+      .row
+      %small Find the right instructor for you
+  .card
+    .card-body
+      %h1
+        .fa.fa-user-graduate
+      = pluralize(User.count, 'active learners')
+      /= User.count
+      /active learners
+      .row
+      %small Join the knowledge sharing community
+  .card
+    .card-body
+      %h1
+        .fa.fa-infinity
+      Lifetime access
+      .row
+      %small Learn on your schedule
 
 %p
 
@@ -133,22 +137,25 @@
       = render 'enrollments/enrollment', enrollment: enrollment
 
 %br
-.card-group
-  .card.card-body
-    %b
-      .fa.fa-clock
-      Go at your own pace
-    %small
-      Enjoy lifetime access to courses on Udemy’s website and app
-  .card.card-body
-    %b
-      .far.fa-check-circle
-      Learn from industry experts
-    %small
-      Select from top instructors around the world
-  .card.card-body
-    %b
-      .far.fa-play-circle
-      Find video courses on almost any topic
-    %small
-      Build your library for your career and personal growth
+.card-group.shadow
+  .card
+    .card-body
+      %b
+        .fa.fa-clock
+        Go at your own pace
+      %small
+        Enjoy lifetime access to courses on Udemy’s website and app
+  .card
+    .card-body
+      %b
+        .far.fa-check-circle
+        Learn from industry experts
+      %small
+        Select from top instructors around the world
+  .card
+    .card-body
+      %b
+        .far.fa-play-circle
+        Find video courses on almost any topic
+      %small
+        Build your library for your career and personal growth

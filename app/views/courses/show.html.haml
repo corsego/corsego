@@ -11,7 +11,7 @@
 
 .row
   .col-lg-8.order-1.order-lg-1
-    .jumbotron
+    .jumbotron.shadow
       %h3
         .fa.fa-graduation-cap
         = @course.title
@@ -53,7 +53,7 @@
         = number_to_percentage(@course.progress(current_user), precision: 0)
         /= certificate_button(@course)
 
-    .list-group.lesson-sortable
+    .list-group.lesson-sortable.shadow
       - @lessons.each do |lesson|
         = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
           .list-group-item{:style => "cursor: grab;"}

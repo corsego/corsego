@@ -1,4 +1,4 @@
-.card
+.card.shadow
   .card-header
     .fa.fa-graduation-cap
     = link_to course.title, course_path(course)
@@ -36,7 +36,7 @@
       .col-md-6
         .text-right
           /.fa.fa-chalkboard-teacher
-          by
+          /by
           - if course.user.image?
             = image_tag course.user.image, size: '20x20', alt: "#{course.user.email}", class: 'rounded-circle'
           = link_to course.user.username, user_path(course.user)

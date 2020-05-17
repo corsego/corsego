@@ -14,7 +14,7 @@
 %p
 
 .row
-  .col-lg-2.order-0.order-lg-1
+  .col-lg-2.order-0.order-lg-1.shadow
     .sticky-top
       /= search_form_for @q do |f|
       = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f|
@@ -58,7 +58,7 @@
       /= controller_name
       /= action_name
       /= link_to 'current page', controller: controller_name, action: action_name
-  
+      %hr
       .row
       - @tags.each do |tag|
         /= link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
@@ -67,7 +67,7 @@
             = tag.name
             %span.badge.badge-light
               = tag.course_tags_count
-      %hr
+      %p
       %br
   .col-lg-10.order-1.order-lg-1
     .row
