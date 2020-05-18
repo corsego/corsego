@@ -29,6 +29,8 @@ require("jquery-ui-dist/jquery-ui");
 
 require("selectize")
 
+import "cocoon-js";
+
 $(document).on('turbolinks:load', function(){
   $('.lesson-sortable').sortable({
     cursor: "grabbing",

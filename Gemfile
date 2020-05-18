@@ -57,3 +57,4 @@ gem 'wkhtmltopdf-binary', group: :development
 gem 'wkhtmltopdf-heroku', group: :production
 gem 'wicked' #multistep forms
 gem 'omniauth-google-oauth2' #sign in with google
+gem "cocoon"

@@ -10,6 +10,7 @@
     "bootstrap": "4.3.1",
     "chart.js": "^2.9.3",
     "chartkick": "^3.2.0",
+    "cocoon-js": "^0.0.5",
     "jquery": "^3.4.1",
     "jquery-ui-dist": "^1.12.1",
     "popper.js": "^1.16.1",

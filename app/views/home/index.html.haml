@@ -90,6 +90,7 @@
       - @learning_courses.each do |course|
         .col-md-6
           = render 'courses/course', course: course
+          %p
     %hr
   - if current_user.courses.any?
     %h2
@@ -99,6 +100,7 @@
       - @teaching_courses.each do |course|
         .col-md-6
           = render 'courses/course', course: course
+          %p
     %hr
 
 %h2
@@ -108,6 +110,7 @@
   - @popular.each do |course|
     .col-md-6
       = render 'courses/course', course: course
+      %p
 %hr
 %h2 
   .fa.fa-star
@@ -116,7 +119,7 @@
   - @top_rated.each do |course|
     .col-md-6
       = render 'courses/course', course: course
-
+      %p
 %hr
 %h2 
   .fa.fa-clock
@@ -125,7 +128,7 @@
   - @latest.each do |course|
     .col-md-6
       = render 'courses/course', course: course
-
+      %p
 %hr
 
 %h2 
@@ -135,7 +138,7 @@
   - @latest_good_reviews.each do |enrollment|
     .col-md-6
       = render 'enrollments/enrollment', enrollment: enrollment
-
+      %p
 %br
 .card-group.shadow
   .card
