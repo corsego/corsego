@@ -24,26 +24,26 @@
   = link_to 'refresh', users_path
 %br
 .table-responsive
-  %table.table.table-bordered.table-striped.table-sm
+  %table.table.table-bordered.table-striped.table-sm.table-hover
     %thead
       %tr
         %th id
         %th= sort_link(@q, :email)
         %th= sort_link(@q, :created_at)
-        %th= 'sign_in_count'.humanize
-        %th= 'current_sign_in_at'.humanize
-        %th= 'last_sign_in_at'.humanize
-        %th= 'current_sign_in_ip'.humanize
-        %th= 'last_sign_in_ip'.humanize
+        %th Confirmed?
+        %th Roles
         %th= sort_link(@q, :courses_count)
         %th= sort_link(@q, :enrollments_count)
         %th= sort_link(@q, :comments_count)
-        %th= sort_link(@q, :user_lessons_count)
+        %th= sort_link(@q, :user_lessons_count, "Lessons viewed")
         %th= sort_link(@q, :course_income)
         %th= sort_link(@q, :enrollment_expences)
         %th= sort_link(@q, :balance)
-        %th Confirmed?
-        %th Roles
+        %th= 'sign_ins'.humanize
+        %th= 'current_sign_in'.humanize
+        %th= 'last_sign_in'.humanize
+        %th= 'current_ip'.humanize
+        %th= 'last_ip'.humanize
     %tbody
       - @users.each do |user|
         %tr
@@ -55,11 +55,13 @@
               .text-danger.fa.fa-signal
             = link_to user.email, user_path(user)
           %td= user.created_at.strftime('%d/%m/%y - %H:%M')
-          %td= user.sign_in_count
-          %td= user.current_sign_in_at
-          %td= user.last_sign_in_at
-          %td= user.current_sign_in_ip
-          %td= user.last_sign_in_ip
+          %td= user.confirmed?
+          %td
+            - user.roles.each do |role|
+              .badge.badge-info
+                = role.name
+            - if policy(user).edit?
+              = link_to 'Edit', edit_user_path(user), class: 'btn btn-sm btn-warning btn-block'
           %td= user.courses_count
           %td= user.enrollments_count
           %td= user.comments_count
@@ -67,13 +69,11 @@
           %td= user.course_income
           %td= user.enrollment_expences
           %td= user.balance
-          %td= user.confirmed?
-          %td
-            - user.roles.each do |role|
-              .badge.badge-info
-                = role.name
-            - if policy(user).edit?
-              = link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning'
+          %td= user.sign_in_count
+          %td= user.current_sign_in_at.strftime('%d/%m/%y - %H:%M')
+          %td= user.last_sign_in_at.strftime('%d/%m/%y - %H:%M')
+          %td= user.current_sign_in_ip
+          %td= user.last_sign_in_ip
 %p
 != pagy_bootstrap_nav(@pagy)
 

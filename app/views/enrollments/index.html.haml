@@ -23,7 +23,7 @@
 = link_to 'refresh', @ransack_path
 
 .table-responsive
-  %table.table.table-bordered.table-striped.table-sm
+  %table.table.table-bordered.table-striped.table-sm.table-hover
     %thead
       %tr
         /%th ID
@@ -46,13 +46,12 @@
           /.fa.fa-dollar-sign
           /Price
         %th 
-          = sort_link(@q, :updated_at)
-          .row
           .text-warning.fa.fa-clock
-          Reviewed on
+          = sort_link(@q, :updated_at, 'Reviewed')
+          /Reviewed on
         %th 
-          = sort_link(@q, :rating)
           .text-warning.fa.fa-star
+          = sort_link(@q, :rating)
         %th 
           .text-warning.fa.fa-comment
           Review
@@ -77,7 +76,7 @@
           %td= enrollment.rating
           %td= enrollment.review
           %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)
-          %td= link_to 'Certificate', certificate_enrollment_path(enrollment, format: :pdf)
+          %td= link_to 'PDF', certificate_enrollment_path(enrollment, format: :pdf)
           %td= link_to 'See Review', enrollment
           %td
             - if policy(enrollment).edit?
