@@ -26,30 +26,18 @@
                 %button.btn.btn-primary.btn-sm{:type => "submit"}
                   %span.fa.fa-search{"aria-hidden" => "true"}
       %ul.navbar-nav.mr-auto
-        /%li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_course_path)}"}
-        /  = link_to new_course_path, class: 'nav-link' do
-        /    .fa.fa-plus
-        /    New Course
-        /%li.nav-item{class: "#{'active font-weight-bold' if current_page?(users_path)}"}
-        /  = link_to users_path, class: 'nav-link' do
-        /    .fa.fa-users
-        /    Users
-        /%li.nav-item{class: "#{'active font-weight-bold' if current_page?(enrollments_path)}"}
-        /  = link_to enrollments_path, class: 'nav-link' do
-        /    .fa.fa-lock-open
-        /    Enrollments
         - if current_user.has_role?(:student)
           %li.nav-item.dropdown
             %a#studentDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               .fa.fa-graduation-cap
               Learn
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "studentDropdown"}
-              = link_to learning_courses_path, class: "dropdown-item" do
+              = link_to learning_courses_path, class: "dropdown-item #{'active' if current_page?(learning_courses_path)}" do
                 .fa.fa-graduation-cap
                 Courses: Learning
                 .badge.badge-danger
                   = current_user.enrollments_count
-              = link_to pending_review_courses_path, class: "dropdown-item" do
+              = link_to pending_review_courses_path, class: "dropdown-item #{'active' if current_page?(pending_review_courses_path)}" do
                 .fa.fa-star
                 Courses: Pending Review
                 .badge.badge-danger
@@ -60,15 +48,15 @@
               .fa.fa-chalkboard-teacher
               Teach
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "teacherDropdown"}
-              = link_to new_course_path, class: "dropdown-item" do
+              = link_to new_course_path, class: "dropdown-item #{'active' if current_page?(new_course_path)}" do
                 .fa.fa-plus
                 Create Course
-              = link_to teaching_courses_path, class: "dropdown-item" do
+              = link_to teaching_courses_path, class: "dropdown-item #{'active' if current_page?(teaching_courses_path)}" do
                 .fa.fa-graduation-cap
                 Courses: Teaching
                 .badge.badge-danger
                   = current_user.courses_count
-              = link_to teaching_enrollments_path, class: "dropdown-item" do
+              = link_to teaching_enrollments_path, class: "dropdown-item #{'active' if current_page?(teaching_enrollments_path)}" do
                 .fa.fa-lock-open
                 Enrollments: Teaching
                 .badge.badge-danger
@@ -80,28 +68,28 @@
               .fa.fa-cog
               Admin
             .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "adminDropdown"}
-              = link_to unapproved_courses_path, class: "dropdown-item" do
+              = link_to unapproved_courses_path, class: "dropdown-item #{'active' if current_page?(unapproved_courses_path)}" do
                 .fa.fa-graduation-cap
                 Courses: Unapproved 
                 .badge.badge-danger
                   = Course.unapproved.count
-              = link_to users_path, class: "dropdown-item" do
+              = link_to users_path, class: "dropdown-item #{'active' if current_page?(users_path)}" do
                 .fa.fa-users
                 Users
                 .badge.badge-danger
                   = User.count
-              = link_to enrollments_path, class: "dropdown-item" do
+              = link_to enrollments_path, class: "dropdown-item #{'active' if current_page?(enrollments_path)}" do
                 .fa.fa-lock-open
                 Enrollments
                 .badge.badge-danger
                   = Enrollment.count
-              = link_to activity_path, class: "dropdown-item" do
+              = link_to activity_path, class: "dropdown-item #{'active' if current_page?(activity_path)}" do
                 .fa.fa-bell
                 Activity
-              = link_to tags_path, class: "dropdown-item" do
+              = link_to tags_path, class: "dropdown-item #{'active' if current_page?(tags_path)}" do
                 .fa.fa-tags
                 Tags
-              = link_to analytics_path, class: "dropdown-item" do
+              = link_to analytics_path, class: "dropdown-item #{'active' if current_page?(analytics_path)}" do
                 .fa.fa-chart-line
                 Analytics
       /.form-inline.my-2.my-lg-0
@@ -124,10 +112,10 @@
               .fa.fa-user
             %b= current_user.username
           .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
-            = link_to user_path(current_user), class: "dropdown-item" do
+            = link_to user_path(current_user), class: "dropdown-item #{'active' if current_page?(user_path(current_user))}" do
               .fa.fa-user
               %b My profile
-            = link_to edit_user_registration_path, class: "dropdown-item" do
+            = link_to edit_user_registration_path, class: "dropdown-item #{'active' if current_page?(edit_user_registration_path)}" do
               .fa.fa-cog
               %b Account settings
             = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
