@@ -17,6 +17,10 @@ class User < ApplicationRecord
   #  return enrolled_courses.include?(course)
   #end
 
+  include PublicActivity::Model
+  tracked only: [:create, :destroy], owner: :itself
+  #tracked owner: Proc.new{ |controller, model| controller.current_user } #current_user is set after create, so it gives an error
+
   def self.from_omniauth(access_token)
       data = access_token.info
       user = User.where(email: data['email']).first
