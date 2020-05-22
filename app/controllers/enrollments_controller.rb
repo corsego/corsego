@@ -49,6 +49,7 @@ class EnrollmentsController < ApplicationController
   def create
     @enrollment = current_user.buy_course(@course)
     redirect_to course_path(@course), notice: "You are enrolled!"
+    EnrollmentMailer.new_enrollment(@enrollment).deliver_later
     #if @course.price > 0
     #  flash[:alert] = "You can not access paid courses yet."
     #  redirect_to new_course_enrollment_path(@course)

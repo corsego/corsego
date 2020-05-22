@@ -1,0 +1,20 @@
+You have enrolled to the course
+= link_to @enrollment.course, @enrollment.course
+.row
+Enrollment date:
+= @enrollment.created_at
+.row
+Enrollment ID: 
+= @enrollment.slug
+.row
+Course price:
+= @enrollment.course.price
+.row
+Price paid:
+= @enrollment.price
+.row
+After completing the course, you will be entitled to a Certificate of Completion.
+.row
+Regards, 
+.row
+= link_to 'The Corsego team', root_url
