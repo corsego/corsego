@@ -7,11 +7,12 @@ module CoursesHelper
           number_to_currency(course.price)
         end
       elsif course.enrollments.where(user: current_user).any?
-        link_to course_path(course) do
-          #"You bought this course. Keep learning" +
-          "<i class='fa fa-spinner'></i>".html_safe + " " +
-          number_to_percentage(course.progress(current_user), precision: 0)
-        end
+        render 'courses/progress', course: course
+        #link_to course_path(course) do
+        #  #"You bought this course. Keep learning" +
+        #  "<i class='fa fa-spinner'></i>".html_safe + " " +
+        #  number_to_percentage(course.progress(current_user), precision: 0)
+        #end
       elsif course.price > 0
         link_to number_to_currency(course.price), new_course_enrollment_path(course), class: 'btn btn-success'
       else

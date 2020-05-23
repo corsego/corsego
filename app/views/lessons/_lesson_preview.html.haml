@@ -23,8 +23,9 @@
         = lesson.title
   .col-md-5
     %small
-      .fa.fa-comment
-      = lesson.comments_count
+      - if lesson.comments.any?
+        .fa.fa-comment
+        = lesson.comments_count
       - if policy(lesson).edit?
         .fa.fa-eye
         Viewers:

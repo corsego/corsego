@@ -5,7 +5,7 @@ class Lesson < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :title, :content, :course, presence: true
-  validates :title, length: { maximum: 70 }
+  validates :title, length: { maximum: 100 }
   validates_uniqueness_of :title, scope: :course_id
 
   has_rich_text :content

@@ -21,6 +21,9 @@
         /- if @course.avatar.attached?
         /  = image_tag @course.avatar, width: "200px"
       %hr
+      .fa.fa-tasks
+      = pluralize(@course.lessons_count, 'Lesson')
+      .row
       .fa.fa-clock
       Created
       = @course.created_at.strftime("%m/%Y")
@@ -35,11 +38,14 @@
       .fa.fa-signal
       = @course.level
       .row
-      .fa.fa-tasks
-      = pluralize(@course.lessons_count, 'Lesson')
-      .row
       .fa.fa-file-pdf
       Certificate of Completion
+      .row
+      .fa.fa-comment
+      Access to Member-Only Q&A
+      .row
+      .fa.fa-infinity
+      Full Lifetime Access & Updates
       %hr
       = @course.description
 

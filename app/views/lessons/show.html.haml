@@ -49,8 +49,9 @@
         = link_to course_path(@lesson.course) do
           = @lesson.course.title
         .row
-        .fa.fa-spinner
-        = number_to_percentage(@course.progress(current_user), precision: 0)
+        = render 'courses/progress', course: @lesson.course
+        /.fa.fa-spinner
+        /= number_to_percentage(@course.progress(current_user), precision: 0)
 
       - @lessons.each do |lesson|
         - if @lesson.present? && lesson == @lesson
