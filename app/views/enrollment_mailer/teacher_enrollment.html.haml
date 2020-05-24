@@ -1,0 +1,28 @@
+%b 
+  You have a new student in the course
+= link_to @enrollment.course, @enrollment.course
+.row
+%b 
+  Enrollment date:
+= @enrollment.created_at
+.row
+%b 
+  Enrollment ID: 
+= @enrollment.slug
+.row
+%b 
+  Course price:
+= number_to_currency(@enrollment.course.price)
+.row
+%b 
+  Price paid:
+= number_to_currency(@enrollment.price)
+.row
+%b 
+  Course instructor:
+= @enrollment.course.user.username
+= mail_to @enrollment.course.user.email, @enrollment.course.user.email
+%p
+Regards, 
+.row
+= link_to 'The Corsego team', root_url
