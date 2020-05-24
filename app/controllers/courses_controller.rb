@@ -53,7 +53,7 @@ class CoursesController < ApplicationController
 
   def unapproved
     @ransack_path = unapproved_courses_path
-    @ransack_courses = Course.unapproved.ransack(params[:courses_search], search_key: :courses_search)
+    @ransack_courses = Course.unapproved.published.ransack(params[:courses_search], search_key: :courses_search)
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, :course_tags => :tag))
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
     render 'index'

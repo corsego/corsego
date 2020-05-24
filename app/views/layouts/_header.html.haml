@@ -72,7 +72,7 @@
                 .fa.fa-graduation-cap
                 Courses: Unapproved 
                 .badge.badge-danger
-                  = Course.unapproved.count
+                  = Course.unapproved.published.count
               = link_to users_path, class: "dropdown-item #{'active' if current_page?(users_path)}" do
                 .fa.fa-users
                 Users
