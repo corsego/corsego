@@ -54,10 +54,10 @@
       = pluralize(@course.lessons_count, 'lesson')
       /Lessons:
       /= @course.lessons_count
-      .float-right
-        .fa.fa-spinner
-        = number_to_percentage(@course.progress(current_user), precision: 0)
-        /= certificate_button(@course)
+      /.float-right
+      /  .fa.fa-spinner
+      /  = number_to_percentage(@course.progress(current_user), precision: 0)
+      /  /= certificate_button(@course)
 
     .list-group.lesson-sortable.shadow
       - @lessons.each do |lesson|
@@ -65,7 +65,6 @@
           .list-group-item{:style => "cursor: grab;"}
             = render 'lessons/lesson_preview', lesson: lesson
     %p
-
     %h4
       .fa.fa-comment
       = pluralize(@enrollments_with_review.count, 'review')
@@ -75,7 +74,6 @@
     - @enrollments_with_review.each do |enrollment|
       = render 'enrollments/enrollment', enrollment: enrollment
       %p
-
 
   .col-lg-4.order-0.order-lg-1
     .sticky-top

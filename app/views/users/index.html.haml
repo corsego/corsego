@@ -70,8 +70,12 @@
           %td= user.enrollment_expences
           %td= user.balance
           %td= user.sign_in_count
-          %td= user.current_sign_in_at.strftime('%d/%m/%y - %H:%M')
-          %td= user.last_sign_in_at.strftime('%d/%m/%y - %H:%M')
+          %td
+            - if user.current_sign_in_at.present?
+              = user.current_sign_in_at.strftime('%d/%m/%y - %H:%M')
+          %td
+            - if user.last_sign_in_at.present?
+              = user.last_sign_in_at.strftime('%d/%m/%y - %H:%M')
           %td= user.current_sign_in_ip
           %td= user.last_sign_in_ip
 %p
