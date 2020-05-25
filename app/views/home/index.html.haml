@@ -3,27 +3,45 @@
   \| 
   Online Courses - Learn Anything, On Your Schedule
 
-.jumbotron.shadow
-  .display-4
-    What do you want to learn today?
+:css
+  .parallax { 
+    /* The image used */
+    background-image: url("https://i.imgur.com/bldd1wu.jpg");
+    /* Set a specific height */
+    height: auto; 
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+  }
+  / parallax
+
+.jumbotron.shadow.parallax
+  %h1.text-shadow
+    %b What do you want to learn today?
   
   .p-4
 
   - if current_user
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       .input-group
-        = f.search_field :title_cont, class: 'form-control-lg', style: 'float: left; width: 175px; ', placeholder: 'Find a course', :autocomplete => :off
+        = f.search_field :title_cont, class: 'form-control-lg', style: 'float: left; width: 200px; ', placeholder: 'Find a course', :autocomplete => :off
         %span.input-group-append
           %button.btn.btn-primary.btn-lg{:type => "submit"}
             %span.fa.fa-search{"aria-hidden" => "true"}
   - else
-    %h4 Join to access all the courses
-    = link_to 'Register', new_user_registration_path, class: 'btn btn-outline-custompurple btn-lg'
-    = link_to 'Login', new_user_session_path, class: 'btn btn-outline-custompurple btn-lg'
-    = link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-outline-danger btn-lg mr-1' do
+    %h3.text-shadow Join to access all the courses
+    .p-2
+    = link_to 'Register', new_user_registration_path, class: 'btn btn-custompurple btn-lg'
+    = link_to 'Login', new_user_session_path, class: 'btn btn-custompurple btn-lg'
+    .row.mt-1
+    = link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-danger btn-lg mr-1' do
       Continue with
       .fab.fa-google
-    = link_to user_github_omniauth_authorize_path, class: 'btn btn-outline-dark btn-lg mr-1' do
+    .row.mt-1
+    = link_to user_github_omniauth_authorize_path, class: 'btn btn-dark btn-lg mr-1' do
       Continue with
       .fab.fa-github
 
