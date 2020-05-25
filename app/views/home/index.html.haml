@@ -20,8 +20,12 @@
     %h4 Join to access all the courses
     = link_to 'Register', new_user_registration_path, class: 'btn btn-outline-custompurple btn-lg'
     = link_to 'Login', new_user_session_path, class: 'btn btn-outline-custompurple btn-lg'
-    = link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-outline-custompurple btn-lg' do
+    = link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-outline-danger btn-lg mr-1' do
+      Continue with
       .fab.fa-google
+    = link_to user_github_omniauth_authorize_path, class: 'btn btn-outline-dark btn-lg mr-1' do
+      Continue with
+      .fab.fa-github
 
   /.form-inline.my-2.my-lg-0
   /  = form_tag(courses_path, method: :get) do

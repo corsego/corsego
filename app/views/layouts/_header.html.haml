@@ -131,4 +131,6 @@
         %li.nav-item{class: "#{'active font-weight-bold' if current_page?(user_google_oauth2_omniauth_authorize_path)}"}
           = link_to user_google_oauth2_omniauth_authorize_path, class: 'nav-link' do
             .fab.fa-google
-            Sign in with Google
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(user_github_omniauth_authorize_path)}"}
+          = link_to user_github_omniauth_authorize_path, class: 'nav-link' do
+            .fab.fa-github
