@@ -18,13 +18,10 @@
     /= @lesson.video_thumbnail.attached?
     /= image_tag @lesson.video_thumbnail
     - if @lesson.video.attached?
-      - if @lesson.video_thumbnail.attached?
-        %video(controls="true" poster="#{url_for @lesson.video_thumbnail}" width="100%" preload="metadata" controlslist="nodownload")
-          %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
-      - else
-        /%video{:controls => "", :controlslist => "nodownload", :height => "380", :width => "512"}
-        %video(controls="true" width="100%" preload="metadata" controlslist="nodownload")
-          %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
+      /%video{:controls => "", :controlslist => "nodownload", :height => "380", :width => "512"}
+      /%video(controls="true" poster="#{url_for @lesson.video}" width="100%" preload="metadata" controlslist="nodownload")
+      %video(controls="true" width="100%" preload="metadata" controlslist="nodownload")
+        %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
 
     = lesson.content
 
