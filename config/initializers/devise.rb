@@ -257,10 +257,8 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
+  config.omniauth :facebook, "#{Rails.application.credentials.dig(:facebook, :client)}", "#{Rails.application.credentials.dig(:facebook, :secret)}", scope: 'email,public_profile'
   config.omniauth :github, "#{Rails.application.credentials[Rails.env.to_sym][:github][:client]}", "#{Rails.application.credentials[Rails.env.to_sym][:github][:secret]}", scope: 'user,public_repo'
-  #config.omniauth :google_oauth2, "538440010122-fvhcqsr1hd8omvbmeps749dp5bgi0est.apps.googleusercontent.com", "rnup63ILi1fx0qkLbzD-2d7n"
   config.omniauth :google_oauth2, "#{Rails.application.credentials.dig(:google_oauth2, :client_id)}", "#{Rails.application.credentials.dig(:google_oauth2, :client_secret)}"
 
   # ==> Warden configuration

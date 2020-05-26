@@ -134,3 +134,6 @@
         %li.nav-item{class: "#{'active font-weight-bold' if current_page?(user_github_omniauth_authorize_path)}"}
           = link_to user_github_omniauth_authorize_path, class: 'nav-link' do
             .fab.fa-github
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(user_facebook_omniauth_authorize_path)}"}
+          = link_to user_facebook_omniauth_authorize_path, class: 'nav-link' do
+            .fab.fa-facebook

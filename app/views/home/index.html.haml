@@ -25,12 +25,14 @@
   .p-4
 
   - if current_user
+    .p-3
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       .input-group
         = f.search_field :title_cont, class: 'form-control-lg', style: 'float: left; width: 200px; ', placeholder: 'Find a course', :autocomplete => :off
         %span.input-group-append
           %button.btn.btn-primary.btn-lg{:type => "submit"}
             %span.fa.fa-search{"aria-hidden" => "true"}
+    .p-2
   - else
     %h3.text-shadow Join to access all the courses
     .p-2
@@ -44,6 +46,10 @@
     = link_to user_github_omniauth_authorize_path, class: 'btn btn-dark btn-lg mr-1' do
       Continue with
       .fab.fa-github
+    .row.mt-1
+    = link_to user_facebook_omniauth_authorize_path, class: 'btn btn-primary btn-lg mr-1' do
+      Continue with
+      .fab.fa-facebook
 
   /.form-inline.my-2.my-lg-0
   /  = form_tag(courses_path, method: :get) do
