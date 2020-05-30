@@ -6,8 +6,11 @@
   .card-body
     - @tags.each do |tag|
       .row
-      .badge.badge-info
-        = tag.name + ":"
-        %span.badge.badge-light
-          = tag.course_tags_count
-      = link_to 'Destory', tag, method: :delete, data: { confirm: 'Are you sure?' }
+      .btn-group
+        = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}), class: "btn btn-lg btn-info mt-1" do
+          = tag.name
+          .badge.badge-light
+            = tag.course_tags_count
+        = link_to 'Destory', tag, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-lg btn-danger mt-1"
+
+
