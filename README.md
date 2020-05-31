@@ -43,13 +43,30 @@ and inside the file:
 aws:
    access_key_id: YOUR_CODE_FOR_S3_STORAGE
    secret_access_key: YOUR_CODE_FOR_S3_STORAGE
+
 google_analytics: YOUR_CODE_FOR_GOOGLE_ANALYTICS
+
 recaptcha:
    site_key: YOUR_CODE_FOR_RECAPTCHA
    secret_key: YOUR_CODE_FOR_RECAPTCHA
+
 google_oauth2:
    client_id: YOUR_CODE_FOR_OAUTH
    client_secret: YOUR_CODE_FOR_OAUTH
+
+development:
+   github:
+      client: YOUR_CODE_FOR_OAUTH
+      secret: YOUR_CODE_FOR_OAUTH
+
+production:
+   github:
+      client: YOUR_CODE_FOR_OAUTH
+      secret: YOUR_CODE_FOR_OAUTH
+
+facebook:
+    client: YOUR_CODE_FOR_OAUTH
+    secret: YOUR_CODE_FOR_OAUTH
 
 ```
 * i = to make the file editable
