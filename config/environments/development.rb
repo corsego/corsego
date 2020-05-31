@@ -1,6 +1,6 @@
 Rails.application.configure do
-  config.hosts << "fd010b77ba5942ee8876046b9e2e436c.vfs.cloud9.eu-central-1.amazonaws.com"
-  config.action_mailer.default_url_options = { host: 'https://fd010b77ba5942ee8876046b9e2e436c.vfs.cloud9.eu-central-1.amazonaws.com' }
+  config.hosts << "34a9284db3e64c008c4b1ab2c52aa67b.vfs.cloud9.eu-central-1.amazonaws.com"
+  config.action_mailer.default_url_options = { host: 'https://34a9284db3e64c008c4b1ab2c52aa67b.vfs.cloud9.eu-central-1.amazonaws.com' }
   config.action_mailer.delivery_method = :test
   # Settings specified here will take precedence over those in config/application.rb.
 
