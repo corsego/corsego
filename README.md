@@ -31,6 +31,9 @@ yarn
 bundle update
 rake db:create
 rake db:migrate
+
+sudo apt-get install graphviz
+sudo apt install imagemagick
 ```
 2. Set up your secret credentials:
 
