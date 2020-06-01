@@ -17,16 +17,16 @@ module Corsego
       end
     end
 
-    #video previews for action_text
-    config.after_initialize do
+    config.to_prepare do
+      ActionText::ContentHelper.allowed_tags << "iframe" #youtube embed
+
+      #video previews for action_text
       ActionText::ContentHelper.allowed_attributes.add 'style'
       ActionText::ContentHelper.allowed_attributes.add 'controls'
-    
       ActionText::ContentHelper.allowed_tags.add 'video'
       ActionText::ContentHelper.allowed_tags.add 'audio'
       ActionText::ContentHelper.allowed_tags.add 'source'
     end
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

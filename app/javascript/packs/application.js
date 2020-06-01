@@ -31,6 +31,8 @@ require("selectize")
 
 import "cocoon-js";
 
+import "youtube"
+
 $(document).on('turbolinks:load', function(){
   $('.lesson-sortable').sortable({
     cursor: "grabbing",
