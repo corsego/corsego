@@ -13,6 +13,10 @@
           = link_to root_path, class: 'nav-link' do
             .fa.fa-home
             Home
+        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(tags_path)}"}
+          = link_to tags_path, class: 'nav-link' do
+            .fa.fa-tags
+            Tags
         %li.nav-item{class: "#{'active font-weight-bold' if current_page?(courses_path)}"}
           = link_to courses_path, class: 'nav-link' do
             .fa.fa-graduation-cap
@@ -86,9 +90,6 @@
               = link_to activity_path, class: "dropdown-item #{'active' if current_page?(activity_path)}" do
                 .fa.fa-bell
                 Activity
-              = link_to tags_path, class: "dropdown-item #{'active' if current_page?(tags_path)}" do
-                .fa.fa-tags
-                Tags
               = link_to analytics_path, class: "dropdown-item #{'active' if current_page?(analytics_path)}" do
                 .fa.fa-chart-line
                 Analytics

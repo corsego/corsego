@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   
   def index
     @tags = Tag.all.order(course_tags_count: :desc)
-    authorize @tags
+    #authorize @tags #anybody can now see tags
   end
   
   def create
