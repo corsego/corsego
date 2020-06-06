@@ -1,0 +1,16 @@
+You have a new comment in the course
+%b= link_to @comment.lesson.course, @comment.lesson.course
+.row
+in the lesson
+%b= link_to @comment.lesson, course_lesson_url(@comment.lesson.course, @comment.lesson)
+.row
+written by
+%b= link_to @comment.user, user_url(@comment.user)
+.row
+%b Comment content: 
+.row
+= @comment.content
+%p
+Regards, 
+.row
+= link_to 'The Corsego team', root_url

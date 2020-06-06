@@ -10,6 +10,7 @@ class Course < ApplicationRecord
   has_many :user_lessons, through: :lessons
   has_many :course_tags, inverse_of: :course, dependent: :destroy
   has_many :tags, through: :course_tags
+  has_many :comments, through: :lessons
 
   accepts_nested_attributes_for :lessons, reject_if: :all_blank, allow_destroy: true
 

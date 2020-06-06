@@ -12,9 +12,9 @@ class CommentsController < ApplicationController
     #else
     #  redirect_to course_lesson_path(@course, @lesson), alert: 'Something missing.'
     #end
-
     respond_to do |format|
       if @comment.save
+        CommentMailer.new_comment(@comment).deliver_later
         format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Lesson was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
@@ -22,7 +22,6 @@ class CommentsController < ApplicationController
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
-
   end
   
   def destroy
