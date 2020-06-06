@@ -3,7 +3,26 @@
   \| 
   = @user.username
 
-= render 'users/user', user: @user
+.row
+  .col-md-6
+    = render 'users/user', user: @user
+    %p
+  .col-md-6
+    .card.shadow
+      .card-header
+        %b Courses: Teaching
+      .card-body
+        - @courses_teaching.each do |course|
+          .row
+          = link_to course.title, course_path
+    %p
+    .card.shadow
+      .card-header
+        %b Courses: Learning
+      .card-body
+        - @courses_learning.each do |enrollment|
+          .row
+          = link_to enrollment.course.title, course_path(enrollment.course)
 
 /%br
 /= link_to user_google_oauth2_omniauth_authorize_path, class: 'nav-link' do

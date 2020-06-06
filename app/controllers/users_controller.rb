@@ -12,6 +12,8 @@ class UsersController < ApplicationController
   end
 
   def show
+    @courses_teaching = @user.courses
+    @courses_learning = @user.enrollments.includes(:course)
   end
 
   def edit
