@@ -14,7 +14,7 @@
       .card-body
         - @courses_teaching.each do |course|
           .row
-          = link_to course.title, course_path
+          = link_to course.title, course_path(course)
     %p
     .card.shadow
       .card-header
