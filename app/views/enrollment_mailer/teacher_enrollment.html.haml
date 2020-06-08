@@ -19,9 +19,9 @@
 = number_to_currency(@enrollment.price)
 .row
 %b 
-  Course instructor:
-= @enrollment.course.user.username
-= mail_to @enrollment.course.user.email, @enrollment.course.user.email
+  Student:
+= @enrollment.user.username
+= mail_to @enrollment.user.email, @enrollment.user.email
 %p
 Regards, 
 .row
