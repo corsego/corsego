@@ -47,29 +47,25 @@ class EnrollmentsController < ApplicationController
   end
 
   def create
-
     if @course.price > 0
-
-      @amount = (@course.price * 100).to_i
       customer = Stripe::Customer.create(
         email: params[:stripeEmail],
         source: params[:stripeToken]
       )
       charge = Stripe::Charge.create(
         customer:    customer.id,
-        amount:      @amount,
-        description: 'Corsego Premium Content',
+        amount:      (@course.price * 100).to_i,
+        description: @course.title,
         currency:    'usd'
       )
-
-      @enrollment = current_user.buy_course(@course)
-      redirect_to course_path(@course), notice: "You are enrolled!"
-    else
-      @enrollment = current_user.buy_course(@course)
-      redirect_to course_path(@course), notice: "You are enrolled!"
     end
+
     EnrollmentMailer.student_enrollment(@enrollment).deliver_later
     EnrollmentMailer.teacher_enrollment(@enrollment).deliver_later
+
+    @enrollment = current_user.buy_course(@course)
+    redirect_to course_path(@course), notice: "You are enrolled!"
+
     rescue Stripe::CardError => e
       flash[:error] = e.message
       redirect_to new_course_enrollment_path(@course)

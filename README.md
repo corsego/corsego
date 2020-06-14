@@ -61,11 +61,17 @@ development:
    github:
       client: YOUR_CODE_FOR_OAUTH
       secret: YOUR_CODE_FOR_OAUTH
+   stripe:
+      publishable: YOUR_STRIPE_PUBLISHABLE
+      secret: YOUR_STRIPE_SECRET
 
 production:
    github:
       client: YOUR_CODE_FOR_OAUTH
       secret: YOUR_CODE_FOR_OAUTH
+   stripe:
+      publishable: YOUR_STRIPE_PUBLISHABLE
+      secret: YOUR_STRIPE_SECRET
 
 facebook:
     client: YOUR_CODE_FOR_OAUTH
