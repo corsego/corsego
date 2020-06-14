@@ -60,3 +60,4 @@ gem 'omniauth-google-oauth2' #sign in with google
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'omniauth-facebook'
 gem "cocoon"
+gem 'stripe'
