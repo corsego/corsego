@@ -5,7 +5,7 @@ class TagPolicy < ApplicationPolicy
   #end
   
   def destroy?
-    @user.has_role?(:admin)
+    @user.present? && @user.has_role?(:admin)
   end
 
 end

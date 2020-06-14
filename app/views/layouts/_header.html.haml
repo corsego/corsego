@@ -7,28 +7,28 @@
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     /- if current_user && current_user.has_role?(:admin)
+    %ul.navbar-nav.mr-auto
+      %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
+        = link_to root_path, class: 'nav-link' do
+          .fa.fa-home
+          Home
+      %li.nav-item{class: "#{'active font-weight-bold' if current_page?(tags_path)}"}
+        = link_to tags_path, class: 'nav-link' do
+          .fa.fa-tags
+          Tags
+      %li.nav-item{class: "#{'active font-weight-bold' if current_page?(courses_path)}"}
+        = link_to courses_path, class: 'nav-link' do
+          .fa.fa-graduation-cap
+          Courses
+      .form-inline
+        /SEARCH IN NAVBAR
+        = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+          .input-group
+            = f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
+            %span.input-group-append
+              %button.btn.btn-primary.btn-sm{:type => "submit"}
+                %span.fa.fa-search{"aria-hidden" => "true"}
     - if current_user
-      %ul.navbar-nav.mr-auto
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
-          = link_to root_path, class: 'nav-link' do
-            .fa.fa-home
-            Home
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(tags_path)}"}
-          = link_to tags_path, class: 'nav-link' do
-            .fa.fa-tags
-            Tags
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(courses_path)}"}
-          = link_to courses_path, class: 'nav-link' do
-            .fa.fa-graduation-cap
-            Courses
-        .form-inline
-          /SEARCH IN NAVBAR
-          = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
-            .input-group
-              = f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
-              %span.input-group-append
-                %button.btn.btn-primary.btn-sm{:type => "submit"}
-                  %span.fa.fa-search{"aria-hidden" => "true"}
       %ul.navbar-nav.mr-auto
         - if current_user.has_role?(:student)
           %li.nav-item.dropdown
