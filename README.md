@@ -28,14 +28,11 @@ git clone https://github.com/yshmarov/corsego
 cd corsego
 bundle
 yarn
-bundle update
-rake db:create
-rake db:migrate
 
 sudo apt-get install graphviz
 sudo apt install imagemagick
 ```
-2. Set up your secret credentials:
+2. IMPORTANT Set up your secret credentials, otherwise you will not be able to run the app:
 
 Go to **config** folder and delete the file `credentials.yml.enc`
 ```
@@ -81,10 +78,17 @@ facebook:
 * i = to make the file editable
 * ESC + : + w + q + Enter = save changes in the file
 
-3. Run the server
+3. Run the migrations 
+```
+rails db:create
+rails db:migrate
+```
+4. Configure your development environment in config/environments/development.rb
+5. Start the server
 ```
 rails s
 ```
+
 ### For production environments
 ```
 heroku create
