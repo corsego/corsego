@@ -31,8 +31,6 @@ group :test do
 end
 
 gem "haml-rails", "~> 2.0" #HTML abstraction markup language
-gem 'bootstrap', '~> 4.4.1' #getbootstrap.com
-gem 'jquery-rails' #for bootstrap to work
 gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling
 gem 'simple_form' #creating forms made easier
 gem 'faker' #fake data for seeds.rb
