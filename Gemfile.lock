@@ -70,8 +70,8 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     aws-eventstream (1.1.0)
-    aws-partitions (1.341.0)
-    aws-sdk-core (3.103.0)
+    aws-partitions (1.343.0)
+    aws-sdk-core (3.104.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
@@ -338,7 +338,7 @@ GEM
     wkhtmltopdf-heroku (2.12.5.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.3.1)
+    zeitwerk (2.4.0)
 
 PLATFORMS
   ruby

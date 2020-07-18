@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_105343) do
+ActiveRecord::Schema.define(version: 2020_07_18_085325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_105343) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.bigint "lesson_id", null: false
     t.text "content"
     t.datetime "created_at", precision: 6, null: false
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_105343) do
     t.text "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.string "slug"
     t.text "short_description"
     t.string "language", default: "English", null: false
@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_105343) do
 
   create_table "enrollments", force: :cascade do |t|
     t.bigint "course_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.integer "rating"
     t.text "review"
     t.integer "price"
@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_105343) do
 
   create_table "user_lessons", force: :cascade do |t|
     t.bigint "lesson_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "user_id"
     t.integer "impressions", default: 0, null: false
     t.index ["lesson_id"], name: "index_user_lessons_on_lesson_id"
     t.index ["user_id"], name: "index_user_lessons_on_user_id"

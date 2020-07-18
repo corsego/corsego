@@ -38,9 +38,10 @@
         .text-right
           /.fa.fa-chalkboard-teacher
           /by
-          - if course.user.image?
-            = image_tag course.user.image, size: '20x20', alt: "#{course.user.email}", class: 'rounded-circle'
-          = link_to course.user.username, user_path(course.user)
+          - if course.user 
+            - if course.user.image?
+              = image_tag course.user.image, size: '20x20', alt: "#{course.user.email}", class: 'rounded-circle'
+            = link_to course.user.username, user_path(course.user)
   /.card-footer
   /  .row
   /    .col-md-6

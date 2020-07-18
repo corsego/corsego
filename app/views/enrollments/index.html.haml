@@ -65,7 +65,9 @@
       - @enrollments.each do |enrollment|
         %tr
           /%td= enrollment.id
-          %td= link_to enrollment.user.email, user_path(enrollment.user)
+          %td
+            - if enrollment.user.present?
+              = link_to enrollment.user.email, user_path(enrollment.user)
           %td= enrollment.created_at.strftime("%d/%b/%Y, %H:%M")
           %td= link_to enrollment.course, course_path(enrollment.course)
           %td= link_to enrollment.course.user, user_path(enrollment.course.user)
