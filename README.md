@@ -8,6 +8,10 @@
 
 [![N|Solid](https://i.imgur.com/IIWWYxW.png)](https://corsego.herokuapp.com)
 
+### Video: How to install
+
+[![Corsego e-learning platform: How to run localy on ubuntu + AWS C9](http://img.youtube.com/vi/nQd03MgXDXY/0.jpg)](http://www.youtube.com/watch?v=nQd03MgXDXY "Video Title")
+
 ### Installation Requirements 
 * ruby v 2.7.1 +
 * rails 6.0.3 +
@@ -25,6 +29,7 @@
 
 ### 1. Installing RoR
 
+```
 rvm install ruby-2.7.1
 rvm --default use 2.7.1
 rvm uninstall 2.6.3
@@ -33,14 +38,17 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt update
 sudo apt install postgresql libpq-dev redis-server redis-tools yarn
+```
 
 # postgresql setup
 
+```
 sudo su postgres
 createuser --interactive
 ubuntu
 y 
 exit
+```
 
 ### 2. Installation the app
 
