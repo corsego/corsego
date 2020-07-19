@@ -15,16 +15,38 @@
 * yarn
 
 ### Connected services required
-* google recaptcha for signing up ** in development & production **
-* google analytics in production
-* AWS S3 - file storage in production
-* google oauth ** in development and production **
+* AWS S3 - file storage ** in production **
+* google analytics code ** in production **
+* google recaptcha API for signing up ** in development & production **
+* google oauth API ** in development and production **
+* github oauth API ** in development and production **
+* facebook oauth API
+* stripe API ** in development and production **
 
-### Installation
+### 1. Installing RoR
+
+rvm install ruby-2.7.1
+rvm --default use 2.7.1
+rvm uninstall 2.6.3
+gem install rails -v 6.0.3
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt update
+sudo apt install postgresql libpq-dev redis-server redis-tools yarn
+
+# postgresql setup
+
+sudo su postgres
+createuser --interactive
+ubuntu
+y 
+exit
+
+### 2. Installation the app
 
 1. Create app
 ```
-git clone https://github.com/yshmarov/corsego
+git clone https://github.com/rormvp/corsego
 cd corsego
 bundle
 yarn
@@ -40,42 +62,38 @@ EDITOR=vim rails credentials:edit
 ```
 and inside the file:
 ```
-aws:
-   access_key_id: YOUR_CODE_FOR_S3_STORAGE
-   secret_access_key: YOUR_CODE_FOR_S3_STORAGE
-
+awss3:
+  access_key_id: YOUR_CODE_FOR_S3_STORAGE
+  secret_access_key: YOUR_CODE_FOR_S3_STORAGE
 google_analytics: YOUR_CODE_FOR_GOOGLE_ANALYTICS
-
 recaptcha:
-   site_key: YOUR_CODE_FOR_RECAPTCHA
-   secret_key: YOUR_CODE_FOR_RECAPTCHA
-
+  site_key: YOUR_CODE_FOR_RECAPTCHA
+  secret_key: YOUR_CODE_FOR_RECAPTCHA
 google_oauth2:
-   client_id: YOUR_CODE_FOR_OAUTH
-   client_secret: YOUR_CODE_FOR_OAUTH
-
+  client_id: YOUR_CODE_FOR_OAUTH
+  client_secret: YOUR_CODE_FOR_OAUTH
 development:
-   github:
-      client: YOUR_CODE_FOR_OAUTH
-      secret: YOUR_CODE_FOR_OAUTH
-   stripe:
-      publishable: YOUR_STRIPE_PUBLISHABLE
-      secret: YOUR_STRIPE_SECRET
-
-production:
-   github:
-      client: YOUR_CODE_FOR_OAUTH
-      secret: YOUR_CODE_FOR_OAUTH
-   stripe:
-      publishable: YOUR_STRIPE_PUBLISHABLE
-      secret: YOUR_STRIPE_SECRET
-
-facebook:
+  github:
     client: YOUR_CODE_FOR_OAUTH
     secret: YOUR_CODE_FOR_OAUTH
+  stripe:
+    publishable: YOUR_STRIPE_PUBLISHABLE
+    secret: YOUR_STRIPE_SECRET
+production:
+  github:
+    client: YOUR_CODE_FOR_OAUTH
+    secret: YOUR_CODE_FOR_OAUTH
+  stripe:
+    publishable: YOUR_STRIPE_PUBLISHABLE
+    secret: YOUR_STRIPE_SECRET
+facebook:
+  client: YOUR_CODE_FOR_OAUTH
+  secret: YOUR_CODE_FOR_OAUTH
 
 ```
 * i = to make the file editable
+* :set paste = to disable autoindentation when pasting
+* Ctrl + V = to paste
 * ESC + : + w + q + Enter = save changes in the file
 
 3. Run the migrations 
