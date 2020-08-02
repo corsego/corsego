@@ -93,7 +93,7 @@ class CoursesController < ApplicationController
     @course = Course.new(course_params)
     authorize @course
     @course.description = 'Curriculum Description'
-    @course.short_description = 'Marketing Description'
+    @course.marketing_description = 'Marketing Description'
     @course.user = current_user
 
     respond_to do |format|

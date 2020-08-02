@@ -23,7 +23,7 @@ PublicActivity.enabled = false
 5.times do
   Course.create!([{
     title: Faker::Educator.course_name,
-    short_description: Faker::Quote.famous_last_words,
+    marketing_description: Faker::Quote.famous_last_words,
     description: Faker::TvShows::GameOfThrones.quote,
     user: User.find_by(email: "admin@example.com"),
     language: 'English',
@@ -38,7 +38,7 @@ end
 5.times do
   Course.create!([{
     title: Faker::Educator.course_name,
-    short_description: Faker::Quote.famous_last_words,
+    marketing_description: Faker::Quote.famous_last_words,
     description: Faker::TvShows::GameOfThrones.quote,
     user: User.find_by(email: "studentteacher@example.com"),
     language: Faker::ProgrammingLanguage.name,
