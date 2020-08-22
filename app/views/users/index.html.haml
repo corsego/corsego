@@ -54,7 +54,7 @@
             - else
               .text-danger.fa.fa-signal
             = link_to user.email, user_path(user)
-          %td= user.created_at.strftime('%d/%m/%y - %H:%M')
+          %td= user.created_at.strftime('%d/%m/%y, %H:%M')
           %td= user.confirmed?
           %td
             - user.roles.each do |role|
@@ -72,7 +72,7 @@
           %td= user.sign_in_count
           %td
             - if user.current_sign_in_at.present?
-              = user.current_sign_in_at.strftime('%d/%m/%y - %H:%M')
+              = user.current_sign_in_at.strftime('%d/%m/%y, %H:%M')
           %td
             - if user.last_sign_in_at.present?
               = user.last_sign_in_at.strftime('%d/%m/%y - %H:%M')

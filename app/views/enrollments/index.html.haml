@@ -68,13 +68,13 @@
           %td
             - if enrollment.user.present?
               = link_to enrollment.user.email, user_path(enrollment.user)
-          %td= enrollment.created_at.strftime("%d/%b/%Y, %H:%M")
+          %td= enrollment.created_at.strftime("%d/%m/%Y, %H:%M")
           %td= link_to enrollment.course, course_path(enrollment.course)
           %td= link_to enrollment.course.user, user_path(enrollment.course.user)
           %td= number_to_currency(enrollment.price)
           %td
             - if enrollment.rating.present?
-              = enrollment.updated_at.strftime("%d/%b/%Y, %H:%M")
+              = enrollment.updated_at.strftime("%d/%m/%Y, %H:%M")
           %td= enrollment.rating
           %td= enrollment.review
           %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)

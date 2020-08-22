@@ -14,7 +14,7 @@
   - @activities.each do |activity|
     %li.list-group-item
       /= activity.id
-      = activity.created_at.strftime('%d-%m-%Y %H:%m')
+      = activity.created_at.strftime('%d/%m/%Y, %H:%M')
       (#{time_ago_in_words(activity.created_at)})
       = model_label(activity.trackable_type)
       = activity.trackable_type
