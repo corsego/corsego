@@ -14,6 +14,9 @@ class Courses::CourseWizardController < ApplicationController
       @tags = Tag.all
     when :pricing
     when :lessons
+      unless @course.lessons.any?
+        @course.lessons.build
+      end
     when :publish
     end
     render_wizard
@@ -27,6 +30,9 @@ class Courses::CourseWizardController < ApplicationController
       @tags = Tag.all
     when :pricing
     when :lessons
+      #unless @course.lessons.any? #lesson title and content validation fires only if this line is present
+      #  @course.lessons.build
+      #end
     when :publish
     end
     @course.update_attributes(course_params)
