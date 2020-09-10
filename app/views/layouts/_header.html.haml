@@ -22,12 +22,14 @@
           Courses
       .form-inline
         /SEARCH IN NAVBAR
-        = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
-          .input-group
-            = f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
-            %span.input-group-append
-              %button.btn.btn-primary.btn-sm{:type => "submit"}
-                %span.fa.fa-search{"aria-hidden" => "true"}
+        //temporary if statement. when a user tries to log in and there is a form input error, @ransack_courses is not initialized.
+        - if @ransack_courses.present?
+          = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
+            .input-group
+              = f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
+              %span.input-group-append
+                %button.btn.btn-primary.btn-sm{:type => "submit"}
+                  %span.fa.fa-search{"aria-hidden" => "true"}
     - if current_user
       %ul.navbar-nav.mr-auto
         - if current_user.has_role?(:student)
