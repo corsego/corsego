@@ -1,6 +1,14 @@
 = render layout: 'courses/course_wizard/step' do
   = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
 
-    = f.input :published
-  
+    /= f.input :published
+
+    /.custom-control.custom-switch
+    /  %input#customSwitch1.custom-control-input{:type => "checkbox"}/
+    /  %label.custom-control-label{:for => "customSwitch1"} Toggle this switch element
+
+    .custom-control.custom-switch
+      = f.check_box :published, class: "custom-control-input", id: "publishSwitch1"
+      %label.custom-control-label{:for => "publishSwitch1"} Publish
+
     = f.button :submit, "Save & Continue"
