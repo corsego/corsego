@@ -18,15 +18,17 @@
     .sticky-top
       /= search_form_for @q do |f|
       = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f|
-        = f.label :title
-        = f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm'
+        /= f.label :title
+        /= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm'
+        = f.label :title_or_description
+        = f.search_field :title_or_marketing_description_cont, placeholder: 'Title', class: 'form-control form-control-sm'
   
         = f.label :tag
         /= f.search_field :course_tags_tag_name_cont, placeholder: 'Tag name', class: 'form-control form-control-sm'
         = f.select :course_tags_tag_name_cont, @tags, {include_blank: true}, class: "form-control  form-control-sm"
   
-        = f.label :description
-        = f.search_field :marketing_description_cont, placeholder: 'Description', class: 'form-control form-control-sm'
+        /= f.label :description
+        /= f.search_field :marketing_description_cont, placeholder: 'Description', class: 'form-control form-control-sm'
         /= f.search_field :language_cont, placeholder: 'Language', class: 'form-control form-control-sm'
         /= f.select :language_cont, ['English', 'Polish', 'Russian'], include_blank: true, class: 'form-control form-control-sm'
         = f.label :language
