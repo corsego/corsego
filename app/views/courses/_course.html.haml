@@ -72,19 +72,25 @@
           Analtycs
     - if policy(course).admin_or_owner?
       .card-footer
-        - if course.published?
-          .badge.badge-success published
-        - else
-          .badge.badge-danger unpublished
-        - if course.approved?
-          .badge.badge-success approved
-        - else
-          .badge.badge-danger unapproved
+        .custom-control.custom-switch
+          - if course.published?
+            %input#customSwitch1.custom-control-input{:disabled => "disabled", :checked => "checked", :type => "checkbox"}/
+          - else
+            %input#customSwitch2.custom-control-input{:disabled => "disabled", :type => "checkbox"}/
+          %label.custom-control-label{:for => "Published"} Published
+        .row
+        .custom-control.custom-switch
+          - if course.approved?
+            %input#customSwitch1.custom-control-input{:disabled => "disabled", :checked => "checked", :type => "checkbox"}/
+          - else
+            %input#customSwitch2.custom-control-input{:disabled => "disabled", :type => "checkbox"}/
+          %label.custom-control-label{:for => "Approved"} Approved
         - if policy(course).approve?
           - if course.approved?
             = link_to 'unapprove', unapprove_course_path(course), method: :patch, class: 'btn btn-sm btn-outline-danger'
           - else
             = link_to 'approve', approve_course_path(course), method: :patch, class: 'btn btn-sm btn-outline-success'
+      .card-footer
         - if policy(course).destroy?
           = link_to course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' do
             .fa.fa-trash
