@@ -122,6 +122,7 @@ heroku rename *your-app-name*
 heroku git:remote -a *your-app-name*
 git push heroku master
 heroku run rake db:migrate
+heroku addons:create sendgrid:starter
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 ```
 If you have troubles running the app or any questions don't hesitate to contact me at yashm@outlook.com 🧐 
