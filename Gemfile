@@ -31,7 +31,7 @@ group :test do
 end
 
 gem "haml-rails", "~> 2.0" #HTML abstraction markup language
-gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling
+#gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling #installed via yarn withot gem
 gem 'simple_form' #creating forms made easier
 gem 'faker' #fake data for seeds.rb
 gem 'devise' #authentication as a User

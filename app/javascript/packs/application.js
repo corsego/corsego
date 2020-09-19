@@ -8,6 +8,13 @@ require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+require("stylesheets/application.scss")
+
+import 'bootstrap/dist/js/bootstrap'
+import "bootstrap/dist/css/bootstrap";
+
+import "@fortawesome/fontawesome-free/css/all"
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -16,7 +23,6 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import 'bootstrap/dist/js/bootstrap'
 require("trix")
 require("@rails/actiontext")
 
