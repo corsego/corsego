@@ -5,7 +5,7 @@ class LessonsController < ApplicationController
     authorize @lesson, :edit?
     @lesson.video.purge
     @lesson.video_thumbnail.purge
-    redirect_to edit_course_lesson_path(@course, @lesson), notice: 'Video successfully deleted!'
+    redirect_to edit_course_lesson_path(@course, @lesson), notice: "Video successfully deleted!"
   end
 
   def sort
@@ -45,7 +45,7 @@ class LessonsController < ApplicationController
     authorize @lesson
     respond_to do |format|
       if @lesson.save
-        format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Lesson was successfully created.' }
+        format.html { redirect_to course_lesson_path(@course, @lesson), notice: "Lesson was successfully created." }
         format.json { render :show, status: :created, location: @lesson }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class LessonsController < ApplicationController
     authorize @lesson
     respond_to do |format|
       if @lesson.update(lesson_params)
-        format.html { redirect_to course_lesson_path(@course, @lesson), notice: 'Lesson was successfully updated.' }
+        format.html { redirect_to course_lesson_path(@course, @lesson), notice: "Lesson was successfully updated." }
         format.json { render :show, status: :ok, location: @lesson }
       else
         format.html { render :edit }
@@ -71,18 +71,19 @@ class LessonsController < ApplicationController
     authorize @lesson
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to course_path(@course), notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to course_path(@course), notice: "Lesson was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    def set_lesson
-      @course = Course.friendly.find(params[:course_id])
-      @lesson = Lesson.friendly.find(params[:id])
-    end
 
-    def lesson_params
-      params.require(:lesson).permit(:title, :content, :row_order_position, :video, :video_thumbnail)
-    end
+  def set_lesson
+    @course = Course.friendly.find(params[:course_id])
+    @lesson = Lesson.friendly.find(params[:id])
+  end
+
+  def lesson_params
+    params.require(:lesson).permit(:title, :content, :row_order_position, :video, :video_thumbnail)
+  end
 end

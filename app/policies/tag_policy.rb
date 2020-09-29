@@ -1,11 +1,9 @@
 class TagPolicy < ApplicationPolicy
-
-  #def index?
+  # def index?
   #  @user.has_role?(:admin)
-  #end
-  
+  # end
+
   def destroy?
     @user.present? && @user.has_role?(:admin)
   end
-
 end

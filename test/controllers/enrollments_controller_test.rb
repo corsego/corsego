@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -16,8 +16,8 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create enrollment" do
-    assert_difference('Enrollment.count') do
-      post enrollments_url, params: { enrollment: { course_id: @enrollment.course_id, price: @enrollment.price, rating: @enrollment.rating, review: @enrollment.review, user_id: @enrollment.user_id } }
+    assert_difference("Enrollment.count") do
+      post enrollments_url, params: {enrollment: {course_id: @enrollment.course_id, price: @enrollment.price, rating: @enrollment.rating, review: @enrollment.review, user_id: @enrollment.user_id}}
     end
 
     assert_redirected_to enrollment_url(Enrollment.last)
@@ -34,12 +34,12 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update enrollment" do
-    patch enrollment_url(@enrollment), params: { enrollment: { course_id: @enrollment.course_id, price: @enrollment.price, rating: @enrollment.rating, review: @enrollment.review, user_id: @enrollment.user_id } }
+    patch enrollment_url(@enrollment), params: {enrollment: {course_id: @enrollment.course_id, price: @enrollment.price, rating: @enrollment.rating, review: @enrollment.review, user_id: @enrollment.user_id}}
     assert_redirected_to enrollment_url(@enrollment)
   end
 
   test "should destroy enrollment" do
-    assert_difference('Enrollment.count', -1) do
+    assert_difference("Enrollment.count", -1) do
       delete enrollment_url(@enrollment)
     end
 

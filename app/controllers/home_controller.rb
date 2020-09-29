@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [:index, :privacy_policy]
+  skip_before_action :authenticate_user!, only: [:index, :privacy_policy]
   def index
     @latest_good_reviews = Enrollment.reviewed.latest_good_reviews.limit(2)
     @latest = Course.latest.published.approved.limit(2)
@@ -10,9 +10,8 @@ class HomeController < ApplicationController
       @teaching_courses = current_user.courses.limit(2)
     end
     @popular_tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc).limit(10)
-
   end
-  
+
   def activity
     if current_user.has_role?(:admin)
       @pagy, @activities = pagy(PublicActivity::Activity.all.order(created_at: :desc))
@@ -23,9 +22,9 @@ class HomeController < ApplicationController
 
   def analytics
     if current_user.has_role?(:admin)
-      #@users = User.all
-      #@enrollments = Enrollment.all
-      #@courses = Course.all
+      # @users = User.all
+      # @enrollments = Enrollment.all
+      # @courses = Course.all
     else
       redirect_to root_path, alert: "You are not authorized to access this page"
     end

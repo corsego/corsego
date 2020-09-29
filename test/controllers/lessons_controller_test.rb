@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class LessonsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -16,8 +16,8 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create lesson" do
-    assert_difference('Lesson.count') do
-      post lessons_url, params: { lesson: { content: @lesson.content, course_id: @lesson.course_id, title: @lesson.title } }
+    assert_difference("Lesson.count") do
+      post lessons_url, params: {lesson: {content: @lesson.content, course_id: @lesson.course_id, title: @lesson.title}}
     end
 
     assert_redirected_to lesson_url(Lesson.last)
@@ -34,12 +34,12 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update lesson" do
-    patch lesson_url(@lesson), params: { lesson: { content: @lesson.content, course_id: @lesson.course_id, title: @lesson.title } }
+    patch lesson_url(@lesson), params: {lesson: {content: @lesson.content, course_id: @lesson.course_id, title: @lesson.title}}
     assert_redirected_to lesson_url(@lesson)
   end
 
   test "should destroy lesson" do
-    assert_difference('Lesson.count', -1) do
+    assert_difference("Lesson.count", -1) do
       delete lesson_url(@lesson)
     end
 

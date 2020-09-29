@@ -1,12 +1,11 @@
 class EnrollmentsController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [:certificate]
+  skip_before_action :authenticate_user!, only: [:certificate]
   before_action :set_enrollment, only: [:show, :edit, :update, :destroy, :certificate]
   before_action :set_coruse, only: [:new, :create]
 
   def index
-    #@enrollments = Enrollment.all
-    #@pagy, @enrollments = pagy(Enrollment.all)
-
+    # @enrollments = Enrollment.all
+    # @pagy, @enrollments = pagy(Enrollment.all)
 
     @ransack_path = enrollments_path
 
@@ -18,10 +17,10 @@ class EnrollmentsController < ApplicationController
 
   def teaching
     @ransack_path = teaching_enrollments_path
-    #@q = Enrollment.joins(:course).where(courses: {user: current_user}).ransack(params[:q])
+    # @q = Enrollment.joins(:course).where(courses: {user: current_user}).ransack(params[:q])
     @q = current_user.students.ransack(params[:q])
     @pagy, @enrollments = pagy(@q.result.includes(:user))
-    render 'index'
+    render "index"
   end
 
   def certificate
@@ -29,8 +28,8 @@ class EnrollmentsController < ApplicationController
     respond_to do |format|
       format.pdf do
         render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
-        page_size: 'A4',
-        template: "enrollments/certificate.pdf.haml"
+               page_size: "A4",
+               template: "enrollments/certificate.pdf.haml"
       end
     end
   end
@@ -53,10 +52,10 @@ class EnrollmentsController < ApplicationController
         source: params[:stripeToken]
       )
       charge = Stripe::Charge.create(
-        customer:    customer.id,
-        amount:      (@course.price * 100).to_i,
+        customer: customer.id,
+        amount: (@course.price * 100).to_i,
         description: @course.title,
-        currency:    'usd'
+        currency: "usd"
       )
     end
 
@@ -65,17 +64,16 @@ class EnrollmentsController < ApplicationController
 
     @enrollment = current_user.buy_course(@course)
     redirect_to course_path(@course), notice: "You are enrolled!"
-
-    rescue Stripe::CardError => e
-      flash[:error] = e.message
-      redirect_to new_course_enrollment_path(@course)
+  rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to new_course_enrollment_path(@course)
   end
 
   def update
     authorize @enrollment
     respond_to do |format|
       if @enrollment.update(enrollment_params)
-        format.html { redirect_to @enrollment, notice: 'Enrollment was successfully updated.' }
+        format.html { redirect_to @enrollment, notice: "Enrollment was successfully updated." }
         format.json { render :show, status: :ok, location: @enrollment }
       else
         format.html { render :edit }
@@ -88,21 +86,22 @@ class EnrollmentsController < ApplicationController
     authorize @enrollment
     @enrollment.destroy
     respond_to do |format|
-      format.html { redirect_to enrollments_url, notice: 'Enrollment was successfully destroyed.' }
+      format.html { redirect_to enrollments_url, notice: "Enrollment was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    def set_coruse
-      @course = Course.friendly.find(params[:course_id])
-    end
 
-    def set_enrollment
-      @enrollment = Enrollment.friendly.find(params[:id])
-    end
+  def set_coruse
+    @course = Course.friendly.find(params[:course_id])
+  end
 
-    def enrollment_params
-      params.require(:enrollment).permit(:rating, :review)
-    end
+  def set_enrollment
+    @enrollment = Enrollment.friendly.find(params[:id])
+  end
+
+  def enrollment_params
+    params.require(:enrollment).permit(:rating, :review)
+  end
 end

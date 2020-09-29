@@ -1,14 +1,14 @@
 class TagsController < ApplicationController
-  skip_before_action :authenticate_user!, :only => [:index]
-  
+  skip_before_action :authenticate_user!, only: [:index]
+
   def index
-    #@tags = Tag.all.includes(:courses).where(courses: {approved: true, published: true}).order(course_tags_count: :desc) #tags for only published courses
-    #@tags = Tag.all.where("course_tags_count > ?", 0).order(course_tags_count: :desc) #display only used tags
-    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc) #display only used tags
-    #@tags = Tag.all.order(course_tags_count: :desc)
-    #authorize @tags #anybody can now see tags
+    # @tags = Tag.all.includes(:courses).where(courses: {approved: true, published: true}).order(course_tags_count: :desc) #tags for only published courses
+    # @tags = Tag.all.where("course_tags_count > ?", 0).order(course_tags_count: :desc) #display only used tags
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc) # display only used tags
+    # @tags = Tag.all.order(course_tags_count: :desc)
+    # authorize @tags #anybody can now see tags
   end
-  
+
   def create
     @tag = Tag.new(tag_params)
     if @tag.save
@@ -17,7 +17,7 @@ class TagsController < ApplicationController
       render json: {errors: @tag.errors.full_messages}
     end
   end
-  
+
   def destroy
     @tag = Tag.find(params[:id])
     authorize @tag
@@ -27,7 +27,7 @@ class TagsController < ApplicationController
 
   private
 
-    def tag_params
-      params.require(:tag).permit(:name)
-    end
+  def tag_params
+    params.require(:tag).permit(:name)
+  end
 end

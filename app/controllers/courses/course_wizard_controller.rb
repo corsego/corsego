@@ -7,7 +7,7 @@ class Courses::CourseWizardController < ApplicationController
 
   def show
     authorize @course, :edit?
-    #@user = current_user
+    # @user = current_user
     case step
     when :landing_page
     when :targeting
@@ -30,9 +30,9 @@ class Courses::CourseWizardController < ApplicationController
       @tags = Tag.all
     when :pricing
     when :lessons
-      #unless @course.lessons.any? #lesson title and content validation fires only if this line is present
+      # unless @course.lessons.any? #lesson title and content validation fires only if this line is present
       #  @course.lessons.build
-      #end
+      # end
     when :publish
     end
     @course.update_attributes(course_params)
@@ -41,28 +41,27 @@ class Courses::CourseWizardController < ApplicationController
 
   def finish_wizard_path
     authorize @course, :edit?
-    #courses_path
+    # courses_path
     course_path(@course)
   end
-  
+
   private
-    def set_progress
-      if wizard_steps.any? && wizard_steps.index(step).present?
-        @progress = ((wizard_steps.index(step) + 1).to_d / wizard_steps.count.to_d) * 100
-      else
-        @progress = 0
-      end
-    end
 
-    def set_course
-      @course = Course.friendly.find params[:course_id]
+  def set_progress
+    @progress = if wizard_steps.any? && wizard_steps.index(step).present?
+      ((wizard_steps.index(step) + 1).to_d / wizard_steps.count.to_d) * 100
+    else
+      0
     end
+  end
 
-    def course_params
-      params.require(:course).permit(:title, :description, :marketing_description, :price,
-        :published, :language, :level, :avatar, tag_ids: [],
-        lessons_attributes: [:id, :title, :content, :_destroy]
-        )
-    end
+  def set_course
+    @course = Course.friendly.find params[:course_id]
+  end
 
+  def course_params
+    params.require(:course).permit(:title, :description, :marketing_description, :price,
+      :published, :language, :level, :avatar, tag_ids: [],
+                                              lessons_attributes: [:id, :title, :content, :_destroy])
+  end
 end
