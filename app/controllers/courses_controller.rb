@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index]
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :unapprove, :analytics]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :analytics]
 
   def index
     # if params[:title]
@@ -61,16 +61,13 @@ class CoursesController < ApplicationController
 
   def approve
     authorize @course, :approve?
-    @course.update_attribute(:approved, true)
+    if @course.approved?
+      @course.update_attribute(:approved, false)
+    else
+      @course.update_attribute(:approved, true)
+    end
     CourseMailer.approved(@course).deliver_later
     redirect_to @course, notice: "Course approved and visible!"
-  end
-
-  def unapprove
-    authorize @course, :approve?
-    @course.update_attribute(:approved, false)
-    CourseMailer.unapproved(@course).deliver_later
-    redirect_to @course, notice: "Course upapproved and hidden!"
   end
 
   def analytics

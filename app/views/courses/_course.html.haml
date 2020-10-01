@@ -81,7 +81,7 @@
         .row
         - if policy(course).approve?
           - if course.approved?
-            = link_to unapprove_course_path(course), method: :patch do
+            = link_to approve_course_path(course), method: :patch do
               .custom-control.custom-switch
                 %input#customSwitch1.custom-control-input{:type => "checkbox", :checked => "checked"}/
                 %label.custom-control-label{:for => "customSwitch1"} Admin Approved
