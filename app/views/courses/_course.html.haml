@@ -77,19 +77,26 @@
             %input#customSwitch1.custom-control-input{:disabled => "disabled", :checked => "checked", :type => "checkbox"}/
           - else
             %input#customSwitch2.custom-control-input{:disabled => "disabled", :type => "checkbox"}/
-          %label.custom-control-label{:for => "Published"} Published
+          %label.custom-control-label{:for => "Published"} Teacher Published
         .row
-        .custom-control.custom-switch
-          - if course.approved?
-            %input#customSwitch1.custom-control-input{:disabled => "disabled", :checked => "checked", :type => "checkbox"}/
-          - else
-            %input#customSwitch2.custom-control-input{:disabled => "disabled", :type => "checkbox"}/
-          %label.custom-control-label{:for => "Approved"} Approved
         - if policy(course).approve?
           - if course.approved?
-            = link_to 'unapprove', unapprove_course_path(course), method: :patch, class: 'btn btn-sm btn-outline-danger'
+            = link_to unapprove_course_path(course), method: :patch do
+              .custom-control.custom-switch
+                %input#customSwitch1.custom-control-input{:type => "checkbox", :checked => "checked"}/
+                %label.custom-control-label{:for => "customSwitch1"} Admin Approved
           - else
-            = link_to 'approve', approve_course_path(course), method: :patch, class: 'btn btn-sm btn-outline-success'
+            = link_to approve_course_path(course), method: :patch do
+              .custom-control.custom-switch
+                %input#customSwitch1.custom-control-input{:type => "checkbox"}/
+                %label.custom-control-label{:for => "customSwitch1"} Admin Approved
+        - else
+          .custom-control.custom-switch
+            - if course.approved?
+              %input#customSwitch1.custom-control-input{:disabled => "disabled", :checked => "checked", :type => "checkbox"}/
+            - else
+              %input#customSwitch2.custom-control-input{:disabled => "disabled", :type => "checkbox"}/
+            %label.custom-control-label{:for => "Published"} Admin Approved
       .card-footer
         - if policy(course).destroy?
           = link_to course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' do
