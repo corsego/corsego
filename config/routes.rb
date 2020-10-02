@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "activity", to: "home#activity"
   get "analytics", to: "home#analytics"
   get "privacy_policy", to: "home#privacy_policy"
+  get "about", to: "home#about"
 
   resources :enrollments do
     get :teaching, on: :collection
