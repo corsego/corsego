@@ -67,10 +67,7 @@
     = user.students.count
   .card-footer
     Confirmed email?
-    - if user.confirmed_at.present?
-      .badge.badge-success Yes
-    - else
-      .badge.badge-danger No
+    = boolean_label(user.confirmed?)
   .card-footer
     - user.roles.each do |role|
       .badge.badge-info

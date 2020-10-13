@@ -55,7 +55,7 @@
               .text-danger.fa.fa-signal
             = link_to user.email, user_path(user)
           %td= user.created_at.strftime('%d/%m/%y, %H:%M')
-          %td= user.confirmed?
+          %td= boolean_label(user.confirmed?)
           %td
             - user.roles.each do |role|
               .badge.badge-info
