@@ -1,4 +1,4 @@
-Sitemap: https://www.corsego.com/sitemap.xml
+Sitemap: https://corsego-public.s3.eu-central-1.amazonaws.com/sitemap.xml
 
 User-Agent: *
 Disallow: /auth/facebook

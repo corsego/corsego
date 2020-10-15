@@ -4,11 +4,13 @@ Rails.application.routes.draw do
                                    omniauth_callbacks: "users/omniauth_callbacks"}
 
   root "home#index"
-  get "home/index"
+
   get "activity", to: "home#activity"
   get "analytics", to: "home#analytics"
   get "privacy_policy", to: "home#privacy_policy"
   get "about", to: "home#about"
+
+  get '/sitemap.xml', to: redirect("https://corsego-public.s3.eu-central-1.amazonaws.com/sitemap.xml")
 
   resources :enrollments do
     get :teaching, on: :collection
