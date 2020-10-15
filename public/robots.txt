@@ -1,1 +1,21 @@
-# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+Sitemap: https://www.corsego.com/sitemap.xml
+
+User-Agent: *
+Disallow: /auth/facebook
+Disallow: /auth/google_oauth2
+Disallow: /courses/unapproved
+Disallow: /courses/teaching
+Disallow: /courses/new
+Disallow: /courses/learning
+Disallow: /courses/pending_review
+Disallow: /users
+Disallow: /activity
+Disallow: /analytics
+Disallow: /enrollments
+Disallow: /enrollments/teaching
+
+User-agent: *
+Allow: /users/sign_in
+Allow: /users/sign_up
+Allow: /courses
+Allow: /tags
