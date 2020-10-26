@@ -8,18 +8,15 @@
   #navbarSupportedContent.collapse.navbar-collapse
     /- if current_user && current_user.has_role?(:admin)
     %ul.navbar-nav.mr-auto
-      %li.nav-item{class: "#{'active font-weight-bold' if current_page?(root_path)}"}
-        = link_to root_path, class: 'nav-link' do
-          .fa.fa-home
-          Home
-      %li.nav-item{class: "#{'active font-weight-bold' if current_page?(tags_path)}"}
-        = link_to tags_path, class: 'nav-link' do
-          .fa.fa-tags
-          Tags
-      %li.nav-item{class: "#{'active font-weight-bold' if current_page?(courses_path)}"}
-        = link_to courses_path, class: 'nav-link' do
-          .fa.fa-graduation-cap
-          Courses
+      = long_active_link_to root_path do
+        .fa.fa-home
+        Home
+      = long_active_link_to tags_path do
+        .fa.fa-tags
+        Tags
+      = long_active_link_to courses_path do
+        .fa.fa-graduation-cap
+        Courses
       .form-inline
         /SEARCH IN NAVBAR
         //temporary if statement. when a user tries to log in and there is a form input error, @ransack_courses is not initialized.
@@ -127,16 +124,11 @@
     - else
       %ul.navbar-nav.mr-auto
       %ul.navbar-nav.mr-right
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_user_registration_path)}"}
-          = link_to 'Register', new_user_registration_path, class: 'nav-link'
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(new_user_session_path)}"}
-          = link_to 'Login', new_user_session_path, class: 'nav-link'
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(user_google_oauth2_omniauth_authorize_path)}"}
-          = link_to user_google_oauth2_omniauth_authorize_path, class: 'nav-link' do
-            .fab.fa-google
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(user_github_omniauth_authorize_path)}"}
-          = link_to user_github_omniauth_authorize_path, class: 'nav-link' do
-            .fab.fa-github
-        %li.nav-item{class: "#{'active font-weight-bold' if current_page?(user_facebook_omniauth_authorize_path)}"}
-          = link_to user_facebook_omniauth_authorize_path, class: 'nav-link' do
-            .fab.fa-facebook
+        = active_link_to 'Register', new_user_registration_path
+        = active_link_to 'Login', new_user_session_path
+        = link_to user_google_oauth2_omniauth_authorize_path, class: 'nav-link' do
+          .fab.fa-google
+        = link_to user_github_omniauth_authorize_path, class: 'nav-link' do
+          .fab.fa-github
+        = link_to user_facebook_omniauth_authorize_path, class: 'nav-link' do
+          .fab.fa-facebook
