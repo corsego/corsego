@@ -3,32 +3,38 @@
     %br
     .row
       .col-md-4
-        = link_to "Blog", "https://blog.corsego.com", target: :_blank
-        .row
-        = link_to 'Teach on Corsego', new_course_path
-        .row
-        = link_to 'About us', about_path
-        .row
-        Corsego for business
-      .col-md-4
-        = link_to 'Privacy policy', privacy_policy_path
-        .row
-        Terms and conditions
-        .row
-        Careers
-        .row
-        Help and Support
-      .col-md-4
         Copyright
         © 
         = Time.now.year
         Corsego Sp. z o.o.
         .row
-        .fa.fa-envelope
-        = mail_to 'yashm@outlook.com'
+        = mail_to 'hello@corsego.com' do
+          .fa.fa-envelope
+        = link_to "https://twitter.com/yaro_the_slav", target: :_blank do
+          .fab.fa-twitter
+        = link_to "https://instagram.com/corsego", target: :_blank do
+          .fab.fa-instagram
+        = link_to "https://github.com/yshmarov", target: :_blank do
+          .fab.fa-github
+        /.row
+        /%script{:src => "https://platform.linkedin.com/in.js", :type => "text/javascript"}
+        /  :cdata
+        /    lang: en_US
+        /%script{"data-counter" => "top", "data-id" => "42835367", :type => "IN/FollowCompany"}
+      .col-md-4
+        = link_to "https://blog.corsego.com", target: :_blank do
+          Blog
+          .fa.fa-external-link-alt
         .row
-        %script{:src => "https://platform.linkedin.com/in.js", :type => "text/javascript"}
-          :cdata
-            lang: en_US
-        %script{"data-counter" => "top", "data-id" => "42835367", :type => "IN/FollowCompany"}
+        = link_to "https://saas.corsego.com", target: :_blank do
+          SaaS boilerplate
+          .fa.fa-external-link-alt
+        .row
+        = link_to 'Teach on Corsego', new_course_path
+      .col-md-4
+        = link_to 'About', about_path
+        .row
+        = link_to 'Privacy', privacy_path
+        .row
+        = link_to 'Terms', terms_path
 %br

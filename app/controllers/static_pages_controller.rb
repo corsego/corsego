@@ -1,6 +1,7 @@
-class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:index, :privacy_policy]
-  def index
+class StaticPagesController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:landing_page, :privacy_policy]
+
+  def landing_page
     @latest_good_reviews = Enrollment.reviewed.latest_good_reviews.limit(2)
     @latest = Course.latest.published.approved.limit(2)
     @top_rated = Course.top_rated.published.approved.limit(2)
@@ -30,9 +31,12 @@ class HomeController < ApplicationController
     end
   end
 
-  def privacy_policy
+  def privacy
   end
-  
+
+  def terms
+  end
+
   def about
   end
 end

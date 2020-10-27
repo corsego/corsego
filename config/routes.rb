@@ -1,14 +1,15 @@
 Rails.application.routes.draw do
-  # devise_for :users
+
   devise_for :users, controllers: {registrations: "users/registrations",
                                    omniauth_callbacks: "users/omniauth_callbacks"}
 
-  root "home#index"
+  root "static_pages#landing_page"
 
-  get "activity", to: "home#activity"
-  get "analytics", to: "home#analytics"
-  get "privacy_policy", to: "home#privacy_policy"
-  get "about", to: "home#about"
+  get "activity", to: "static_pages#activity"
+  get "analytics", to: "static_pages#analytics"
+  get "privacy", to: "static_pages#privacy"
+  get "terms", to: "static_pages#terms"
+  get "about", to: "static_pages#about"
 
   get '/sitemap.xml', to: redirect("https://corsego-public.s3.eu-central-1.amazonaws.com/sitemap.xml")
 
