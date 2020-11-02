@@ -7,7 +7,6 @@ class Courses::CourseWizardController < ApplicationController
 
   def show
     authorize @course, :edit?
-    # @user = current_user
     case step
     when :landing_page
     when :targeting

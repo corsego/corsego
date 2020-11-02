@@ -6,20 +6,11 @@ class CommentsController < ApplicationController
     @comment.lesson_id = @lesson.id
     @comment.user = current_user
 
-    # if @comment.save
-    #  redirect_to course_lesson_path(@course, @lesson), notice: 'Comment was successfully created.'
-    # else
-    #  redirect_to course_lesson_path(@course, @lesson), alert: 'Something missing.'
-    # end
-    respond_to do |format|
-      if @comment.save
-        CommentMailer.new_comment(@comment).deliver_later
-        format.html { redirect_to course_lesson_path(@course, @lesson), notice: "Lesson was successfully created." }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render "lessons/comments/new" }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
+    if @comment.save
+      CommentMailer.new_comment(@comment).deliver_later
+      redirect_to course_lesson_path(@course, @lesson), notice: "Lesson was successfully created."
+    else
+      render "lessons/comments/new"
     end
   end
 
@@ -29,10 +20,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     authorize @comment
     @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to course_lesson_path(@course, @lesson), notice: "Comment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to course_lesson_path(@course, @lesson), notice: "Comment was successfully destroyed."
   end
 
   private

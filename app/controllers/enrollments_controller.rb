@@ -4,20 +4,14 @@ class EnrollmentsController < ApplicationController
   before_action :set_coruse, only: [:new, :create]
 
   def index
-    # @enrollments = Enrollment.all
-    # @pagy, @enrollments = pagy(Enrollment.all)
-
     @ransack_path = enrollments_path
-
     @q = Enrollment.ransack(params[:q])
     @pagy, @enrollments = pagy(@q.result.includes(:user))
-
     authorize @enrollments
   end
 
   def teaching
     @ransack_path = teaching_enrollments_path
-    # @q = Enrollment.joins(:course).where(courses: {user: current_user}).ransack(params[:q])
     @q = current_user.students.ransack(params[:q])
     @pagy, @enrollments = pagy(@q.result.includes(:user))
     render "index"
@@ -71,24 +65,17 @@ class EnrollmentsController < ApplicationController
 
   def update
     authorize @enrollment
-    respond_to do |format|
-      if @enrollment.update(enrollment_params)
-        format.html { redirect_to @enrollment, notice: "Enrollment was successfully updated." }
-        format.json { render :show, status: :ok, location: @enrollment }
-      else
-        format.html { render :edit }
-        format.json { render json: @enrollment.errors, status: :unprocessable_entity }
-      end
+    if @enrollment.update(enrollment_params)
+      redirect_to @enrollment, notice: "Enrollment was successfully updated."
+    else
+      render :edit
     end
   end
 
   def destroy
     authorize @enrollment
     @enrollment.destroy
-    respond_to do |format|
-      format.html { redirect_to enrollments_url, notice: "Enrollment was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to enrollments_url, notice: "Enrollment was successfully destroyed."
   end
 
   private

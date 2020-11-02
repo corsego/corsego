@@ -3,10 +3,7 @@ class TagsController < ApplicationController
 
   def index
     # @tags = Tag.all.includes(:courses).where(courses: {approved: true, published: true}).order(course_tags_count: :desc) #tags for only published courses
-    # @tags = Tag.all.where("course_tags_count > ?", 0).order(course_tags_count: :desc) #display only used tags
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc) # display only used tags
-    # @tags = Tag.all.order(course_tags_count: :desc)
-    # authorize @tags #anybody can now see tags
   end
 
   def create

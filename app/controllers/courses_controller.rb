@@ -3,26 +3,8 @@ class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :analytics]
 
   def index
-    # if params[:title]
-    #  @courses = Course.where('title ILIKE ?', "%#{params[:title]}%") #case-insensitive
-    # else
-    #  #@courses = Course.all
-    #
-    #  #@q = Course.ransack(params[:q])
-    #  #@courses = @q.result.includes(:user)
-    # end
-
-    # if current_user.has_role?(:admin)
-    #  @ransack_courses = Course.ransack(params[:courses_search], search_key: :courses_search)
-    #  @courses = @ransack_courses.result.includes(:user)
-    # else
-    #  redirect_to root_path, alert: 'You do not have access'
-    # end
-
     @ransack_path = courses_path
-
     @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
-    # @courses = @ransack_courses.result.includes(:user)
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
   end
@@ -93,25 +75,18 @@ class CoursesController < ApplicationController
     @course.marketing_description = "Marketing Description"
     @course.user = current_user
 
-    respond_to do |format|
       if @course.save
         format.html { redirect_to course_course_wizard_index_path(@course), notice: "Course was successfully created." }
-        format.json { render :show, status: :created, location: @course }
       else
         @tags = Tag.all
         format.html { render :new }
-        format.json { render json: @course.errors, status: :unprocessable_entity }
       end
-    end
   end
 
   def destroy
     authorize @course
     if @course.destroy
-      respond_to do |format|
-        format.html { redirect_to teaching_courses_path, notice: "Course was successfully destroyed." }
-        format.json { head :no_content }
-      end
+      redirect_to teaching_courses_path, notice: "Course was successfully destroyed."
     else
       redirect_to @course, alert: "Course has enrollments. Can not be destroyed."
     end
