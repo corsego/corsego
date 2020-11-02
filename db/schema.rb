@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_204129) do
+ActiveRecord::Schema.define(version: 2020_11_02_211650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_204129) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug"
+    t.integer "lessons_count", default: 0, null: false
     t.index ["course_id"], name: "index_chapters_on_course_id"
     t.index ["slug"], name: "index_chapters_on_slug", unique: true
   end
@@ -150,6 +151,8 @@ ActiveRecord::Schema.define(version: 2020_11_02_204129) do
     t.integer "row_order"
     t.integer "comments_count", default: 0, null: false
     t.integer "user_lessons_count", default: 0, null: false
+    t.bigint "chapter_id"
+    t.index ["chapter_id"], name: "index_lessons_on_chapter_id"
     t.index ["course_id"], name: "index_lessons_on_course_id"
     t.index ["slug"], name: "index_lessons_on_slug", unique: true
   end
@@ -233,6 +236,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_204129) do
   add_foreign_key "courses", "users"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
+  add_foreign_key "lessons", "chapters"
   add_foreign_key "lessons", "courses"
   add_foreign_key "user_lessons", "lessons"
   add_foreign_key "user_lessons", "users"
