@@ -66,12 +66,12 @@ class CoursesController < ApplicationController
     @course.marketing_description = "Marketing Description"
     @course.user = current_user
 
-      if @course.save
-        format.html { redirect_to course_course_wizard_index_path(@course), notice: "Course was successfully created." }
-      else
-        @tags = Tag.all
-        format.html { render :new }
-      end
+    if @course.save
+      redirect_to course_course_wizard_index_path(@course), notice: "Course was successfully created."
+    else
+      @tags = Tag.all
+      render :new
+    end
   end
 
   def destroy
