@@ -1,7 +1,25 @@
-%h1 Editing chapter
+- content_for :title do
+  Corsego 
+  |
+  Course
+  = @course.title
+  |
+  Edit Chapter
 
-= render 'form'
+= link_to 'Courses', courses_path
+|
+.far.fa-bookmark
+= link_to course_path(@course) do
+  = @course.title
+|
+= link_to 'Edit Chapter', edit_course_chapter_path(@course, @chapter)
 
-= link_to 'Show', @chapter
-\|
-= link_to 'Back', chapters_path
+.card.shadow
+  .card-header
+    %h3
+      .far.fa-check-square
+      Edit chapter
+  .card-body
+    = render 'form'
+  .card-footer
+    = link_to 'Back to course', course_path(@course)

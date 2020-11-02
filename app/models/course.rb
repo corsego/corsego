@@ -5,6 +5,7 @@ class Course < ApplicationRecord
 
   belongs_to :user, counter_cache: true
   # User.find_each { |user| User.reset_counters(user.id, :courses) }
+  has_many :chapters, dependent: :destroy, inverse_of: :course
   has_many :lessons, dependent: :destroy, inverse_of: :course
   has_many :enrollments, dependent: :restrict_with_error
   has_many :user_lessons, through: :lessons

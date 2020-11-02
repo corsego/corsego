@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_203935) do
+ActiveRecord::Schema.define(version: 2020_11_02_204129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,7 +71,9 @@ ActiveRecord::Schema.define(version: 2020_11_02_203935) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
     t.index ["course_id"], name: "index_chapters_on_course_id"
+    t.index ["slug"], name: "index_chapters_on_slug", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
@@ -108,6 +110,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_203935) do
     t.boolean "published", default: false
     t.boolean "approved", default: false
     t.integer "income", default: 0, null: false
+    t.integer "chapters_count", default: 0, null: false
     t.index ["slug"], name: "index_courses_on_slug", unique: true
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
