@@ -1,11 +1,8 @@
-- if current_user
-  - if policy(lesson).show?
-    - if lesson.viewed(current_user) == true
-      .text-success.fa.fa-check-square
-    - else
-      .text-danger.fa.fa-check-square
+- if current_user && policy(lesson).show?
+  - if lesson.viewed(current_user) == true
+    .text-success.fa.fa-check-square
   - else
-    .fa.fa-lock
+    .text-danger.fa.fa-check-square
   = link_to course_lesson_path(@course, lesson) do 
     %b
       #{lesson.row_order_rank + 1}.
@@ -15,12 +12,12 @@
   %b
     #{lesson.row_order_rank + 1}.
   = lesson.title
-.row
-- if lesson.comments.any?
-  .fa.fa-comment
-  = lesson.comments_count
 - if policy(lesson).edit?
   = link_to edit_course_lesson_path(@course, lesson), class: 'badge badge-warning mr-1' do
     .fa.fa-edit
   = link_to [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'badge badge-danger' do
     .fa.fa-trash
+.row
+- if lesson.comments.any?
+  .fa.fa-comment
+  = lesson.comments_count

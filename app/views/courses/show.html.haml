@@ -16,17 +16,17 @@
         .fa.fa-graduation-cap
         = @course.title
       %hr
-      .fa.fa-book
+      .far.fa-bookmark
       = pluralize(@course.chapters_count, 'Chapter')
       .row
       .fa.fa-tasks
       = pluralize(@course.lessons_count, 'Lesson')
       .row
-      .fa.fa-clock
+      .far.fa-clock
       Created
       = @course.created_at.strftime("%m/%Y")
       .row
-      .fa.fa-clock
+      .far.fa-clock
       Last updated
       = @course.updated_at.strftime("%m/%Y")
       .row
@@ -39,7 +39,7 @@
       .fa.fa-file-pdf
       Certificate of Completion
       .row
-      .fa.fa-comment
+      .far.fa-comment
       Access to Member-Only Q&A
       .row
       .fa.fa-download
@@ -51,33 +51,32 @@
       = @course.description
 
     %h4
-      .fa.fa-book
+      .far.fa-bookmark
       = pluralize(@course.chapters_count, 'chapter')
 
-    /.list-group
-    /  - @chapters.each do |chapter|
-    /    .list-group-item.shadow
-    /      = render 'chapters/chapter_preview', chapter: chapter
-    /      - chapter.lessons.rank(:row_order).each do |lesson|
-    /        .list-group-item.list-group-item-secondary
-    /          = render 'lessons/lesson_preview', lesson: lesson
-    /%hr
-
-    .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
-      - @chapters.each do |chapter|
-        = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
-          .list-group-item
+    - if policy(@course).edit?
+      .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
+        - @chapters.each do |chapter|
+          = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
+            .list-group-item.list-group-item-secondary
+              = render 'chapters/chapter_preview', chapter: chapter
+              .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
+                - chapter.lessons.rank(:row_order).each do |lesson|
+                  = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
+                    .list-group-item
+                      = render 'lessons/lesson_preview', lesson: lesson
+    - else
+      .list-group
+        - @chapters.each do |chapter|
+          .list-group-item.list-group-item-secondary
             = render 'chapters/chapter_preview', chapter: chapter
-          .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
             - chapter.lessons.rank(:row_order).each do |lesson|
-              = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
-                .list-group-item.list-group-item-secondary
-                  = render 'lessons/lesson_preview', lesson: lesson
-          /= link_to 'New Lesson', new_course_lesson_path(@course, chapter_id: chapter.id)
-    %hr
+              .list-group-item
+                = render 'lessons/lesson_preview', lesson: lesson
 
+    %br
     %h4
-      .fa.fa-comment
+      .far.fa-comment
       = pluralize(@enrollments_with_review.count, 'review')
 
     - @enrollments_with_review.each do |enrollment|
@@ -89,15 +88,11 @@
       = render 'courses/course', course: @course
     %p
 
+%br
 %h4 
   .fa.fa-graduation-cap
-  Related Courses
+  Similar Courses
 
-/Current course tags
-/= @course.tags.pluck(:id)
-
-/.row
-/All course tags
 .row
   - Course.approved.published.where.not(id: @course.id).each do |course|
     - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?

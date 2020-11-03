@@ -39,21 +39,22 @@
   - if current_user
     - if policy(course).owner?
       .card-footer
-        .btn-group
-          = link_to new_course_chapter_path(course, @chapter), class: 'btn btn-sm btn-primary' do
-            .fa.fa-plus
-            Chapter
-          = link_to new_course_lesson_path(course, @lesson), class: 'btn btn-sm btn-primary' do
-            .fa.fa-plus
-            Lesson
-          = link_to course_course_wizard_index_path(course), class: 'btn btn-sm btn-warning' do
-            .fa.fa-edit
-            Editor
+        .text-center
+          .btn-group
+            = link_to new_course_chapter_path(course, @chapter), class: 'btn btn-sm btn-primary' do
+              .fa.fa-plus
+              Chapter
+            = link_to new_course_lesson_path(course, @lesson), class: 'btn btn-sm btn-primary' do
+              .fa.fa-plus
+              Lesson
+            = link_to course_course_wizard_index_path(course), class: 'btn btn-sm btn-warning' do
+              .fa.fa-edit
+              Editor
+    - if policy(course).admin_or_owner?
       .card-footer
         = link_to analytics_course_path(course), class: 'btn btn-sm btn-info' do
           .fa.fa-chart-bar
           Analtycs
-    - if policy(course).admin_or_owner?
       .card-footer
         .custom-control.custom-switch
           - if course.published?
@@ -63,16 +64,13 @@
           %label.custom-control-label{:for => "Published"} Teacher Published
         .row
         - if policy(course).approve?
-          - if course.approved?
+          .custom-control.custom-switch
             = link_to approve_course_path(course), method: :patch do
-              .custom-control.custom-switch
+              - if course.approved?
                 %input#customSwitch1.custom-control-input{:type => "checkbox", :checked => "checked"}/
-                %label.custom-control-label{:for => "customSwitch1"} Admin Approved
-          - else
-            = link_to approve_course_path(course), method: :patch do
-              .custom-control.custom-switch
+              - else
                 %input#customSwitch1.custom-control-input{:type => "checkbox"}/
-                %label.custom-control-label{:for => "customSwitch1"} Admin Approved
+              %label.custom-control-label{:for => "customSwitch1"} Admin Approved
         - else
           .custom-control.custom-switch
             - if course.approved?
@@ -80,8 +78,8 @@
             - else
               %input#customSwitch2.custom-control-input{:disabled => "disabled", :type => "checkbox"}/
             %label.custom-control-label{:for => "Published"} Admin Approved
-      .card-footer
-        - if policy(course).destroy?
+      - if policy(course).destroy?
+        .card-footer
           = link_to course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' do
             .fa.fa-trash
   - if course.tags.any?

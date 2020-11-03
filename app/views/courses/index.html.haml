@@ -16,29 +16,19 @@
 .row
   .col-lg-2.order-0.order-lg-1.shadow
     .sticky-top
-      /= search_form_for @q do |f|
       = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f|
-        /= f.label :title
-        /= f.search_field :title_cont, placeholder: 'Title', class: 'form-control form-control-sm'
         = f.label :title_or_description
         = f.search_field :title_or_marketing_description_cont, placeholder: 'Title', class: 'form-control form-control-sm'
-  
+        .row
         = f.label :tag
-        /= f.search_field :course_tags_tag_name_cont, placeholder: 'Tag name', class: 'form-control form-control-sm'
         = f.select :course_tags_tag_name_cont, @tags, {include_blank: true}, class: "form-control  form-control-sm"
-  
-        /= f.label :description
-        /= f.search_field :marketing_description_cont, placeholder: 'Description', class: 'form-control form-control-sm'
-        /= f.search_field :language_cont, placeholder: 'Language', class: 'form-control form-control-sm'
-        /= f.select :language_cont, ['English', 'Polish', 'Russian'], include_blank: true, class: 'form-control form-control-sm'
+        .row
         = f.label :language
         .row
-        /= f.select :language_cont, Course.languages, include_blank: true
         = f.select :language_cont, Course.languages, {include_blank: true}, class: "form-control  form-control-sm"
         .row
         = f.label :level
         .row
-        /= f.select :level_cont, Course.levels, include_blank: true
         = f.select :level_cont, Course.levels, {include_blank: true}, class: "form-control  form-control-sm"
         .row
         = f.label :price
@@ -55,15 +45,11 @@
         = sort_link(@ransack_courses, :created_at, "Fresh")
         .row
         = f.submit
-  
-      = link_to 'refresh', @ransack_path
-      /= controller_name
-      /= action_name
-      /= link_to 'current page', controller: controller_name, action: action_name
+        .row
+        = link_to 'unfilter', controller: controller_name, action: action_name
       %hr
       .row
       - @tags.each do |tag|
-        /= link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
         = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
           .badge.badge-info
             = tag.name
@@ -78,6 +64,5 @@
           = render 'courses/course', course: course
           %p
     %p
-    /!= pagy_nav(@pagy)
     != pagy_bootstrap_nav(@pagy)
 %br
