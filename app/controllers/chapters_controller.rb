@@ -3,6 +3,7 @@ class ChaptersController < ApplicationController
 
   def new
     @chapter = Chapter.new
+    @course = Course.friendly.find(params[:course_id])
   end
 
   def edit
@@ -10,9 +11,11 @@ class ChaptersController < ApplicationController
 
   def create
     @chapter = Chapter.new(chapter_params)
+    @course = Course.friendly.find(params[:course_id])
+    @chapter.course_id = @course.id
 
     if @chapter.save
-      redirect_to @chapter, notice: 'Chapter was successfully created.'
+      redirect_to course_path(@course), notice: 'Chapter was successfully created.'
     else
       render :new
     end
@@ -20,7 +23,7 @@ class ChaptersController < ApplicationController
 
   def update
     if @chapter.update(chapter_params)
-      redirect_to @chapter, notice: 'Chapter was successfully updated.'
+      redirect_to course_path(@course), notice: 'Chapter was successfully updated.'
     else
       render :edit
     end
@@ -28,15 +31,16 @@ class ChaptersController < ApplicationController
 
   def destroy
     @chapter.destroy
-    redirect_to chapters_url, notice: 'Chapter was successfully destroyed.'
+    redirect_to course_path(@course), notice: 'Chapter was successfully destroyed.'
   end
 
   private
     def set_chapter
-      @chapter = Chapter.find(params[:id])
+      @course = Course.friendly.find(params[:course_id])
+      @chapter = Chapter.friendly.find(params[:id])
     end
 
     def chapter_params
-      params.require(:chapter).permit(:row_order, :course_id, :title)
+      params.require(:chapter).permit(:row_order, :title)
     end
 end

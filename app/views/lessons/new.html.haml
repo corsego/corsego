@@ -8,11 +8,13 @@
 
 = link_to 'Courses', courses_path
 |
-.fa.fa-graduation-cap
 = link_to course_path(@course) do
+  .fa.fa-graduation-cap
   = @course.title
 |
-= link_to 'New lesson', new_course_lesson_path(@course, @lesson)
+= link_to new_course_lesson_path(@course, @lesson) do
+  .far.fa-check-square
+  New lesson
 
 .card.shadow
   .card-header

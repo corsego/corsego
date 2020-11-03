@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :chapters
   devise_for :users, controllers: {registrations: "users/registrations",
                                    omniauth_callbacks: "users/omniauth_callbacks"}
 
@@ -28,6 +27,9 @@ Rails.application.routes.draw do
       get :analytics
       patch :approve
     end
+
+    resources :chapters, except: [:index, :show]
+
     resources :lessons, except: [:index] do
       resources :comments, except: [:index]
       put :sort

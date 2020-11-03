@@ -8,16 +8,18 @@
 
 = link_to 'Courses', courses_path
 |
-.far.fa-bookmark
 = link_to course_path(@course) do
+  .fa.fa-graduation-cap
   = @course.title
 |
-= link_to 'New Chapter', new_course_chapter_path(@course, @chapter)
+= link_to new_course_chapter_path(@course, @chapter) do
+  .far.fa-bookmark
+  New Chapter
 
 .card.shadow
   .card-header
     %h3
-      .far.fa-check-square
+      .far.fa-bookmark
       New chapter
   .card-body
     = render 'form'
