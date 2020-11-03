@@ -54,14 +54,26 @@
       .fa.fa-book
       = pluralize(@course.chapters_count, 'chapter')
 
-    .list-group
+    /.list-group
+    /  - @chapters.each do |chapter|
+    /    .list-group-item.shadow
+    /      = render 'chapters/chapter_preview', chapter: chapter
+    /      - chapter.lessons.rank(:row_order).each do |lesson|
+    /        .list-group-item.list-group-item-secondary
+    /          = render 'lessons/lesson_preview', lesson: lesson
+    /%hr
+
+    .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
       - @chapters.each do |chapter|
-        .list-group-item.shadow
-          = render 'chapters/chapter_preview', chapter: chapter
-          - chapter.lessons.rank(:row_order).each do |lesson|
-            .list-group-item.list-group-item-secondary
-              = render 'lessons/lesson_preview', lesson: lesson
-        %p
+        = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
+          .list-group-item
+            = render 'chapters/chapter_preview', chapter: chapter
+          .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
+            - chapter.lessons.rank(:row_order).each do |lesson|
+              = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
+                .list-group-item.list-group-item-secondary
+                  = render 'lessons/lesson_preview', lesson: lesson
+          /= link_to 'New Lesson', new_course_lesson_path(@course, chapter_id: chapter.id)
     %hr
 
     %h4

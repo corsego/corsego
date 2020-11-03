@@ -1,5 +1,12 @@
 class ChaptersController < ApplicationController
-  before_action :set_chapter, only: [:new, edit, :update, :destroy]
+  before_action :set_chapter, only: [:new, :edit, :update, :destroy]
+
+  def sort
+    @course = Course.friendly.find(params[:course_id])
+    chapter = Chapter.friendly.find(params[:chapter_id])
+    chapter.update(chapter_params)
+    render body: nil
+  end
 
   def new
     @chapter = Chapter.new
@@ -40,6 +47,6 @@ class ChaptersController < ApplicationController
     end
 
     def chapter_params
-      params.require(:chapter).permit(:row_order, :title)
+      params.require(:chapter).permit(:title, :row_order_position)
     end
 end

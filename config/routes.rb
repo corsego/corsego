@@ -28,10 +28,12 @@ Rails.application.routes.draw do
       patch :approve
     end
 
-    resources :chapters, except: [:index, :show]
+    resources :chapters, except: [:index, :show] do
+      put :sort
+    end
 
     resources :lessons, except: [:index] do
-      resources :comments, except: [:index]
+      resources :comments, except: [:index, :show]
       put :sort
       member do
         delete :delete_video
