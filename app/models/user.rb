@@ -54,10 +54,10 @@ class User < ApplicationRecord
   end
 
   extend FriendlyId
-  friendly_id :email_or_id, use: :slugged
-  def email_or_id
+  friendly_id :username_or_id, use: :slugged
+  def username_or_id
     if email.present?
-      email
+      username
     else
       id
     end

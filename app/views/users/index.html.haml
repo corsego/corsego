@@ -10,15 +10,9 @@
       = @users.count
 %p
 
-/.card-columns
-/  - @users.each do |user|
-/    = render 'users/user', user: user
-
 .form-inline
   = search_form_for @q do |f|
     = f.search_field :email_cont, placeholder: 'email'
-    /= f.search_field :sign_in_count_eq, placeholder: 'sign in count'
-    /= f.search_field :email_or_sign_in_count_eq, placeholder: 'email or sign in count'
     = f.submit
   .ml-2
   = link_to 'refresh', users_path
