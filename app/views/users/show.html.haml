@@ -15,7 +15,7 @@
           .text-danger.fa.fa-signal
         = link_to @user.username, user_path(@user)
       .card-footer
-        - if @user == current_user && user.uid.nil?
+        - if @user == current_user && @user.uid.nil?
           = link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-outline-primary btn-sm' do
             .fab.fa-google
             Sync with Google
@@ -85,7 +85,7 @@
           .badge.badge-info
             = role.name
         - if policy(@user).edit?
-          = link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning'
+          = link_to 'Edit roles', edit_user_path(@user), class: 'btn btn-sm btn-warning'
 
     %p
   .col-md-6
