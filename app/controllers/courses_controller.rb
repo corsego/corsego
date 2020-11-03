@@ -1,34 +1,39 @@
 class CoursesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :index]
   before_action :set_course, only: [:show, :edit, :update, :destroy, :approve, :analytics]
-  before_action :prepare_index, only: [:index, :learning, :pending_review, :teaching, :unapproved]
+  before_action :prepare_tags, only: [:index, :learning, :pending_review, :teaching, :unapproved]
 
   def index
     @ransack_path = courses_path
     @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
   end
 
   def learning
     @ransack_path = learning_courses_path
     @ransack_courses = Course.joins(:enrollments).where(enrollments: {user: current_user}).ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     render "index"
   end
 
   def pending_review
     @ransack_path = pending_review_courses_path
     @ransack_courses = Course.joins(:enrollments).merge(Enrollment.pending_review.where(user: current_user)).ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     render "index"
   end
 
   def teaching
     @ransack_path = teaching_courses_path
     @ransack_courses = Course.where(user: current_user).ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     render "index"
   end
 
   def unapproved
     @ransack_path = unapproved_courses_path
     @ransack_courses = Course.unapproved.published.ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
     render "index"
   end
 
@@ -83,8 +88,7 @@ class CoursesController < ApplicationController
 
   private
 
-  def prepare_index
-    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+  def prepare_tags
     @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
   end
 
