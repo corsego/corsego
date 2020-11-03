@@ -1,14 +1,8 @@
-class LessonPolicy < ApplicationPolicy
+class ChapterPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       scope.all
     end
-  end
-
-  def show?
-    @user.has_role?(:admin) || 
-      @record.course.user == @user || 
-      @record.course.bought(@user) == true
   end
 
   def new?
