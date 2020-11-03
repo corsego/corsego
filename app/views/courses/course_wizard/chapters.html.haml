@@ -1,0 +1,11 @@
+= render layout: 'courses/course_wizard/step' do
+  = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
+    #chapters
+      = f.simple_fields_for :chapters do |chapter|
+        = render 'chapter_fields', f: chapter
+      .links
+        %p
+        = link_to_add_association 'add chapter +', f, :chapters, class: 'btn btn-sm btn-primary'
+    %p
+    = f.button :submit, "Save & Continue"
+
