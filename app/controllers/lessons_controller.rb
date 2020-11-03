@@ -23,7 +23,7 @@ class LessonsController < ApplicationController
   def show
     authorize @lesson
     current_user.view_lesson(@lesson)
-    @lessons = @course.lessons.rank(:row_order)
+    @chapters = @course.chapters.rank(:row_order).includes(:lessons)
     @comment = Comment.new
     @comments = @lesson.comments.order(created_at: :desc)
   end
@@ -73,6 +73,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:title, :content, :row_order_position, :video, :video_thumbnail)
+    params.require(:lesson).permit(:title, :content, :row_order_position, :video, :video_thumbnail, :chapter_id)
   end
 end

@@ -5,10 +5,7 @@
 
   .form-inputs
     = f.input :title, input_html: { autocomplete: 'off' }
-    /= f.input :content
-    /= f.label :content
-    /= f.rich_text_area :content
-    /%small= f.error :content, class: 'text-danger'
+    = f.association :chapter, collection: @course.chapters, include_blank: false
     = f.input :content, as: :rich_text_area
 
     %p
@@ -24,7 +21,6 @@
     /  = @lesson.video_thumbnail.filename
     /= f.input :video_thumbnail
 
-    /= f.association :course
     /= f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}, as: :hidden
   .form-actions
     = f.button :submit

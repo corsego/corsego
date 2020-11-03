@@ -49,14 +49,13 @@ class CoursesController < ApplicationController
 
   def show
     authorize @course
-    @lessons = @course.lessons.rank(:row_order)
+    @chapters = @course.chapters.rank(:row_order).includes(:lessons)
     @enrollments_with_review = @course.enrollments.reviewed
   end
 
   def new
     @course = Course.new
     authorize @course
-    @tags = Tag.all
   end
 
   def create
@@ -66,12 +65,11 @@ class CoursesController < ApplicationController
     @course.marketing_description = "Marketing Description"
     @course.user = current_user
 
-      if @course.save
-        format.html { redirect_to course_course_wizard_index_path(@course), notice: "Course was successfully created." }
-      else
-        @tags = Tag.all
-        format.html { render :new }
-      end
+    if @course.save
+      redirect_to course_course_wizard_index_path(@course), notice: "Course was successfully created."
+    else
+      render :new
+    end
   end
 
   def destroy
@@ -84,6 +82,11 @@ class CoursesController < ApplicationController
   end
 
   private
+
+  def prepare_index
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
+  end
 
   def set_course
     @course = Course.friendly.find(params[:id])

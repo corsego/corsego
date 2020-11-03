@@ -27,8 +27,13 @@ Rails.application.routes.draw do
       get :analytics
       patch :approve
     end
+
+    resources :chapters, except: [:index, :show] do
+      put :sort
+    end
+
     resources :lessons, except: [:index] do
-      resources :comments, except: [:index]
+      resources :comments, except: [:index, :show]
       put :sort
       member do
         delete :delete_video

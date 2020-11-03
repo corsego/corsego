@@ -5,6 +5,7 @@ class Course < ApplicationRecord
 
   belongs_to :user, counter_cache: true
   # User.find_each { |user| User.reset_counters(user.id, :courses) }
+  has_many :chapters, dependent: :destroy, inverse_of: :course
   has_many :lessons, dependent: :destroy, inverse_of: :course
   has_many :enrollments, dependent: :restrict_with_error
   has_many :user_lessons, through: :lessons
@@ -12,6 +13,7 @@ class Course < ApplicationRecord
   has_many :tags, through: :course_tags
   has_many :comments, through: :lessons
 
+  accepts_nested_attributes_for :chapters, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :lessons, reject_if: :all_blank, allow_destroy: true
 
   validates :title, uniqueness: true, length: {maximum: 70}

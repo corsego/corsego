@@ -1,5 +1,6 @@
 class Lesson < ApplicationRecord
   belongs_to :course, counter_cache: true
+  belongs_to :chapter, counter_cache: true
   # Course.find_each { |course| Course.reset_counters(course.id, :lessons) }
   has_many :user_lessons, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -30,7 +31,7 @@ class Lesson < ApplicationRecord
   tracked owner: proc { |controller, model| controller.current_user }
 
   include RankedModel
-  ranks :row_order, with_same: :course_id
+  ranks :row_order, with_same: :chapter_id
 
   def to_s
     title
@@ -38,6 +39,10 @@ class Lesson < ApplicationRecord
 
   def prev
     course.lessons.where("row_order < ?", row_order).order(:row_order).last
+  end
+
+  def impressions_count
+    user_lessons.map(&:impressions).sum
   end
 
   def next

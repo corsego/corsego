@@ -4,7 +4,7 @@
   Course
   = @course.title
   |
-  New Lesson
+  Edit Chapter
 
 = link_to 'Courses', courses_path
 |
@@ -12,15 +12,15 @@
   .fa.fa-graduation-cap
   = @course.title
 |
-= link_to new_course_lesson_path(@course, @lesson) do
-  .far.fa-check-square
-  New lesson
+= link_to edit_course_chapter_path(@course, @chapter) do
+  .far.fa-bookmark
+  Edit Chapter
 
 .card.shadow
   .card-header
     %h3
-      .far.fa-check-square
-      New lesson
+      .far.fa-bookmark
+      Edit chapter
   .card-body
     = render 'form'
   .card-footer

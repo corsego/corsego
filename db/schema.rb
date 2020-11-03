@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_133642) do
+ActiveRecord::Schema.define(version: 2020_11_02_211650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,18 @@ ActiveRecord::Schema.define(version: 2020_08_02_133642) do
     t.index ["trackable_type", "trackable_id"], name: "index_activities_on_trackable_type_and_trackable_id"
   end
 
+  create_table "chapters", force: :cascade do |t|
+    t.integer "row_order"
+    t.bigint "course_id", null: false
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.integer "lessons_count", default: 0, null: false
+    t.index ["course_id"], name: "index_chapters_on_course_id"
+    t.index ["slug"], name: "index_chapters_on_slug", unique: true
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "lesson_id", null: false
@@ -99,6 +111,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_133642) do
     t.boolean "published", default: false
     t.boolean "approved", default: false
     t.integer "income", default: 0, null: false
+    t.integer "chapters_count", default: 0, null: false
     t.index ["slug"], name: "index_courses_on_slug", unique: true
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
@@ -138,6 +151,8 @@ ActiveRecord::Schema.define(version: 2020_08_02_133642) do
     t.integer "row_order"
     t.integer "comments_count", default: 0, null: false
     t.integer "user_lessons_count", default: 0, null: false
+    t.bigint "chapter_id"
+    t.index ["chapter_id"], name: "index_lessons_on_chapter_id"
     t.index ["course_id"], name: "index_lessons_on_course_id"
     t.index ["slug"], name: "index_lessons_on_slug", unique: true
   end
@@ -213,6 +228,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_133642) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chapters", "courses"
   add_foreign_key "comments", "lessons"
   add_foreign_key "comments", "users"
   add_foreign_key "course_tags", "courses"
@@ -220,6 +236,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_133642) do
   add_foreign_key "courses", "users"
   add_foreign_key "enrollments", "courses"
   add_foreign_key "enrollments", "users"
+  add_foreign_key "lessons", "chapters"
   add_foreign_key "lessons", "courses"
   add_foreign_key "user_lessons", "lessons"
   add_foreign_key "user_lessons", "users"
