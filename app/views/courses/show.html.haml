@@ -54,23 +54,16 @@
       .fa.fa-book
       = pluralize(@course.chapters_count, 'chapter')
 
-    .list-group.shadow
+    .list-group
       - @chapters.each do |chapter|
-        .list-group-item
+        .list-group-item.shadow
           = render 'chapters/chapter_preview', chapter: chapter
-    
+          - chapter.lessons.rank(:row_order).each do |lesson|
+            .list-group-item.list-group-item-secondary
+              = render 'lessons/lesson_preview', lesson: lesson
+        %p
     %hr
 
-    %h4
-      .fa.fa-tasks
-      = pluralize(@course.lessons_count, 'lesson')
-
-    .list-group.lesson-sortable.shadow
-      - @lessons.each do |lesson|
-        = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
-          .list-group-item{:style => "cursor: grab;"}
-            = render 'lessons/lesson_preview', lesson: lesson
-    %p
     %h4
       .fa.fa-comment
       = pluralize(@enrollments_with_review.count, 'review')

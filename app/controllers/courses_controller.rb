@@ -49,8 +49,7 @@ class CoursesController < ApplicationController
 
   def show
     authorize @course
-    @lessons = @course.lessons.rank(:row_order)
-    @chapters = @course.chapters.rank(:row_order)
+    @chapters = @course.chapters.rank(:row_order).includes(:lessons)
     @enrollments_with_review = @course.enrollments.reviewed
   end
 

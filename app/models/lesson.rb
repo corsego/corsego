@@ -41,6 +41,10 @@ class Lesson < ApplicationRecord
     course.lessons.where("row_order < ?", row_order).order(:row_order).last
   end
 
+  def impressions_count
+    user_lessons.map(&:impressions).sum
+  end
+
   def next
     course.lessons.where("row_order > ?", row_order).order(:row_order).first
   end
