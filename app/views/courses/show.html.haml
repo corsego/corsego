@@ -54,32 +54,23 @@
       .far.fa-bookmark
       = pluralize(@course.chapters_count, 'chapter')
 
-    - if policy(@course).edit?
-      .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
-        - @chapters.each do |chapter|
-          = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
-            .list-group-item.list-group-item-secondary
-              = render 'chapters/chapter_preview', chapter: chapter
-              .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
-                - chapter.lessons.rank(:row_order).each do |lesson|
-                  = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
-                    .list-group-item
-                      = render 'lessons/lesson_preview', lesson: lesson
-    - else
-      .list-group
-        - @chapters.each do |chapter|
+    .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
+      - @chapters.each do |chapter|
+        = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
           .list-group-item.list-group-item-secondary
             = render 'chapters/chapter_preview', chapter: chapter
-            - chapter.lessons.rank(:row_order).each do |lesson|
-              .list-group-item
-                = render 'lessons/lesson_preview', lesson: lesson
+            .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
+              - chapter.lessons.rank(:row_order).each do |lesson|
+                = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
+                  .list-group-item
+                    = render 'lessons/lesson_preview', lesson: lesson
 
     %br
     %h4
       .far.fa-comment
-      = pluralize(@enrollments_with_review.count, 'review')
+      = pluralize(@reviews.count, 'review')
 
-    - @enrollments_with_review.each do |enrollment|
+    - @reviews.each do |enrollment|
       = render 'enrollments/enrollment', enrollment: enrollment
       %p
 
@@ -88,17 +79,14 @@
       = render 'courses/course', course: @course
     %p
 
-%br
+%hr
+
 %h4 
   .fa.fa-graduation-cap
-  Similar Courses
+  Related Courses
 
 .row
-  - Course.approved.published.where.not(id: @course.id).each do |course|
-    - unless @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).count.zero?
-      .col-md-6
-        - @course.tags.pluck(:id).intersection(course.tags.pluck(:id)).each do |x|
-          .badge.badge-info
-            = Tag.find_by(id: x)
-        = render 'courses/course', course: course
-        %p
+- @course.similiar_courses.each do |course|
+  .col-md-6
+    = render 'courses/course', course: course
+    %p

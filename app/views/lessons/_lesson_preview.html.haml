@@ -18,6 +18,6 @@
   = link_to [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'badge badge-danger' do
     .fa.fa-trash
 .row
-- if lesson.comments.any?
+- unless lesson.comments_count.zero?
   .fa.fa-comment
   = lesson.comments_count
