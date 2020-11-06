@@ -66,19 +66,15 @@ trix-editor.form-control {
   height: auto;
 }
 
-//footer always on the bottom
+//footer on bottom
 html {
-	position: relative;
-	min-height: 100%;
+    margin: 0;
 }
 body {
-	margin: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-.footer {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	//height: 200px;
-	width: 100%;
-	overflow: hidden;
-} 
+footer {
+    margin-top: auto;
+}
