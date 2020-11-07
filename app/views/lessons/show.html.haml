@@ -22,7 +22,40 @@
 
 .row
   .col-lg-8
-    = render 'lessons/lesson', lesson: @lesson
+
+    .card.shadow
+      .card-header
+        .text-success.fa.fa-check-square
+        = link_to course_lesson_path(@course, @lesson) do
+          %b
+            #{@lesson.row_order_rank + 1}.
+          = @lesson.title
+      .card-body
+        - if @lesson.video.attached?
+          /%video(controls="true" poster="#{url_for @lesson.video}" width="100%" preload="metadata" controlslist="nodownload")
+          %video(controls="true" width="100%" preload="metadata" controlslist="nodownload")
+            %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
+    
+        = @lesson.content
+    
+      - if policy(@lesson).edit?
+        .card-footer
+          = link_to edit_course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-warning mr-1' do
+            .fa.fa-edit
+          = link_to [@course, @lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
+            .fa.fa-trash
+      .card-footer
+        - unless @lesson.prev.nil?
+          .float-left
+            = link_to course_lesson_path(@course, @lesson.prev), class: 'btn btn-sm btn-info' do
+              .fa.fa-arrow-left
+              Previous
+        - unless @lesson.next.nil?
+          .float-right
+            = link_to course_lesson_path(@course, @lesson.next), class: 'btn btn-sm btn-info' do
+              .fa.fa-arrow-right
+              Next
+
     %p
     %h4
       .fa.fa-comment
@@ -39,22 +72,23 @@
       %p
 
   .col-lg-4
-    %ul.list-group.shadow
-      %li.list-group-item
+    .list-group.shadow
+      .list-group-item
         .fa.fa-graduation-cap
         = link_to course_path(@lesson.course) do
           = @lesson.course.title
         .row
         = render 'courses/progress', course: @lesson.course
 
-    .list-group
+    .list-group#scrollable
       - @chapters.each do |chapter|
         .list-group-item.shadow
           = render 'chapters/chapter_preview', chapter: chapter
           - chapter.lessons.rank(:row_order).each do |lesson|
-            - if @lesson.present? && lesson == @lesson
+            - if lesson == @lesson
               %li.list-group-item.list-group-item-success
                 = render 'lessons/lesson_preview', lesson: lesson
             - else
               .list-group-item.list-group-item-secondary
                 = render 'lessons/lesson_preview', lesson: lesson
+%br

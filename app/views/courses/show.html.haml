@@ -54,16 +54,26 @@
       .far.fa-bookmark
       = pluralize(@course.chapters_count, 'chapter')
 
-    .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
-      - @chapters.each do |chapter|
-        = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
+    - if current_user && policy(@course).edit?
+      .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
+        - @chapters.each do |chapter|
+          = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
+            .list-group-item.list-group-item-secondary
+              = render 'chapters/chapter_preview', chapter: chapter
+              .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
+                - chapter.lessons.rank(:row_order).each do |lesson|
+                  = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
+                    .list-group-item
+                      = render 'lessons/lesson_preview', lesson: lesson
+    - else
+      .list-group.shadow
+        - @chapters.each do |chapter|
           .list-group-item.list-group-item-secondary
             = render 'chapters/chapter_preview', chapter: chapter
-            .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
+            .list-group
               - chapter.lessons.rank(:row_order).each do |lesson|
-                = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
-                  .list-group-item
-                    = render 'lessons/lesson_preview', lesson: lesson
+                .list-group-item
+                  = render 'lessons/lesson_preview', lesson: lesson
 
     %br
     %h4
@@ -79,14 +89,12 @@
       = render 'courses/course', course: @course
     %p
 
-%hr
-
-%h4 
-  .fa.fa-graduation-cap
-  Related Courses
-
-.row
-- @course.similiar_courses.each do |course|
-  .col-md-6
-    = render 'courses/course', course: course
-    %p
+/%hr
+/%h4 
+/  .fa.fa-graduation-cap
+/  Related Courses
+/.row
+/- @course.similiar_courses.each do |course|
+/  .col-md-6
+/    = render 'courses/course', course: course
+/    %p

@@ -15,9 +15,6 @@
         .row
         = link_to 'Remove video and thumbnail', delete_video_course_lesson_path(@course, @lesson), method: :delete, data: { confirm: 'Are you sure?' }
       = f.input :video
-    /- if @lesson.video_thumbnail.attached?
-    /  /= image_tag @lesson.video_thumbnail, width: "200px"
-    /  /.row
     /  = @lesson.video_thumbnail.filename
     /= f.input :video_thumbnail
 
