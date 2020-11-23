@@ -12,6 +12,10 @@ class CoursePolicy < ApplicationPolicy
       @user.present? && @record.bought(@user)
   end
 
+  def student_or_admin?
+    @user.has_role?(:admin) || @record.bought(@user)
+  end
+
   def analytics?
     @user.has_role?(:admin) || @record.user == @user
   end
