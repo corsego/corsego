@@ -7,6 +7,7 @@
     = f.input :title, input_html: { autocomplete: 'off' }
     = f.association :chapter, collection: @course.chapters, include_blank: false
     = f.input :content, as: :rich_text_area
+    = f.input :vimeo
 
     %p
     .container.rounded.bg-light
