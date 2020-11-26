@@ -19,7 +19,7 @@ class LessonsController < ApplicationController
   def show
     authorize @lesson
     current_user.view_lesson(@lesson)
-    @chapters = @course.chapters.rank(:row_order).includes(:lessons)
+    @chapters = @course.chapters.rank(:row_order).includes(:lessons, lessons: [:user_lessons])
     @comment = Comment.new
     @comments = @lesson.comments.order(created_at: :desc)
   end

@@ -38,19 +38,17 @@ class Lesson < ApplicationRecord
     title
   end
 
-  def prev
-    course.lessons.where("row_order < ?", row_order).order(:row_order).last
+  def impressions_count
+    # to be replaced with counter_culture gem (conter cache)
+    user_lessons.map(&:impressions).sum
   end
 
-  def impressions_count
-    user_lessons.map(&:impressions).sum
+  def prev
+    course.lessons.where("row_order < ?", row_order).order(:row_order).last
   end
 
   def next
     course.lessons.where("row_order > ?", row_order).order(:row_order).first
   end
 
-  def viewed(user)
-    user_lessons.where(user: user).present?
-  end
 end
