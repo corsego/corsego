@@ -32,17 +32,17 @@
             .fa.fa-edit
           = link_to [@course, @lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
             .fa.fa-trash
-      /.card-footer
-      /  - unless @lesson.prev.nil?
-      /    .float-left
-      /      = link_to course_lesson_path(@course, @lesson.prev), class: 'btn btn-sm btn-info' do
-      /        .fa.fa-arrow-left
-      /        Previous
-      /  - unless @lesson.next.nil?
-      /    .float-right
-      /      = link_to course_lesson_path(@course, @lesson.next), class: 'btn btn-sm btn-info' do
-      /        .fa.fa-arrow-right
-      /        Next
+      .card-footer
+        - unless @lesson.prev.nil?
+          .float-left
+            = link_to course_lesson_path(@course, @lesson.prev), class: 'btn btn-sm btn-info' do
+              .fa.fa-arrow-left
+              Previous
+        - unless @lesson.next.nil?
+          .float-right
+            = link_to course_lesson_path(@course, @lesson.next), class: 'btn btn-sm btn-info' do
+              .fa.fa-arrow-right
+              Next
 
     %p
     %h4

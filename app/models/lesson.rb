@@ -32,7 +32,7 @@ class Lesson < ApplicationRecord
   tracked owner: proc { |controller, model| controller.current_user }
 
   include RankedModel
-  ranks :row_order, with_same: :chapter_id
+  ranks :row_order, with_same: [:course_id, :chapter_id]
 
   def to_s
     title
