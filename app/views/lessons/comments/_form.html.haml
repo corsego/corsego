@@ -1,5 +1,5 @@
 = simple_form_for([@course, @lesson, @comment]) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-  = f.input :content, label: false, as: :rich_text_area
+  = f.input :content, as: :rich_text_area, label: false
   = f.button :submit

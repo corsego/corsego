@@ -1,24 +1,9 @@
 - content_for :title do
-  Corsego 
-  |
-  Course
   = @course.title
-  |
+/
   Lesson
   #{@lesson.row_order_rank + 1}.
   = @lesson.title
-
-
-= link_to 'Courses', courses_path
-|
-.fa.fa-graduation-cap
-= link_to course_path(@lesson.course) do
-  = @lesson.course.title
-|
-.fa.fa-check-square
-= link_to course_lesson_path(@course, @lesson) do
-  = @lesson.title
-%p
 
 .row
   .col-lg-8

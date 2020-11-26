@@ -1,14 +1,9 @@
 - content_for :title do
-  Corsego 
-  |
-  Course
   = @course.title
   |
-  Editing Lesson
+  Edit Lesson
   = @lesson.title
 
-= link_to 'Courses', courses_path
-|
 .fa.fa-graduation-cap
 = link_to course_path(@course) do
   = @course.title
@@ -23,7 +18,7 @@
   .card-header
     %h3
       .far.fa-check-square
-      Editing lesson
+      Edit lesson
   .card-body
     = render 'form'
   .card-footer

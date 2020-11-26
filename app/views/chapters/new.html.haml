@@ -1,19 +1,14 @@
 - content_for :title do
-  Corsego 
-  |
-  Course
   = @course.title
   |
   New Chapter
 
-= link_to 'Courses', courses_path
-|
+.fa.fa-graduation-cap
 = link_to course_path(@course) do
-  .fa.fa-graduation-cap
   = @course.title
 |
+.far.fa-bookmark
 = link_to new_course_chapter_path(@course, @chapter) do
-  .far.fa-bookmark
   New Chapter
 
 .card.shadow
