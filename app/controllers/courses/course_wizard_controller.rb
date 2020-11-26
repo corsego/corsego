@@ -3,7 +3,7 @@ class Courses::CourseWizardController < ApplicationController
   before_action :set_progress, only: [:show, :update]
   before_action :set_course, only: [:show, :update, :finish_wizard_path]
 
-  steps :landing_page, :targeting, :pricing, :chapters, :lessons, :publish
+  steps :landing_page, :targeting, :pricing, :chapters, :publish
 
   def show
     authorize @course, :edit?
@@ -15,10 +15,6 @@ class Courses::CourseWizardController < ApplicationController
     when :chapters
       unless @course.chapters.any?
         @course.chapters.build
-      end
-    when :lessons
-      unless @course.lessons.any?
-        @course.lessons.build
       end
     when :publish
     end
@@ -33,9 +29,8 @@ class Courses::CourseWizardController < ApplicationController
       @tags = Tag.all
     when :pricing
     when :chapters
-    when :lessons
-      # unless @course.lessons.any? #lesson title and content validation fires only if this line is present
-      #  @course.lessons.build
+      # unless @course.chapters.any? # chapter title and content validation fires only if this line is present
+      #  @course.chapters.build
       # end
     when :publish
     end
@@ -70,7 +65,6 @@ class Courses::CourseWizardController < ApplicationController
       :price,
       :published, 
       tag_ids: [],
-      chapters_attributes: [:id, :title, :_destroy],
-      lessons_attributes: [:id, :chapter_id, :title, :content, :_destroy])
+      chapters_attributes: [:id, :title, :_destroy])
   end
 end
