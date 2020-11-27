@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :students, through: :courses, source: :enrollments
   has_many :lessons, through: :user_lessons # lessons viewed by the user
 
-  # has_many :enrolled_courses, through: :enrollments, source: :course
+  has_many :enrolled_courses, through: :enrollments, source: :course
   # def enrolled_in?(course)
   #  return enrolled_courses.include?(course)
   # end
@@ -91,6 +91,10 @@ class User < ApplicationRecord
   def view_lesson(lesson)
     view = user_lessons.find_or_create_by(lesson: lesson)
     view.increment!(:impressions)
+  end
+
+  def bought?(course)
+    enrolled_courses.include?(course)
   end
 
   def viewed?(lesson)

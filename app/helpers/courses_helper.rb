@@ -6,7 +6,7 @@ module CoursesHelper
           "You created this course " +
             number_to_currency(course.price)
         end
-      elsif course.enrollments.where(user: current_user).any?
+      elsif current_user.bought?(course)
         render "courses/progress", course: course
       elsif course.price > 0
         link_to number_to_currency(course.price), new_course_enrollment_path(course), class: "btn btn-success"

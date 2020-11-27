@@ -7,7 +7,6 @@
     %meta{:content => "Online Learning and Skill sharing platform", :name => "description"}/
     %meta{:content => "Yaroslav Shmarov", :name => "author"}/
     = favicon_link_tag 'logo-bootstrap.png'
-    /%title Corsego
     %title
       = content_for?(:title) ? yield(:title) : "Corsego"
     = csrf_meta_tags
