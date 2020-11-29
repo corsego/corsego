@@ -22,8 +22,10 @@
             %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
 
         - if @lesson.vimeo.present?
-          %iframe{:allow => "autoplay; fullscreen", :allowfullscreen => "", :frameborder => "0", :height => "427", :src => "https://player.vimeo.com/video/#{@lesson.vimeo}", :width => "640"}
-    
+          .embed-responsive.embed-responsive-3by2
+            %iframe.embed-responsive-item{:allow => "fullscreen", :src => "https://player.vimeo.com/video/#{@lesson.vimeo}"}
+        /  /%iframe{:allow => "autoplay; fullscreen", :allowfullscreen => "", :frameborder => "0", :height => "427", :src => "https://player.vimeo.com/video/#{@lesson.vimeo}", :width => "640"}
+
         = @lesson.content
     
       - if policy(@lesson).edit?
