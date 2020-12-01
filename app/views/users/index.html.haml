@@ -24,7 +24,7 @@
         %th id
         %th= sort_link(@q, :email)
         %th= sort_link(@q, :created_at)
-        %th Confirmed?
+        %th= sort_link(@q, :confirmed_at)
         %th Roles
         %th= sort_link(@q, :courses_count)
         %th= sort_link(@q, :enrollments_count)
