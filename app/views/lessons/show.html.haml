@@ -73,13 +73,14 @@
 
     .list-group#scrollable
       - @chapters.each do |chapter|
-        .list-group-item.shadow
+        .list-group-item.shadow{"data-offset" => "0", "data-spy" => "scroll", "data-target" => "#scrollable"}
           = render 'chapters/chapter_preview', chapter: chapter
           - chapter.lessons.rank(:row_order).each do |lesson|
             - if lesson.eql?(@lesson)
-              %li.list-group-item.list-group-item-success
+              %li.list-group-item.list-group-item-success#current_lesson
                 = render 'lessons/lesson_student', lesson: lesson
             - else
               %li.list-group-item.list-group-item-secondary
                 = render 'lessons/lesson_student', lesson: lesson
+
 %br
