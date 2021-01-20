@@ -35,7 +35,8 @@ gem "haml-rails", "~> 2.0" # HTML abstraction markup language
 # gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling #installed via yarn withot gem
 gem "simple_form" # creating forms made easier
 gem "faker" # fake data for seeds.rb
-gem "devise" # authentication as a User
+# gem "devise" # authentication as a User
+gem 'devise', :git => "https://github.com/heartcombo/devise.git", ref: '8bb358cf80a632d3232c3f548ce7b95fd94b6eb2' # https://stackoverflow.com/questions/65702896/latest-omniauth-facebook-gem-breaks-devise
 gem "friendly_id", "~> 5.2.4" # nice URLs and hide IDs
 gem "ransack" # filter and sort data
 gem "public_activity" # see all activity in the app
