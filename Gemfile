@@ -56,7 +56,7 @@ gem "wkhtmltopdf-binary", group: :development
 gem "wkhtmltopdf-heroku", group: :production
 gem "wicked" # multistep forms
 gem "omniauth-google-oauth2" # sign in with google
-gem "omniauth-github", github: "omniauth/omniauth-github", branch: "master"
+gem "omniauth-github" # sign in with github
 gem "omniauth-facebook" # sign in with facebook
 gem "cocoon" # nested forms
 gem "stripe" # accept payments 
