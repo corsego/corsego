@@ -35,8 +35,8 @@ gem "haml-rails", "~> 2.0" # HTML abstraction markup language
 # gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling #installed via yarn withot gem
 gem "simple_form" # creating forms made easier
 gem "faker" # fake data for seeds.rb
-# gem "devise" # authentication as a User
-gem 'devise', :git => "https://github.com/heartcombo/devise.git", ref: '8bb358cf80a632d3232c3f548ce7b95fd94b6eb2' # https://stackoverflow.com/questions/65702896/latest-omniauth-facebook-gem-breaks-devise
+gem "devise" # authentication as a User
+# gem 'devise', :git => "https://github.com/heartcombo/devise.git", ref: '8bb358cf80a632d3232c3f548ce7b95fd94b6eb2' # https://stackoverflow.com/questions/65702896/latest-omniauth-facebook-gem-breaks-devise
 gem "friendly_id", "~> 5.2.4" # nice URLs and hide IDs
 gem "ransack" # filter and sort data
 gem "public_activity" # see all activity in the app
@@ -56,6 +56,7 @@ gem "wicked_pdf" # PDF for Ruby on Rails
 gem "wkhtmltopdf-binary", group: :development
 gem "wkhtmltopdf-heroku", group: :production
 gem "wicked" # multistep forms
+gem "omniauth", "~> 1.9.1" # Can not move to 2.0 because of devise - https://github.com/heartcombo/devise/pull/5327
 gem "omniauth-google-oauth2" # sign in with google
 gem "omniauth-github" # sign in with github
 gem "omniauth-facebook" # sign in with facebook
