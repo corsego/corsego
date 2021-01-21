@@ -97,7 +97,10 @@ production:
 facebook:
   client: YOUR_CODE_FOR_OAUTH
   secret: YOUR_CODE_FOR_OAUTH
-
+smtp:
+  address: email-smtp.eu-central-1.amazonaws.com
+  user_name: SMTP_CREDENTIALS_USER_NAME
+  password: SMTP_CREDENTIALS_PASSWORD
 ```
 * i = to make the file editable
 * :set paste = to disable autoindentation when pasting
