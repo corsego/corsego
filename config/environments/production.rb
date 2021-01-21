@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = {host: "corsego.herokuapp.com", protocol: "https"}
+  config.action_mailer.default_url_options = {host: "corsego.com", protocol: "https"}
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
@@ -17,7 +17,7 @@ Rails.application.configure do
     email: {
       deliver_with: :deliver, # Rails >= 4.2.1 do not need this option since it defaults to :deliver_now
       email_prefix: "[PREFIX] ",
-      sender_address: %("corsego error" <support@corsego.herokuapp.com>),
+      sender_address: %("corsego error" <hello@corsego.com>),
       exception_recipients: %w[yshmarov@gmail.com]
     }
   # Settings specified here will take precedence over those in config/application.rb.
