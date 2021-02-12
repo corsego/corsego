@@ -5,6 +5,8 @@ if User.find_by_email("admin@example.com").nil?
   admin.add_role(:teacher) unless admin.has_role?(:teacher)
 end
 
+# Enrollment.create(user_id: 298, course_id: 56, price: 0)
+
 if User.find_by_email("studentteacher@example.com").nil?
   studentteacher = User.create!(email: "studentteacher@example.com", password: "studentteacher@example.com", password_confirmation: "studentteacher@example.com", confirmed_at: Time.now)
   # studentteacher.skip_confirmation!

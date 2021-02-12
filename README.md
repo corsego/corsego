@@ -129,3 +129,7 @@ heroku run rake db:migrate
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 ```
 If you have troubles running the app or any questions don't hesitate to contact me at yashm@outlook.com 🧐 
+
+User.find(291)
+PublicActivity.enabled = false
+Enrollment.create(user: User.find(296), course: Course.find(56), price: 0)
