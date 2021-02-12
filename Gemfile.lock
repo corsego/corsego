@@ -107,6 +107,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_invitable (2.0.3)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     erubi (1.10.0)
     erubis (2.7.0)
     exception_notification (4.4.3)
@@ -377,6 +380,7 @@ DEPENDENCIES
   chartkick
   cocoon
   devise
+  devise_invitable (~> 2.0.0)
   exception_notification
   faker
   friendly_id (~> 5.2.4)

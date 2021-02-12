@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :validatable, :trackable, :confirmable,
+  devise :invitable, :database_authenticatable, :registerable,
+    :recoverable, :rememberable, :validatable, :trackable, :confirmable, :invitable,
     :omniauthable, omniauth_providers: [:google_oauth2, :github, :facebook]
 
   rolify

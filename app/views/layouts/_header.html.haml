@@ -29,6 +29,9 @@
                   %span.fa.fa-search{"aria-hidden" => "true"}
     - if current_user
       %ul.navbar-nav.mr-auto
+        = long_active_link_to new_user_invitation_path do
+          .fa.fa-plus
+          Invite User
         - if current_user.has_role?(:student)
           %li.nav-item.dropdown
             %a#studentDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
