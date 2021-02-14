@@ -132,4 +132,4 @@ If you have troubles running the app or any questions don't hesitate to contact 
 
 User.find(291)
 PublicActivity.enabled = false
-Enrollment.create(user: User.find(296), course: Course.find(56), price: 0)
+Enrollment.create(user: User.find(304), course: Course.find(56), price: 0)
