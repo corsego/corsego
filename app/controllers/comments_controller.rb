@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     @course = Course.friendly.find(params[:course_id])
     @lesson = Lesson.friendly.find(params[:lesson_id])
-    @comment.lesson_id = @lesson.id
+    @comment.lesson = @lesson
     @comment.user = current_user
 
     if @comment.save

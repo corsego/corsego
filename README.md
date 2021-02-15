@@ -130,6 +130,10 @@ heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 ```
 If you have troubles running the app or any questions don't hesitate to contact me at yashm@outlook.com 🧐 
 
-User.find(291)
+****
+
+Manually creating an enrollment:
+```
 PublicActivity.enabled = false
 Enrollment.create(user: User.find(304), course: Course.find(56), price: 0)
+```

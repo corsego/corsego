@@ -34,7 +34,7 @@ class Courses::CourseWizardController < ApplicationController
       # end
     when :publish
     end
-    @course.update_attributes(course_params)
+    @course.update(course_params)
     render_wizard @course
   end
 
