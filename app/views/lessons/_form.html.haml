@@ -2,23 +2,10 @@
 = simple_form_for([@course, @lesson]) do |f|
   = f.error_notification
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
-
   .form-inputs
     = f.input :title, input_html: { autocomplete: 'off' }
     = f.association :chapter, collection: @course.chapters, include_blank: false
     = f.input :content, as: :rich_text_area
     = f.input :vimeo
-
-    %p
-    .container.rounded.bg-light
-      - if @lesson.video.attached?
-        = @lesson.video.filename
-        .row
-        = link_to 'Remove video and thumbnail', delete_video_course_lesson_path(@course, @lesson), method: :delete, data: { confirm: 'Are you sure?' }
-      = f.input :video
-    /  = @lesson.video_thumbnail.filename
-    /= f.input :video_thumbnail
-
-    /= f.input :course_id, input_html: {value: @lesson.course_id || params[:course_id]}, as: :hidden
   .form-actions
     = f.button :submit

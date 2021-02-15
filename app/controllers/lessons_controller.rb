@@ -1,5 +1,5 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy, :delete_video]
+  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
 
   def sort
     @course = Course.friendly.find(params[:course_id])
@@ -7,13 +7,6 @@ class LessonsController < ApplicationController
     authorize lesson, :edit?
     lesson.update(lesson_params)
     render body: nil
-  end
-
-  def delete_video
-    authorize @lesson, :edit?
-    @lesson.video.purge
-    @lesson.video_thumbnail.purge
-    redirect_to edit_course_lesson_path(@course, @lesson), notice: "Video successfully deleted!"
   end
 
   def show
@@ -71,6 +64,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:title, :content, :row_order_position, :video, :chapter_id, :vimeo)
+    params.require(:lesson).permit(:title, :content, :row_order_position, :chapter_id, :vimeo)
   end
 end

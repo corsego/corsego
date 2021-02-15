@@ -1,13 +1,7 @@
 - content_for :title do
   = @course.title
-/
-  Lesson
-  #{@lesson.row_order_rank + 1}.
-  = @lesson.title
-
 .row
   .col-lg-8
-
     .card.shadow
       .card-header
         .text-success.fa.fa-check-square
@@ -17,18 +11,11 @@
             #{@lesson.row_order_rank + 1}.
           = @lesson.title
       .card-body
-        - if @lesson.video.attached?
-          /%video(controls="true" poster="#{url_for @lesson.video}" width="100%" preload="metadata" controlslist="nodownload")
-          %video(controls="true" width="100%" preload="metadata" controlslist="nodownload")
-            %source{src: rails_blob_url(@lesson.video), type:"#{@lesson.video.content_type}"}
-
         - if @lesson.vimeo.present?
           .embed-responsive.embed-responsive-3by2
             %iframe.embed-responsive-item{:allow => "fullscreen", :src => "https://player.vimeo.com/video/#{@lesson.vimeo}"}
         /  /%iframe{:allow => "autoplay; fullscreen", :allowfullscreen => "", :frameborder => "0", :height => "427", :src => "https://player.vimeo.com/video/#{@lesson.vimeo}", :width => "640"}
-
         = @lesson.content
-    
       - if policy(@lesson).edit?
         .card-footer
           = link_to edit_course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-warning mr-1' do
@@ -46,7 +33,6 @@
             = link_to course_lesson_path(@course, @lesson.next), class: 'btn btn-sm btn-info' do
               .fa.fa-arrow-right
               Next
-
     %p
     %h4
       .fa.fa-comment
@@ -82,5 +68,4 @@
             - else
               %li.list-group-item.list-group-item-secondary
                 = render 'lessons/lesson_student', lesson: lesson
-
 %br
