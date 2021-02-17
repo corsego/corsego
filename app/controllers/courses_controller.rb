@@ -50,9 +50,9 @@ class CoursesController < ApplicationController
   def approve
     authorize @course, :approve? # admin
     if @course.approved?
-      @course.update(:approved, false)
+      @course.update(approved: false)
     else
-      @course.update(:approved, true)
+      @course.update(approved: true)
     end
     CourseMailer.approved(@course).deliver_later
     redirect_to @course, notice: "Course approval: #{@course.approved}"
