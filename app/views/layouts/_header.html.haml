@@ -129,9 +129,9 @@
       %ul.navbar-nav.mr-right
         = active_link_to 'Register', new_user_registration_path
         = active_link_to 'Login', new_user_session_path
-        = link_to user_google_oauth2_omniauth_authorize_path, class: 'nav-link' do
+        = link_to user_google_oauth2_omniauth_authorize_path, method: :post, class: 'nav-link' do
           .fab.fa-google
-        = link_to user_github_omniauth_authorize_path, class: 'nav-link' do
+        = link_to user_github_omniauth_authorize_path, method: :post, class: 'nav-link' do
           .fab.fa-github
-        = link_to user_facebook_omniauth_authorize_path, class: 'nav-link' do
+        = link_to user_facebook_omniauth_authorize_path, method: :post, class: 'nav-link' do
           .fab.fa-facebook
