@@ -32,3 +32,9 @@ $(document).ready(function() {
         $(this).attr("target","_blank");
     });
 });
+
+// disable all attachments
+window.addEventListener("trix-file-accept", function(event) {
+  event.preventDefault()
+  alert("File attachment not supported!")
+})

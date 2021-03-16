@@ -40,3 +40,6 @@
 //.trix-content {
 //  overflow-wrap: break-word;
 //}
+
+//hide attachments button
+.trix-button-group--file-tools { display: none !important; }
