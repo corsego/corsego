@@ -4,7 +4,7 @@
   = f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present?
   .form-inputs
     = f.input :title, input_html: { autocomplete: 'off' }
-    = f.association :chapter, collection: @course.chapters, include_blank: false
+    = f.association :chapter, collection: @course.chapters.order(row_order: :asc), include_blank: false
     = f.input :content, as: :rich_text_area
     = f.input :vimeo
   .form-actions
