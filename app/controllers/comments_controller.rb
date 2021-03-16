@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       CommentMailer.new_comment(@comment).deliver_later
-      redirect_to course_lesson_path(@course, @lesson), notice: "Lesson was successfully created."
+      redirect_to course_lesson_path(@course, @lesson), notice: "Your comment was successfully added."
     else
       render "lessons/comments/new"
     end
