@@ -22,7 +22,6 @@ group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "spring"
   gem "spring-watcher-listen", "~> 2.0.0"
-  gem "standard", group: :development
 end
 
 group :test do
@@ -63,3 +62,4 @@ gem "cocoon" # nested forms
 gem "stripe" # accept payments 
 gem 'sitemap_generator' # SEO and webmasters
 gem 'devise_invitable', '~> 2.0.0' # invite users
+gem "standard", group: :development
