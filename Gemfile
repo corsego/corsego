@@ -63,3 +63,4 @@ gem "stripe" # accept payments
 gem 'sitemap_generator' # SEO and webmasters
 gem 'devise_invitable', '~> 2.0.0' # invite users
 gem "standard", group: :development
+gem "letter_opener", group: :development
