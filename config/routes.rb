@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root "static_pages#landing_page"
 
+  post "checkout/create", to: "checkout#create"
+
   get "activity", to: "static_pages#activity"
   get "analytics", to: "static_pages#analytics"
   get "privacy", to: "static_pages#privacy"

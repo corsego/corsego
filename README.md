@@ -137,3 +137,12 @@ Manually creating an enrollment:
 PublicActivity.enabled = false
 Enrollment.create(user: User.find(304), course: Course.find(56), price: 0)
 ```
+
+add stripe ids to all exiting products
+```
+Course.all.each do |course|
+  product = Stripe::Product.create(name: course.title)
+  price = Stripe::Price.create(product: product, currency: "usd", unit_amount: course.price.to_i * 100)
+  course.update(stripe_product_id: product.id, stripe_price_id: price.id)
+end
+```

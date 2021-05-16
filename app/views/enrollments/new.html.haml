@@ -14,6 +14,7 @@
       = number_to_currency @course.price
   .card-body
     - if @course.price > 0
+      = button_to "Buy now!", checkout_create_path, params: {id: @course.id}, remote: true, data: { disable_with: "validating..."}
       = form_tag course_enrollments_path(@course) do
         %script.stripe-button{"data-amount" => "#{(@course.price * 100).to_i}",
                               "data-description" => "#{@course.title} (#{number_to_currency @course.price})",
