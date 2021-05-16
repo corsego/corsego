@@ -76,6 +76,18 @@ class Course < ApplicationRecord
     end
   end
 
+  after_create do
+    product = Stripe::Product.create(name: title)
+    price = Stripe::Price.create(product: product, currency: "usd", unit_amount: self.price.to_i * 100)
+    update(stripe_product_id: product.id, stripe_price_id: price.id)
+  end
+
+  after_update :update_stripe_price, if: :saved_change_to_price?
+  def update_stripe_price
+    price = Stripe::Price.create(product: stripe_product_id, currency: "usd", unit_amount: self.price.to_i * 100)
+    update(stripe_price_id: price.id)
+  end
+
   def similiar_courses
     self.class.joins(:tags)
               .where.not(id: id)
