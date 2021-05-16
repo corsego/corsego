@@ -51,32 +51,19 @@
       Continue with
       .fab.fa-facebook
 
-  /.form-inline.my-2.my-lg-0
-  /  = form_tag(courses_path, method: :get) do
-  /    .input-group
-  /      = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Find a course", class: 'form-control-sm'
-  /      %span.input-group-append
-  /        %button.btn.btn-primary.btn-sm{:type => "submit"}
-  /          %span.fa.fa-search{"aria-hidden" => "true"}
-
 .card-group.shadow
   .card
     .card-body
       %h1
         .fa.fa-graduation-cap
       = pluralize(Course.approved.published.count, 'online courses')
-      /= Course.count
-      /online courses
       .row
       %small Explore a variety of fresh topics
   .card
     .card-body
       %h1
         .fa.fa-chalkboard-teacher
-        /.fa.fa-brain
       = pluralize(Course.distinct.count(:user_id), 'expert instructors')
-      /= Course.distinct.count(:user_id)
-      /expert instructors
       .row
       %small Find the right instructor for you
   .card
@@ -84,8 +71,6 @@
       %h1
         .fa.fa-user-graduate
       = pluralize(User.count, 'active learners')
-      /= User.count
-      /active learners
       .row
       %small Join the knowledge sharing community
   .card
@@ -109,64 +94,15 @@
         = tag.course_tags_count
 %hr
 
-- if current_user 
-  - if current_user.enrollments.any?
-    %h2
-      .fa.fa-user-graduate
-      = link_to 'Continue learning ', learning_courses_path
-    .row
-      - @learning_courses.each do |course|
-        .col-md-6
-          = render 'courses/course', course: course
-          %p
-    %hr
-  - if current_user.courses.any?
-    %h2
-      .fa.fa-chalkboard-teacher
-      = link_to 'You are teaching', teaching_courses_path
-    .row
-      - @teaching_courses.each do |course|
-        .col-md-6
-          = render 'courses/course', course: course
-          %p
-    %hr
-
 %h2
   .fa.fa-chart-line
   = link_to 'Popular courses', courses_path(courses_search: {s: 'enrollments_count desc'})
 .row
-  - @popular.each do |course|
+  - @courses.each do |course|
     .col-md-6
       = render 'courses/course', course: course
       %p
-%hr
-%h2 
-  .fa.fa-star
-  = link_to 'Top rated courses', courses_path(courses_search: {s: 'average_rating desc'})
-.row
-  - @top_rated.each do |course|
-    .col-md-6
-      = render 'courses/course', course: course
-      %p
-%hr
-%h2 
-  .fa.fa-clock
-  = link_to 'Latest courses', courses_path(courses_search: {s: 'created_at desc'})
-.row
-  - @latest.each do |course|
-    .col-md-6
-      = render 'courses/course', course: course
-      %p
-%hr
 
-%h2 
-  .fa.fa-comment
-  What our students have to say
-.row
-  - @latest_good_reviews.each do |enrollment|
-    .col-md-6
-      = render 'enrollments/enrollment', enrollment: enrollment
-      %p
 %br
 .card-group.shadow
   .card
@@ -174,13 +110,15 @@
       %b
         .fa.fa-clock
         Go at your own pace
+      %br
       %small
-        Enjoy lifetime access to courses on Udemy’s website and app
+        Enjoy lifetime access to courses whenever you want
   .card
     .card-body
       %b
         .far.fa-check-circle
         Learn from industry experts
+      %br
       %small
         Select from top instructors around the world
   .card
@@ -188,5 +126,6 @@
       %b
         .far.fa-play-circle
         Find video courses on almost any topic
+      %br
       %small
         Build your library for your career and personal growth
