@@ -49,6 +49,9 @@
           %b= 'last_sign_in_ip'.humanize + ":"
           = @user.last_sign_in_ip
         .card-footer
+          %b= 'stripe_customer_id'.humanize + ":"
+          = @user.stripe_customer_id
+        .card-footer
           %b= 'course_income'.humanize + ":"
           = @user.course_income
           .row

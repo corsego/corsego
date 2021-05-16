@@ -110,6 +110,11 @@ class User < ApplicationRecord
     update_column :enrollment_expences, enrollments.map(&:price).sum
     update_column :balance, (course_income - enrollment_expences)
   end
+
+  after_create do
+    customer = Stripe::Customer.create(email: self.email)
+    update(stripe_customer_id: customer.id)
+  end
   
   private
 
