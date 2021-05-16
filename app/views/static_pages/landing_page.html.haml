@@ -99,9 +99,8 @@
   = link_to 'Popular courses', courses_path(courses_search: {s: 'enrollments_count desc'})
 .row
   - @courses.each do |course|
-    .col-md-6
-      = render 'courses/course', course: course
-      %p
+    = render 'courses/course_landscape', course: course
+    %p
 
 %br
 .card-group.shadow
