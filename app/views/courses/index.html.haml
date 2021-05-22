@@ -44,9 +44,10 @@
         .row
         = sort_link(@ransack_courses, :created_at, "Fresh")
         .row
-        = f.submit
-        .row
-        = link_to 'unfilter', controller: controller_name, action: action_name
+        = f.button :search, class: "btn btn-block btn-primary"
+        - if params[:courses_search]
+          .row
+          = link_to 'unfilter', controller: controller_name, action: action_name, class: "btn btn-block btn-secondary mt-1"
       %hr
       .row
       - @tags.each do |tag|
@@ -58,11 +59,10 @@
       %p
       %br
   .col-lg-10.order-1.order-lg-1
-    .row
-      - @courses.each do |course|
-        .col-md-6
-          = render 'courses/course', course: course
+    .container
+      .row
+        - @courses.each do |course|
+          = render 'courses/course_landscape', course: course
           %p
-    %p
     != pagy_bootstrap_nav(@pagy)
 %br

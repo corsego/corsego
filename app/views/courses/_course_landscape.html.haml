@@ -1,11 +1,11 @@
 .card.shadow
-  .card-header
+  .card-body
     .row
       .col-md-4
         - if course.avatar.attached?
           = link_to course_path(course) do
-            = image_tag course.avatar, height: "auto", width: "100%"
-      .col-md-4
+            = image_tag course.avatar, loading: "lazy", height: "auto", width: "100%"
+      .col-md-5
         %b= link_to course.title, course_path(course)
         %small= simple_format(course.marketing_description)
         .text-warning.fa.fa-star
@@ -26,7 +26,7 @@
           - if course.user.image?
             = image_tag course.user.image, size: '20x20', alt: "#{course.user.email}", class: 'rounded-circle'
           = link_to course.user.username, user_path(course.user)
-      .col-md-4
+      .col-md-3
         .text-center
           = enrollment_button(course)
           .row

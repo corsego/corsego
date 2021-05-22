@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
-
   devise_for :users, controllers: {registrations: "users/registrations",
                                    omniauth_callbacks: "users/omniauth_callbacks"}
 
   root "static_pages#landing_page"
-
-  post "checkout/create", to: "checkout#create"
 
   get "activity", to: "static_pages#activity"
   get "analytics", to: "static_pages#analytics"
@@ -47,6 +44,10 @@ Rails.application.routes.draw do
   resources :youtube, only: :show
 
   resources :users, only: [:index, :edit, :show, :update]
+
+  # stripe
+  post "checkout/create", to: "checkout#create"
+  post "webhooks/create", to: "webhooks#create"
 
   namespace :charts do
     get "users_per_day"

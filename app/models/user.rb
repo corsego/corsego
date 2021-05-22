@@ -13,12 +13,23 @@ class User < ApplicationRecord
   has_many :lessons, through: :user_lessons # lessons viewed by the user
 
   has_many :enrolled_courses, through: :enrollments, source: :course
-  # def enrolled_in?(course)
-  #  return enrolled_courses.include?(course)
-  # end
 
   after_create do
+    # tell admin that new user signed up
     UserMailer.new_user(self).deliver_later
+
+    # create stripe customer
+    Stripe::Customer.create(email: self.email)
+
+    # assign_default_role
+    if User.count == 1
+      add_role(:admin) if roles.blank?
+      add_role(:teacher)
+      add_role(:student)
+    else
+      add_role(:student) if roles.blank?
+      add_role(:teacher) # if you want any user to be able to create own courses
+    end
   end
 
   include PublicActivity::Model
@@ -65,19 +76,6 @@ class User < ApplicationRecord
     end
   end
 
-  after_create :assign_default_role
-
-  def assign_default_role
-    if User.count == 1
-      add_role(:admin) if roles.blank?
-      add_role(:teacher)
-      add_role(:student)
-    else
-      add_role(:student) if roles.blank?
-      add_role(:teacher) # if you want any user to be able to create own courses
-    end
-  end
-
   validate :must_have_a_role, on: :update
 
   def online?
@@ -101,6 +99,8 @@ class User < ApplicationRecord
     lessons.include?(lesson)
   end
 
+  # private
+
   def calculate_course_income
     update_column :course_income, courses.map(&:income).sum
     update_column :balance, (course_income - enrollment_expences)
@@ -111,11 +111,6 @@ class User < ApplicationRecord
     update_column :balance, (course_income - enrollment_expences)
   end
 
-  after_create do
-    customer = Stripe::Customer.create(email: self.email)
-    update(stripe_customer_id: customer.id)
-  end
-  
   private
 
   def must_have_a_role

@@ -1,7 +1,6 @@
 class EnrollmentsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:certificate]
   before_action :set_enrollment, only: [:show, :edit, :update, :destroy, :certificate]
-  before_action :set_coruse, only: [:new, :create]
 
   def index
     @ransack_path = enrollments_path
@@ -31,36 +30,20 @@ class EnrollmentsController < ApplicationController
   def show
   end
 
-  def new
-    @enrollment = Enrollment.new
-  end
-
   def edit
     authorize @enrollment
   end
 
   def create
+    @course = Course.friendly.find(params[:course_id])
     if @course.price > 0
-      customer = Stripe::Customer.create(
-        email: params[:stripeEmail],
-        source: params[:stripeToken]
-      )
-      charge = Stripe::Charge.create(
-        customer: customer.id,
-        amount: (@course.price * 100).to_i,
-        description: @course.title,
-        currency: "usd"
-      )
+      redirect_to course_path(@course), alert: "The course is not free..."
+    else
+      @enrollment = current_user.buy_course(@course)
+      EnrollmentMailer.student_enrollment(@enrollment).deliver_later
+      EnrollmentMailer.teacher_enrollment(@enrollment).deliver_later
+      redirect_to course_path(@course), notice: "You are enrolled!"
     end
-
-    EnrollmentMailer.student_enrollment(@enrollment).deliver_later
-    EnrollmentMailer.teacher_enrollment(@enrollment).deliver_later
-
-    @enrollment = current_user.buy_course(@course)
-    redirect_to course_path(@course), notice: "You are enrolled!"
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_course_enrollment_path(@course)
   end
 
   def update
@@ -79,11 +62,6 @@ class EnrollmentsController < ApplicationController
   end
 
   private
-
-  def set_coruse
-    @course = Course.friendly.find(params[:course_id])
-  end
-
   def set_enrollment
     @enrollment = Enrollment.friendly.find(params[:id])
   end
