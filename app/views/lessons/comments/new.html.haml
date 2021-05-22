@@ -5,4 +5,4 @@
   .card-body
     = render 'lessons/comments/form'
   .card-footer
-    = link_to 'Back to lesson', course_lesson_path(@course, @lesson)
+    = link_to 'Back to lesson', course_lesson_path(@course, @lesson, anchor: "current_lesson")

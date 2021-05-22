@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       CommentMailer.new_comment(@comment).deliver_later
-      redirect_to course_lesson_path(@course, @lesson), notice: "Your comment was successfully added."
+      redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Your comment was successfully added."
     else
       render "lessons/comments/new"
     end
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     authorize @comment
     @comment.destroy
-    redirect_to course_lesson_path(@course, @lesson), notice: "Comment was successfully destroyed."
+    redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Comment was successfully destroyed."
   end
 
   private

@@ -1,6 +1,4 @@
 - content_for :title do
-  Corsego 
-  |
   = @course.title
 .row
   .col-lg-8.order-1.order-lg-1
@@ -55,26 +53,26 @@
           - @chapters.each do |chapter|
             = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
               .list-group-item.list-group-item-secondary
-                = render 'chapters/chapter_preview', chapter: chapter
+                = render 'chapters/chapter', chapter: chapter
                 .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
                   - chapter.lessons.rank(:row_order).each do |lesson|
                     = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
                       .list-group-item
-                        = render 'lessons/lesson_teacher', lesson: lesson
+                        = render 'lessons/lesson', lesson: lesson
       - elsif current_user.has_role?(:admin) || current_user.bought?(@course)
         .list-group.shadow
           - @chapters.each do |chapter|
             .list-group-item.list-group-item-secondary
-              = render 'chapters/chapter_preview', chapter: chapter
+              = render 'chapters/chapter', chapter: chapter
               .list-group
                 - chapter.lessons.rank(:row_order).each do |lesson|
                   .list-group-item
-                    = render 'lessons/lesson_student', lesson: lesson
+                    = render 'lessons/lesson', lesson: lesson
       - else
         .list-group.shadow
           - @chapters.each do |chapter|
             .list-group-item.list-group-item-secondary
-              = render 'chapters/chapter_preview', chapter: chapter
+              = render 'chapters/chapter', chapter: chapter
               .list-group
                 - chapter.lessons.rank(:row_order).each do |lesson|
                   .list-group-item
@@ -83,7 +81,7 @@
       .list-group.shadow
         - @chapters.each do |chapter|
           .list-group-item.list-group-item-secondary
-            = render 'chapters/chapter_preview', chapter: chapter
+            = render 'chapters/chapter', chapter: chapter
             .list-group
               - chapter.lessons.rank(:row_order).each do |lesson|
                 .list-group-item

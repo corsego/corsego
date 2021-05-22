@@ -31,7 +31,7 @@ class LessonsController < ApplicationController
 
     authorize @lesson
     if @lesson.save
-      redirect_to course_lesson_path(@course, @lesson), notice: "Lesson was successfully created."
+      redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Lesson was successfully created."
     else
       render :new
     end
@@ -44,7 +44,7 @@ class LessonsController < ApplicationController
   def update
     authorize @lesson
     if @lesson.update(lesson_params)
-      redirect_to course_lesson_path(@course, @lesson), notice: "Lesson was successfully updated."
+      redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Lesson was successfully updated."
     else
       render :edit
     end

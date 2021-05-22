@@ -5,7 +5,7 @@
     .card.shadow
       .card-header
         .text-success.fa.fa-check-square
-        = link_to course_lesson_path(@course, @lesson) do
+        = link_to course_lesson_path(@course, @lesson, anchor: "current_lesson") do
           %b
             #{@lesson.chapter.row_order_rank + 1}.
             #{@lesson.row_order_rank + 1}.
@@ -43,10 +43,10 @@
         New comment
       .card-body
         = render 'lessons/comments/form'
-    %p
-    - @comments.each do |comment|
-      = render 'lessons/comments/comment', comment: comment
-      %p
+    .list-group
+      - @comments.each do |comment|
+        .list-group-item
+          = render 'lessons/comments/comment', comment: comment
 
   .col-lg-4
     .list-group.shadow
@@ -57,15 +57,16 @@
         .row
         = render 'courses/progress', course: @lesson.course
 
-    .list-group#scrollable
-      - @chapters.each do |chapter|
-        .list-group-item.shadow{"data-offset" => "0", "data-spy" => "scroll", "data-target" => "#scrollable"}
-          = render 'chapters/chapter_preview', chapter: chapter
-          - chapter.lessons.rank(:row_order).each do |lesson|
-            - if lesson.eql?(@lesson)
-              %li.list-group-item.list-group-item-success#current_lesson
-                = render 'lessons/lesson_student', lesson: lesson
-            - else
-              %li.list-group-item.list-group-item-secondary
-                = render 'lessons/lesson_student', lesson: lesson
+    .list-group
+      #scrollable
+        - @chapters.each do |chapter|
+          .list-group-item.shadow{"data-offset" => "0", "data-spy" => "scroll", "data-target" => "#scrollable"}
+            = render 'chapters/chapter', chapter: chapter
+            - chapter.lessons.rank(:row_order).each do |lesson|
+              - if lesson.eql?(@lesson)
+                %li.list-group-item.list-group-item-success#current_lesson
+                  = render 'lessons/lesson', lesson: lesson
+              - else
+                %li.list-group-item.list-group-item-secondary
+                  = render 'lessons/lesson', lesson: lesson
 %br

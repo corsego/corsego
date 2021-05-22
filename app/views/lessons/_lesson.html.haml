@@ -1,0 +1,18 @@
+- if @course.user == current_user
+  = link_to edit_course_lesson_path(@course, lesson), class: 'badge badge-warning mr-1' do
+    .fa.fa-edit
+  = link_to [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'badge badge-danger' do
+    .fa.fa-trash
+- elsif current_user.viewed?(lesson)
+  .text-success.fa.fa-check-square
+- else
+  .text-danger.fa.fa-check-square
+
+= link_to course_lesson_path(@course, lesson, anchor: "current_lesson") do 
+  %b
+    #{lesson.row_order_rank + 1}.
+  = lesson.title
+.row
+- unless lesson.comments_count.zero?
+  .fa.fa-comment
+  = lesson.comments_count
