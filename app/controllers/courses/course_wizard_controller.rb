@@ -3,12 +3,12 @@ class Courses::CourseWizardController < ApplicationController
   before_action :set_progress, only: [:show, :update]
   before_action :set_course, only: [:show, :update, :finish_wizard_path]
 
-  steps :landing_page, :targeting, :pricing, :chapters, :publish
+  steps :about, :targeting, :pricing, :chapters, :publish
 
   def show
     authorize @course, :edit?
     case step
-    when :landing_page
+    when :about
     when :targeting
       @tags = Tag.all
     when :pricing
@@ -24,7 +24,7 @@ class Courses::CourseWizardController < ApplicationController
   def update
     authorize @course, :edit?
     case step
-    when :landing_page
+    when :about
     when :targeting
       @tags = Tag.all
     when :pricing

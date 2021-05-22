@@ -1,12 +1,10 @@
 %nav.navbar.navbar-expand-lg.navbar-dark.purple-background
   %a.navbar-brand{:href => "/"}
-    = image_tag 'logo-white.png', size: '30x30', alt: "logo", class: "d-inline-block align-top"
-    /.fa.fa-graduation-cap
+    = image_tag 'logo-navbar.png', size: '30x30', alt: "logo", class: "d-inline-block align-top"
     Corsego
   %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
-    /- if current_user && current_user.has_role?(:admin)
     %ul.navbar-nav.mr-auto
       = long_active_link_to root_path do
         .fa.fa-home
@@ -95,18 +93,7 @@
               = link_to analytics_path, class: "dropdown-item #{'active' if current_page?(analytics_path)}" do
                 .fa.fa-chart-line
                 Analytics
-      /.form-inline.my-2.my-lg-0
-      /  = form_tag(courses_path, method: :get) do
-      /    .input-group
-      /      = text_field_tag :title, params[:title], autocomplete: 'off', placeholder: "Find a course", class: 'form-control-sm'
-      /      %span.input-group-append
-      /        %button.btn.btn-primary.btn-sm{:type => "submit"}
-      /          %span.fa.fa-search{"aria-hidden" => "true"}
       %ul.navbar-nav.mr-right
-        /%li.nav-item{class: "#{'active font-weight-bold' if current_page?(activity_path)}"}
-        /  = link_to activity_path, class: 'nav-link' do
-        /    .fa.fa-bell
-        /    Activity
         %li.nav-item.dropdown
           %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             - if current_user.image?

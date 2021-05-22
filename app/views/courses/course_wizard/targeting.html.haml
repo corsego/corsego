@@ -1,11 +1,7 @@
 = render layout: 'courses/course_wizard/step' do
   = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
-  
     = f.input :language, collection: Course.languages, include_blank: true, as: :radio_buttons
-  
     = f.input :level, collection: Course.levels, include_blank: true, as: :radio_buttons
-  
     = f.label :tags
     = f.select :tag_ids, @tags.all.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
-  
     = f.button :submit, "Save & Continue"
