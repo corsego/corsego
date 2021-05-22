@@ -20,6 +20,11 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # devise
+  def after_sign_in_path_for(resource)
+    user_path(resource)
+  end
+
   def user_activity
     current_user.try :touch
   end
