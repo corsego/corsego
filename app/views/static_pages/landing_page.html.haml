@@ -1,29 +1,10 @@
 - content_for :title do
-  Corsego 
-  \| 
-  Online Courses - Learn Anything, On Your Schedule
-
-:css
-  .parallax { 
-    /* The image used */
-    background-image: url("https://i.imgur.com/bldd1wu.jpg");
-    /* Set a specific height */
-    height: auto; 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: white;
-  }
-  / parallax
+  Corsego Online Courses
 
 .jumbotron.shadow.parallax
   %h1.text-shadow
     %b Ruby on Rails courses
-  
   .p-4
-
   - if current_user
     .p-3
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|

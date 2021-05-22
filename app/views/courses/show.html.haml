@@ -5,44 +5,45 @@
 
 .row
   .col-lg-8.order-1.order-lg-1
-    .jumbotron.shadow
-      %h3
-        .fa.fa-graduation-cap
-        = @course.title
-      %hr
-      .far.fa-bookmark
-      = pluralize(@course.chapters_count, 'Chapter')
-      .row
-      .fa.fa-tasks
-      = pluralize(@course.lessons_count, 'Lesson')
-      .row
-      .far.fa-clock
-      Created
-      = @course.created_at.strftime("%m/%Y")
-      .row
-      .far.fa-clock
-      Last updated
-      = @course.updated_at.strftime("%m/%Y")
-      .row
-      .fa.fa-globe-africa
-      = @course.language
-      .row
-      .fa.fa-signal
-      = @course.level
-      .row
-      .fa.fa-file-pdf
-      Certificate of Completion
-      .row
-      .far.fa-comment
-      Access to Member-Only Q&A
-      .row
-      .fa.fa-download
-      Access to Member-Only Resources
-      .row
-      .fa.fa-infinity
-      Full Lifetime Access & Updates
-      %hr
-      = @course.description
+    .card.shadow
+      .card-body
+        %h3
+          .fa.fa-graduation-cap
+          = @course.title
+        %hr
+        .far.fa-bookmark
+        = pluralize(@course.chapters_count, 'Chapter')
+        .row
+        .fa.fa-tasks
+        = pluralize(@course.lessons_count, 'Lesson')
+        .row
+        .far.fa-clock
+        Created
+        = @course.created_at.strftime("%m/%Y")
+        .row
+        .far.fa-clock
+        Last updated
+        = @course.updated_at.strftime("%m/%Y")
+        .row
+        .fa.fa-globe-africa
+        = @course.language
+        .row
+        .fa.fa-signal
+        = @course.level
+        .row
+        .fa.fa-file-pdf
+        Certificate of Completion
+        .row
+        .far.fa-comment
+        Access to Member-Only Q&A
+        .row
+        .fa.fa-download
+        Access to Member-Only Resources
+        .row
+        .fa.fa-infinity
+        Full Lifetime Access & Updates
+        %hr
+        = @course.description
 
     %h4
       .far.fa-bookmark
