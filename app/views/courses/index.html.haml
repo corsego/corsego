@@ -47,7 +47,7 @@
         = f.button :search, class: "btn btn-block btn-primary"
         - if params[:courses_search]
           .row
-          = link_to 'unfilter', controller: controller_name, action: action_name, class: "btn btn-block btn-secondary mt-1"
+          = link_to 'unfilter', {controller: controller_name, action: action_name}, class: "btn btn-block btn-secondary mt-1"
       %hr
       .row
       - @tags.each do |tag|
