@@ -55,6 +55,12 @@ Rails.application.routes.draw do
     get "course_popularity"
     get "money_makers"
   end
+
+  resources :comments do
+    member do
+      put "like" => "comments#like"
+    end
+  end
   # get 'charts/users_per_day', to: 'charts#users_per_day'
   # get 'charts/enrollments_per_day', to: 'charts#enrollments_per_day'
   # get 'charts/course_popularity', to: 'charts#course_popularity'
