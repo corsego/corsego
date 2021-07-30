@@ -7,7 +7,9 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      CommentMailer.new_comment(@comment).deliver_later
+      if @comment.user_id != @course.user_id
+        CommentMailer.new_comment(@comment).deliver_later
+      end
       redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Your comment was successfully added."
     else
       render "lessons/comments/new"
