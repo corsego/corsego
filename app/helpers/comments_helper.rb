@@ -2,9 +2,9 @@ module CommentsHelper
 
   def like_button(comment)
     if current_user.liked? comment
-      link_to "Unlike", like_comment_path(comment, "unlike"), class: "thumbs-up", method: :put, remote: :true
+      link_to " ", like_comment_path(comment, "unlike"), class: "liked fas fa-thumbs-up", method: :put, remote: :true
     else
-      link_to "Like", like_comment_path(comment, "like"), class: "thumbs-up-hollow", method: :put, remote: :true
+      link_to " ", like_comment_path(comment, "like"), class: "like far fa-thumbs-up", method: :put, remote: :true
     end
   end
 
