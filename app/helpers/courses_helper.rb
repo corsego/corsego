@@ -16,7 +16,7 @@ module CoursesHelper
         end
       end
     else
-      #link_to "Check price", new_course_enrollment_path(course), class: "btn btn-success"
+      link_to "Check price", enrollment_path(course), class: "btn btn-success"
     end
   end
 
