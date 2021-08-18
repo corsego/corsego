@@ -1,0 +1,5 @@
+= content_tag "div", id: "like-#{comment.id}" do
+  %span.parent-likes
+    %span.like_count
+    = comment.get_likes.size
+    = like_button(comment)

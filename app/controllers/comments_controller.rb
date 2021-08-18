@@ -26,10 +26,10 @@ class CommentsController < ApplicationController
   def like
     if params[:format] == 'like'
       @comment.liked_by current_user
-      redirect_to request.referrer
+      render '/lessons/comments/like.js.erb'
     elsif params[:format] == 'unlike'
       @comment.unliked_by current_user
-      redirect_to request.referrer
+      render '/lessons/comments/like.js.erb'
     end
   end
 

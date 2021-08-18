@@ -8,7 +8,4 @@
   = link_to [@course, @lesson, comment], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
     .fa.fa-trash
 = comment.content
-%span.parent-likes
-  %span.like_count
-  = comment.get_likes.size
-= like_button(comment)
+= render 'lessons/comments/like', comment: comment
