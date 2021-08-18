@@ -4,6 +4,7 @@ class User < ApplicationRecord
     :omniauthable, omniauth_providers: [:google_oauth2, :github, :facebook]
 
   rolify
+  acts_as_voter
 
   has_many :courses, dependent: :nullify
   has_many :enrollments, dependent: :nullify
