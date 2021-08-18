@@ -58,7 +58,7 @@ Rails.application.routes.draw do
 
   resources :comments do
     member do
-      put "like" => "comments#like"
+      patch "like", to: "comments#like"
     end
   end
   # get 'charts/users_per_day', to: 'charts#users_per_day'
