@@ -1,0 +1,43 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7.3
+  Exclude:
+  - '**/db/**/*'
+  - 'bin/*'
+  - 'config/**/*'
+  - 'test/**/*'
+  - 'vendor/**/*'
+  - 'app/channels/**/*'
+  - '**/db/schema.rb'
+  - '**/node_modules/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+  # .html_safe
+
+Style/EmptyMethod:
+  Enabled: false
+  # def index; end
+
+Metrics/AbcSize:
+  Enabled: false
+  # def index 100 lines end
+
+Bundler/OrderedGems:
+  Enabled: false
+  # gem order A-Z
+
+Layout/LineLength:
+  Enabled: false
+
+Rails/Output:
+  Enabled: false
+  # puts 'abc'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EnrollmentMailer < ApplicationMailer
   def student_enrollment(enrollment)
     @enrollment = enrollment

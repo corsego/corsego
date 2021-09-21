@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CoursePolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
@@ -33,7 +35,7 @@ class CoursePolicy < ApplicationPolicy
   end
 
   def destroy?
-    @record.user == @user && @record.enrollments.none? || 
+    @record.user == @user && @record.enrollments.none? ||
       @user.has_role?(:admin) && @record.enrollments.none?
   end
 

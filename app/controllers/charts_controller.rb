@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChartsController < ApplicationController
   def users_per_day
     render json: User.group_by_day(:created_at).count

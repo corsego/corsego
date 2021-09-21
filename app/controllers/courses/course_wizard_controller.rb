@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Courses::CourseWizardController < ApplicationController
   include Wicked::Wizard
-  before_action :set_progress, only: [:show, :update]
-  before_action :set_course, only: [:show, :update, :finish_wizard_path]
+  before_action :set_progress, only: %i[show update]
+  before_action :set_course, only: %i[show update finish_wizard_path]
 
   steps :about, :targeting, :pricing, :chapters, :publish
 
@@ -13,9 +15,7 @@ class Courses::CourseWizardController < ApplicationController
       @tags = Tag.all
     when :pricing
     when :chapters
-      unless @course.chapters.any?
-        @course.chapters.build
-      end
+      @course.chapters.build unless @course.chapters.any?
     when :publish
     end
     render_wizard
@@ -48,10 +48,10 @@ class Courses::CourseWizardController < ApplicationController
 
   def set_progress
     @progress = if wizard_steps.any? && wizard_steps.index(step).present?
-      ((wizard_steps.index(step) + 1).to_d / wizard_steps.count.to_d) * 100
-    else
-      0
-    end
+                  ((wizard_steps.index(step) + 1).to_d / wizard_steps.count.to_d) * 100
+                else
+                  0
+                end
   end
 
   def set_course
@@ -60,11 +60,12 @@ class Courses::CourseWizardController < ApplicationController
 
   def course_params
     params.require(:course).permit(
-      :title, :avatar, :marketing_description, :description, 
-      :language, :level, 
+      :title, :avatar, :marketing_description, :description,
+      :language, :level,
       :price,
-      :published, 
+      :published,
       tag_ids: [],
-      chapters_attributes: [:id, :title, :_destroy])
+      chapters_attributes: %i[id title _destroy]
+    )
   end
 end

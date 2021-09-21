@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TagsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
@@ -11,7 +13,7 @@ class TagsController < ApplicationController
     if @tag.save
       render json: @tag
     else
-      render json: {errors: @tag.errors.full_messages}
+      render json: { errors: @tag.errors.full_messages }
     end
   end
 
@@ -19,7 +21,7 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     authorize @tag
     @tag.destroy
-    redirect_to tags_path, notice: "Tag was successfully destroyed"
+    redirect_to tags_path, notice: 'Tag was successfully destroyed'
   end
 
   private

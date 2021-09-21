@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
@@ -7,12 +9,10 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
-      if @comment.user_id != @course.user_id
-        CommentMailer.new_comment(@comment).deliver_later
-      end
-      redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Your comment was successfully added."
+      CommentMailer.new_comment(@comment).deliver_later if @comment.user_id != @course.user_id
+      redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Your comment was successfully added.'
     else
-      render "lessons/comments/new"
+      render 'lessons/comments/new'
     end
   end
 
@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     authorize @comment
     @comment.destroy
-    redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Comment was successfully destroyed."
+    redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Comment was successfully destroyed.'
   end
 
   private

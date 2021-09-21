@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ChaptersController < ApplicationController
-  before_action :set_chapter, only: [:edit, :update, :destroy]
+  before_action :set_chapter, only: %i[edit update destroy]
 
   def sort
     @course = Course.friendly.find(params[:course_id])
@@ -12,7 +14,7 @@ class ChaptersController < ApplicationController
   def new
     @chapter = Chapter.new
     @course = Course.friendly.find(params[:course_id])
-    @chapter.course_id = @course.id #for authorization
+    @chapter.course_id = @course.id # for authorization
     authorize @chapter
   end
 
@@ -48,12 +50,13 @@ class ChaptersController < ApplicationController
   end
 
   private
-    def set_chapter
-      @course = Course.friendly.find(params[:course_id])
-      @chapter = Chapter.friendly.find(params[:id])
-    end
 
-    def chapter_params
-      params.require(:chapter).permit(:title, :row_order_position)
-    end
+  def set_chapter
+    @course = Course.friendly.find(params[:course_id])
+    @chapter = Chapter.friendly.find(params[:id])
+  end
+
+  def chapter_params
+    params.require(:chapter).permit(:title, :row_order_position)
+  end
 end

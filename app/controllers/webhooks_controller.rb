@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WebhooksController < ApplicationController
   skip_before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
@@ -15,7 +17,7 @@ class WebhooksController < ApplicationController
       status 400
       return
     rescue Stripe::SignatureVerificationError => e
-      puts "Signature error"
+      puts 'Signature error'
       p e
       return
     end
@@ -27,7 +29,7 @@ class WebhooksController < ApplicationController
       user.update(stripe_customer_id: customer.id)
     when 'checkout.session.completed'
       session = event.data.object
-      session_with_expand = Stripe::Checkout::Session.retrieve({ id: session.id, expand: ["line_items"]})
+      session_with_expand = Stripe::Checkout::Session.retrieve({ id: session.id, expand: ['line_items'] })
       user = User.find_by(stripe_customer_id: session.customer)
       session_with_expand.line_items.data.each do |line_item|
         course = Course.find_by(stripe_product_id: line_item.price.product)

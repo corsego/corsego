@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+  before_action :set_lesson, only: %i[show edit update destroy]
 
   def sort
     @course = Course.friendly.find(params[:course_id])
@@ -20,7 +22,7 @@ class LessonsController < ApplicationController
   def new
     @lesson = Lesson.new
     @course = Course.friendly.find(params[:course_id])
-    @lesson.course_id = @course.id #for authorization
+    @lesson.course_id = @course.id # for authorization
     authorize @lesson
   end
 
@@ -31,7 +33,7 @@ class LessonsController < ApplicationController
 
     authorize @lesson
     if @lesson.save
-      redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Lesson was successfully created."
+      redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Lesson was successfully created.'
     else
       render :new
     end
@@ -44,7 +46,7 @@ class LessonsController < ApplicationController
   def update
     authorize @lesson
     if @lesson.update(lesson_params)
-      redirect_to course_lesson_path(@course, @lesson, anchor: "current_lesson"), notice: "Lesson was successfully updated."
+      redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Lesson was successfully updated.'
     else
       render :edit
     end
@@ -53,7 +55,7 @@ class LessonsController < ApplicationController
   def destroy
     authorize @lesson
     @lesson.destroy
-    redirect_to course_path(@course), notice: "Lesson was successfully destroyed."
+    redirect_to course_path(@course), notice: 'Lesson was successfully destroyed.'
   end
 
   private

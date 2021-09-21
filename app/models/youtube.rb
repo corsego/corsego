@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Youtube
   include ActiveModel::Model
   include ActiveModel::Attributes
@@ -15,6 +17,6 @@ class Youtube
   end
 
   def to_trix_content_attachment_partial_path
-    "youtubes/thumbnail"
+    'youtubes/thumbnail'
   end
 end
