@@ -27,7 +27,7 @@ class Enrollment < ApplicationRecord
   friendly_id :to_s, use: :slugged
 
   def to_s
-    user.to_s + ' ' + course.to_s
+    "#{user} #{course}"
   end
 
   after_save do

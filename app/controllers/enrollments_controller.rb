@@ -38,7 +38,7 @@ class EnrollmentsController < ApplicationController
 
   def create
     @course = Course.friendly.find(params[:course_id])
-    if @course.price > 0
+    if @course.price.positive?
       redirect_to course_path(@course), alert: 'The course is not free...'
     else
       @enrollment = current_user.buy_course(@course)

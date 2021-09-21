@@ -42,12 +42,12 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  LANGUAGES = %i[English Russian Polish Spanish]
+  LANGUAGES = %i[English Russian Polish Spanish].freeze
   def self.languages
     LANGUAGES.map { |language| [language, language] }
   end
 
-  LEVELS = [:"All levels", :Beginner, :Intermediate, :Advanced]
+  LEVELS = [:"All levels", :Beginner, :Intermediate, :Advanced].freeze
   def self.levels
     LEVELS.map { |level| [level, level] }
   end
@@ -60,7 +60,7 @@ class Course < ApplicationRecord
   end
 
   def progress(user)
-    user_lessons.where(user: user).count / lessons_count.to_f * 100 unless lessons_count == 0
+    user_lessons.where(user: user).count / lessons_count.to_f * 100 unless lessons_count.zero?
   end
 
   def calculate_income

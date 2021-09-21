@@ -55,7 +55,7 @@ class User < ApplicationRecord
     user.expires_at = access_token.credentials.expires_at
     user.expires = access_token.credentials.expires
     user.refresh_token = access_token.credentials.refresh_token
-    user.confirmed_at = Time.now # autoconfirm user from omniauth
+    user.confirmed_at = Time.zone.now # autoconfirm user from omniauth
 
     user
   end
