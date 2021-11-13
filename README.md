@@ -135,7 +135,9 @@ If you have troubles running the app or any questions don't hesitate to contact 
 Manually creating an enrollment:
 ```
 PublicActivity.enabled = false
-Enrollment.create(user: User.find(490), course: Course.find(56), price: 0)
+Enrollment.create(user: User.find(544), course: Course.find(56), price: 0)
+
+rathankumar@outlook.com
 ```
 
 add stripe ids to all exiting products

@@ -17,6 +17,7 @@
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     - if Rails.env.production?
+      %script{"data-domain" => "corsego.com", :defer => "defer", :src => "https://plausible.io/js/plausible.js"}
       = render 'layouts/google_analytics'
   %body
     = render 'layouts/header'

@@ -306,11 +306,14 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  config.omniauth :github, Rails.application.credentials.dig(Rails.env.to_sym, :github, :id), 
+  config.omniauth :github, 
+    Rails.application.credentials.dig(Rails.env.to_sym, :github, :id), 
     Rails.application.credentials.dig(Rails.env.to_sym, :github, :secret)
-  config.omniauth :google_oauth2, Rails.application.credentials.dig(:google_oauth2, :id), 
+  config.omniauth :google_oauth2, 
+    Rails.application.credentials.dig(:google_oauth2, :id), 
     Rails.application.credentials.dig(:google_oauth2, :secret)
-  config.omniauth :facebook, Rails.application.credentials.dig(:facebook, :id), 
+  config.omniauth :facebook, 
+    Rails.application.credentials.dig(:facebook, :id), 
     Rails.application.credentials.dig(:facebook, :secret)
 
   # ==> Warden configuration
