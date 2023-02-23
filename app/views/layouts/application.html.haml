@@ -14,8 +14,7 @@
     = csp_meta_tag
 
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-    = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload', defer: true
     - if Rails.env.production?
       %script{"data-domain" => "corsego.com", :defer => "defer", :src => "https://plausible.io/js/plausible.js"}
       = render 'layouts/google_analytics'
