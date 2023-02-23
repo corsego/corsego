@@ -107,6 +107,8 @@ GEM
     cocoon (1.2.15)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    cssbundling-rails (1.1.2)
+      railties (>= 6.0.0)
     devise_invitable (2.0.6)
       actionmailer (>= 5.0)
       devise (>= 4.6)
@@ -382,6 +384,7 @@ DEPENDENCIES
   byebug
   chartkick
   cocoon
+  cssbundling-rails (~> 1.1)
   devise!
   devise_invitable (~> 2.0.0)
   exception_notification
@@ -426,7 +429,7 @@ DEPENDENCIES
   wkhtmltopdf-heroku
 
 RUBY VERSION
-   ruby 2.7.3p183
+   ruby 2.7.7p221
 
 BUNDLED WITH
    2.1.4

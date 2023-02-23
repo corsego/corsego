@@ -3,18 +3,20 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
+    "@popperjs/core": "^2.11.6",
     "@rails/actioncable": "^6.0.0",
     "@rails/actiontext": "^6.0.2-2",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
-    "bootstrap": "^4.5.0",
+    "bootstrap": "^4.6.0",
     "chart.js": "^2.9.3",
     "chartkick": "^3.2.0",
     "cocoon-js": "^0.0.5",
     "jquery": "^3.5.1",
     "jquery-ui-dist": "^1.12.1",
     "popper.js": "^1.16.1",
+    "sass": "^1.58.3",
     "selectize": "^0.12.6",
     "trix": "^1.0.0",
     "turbolinks": "^5.2.0"
@@ -22,5 +24,8 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.10.3"
+  },
+  "scripts": {
+    "build:css": "sass ./app/assets/stylesheets/application.bootstrap.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
   }
 }

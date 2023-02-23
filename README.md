@@ -13,7 +13,7 @@
 [![Corsego e-learning platform: How to run localy on ubuntu + AWS C9](http://img.youtube.com/vi/nQd03MgXDXY/0.jpg)](http://www.youtube.com/watch?v=nQd03MgXDXY "Video Title")
 
 ### Installation Requirements 
-* ruby v 2.7.1 +
+* ruby v 2.7.7 +
 * rails 6.0.3 +
 * postgresql database
 * yarn
