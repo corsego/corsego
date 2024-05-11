@@ -1,0 +1,32 @@
+{
+  "name": "Corsego",
+  "short_name": "Corsego",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Best Ruby on Rails Udemy clone",
+  "id": "/",
+  "screenshots" : [
+    {
+      "src": "corsego-wide.png",
+      "sizes": "3052x1928",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Browse courses"
+    },
+    {
+      "src": "corsego-narrow.png",
+      "sizes": "1172x1942",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Browse courses"
+    }
+  ],
+  "icons": [
+    {
+      "src": "corsego-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
