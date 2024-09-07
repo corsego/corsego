@@ -35,7 +35,7 @@ gem 'ransack' # filter and sort data
 gem 'public_activity' # see all activity in the app
 gem 'rolify' # give users roles (admin, teacher, student)
 gem 'pundit' # authorization (different roles have different accesses)
-gem 'exception_notification', group: :production # email notifications if any errors in production
+# gem 'exception_notification', group: :production # email notifications if any errors in production
 gem 'pagy' # pagination
 gem 'chartkick' # charts #yarn add chartkick chart.js
 gem 'groupdate' # group records by day/week/year
