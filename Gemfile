@@ -45,11 +45,11 @@ gem 'omniauth-rails_csrf_protection'
 
 # Active Record
 gem 'friendly_id', '~> 5.2.4' # nice URLs and hide IDs
-gem 'ransack'
+gem 'ransack', '< 4.0.0'
 gem 'public_activity' # see all activity in the app
 gem 'rolify' # give users roles (admin, teacher, student)
 gem 'pundit' # authorization (different roles have different accesses)
-gem 'pagy'
+gem 'pagy', '< 7.0.0'
 gem 'ranked-model' # give serial/index numbers to items in a list
 gem 'wicked' # multistep forms
 gem 'sitemap_generator' # SEO and webmasters
