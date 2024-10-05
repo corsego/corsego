@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StaticPagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[landing_page privacy_policy]
+  skip_before_action :authenticate_user!, only: %i[landing_page privacy terms about]
 
   def landing_page
     @courses = Course.published.approved.order(enrollments_count: :desc, created_at: :desc)
