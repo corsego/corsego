@@ -322,10 +322,6 @@ GEM
       activemodel (>= 5.2)
     sitemap_generator (6.2.1)
       builder (~> 3.0)
-    spring (2.1.1)
-    spring-watcher-listen (2.0.1)
-      listen (>= 2.7, < 4.0)
-      spring (>= 1.2, < 3.0)
     sprockets (4.0.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -408,8 +404,6 @@ DEPENDENCIES
   sass-rails (>= 6)
   simple_form
   sitemap_generator
-  spring
-  spring-watcher-listen (~> 2.0.0)
   standard
   stripe
   turbolinks (~> 5)
