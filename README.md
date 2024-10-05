@@ -147,3 +147,18 @@ Course.all.each do |course|
   course.update(stripe_product_id: product.id, stripe_price_id: price.id)
 end
 ```
+
+TODO:
+fix yarn/webpacker errors. they block deployment!
+bundle update
+upgrade rails
+upgrade puma to v5
+replace google_captcha with invisible_captcha
+make system tests work
+lint
+upgrade ruby version to 3.2.3
+upgrade heroku stack to 24
+
+heroku buildpacks:add heroku/nodejs
+
+bundle exec rake webpacker:clobber webpacker:compile
