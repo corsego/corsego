@@ -8,26 +8,26 @@ ruby '2.7.3'
 gem 'rails', '~> 6.1.3.2'
 # gem 'rails', github: 'rails/rails', branch: 'master'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.1' # ~> 5.0
 gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'spring' # remove
+  gem 'spring-watcher-listen', '~> 2.0.0' # remove
   gem 'rubocop-rails', require: false
-  gem 'standard'
+  gem 'standard' # remove
   gem 'letter_opener'  
   gem 'rails-erd' # sudo apt-get install graphviz; bundle exec erd
 end
 
 group :development, :test do
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'faker' # fake data for seeds.rb
 end
 
