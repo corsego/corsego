@@ -36,7 +36,7 @@ gem 'simple_form' # creating forms made easier
 gem 'cocoon' # nested forms
 
 # Authentication
-gem 'devise', github: 'heartcombo/devise', branch: 'master' # https://stackoverflow.com/a/66155946/5695646
+gem 'devise'
 gem 'devise_invitable', '~> 2.0.0' # invite users
 gem 'omniauth-google-oauth2' # sign in with google
 gem 'omniauth-github' # sign in with github
