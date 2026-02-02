@@ -1,6 +1,12 @@
 # frozen_string_literal: true
 
 class EnrollmentsController < ApplicationController
+  # Rate limit free course enrollment: 10 enrollments per 5 minutes per user
+  rate_limit to: 10, within: 5.minutes, only: :create, by: -> { current_user.id }
+  # Rate limit certificate downloads: 20 requests per 5 minutes per IP
+  # Prevents abuse of PDF generation (computationally expensive)
+  rate_limit to: 20, within: 5.minutes, only: :certificate, by: -> { request.remote_ip }
+
   skip_before_action :authenticate_user!, only: [:certificate]
   before_action :set_enrollment, only: %i[show edit update destroy certificate]
 

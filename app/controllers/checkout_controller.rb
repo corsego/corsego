@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class CheckoutController < ApplicationController
+  # Rate limit checkout creation: 10 attempts per 5 minutes per user
+  # Protects against abuse of Stripe API
+  rate_limit to: 10, within: 5.minutes, only: :create, by: -> { current_user.id }
+
   def create
     course = Course.find(params[:id])
     @session = Stripe::Checkout::Session.create({
