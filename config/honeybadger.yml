@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+# Honeybadger configuration
+# See https://docs.honeybadger.io/lib/ruby/gem-reference/configuration for options
+
+---
+# The API key is read from HONEYBADGER_API_KEY environment variable
+api_key: '<%= ENV["HONEYBADGER_API_KEY"] %>'
+
+# The environment name defaults to RAILS_ENV, RACK_ENV, or "development"
+env: '<%= Rails.env %>'
+
+# Report errors in development
+report_data: true
+
+# Set to false to disable sending errors
+send_data_at_exit: true
+
+# Development environment settings
+development:
+  # Don't report errors in development by default
+  report_data: false
+
+test:
+  # Don't report errors in test
+  report_data: false
+
+production:
+  report_data: true
