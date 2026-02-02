@@ -9,6 +9,7 @@ gem 'rails', '~> 7.1.0'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 6.0'
 gem 'sprockets-rails'
+gem 'sassc-rails' # SCSS compilation for asset pipeline
 gem 'shakapacker', '~> 7.0'
 gem 'turbo-rails'
 gem 'stimulus-rails'
@@ -25,9 +26,10 @@ group :development do
 end
 
 group :development, :test do
-  gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', platforms: %i[mri windows]
   gem 'faker' # fake data for seeds.rb
   gem 'mocha' # mocking and stubbing for tests
+  gem 'minitest', '~> 5.0' # Rails 7.1 incompatible with minitest 6.x
 end
 
 # Frontend
@@ -49,7 +51,7 @@ gem 'ransack'
 gem 'public_activity' # see all activity in the app
 gem 'rolify' # give users roles (admin, teacher, student)
 gem 'pundit' # authorization (different roles have different accesses)
-gem 'pagy'
+gem 'pagy', '~> 8.0' # v9+ changed Backend/Frontend module API
 gem 'ranked-model' # give serial/index numbers to items in a list
 gem 'wicked' # multistep forms
 gem 'sitemap_generator' # SEO and webmasters

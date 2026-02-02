@@ -182,6 +182,8 @@ GEM
     image_processing (1.14.0)
       mini_magick (>= 4.9.5, < 6)
       ruby-vips (>= 2.0.17, < 3)
+    invisible_captcha (2.3.0)
+      rails (>= 5.2)
     io-console (0.8.2)
     irb (1.16.0)
       pp (>= 0.6.0)
@@ -220,8 +222,7 @@ GEM
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
-    minitest (6.0.1)
-      prism (~> 1.5)
+    minitest (5.27.0)
     mocha (3.0.1)
       ruby2_keywords (>= 0.0.5)
     msgpack (1.8.0)
@@ -289,9 +290,7 @@ GEM
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     package_json (0.2.0)
-    pagy (43.2.8)
-      json
-      yaml
+    pagy (8.6.3)
     parallel (1.27.0)
     parser (3.3.10.1)
       ast (~> 2.4.1)
@@ -386,7 +385,6 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
-    recaptcha (5.21.1)
     regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
@@ -426,6 +424,14 @@ GEM
       ffi (~> 1.12)
       logger
     ruby2_keywords (0.0.5)
+    sassc (2.4.0)
+      ffi (~> 1.9)
+    sassc-rails (2.1.2)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     securerandom (0.4.1)
     semantic_range (3.1.0)
     shakapacker (7.2.3)
@@ -499,7 +505,6 @@ GEM
       ostruct
     wkhtmltopdf-binary (0.12.6.10)
     wkhtmltopdf-heroku (3.0.0)
-    yaml (0.4.0)
     zeitwerk (2.7.4)
 
 PLATFORMS
@@ -528,15 +533,17 @@ DEPENDENCIES
   haml-rails (~> 2.0)
   honeybadger
   image_processing
+  invisible_captcha
   jbuilder (~> 2.7)
   letter_opener
   listen
+  minitest (~> 5.0)
   mocha
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pagy
+  pagy (~> 8.0)
   pg (>= 0.18, < 2.0)
   public_activity
   puma (~> 6.0)
@@ -545,9 +552,9 @@ DEPENDENCIES
   rails-erd
   ranked-model
   ransack
-  recaptcha
   rolify
   rubocop-rails
+  sassc-rails
   shakapacker (~> 7.0)
   simple_form
   sitemap_generator

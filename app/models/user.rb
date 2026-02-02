@@ -18,10 +18,10 @@ class User < ApplicationRecord
 
   after_create do
     # tell admin that new user signed up
-    UserMailer.new_user(self).deliver_later
+    UserMailer.new_user(self).deliver_later unless Rails.env.test?
 
     # create stripe customer
-    Stripe::Customer.create(email: email)
+    Stripe::Customer.create(email: email) unless Rails.env.test?
 
     # assign_default_role
     if User.count == 1
@@ -111,6 +111,14 @@ class User < ApplicationRecord
   def calculate_enrollment_expences
     update_column :enrollment_expences, enrollments.map(&:price).sum
     update_column :balance, (course_income - enrollment_expences)
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name email created_at updated_at courses_count enrollments_count]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[courses enrollments roles]
   end
 
   private
