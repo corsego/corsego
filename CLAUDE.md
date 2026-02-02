@@ -345,11 +345,12 @@ heroku run rake db:migrate
 ## AI Assistant Guidelines
 
 ### When Making Changes
-1. Always run `rails test` after changes to ensure nothing breaks
-2. Follow existing code patterns (HAML views, Pundit policies, etc.)
-3. Add authorization via Pundit for any new controller actions
-4. Update counter caches if adding new associations
-5. Use FriendlyId for user-facing resources
+1. Be pragmatic - favor simple, working solutions over perfect ones
+2. Always run `rails test` after changes to ensure nothing breaks
+3. Follow existing code patterns (HAML views, Pundit policies, etc.)
+4. Add authorization via Pundit for any new controller actions
+5. Update counter caches if adding new associations
+6. Use FriendlyId for user-facing resources
 
 ### Security Considerations
 - All controller actions must be authorized via Pundit
