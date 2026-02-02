@@ -110,5 +110,7 @@
         Build your library for your career and personal growth
 
 -# Stimulus smoke test element (hidden from visual UI)
-%div{data: {controller: "hello"}, style: "position: absolute; left: -9999px;", id: "stimulus-smoke-test"}
-  %span{data: {hello_target: "output"}} Loading...
+
+- if Rails.env.local?
+  %div{data: {controller: "hello"}, id: "stimulus-smoke-test"}
+    %span{data: {hello_target: "output"}} Loading...
