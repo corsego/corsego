@@ -30,7 +30,7 @@ class EnrollmentsController < ApplicationController
 
         send_data pdf,
                   filename: "#{@enrollment.course.title}, #{@enrollment.user.email}.pdf",
-                  type: "application/pdf",
+                  type: 'application/pdf',
                   disposition: :inline
       end
     end

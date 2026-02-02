@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require "prawn"
+require 'prawn'
 
 class CertificatePdfGenerator
   # Elegant color palette
-  GOLD = "B8860B"
-  DARK_GOLD = "8B7355"
-  NAVY = "1a1a2e"
-  CHARCOAL = "2d2d2d"
-  LIGHT_GOLD = "D4AF37"
+  GOLD = 'B8860B'
+  DARK_GOLD = '8B7355'
+  NAVY = '1a1a2e'
+  CHARCOAL = '2d2d2d'
+  LIGHT_GOLD = 'D4AF37'
 
   def initialize(enrollment, base_url:, full_path:)
     @enrollment = enrollment
@@ -17,7 +17,7 @@ class CertificatePdfGenerator
   end
 
   def generate
-    Prawn::Document.new(page_size: "A4", page_layout: :landscape, margin: 0) do |pdf|
+    Prawn::Document.new(page_size: 'A4', page_layout: :landscape, margin: 0) do |pdf|
       draw_background(pdf)
       draw_decorative_border(pdf)
       draw_corner_ornaments(pdf)
@@ -33,7 +33,7 @@ class CertificatePdfGenerator
 
   def draw_background(pdf)
     # Subtle cream/ivory background
-    pdf.fill_color "FFFEF5"
+    pdf.fill_color 'FFFEF5'
     pdf.fill_rectangle [0, pdf.bounds.top], pdf.bounds.width, pdf.bounds.height
   end
 
@@ -108,9 +108,9 @@ class CertificatePdfGenerator
     pdf.bounding_box([50, pdf.bounds.top - 50], width: pdf.bounds.width - 100, height: 120) do
       # Institution name
       pdf.fill_color NAVY
-      pdf.font "Helvetica", style: :bold
+      pdf.font 'Helvetica', style: :bold
       pdf.font_size 14
-      pdf.text "CORSEGO ACADEMY", align: :center, character_spacing: 4
+      pdf.text 'CORSEGO ACADEMY', align: :center, character_spacing: 4
 
       pdf.move_down 8
 
@@ -120,18 +120,18 @@ class CertificatePdfGenerator
       pdf.move_down 15
 
       # Certificate title
-      pdf.font "Times-Roman", style: :bold
+      pdf.font 'Times-Roman', style: :bold
       pdf.fill_color CHARCOAL
       pdf.font_size 38
-      pdf.text "Certificate of Completion", align: :center
+      pdf.text 'Certificate of Completion', align: :center
 
       pdf.move_down 8
 
       # Subtitle
-      pdf.font "Times-Roman", style: :italic
+      pdf.font 'Times-Roman', style: :italic
       pdf.fill_color DARK_GOLD
       pdf.font_size 12
-      pdf.text "This document certifies the successful completion of studies", align: :center
+      pdf.text 'This document certifies the successful completion of studies', align: :center
     end
   end
 
@@ -161,17 +161,17 @@ class CertificatePdfGenerator
   def draw_body(pdf)
     pdf.bounding_box([80, pdf.bounds.top - 185], width: pdf.bounds.width - 160, height: 200) do
       pdf.fill_color CHARCOAL
-      pdf.font "Times-Roman"
+      pdf.font 'Times-Roman'
 
       # Preamble
       pdf.font_size 13
-      pdf.text "This is to certify that", align: :center
+      pdf.text 'This is to certify that', align: :center
 
       pdf.move_down 18
 
       # Recipient name/email - prominent display
       pdf.fill_color NAVY
-      pdf.font "Times-Roman", style: :bold_italic
+      pdf.font 'Times-Roman', style: :bold_italic
       pdf.font_size 26
       pdf.text @enrollment.user.email, align: :center
 
@@ -179,15 +179,15 @@ class CertificatePdfGenerator
 
       # Achievement text
       pdf.fill_color CHARCOAL
-      pdf.font "Times-Roman"
+      pdf.font 'Times-Roman'
       pdf.font_size 13
-      pdf.text "has successfully completed all requirements for the course", align: :center
+      pdf.text 'has successfully completed all requirements for the course', align: :center
 
       pdf.move_down 18
 
       # Course title - elegant display
       pdf.fill_color NAVY
-      pdf.font "Times-Roman", style: :bold
+      pdf.font 'Times-Roman', style: :bold
       pdf.font_size 22
       pdf.text "\"#{@enrollment.course.title}\"", align: :center
 
@@ -195,9 +195,9 @@ class CertificatePdfGenerator
 
       # Platform attribution
       pdf.fill_color CHARCOAL
-      pdf.font "Times-Roman", style: :italic
+      pdf.font 'Times-Roman', style: :italic
       pdf.font_size 11
-      pdf.text "offered through the Corsego Academy online learning platform", align: :center
+      pdf.text 'offered through the Corsego Academy online learning platform', align: :center
     end
   end
 
@@ -228,11 +228,11 @@ class CertificatePdfGenerator
 
     # Seal text
     pdf.fill_color NAVY
-    pdf.font "Helvetica", style: :bold
-    pdf.draw_text "CORSEGO", at: [seal_x - 22, seal_y + 8], size: 8
-    pdf.draw_text "VERIFIED", at: [seal_x - 18, seal_y - 5], size: 7
+    pdf.font 'Helvetica', style: :bold
+    pdf.draw_text 'CORSEGO', at: [seal_x - 22, seal_y + 8], size: 8
+    pdf.draw_text 'VERIFIED', at: [seal_x - 18, seal_y - 5], size: 7
     pdf.fill_color GOLD
-    pdf.draw_text "★", at: [seal_x - 4, seal_y - 18], size: 12
+    pdf.draw_text '★', at: [seal_x - 4, seal_y - 18], size: 12
   end
 
   def draw_signatures(pdf)
@@ -244,24 +244,24 @@ class CertificatePdfGenerator
     pdf.stroke_color CHARCOAL
 
     # Date of completion (left side, after seal)
-    pdf.font "Times-Roman"
+    pdf.font 'Times-Roman'
     pdf.font_size 10
-    completion_date = @enrollment.created_at.strftime("%B %d, %Y")
+    completion_date = @enrollment.created_at.strftime('%B %d, %Y')
 
     # Left signature area - Date
     pdf.line_width = 0.5
     pdf.stroke_line [left_sig_x, sig_y], [left_sig_x + 120, sig_y]
     pdf.draw_text completion_date, at: [left_sig_x + 25, sig_y + 8], size: 11
-    pdf.font "Times-Roman", style: :italic
-    pdf.draw_text "Date of Completion", at: [left_sig_x + 20, sig_y - 15], size: 9
+    pdf.font 'Times-Roman', style: :italic
+    pdf.draw_text 'Date of Completion', at: [left_sig_x + 20, sig_y - 15], size: 9
 
     # Right signature area - Director signature
     draw_signature(pdf, right_sig_x + 15, sig_y + 25)
     pdf.stroke_color CHARCOAL
     pdf.line_width = 0.5
     pdf.stroke_line [right_sig_x, sig_y], [right_sig_x + 120, sig_y]
-    pdf.font "Times-Roman", style: :italic
-    pdf.draw_text "Director of Education", at: [right_sig_x + 15, sig_y - 15], size: 9
+    pdf.font 'Times-Roman', style: :italic
+    pdf.draw_text 'Director of Education', at: [right_sig_x + 15, sig_y - 15], size: 9
   end
 
   def draw_signature(pdf, start_x, start_y)
@@ -334,7 +334,7 @@ class CertificatePdfGenerator
 
       # Certificate ID and verification info
       pdf.fill_color DARK_GOLD
-      pdf.font "Helvetica"
+      pdf.font 'Helvetica'
       pdf.font_size 8
 
       certificate_info = "Certificate ID: #{@enrollment.slug}  •  Verify at: #{@base_url}#{@full_path}"
@@ -344,8 +344,8 @@ class CertificatePdfGenerator
 
       pdf.fill_color CHARCOAL
       pdf.font_size 7
-      pdf.text "This certificate validates the completion of the above-mentioned course. " \
-               "The authenticity of this document can be verified using the certificate ID.",
+      pdf.text 'This certificate validates the completion of the above-mentioned course. ' \
+               'The authenticity of this document can be verified using the certificate ID.',
                align: :center
     end
   end
