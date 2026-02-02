@@ -8,8 +8,7 @@
 // Bootstrap 4
 @import "bootstrap/dist/css/bootstrap";
 
-// FontAwesome icons
-@import "@fortawesome/fontawesome-free/css/all";
+// FontAwesome icons loaded via CDN in layout (fonts don't work via npm import)
 
 // Trix editor
 @import "trix/dist/trix";
