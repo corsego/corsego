@@ -1,5 +1,5 @@
-if User.find_by_email("admin@example.com").nil?
-  admin = User.create!(email: "admin@example.com", password: "admin@example.com", password_confirmation: "admin@example.com", confirmed_at: Time.now)
+if User.find_by_email("superadmin@example.com").nil?
+  admin = User.create!(email: "superadmin@example.com", password: "superadmin@example.com", password_confirmation: "superadmin@example.com", confirmed_at: Time.now)
   # admin.skip_confirmation!
   admin.add_role(:admin) unless admin.has_role?(:admin)
   admin.add_role(:teacher) unless admin.has_role?(:teacher)
@@ -27,7 +27,7 @@ PublicActivity.enabled = false
     title: Faker::Educator.course_name,
     marketing_description: Faker::Quote.famous_last_words,
     description: Faker::TvShows::GameOfThrones.quote,
-    user: User.find_by(email: "admin@example.com"),
+    user: User.find_by(email: "superadmin@example.com"),
     language: "English",
     level: "All levels",
     # price: Faker::Number.between(from: 1000, to: 20000),
@@ -53,24 +53,35 @@ end
 end
 
 Course.all.each do |course|
-  10.times do
-    Lesson.create!([{
-      title: Faker::Lorem.sentence(word_count: 3),
-      content: Faker::Lorem.sentence,
+  # Create chapters for each course
+  2.times do |i|
+    chapter = Chapter.create!(
+      title: "Chapter #{i + 1}: #{Faker::Educator.subject}",
       course: course
-    }])
+    )
+
+    # Create lessons within each chapter
+    5.times do
+      Lesson.create!(
+        title: Faker::Lorem.sentence(word_count: 3),
+        content: Faker::Lorem.sentence,
+        course: course,
+        chapter: chapter
+      )
+    end
   end
 
-  Enrollment.create!([{
-    user: User.find_by(email: "studentteacher@example.com"),
-    course: course
-  }])
+  studentteacher = User.find_by(email: "studentteacher@example.com")
+  student = User.find_by(email: "student@example.com")
 
-  Enrollment.create!([{
-    user: User.find_by(email: "student@example.com"),
-    course: course,
-    price: course.price
-  }])
+  # Only enroll if not the course owner
+  if course.user != studentteacher
+    Enrollment.create!(user: studentteacher, course: course, price: 0)
+  end
+
+  if course.user != student
+    Enrollment.create!(user: student, course: course, price: course.price)
+  end
 end
 
 PublicActivity.enabled = true
