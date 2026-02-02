@@ -26,17 +26,17 @@
     = link_to 'Register', new_user_registration_path, class: 'btn btn-custom-purple btn-lg'
     = link_to 'Login', new_user_session_path, class: 'btn btn-custom-purple btn-lg'
     .row.mt-1
-    = link_to user_google_oauth2_omniauth_authorize_path, data: { turbo_method: :post }, class: 'btn btn-danger btn-lg mr-1' do
+    = button_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-danger btn-lg mr-1' do
       Continue with
-      .fab.fa-google
+      %span.fab.fa-google
     .row.mt-1
-    = link_to user_github_omniauth_authorize_path, data: { turbo_method: :post }, class: 'btn btn-dark btn-lg mr-1' do
+    = button_to user_github_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-dark btn-lg mr-1' do
       Continue with
-      .fab.fa-github
+      %span.fab.fa-github
     .row.mt-1
-    = link_to user_facebook_omniauth_authorize_path, data: { turbo_method: :post }, class: 'btn btn-primary btn-lg mr-1' do
+    = button_to user_facebook_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-primary btn-lg mr-1' do
       Continue with
-      .fab.fa-facebook
+      %span.fab.fa-facebook
 
 .card-group.shadow
   .card
