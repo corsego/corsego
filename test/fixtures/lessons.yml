@@ -1,0 +1,39 @@
+lesson_one:
+  title: Introduction to Variables
+  content: Learn about variables in Ruby
+  course: published_course
+  chapter: chapter_one
+  row_order: 0
+  slug: introduction-to-variables
+  comments_count: 1
+  user_lessons_count: 0
+
+lesson_two:
+  title: Working with Strings
+  content: Learn about strings in Ruby
+  course: published_course
+  chapter: chapter_one
+  row_order: 1
+  slug: working-with-strings
+  comments_count: 0
+  user_lessons_count: 0
+
+lesson_advanced:
+  title: Metaprogramming Basics
+  content: Learn about Ruby metaprogramming
+  course: unpublished_course
+  chapter: chapter_advanced
+  row_order: 0
+  slug: metaprogramming-basics
+  comments_count: 0
+  user_lessons_count: 0
+
+lesson_free:
+  title: Rails Overview
+  content: Overview of Ruby on Rails framework
+  course: free_course
+  chapter: chapter_free
+  row_order: 0
+  slug: rails-overview
+  comments_count: 0
+  user_lessons_count: 0

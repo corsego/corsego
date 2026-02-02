@@ -1,0 +1,32 @@
+# Join table for users and roles (no model, use direct column references)
+admin_admin:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>
+
+admin_teacher:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:teacher) %>
+
+admin_student:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:student) %>
+
+teacher_teacher:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:teacher) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:teacher) %>
+
+teacher_student:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:teacher) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:student) %>
+
+student_student:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:student) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:student) %>
+
+another_teacher_teacher:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:another_teacher) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:teacher) %>
+
+another_teacher_student:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:another_teacher) %>
+  role_id: <%= ActiveRecord::FixtureSet.identify(:student) %>

@@ -1,0 +1,11 @@
+ruby:
+  name: Ruby
+  course_tags_count: 1
+
+rails:
+  name: Rails
+  course_tags_count: 1
+
+programming:
+  name: Programming
+  course_tags_count: 0

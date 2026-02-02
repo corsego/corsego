@@ -1,0 +1,7 @@
+student_enrollment:
+  user: student
+  course: published_course
+  price: 9900
+  rating:
+  review:
+  slug: student-example-com-introduction-to-ruby
