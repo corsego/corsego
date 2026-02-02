@@ -14,7 +14,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Lint runs first - fastest check, fails early on code style issues
+  # Security scan and lint run in parallel - fastest checks, fail early
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - name: Run Brakeman security scanner
+        run: bundle exec brakeman --no-pager
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -26,9 +37,9 @@ jobs:
       - name: Run RuboCop
         run: bundle exec rubocop --fail-fast
 
-  # Unit tests run after lint passes
+  # Unit tests run after security and lint pass
   test:
-    needs: lint
+    needs: [security, lint]
     runs-on: ubuntu-latest
     services:
       postgres:
