@@ -20,19 +20,19 @@ module MetaTagsHelper
 
   # Set page meta data from controller/view
   def set_meta_tags(options = {})
-    @meta_title = options[:title]
-    @meta_description = options[:description]
-    @meta_keywords = options[:keywords]
-    @meta_image = options[:image]
-    @meta_type = options[:type]
-    @meta_url = options[:url]
-    @json_ld_data = options[:json_ld]
+    content_for(:meta_title) { options[:title] } if options[:title]
+    content_for(:meta_description) { options[:description] } if options[:description]
+    content_for(:meta_keywords) { options[:keywords] } if options[:keywords]
+    content_for(:meta_image) { options[:image] } if options[:image]
+    content_for(:meta_type) { options[:type] } if options[:type]
+    content_for(:meta_url) { options[:url] } if options[:url]
+    content_for(:json_ld_data) { options[:json_ld] } if options[:json_ld]
   end
 
   private
 
   def meta_title
-    @meta_title || (content_for?(:title) ? content_for(:title) : SITE_NAME)
+    content_for(:meta_title).presence || (content_for?(:title) ? content_for(:title) : SITE_NAME)
   end
 
   def full_title
@@ -41,26 +41,26 @@ module MetaTagsHelper
   end
 
   def meta_description
-    @meta_description || DEFAULT_DESCRIPTION
+    content_for(:meta_description).presence || DEFAULT_DESCRIPTION
   end
 
   def meta_keywords
-    @meta_keywords || DEFAULT_KEYWORDS
+    content_for(:meta_keywords).presence || DEFAULT_KEYWORDS
   end
 
   def meta_image
-    return @meta_image if @meta_image.present?
+    return content_for(:meta_image) if content_for(:meta_image).present?
 
     # Default to site logo
     image_url('thumbnail.png')
   end
 
   def meta_url
-    @meta_url || request.original_url
+    content_for(:meta_url).presence || request.original_url
   end
 
   def meta_type
-    @meta_type || 'website'
+    content_for(:meta_type).presence || 'website'
   end
 
   def render_basic_meta_tags
@@ -97,10 +97,11 @@ module MetaTagsHelper
   end
 
   def render_json_ld
-    return if @json_ld_data.blank?
+    json_ld_data = content_for(:json_ld_data)
+    return if json_ld_data.blank?
 
     # Handle both single schema and array of schemas
-    schemas = @json_ld_data.is_a?(Array) ? @json_ld_data : [@json_ld_data]
+    schemas = json_ld_data.is_a?(Array) ? json_ld_data : [json_ld_data]
     tags = schemas.compact.map do |schema|
       tag.script(schema.to_json.html_safe, type: 'application/ld+json')
     end
