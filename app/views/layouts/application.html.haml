@@ -1,13 +1,15 @@
 !!!
-%html
+%html{lang: "en"}
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %meta{:content => "online education, course platform, video tutorials, udemy clone", :name => "keywords"}/
-    %meta{:content => "Online Learning and Skill sharing platform", :name => "description"}/
     %meta{:content => "Yaroslav Shmarov", :name => "author"}/
     %meta{:content => "yes", :name => "apple-mobile-web-app-capable"}/
+    %meta{:content => "#4a90d9", :name => "theme-color"}/
     %link{:href => "/manifest.json", :rel => "manifest"}/
+
+    -# Dynamic SEO meta tags (description, keywords, OG, Twitter, JSON-LD)
+    = render_meta_tags
 
     %script{:src => "https://js.stripe.com/v3/"}
     %link{:rel => "stylesheet", :href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css", :integrity => "sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==", :crossorigin => "anonymous", :referrerpolicy => "no-referrer"}
