@@ -125,7 +125,7 @@ class CertificatePdfGenerator
       pdf.font 'Times-Roman', style: :bold
       pdf.fill_color CHARCOAL
       pdf.font_size 38
-      pdf.text 'Certificate of Completion', align: :center
+      pdf.text 'Certificate of Completion', align: :center, character_spacing: 1
 
       pdf.move_down 8
 
@@ -362,12 +362,10 @@ class CertificatePdfGenerator
   end
 
   def draw_signature(pdf, start_x, start_y)
-    # Draw signature using handwriting font
-    font_path = Rails.root.join('app/assets/fonts/DancingScript-Regular.ttf')
-    pdf.font_families.update('DancingScript' => { normal: font_path.to_s })
+    # Draw signature using italic font
     pdf.fill_color NAVY
-    pdf.font 'DancingScript'
-    pdf.draw_text 'Yaroslav Shmarov', at: [start_x - 20, start_y - 18], size: 18
+    pdf.font 'Times-Roman', style: :italic
+    pdf.draw_text 'Yaroslav Shmarov', at: [start_x - 15, start_y - 18], size: 14
   end
 
   def draw_footer(pdf)
