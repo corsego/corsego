@@ -27,10 +27,10 @@
  })
 
 // open all ActionText Trix links in new tab
-$(document).ready(function() {
-    $(".trix-content a").click(function(e) {
-        $(this).attr("target","_blank");
-    });
+document.addEventListener("turbo:load", function() {
+  document.querySelectorAll(".trix-content a").forEach(function(link) {
+    link.setAttribute("target", "_blank");
+  });
 });
 
 // disable all attachments
