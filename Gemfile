@@ -9,7 +9,6 @@ gem 'rails', '~> 8.1.1'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 6.0'
 gem 'sprockets-rails'
-gem 'sassc-rails' # SCSS compilation for asset pipeline
 gem 'turbo-rails'
 gem 'stimulus-rails'
 gem 'jbuilder', '~> 2.7'

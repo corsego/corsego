@@ -6,7 +6,8 @@
   "scripts": {
     "build": "bun run build.js",
     "build:production": "NODE_ENV=production bun run build.js",
-    "dev": "bun run build.js --watch"
+    "dev": "bun run build.js --watch",
+    "postcss": "postcss"
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.0",
@@ -14,6 +15,7 @@
     "@rails/actioncable": "^8.0.0",
     "@rails/actiontext": "^8.0.0",
     "@rails/activestorage": "^8.0.0",
+    "@rails/ujs": "^7.1.3-4",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
     "chartkick": "^5.0.0",
@@ -23,5 +25,12 @@
     "popper.js": "^1.16.1",
     "selectize": "^0.12.6",
     "trix": "^2.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.24",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "postcss-import": "^16.1.1",
+    "postcss-nesting": "^14.0.0"
   }
 }
