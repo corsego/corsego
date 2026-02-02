@@ -255,10 +255,71 @@ class CertificatePdfGenerator
     pdf.font "Times-Roman", style: :italic
     pdf.draw_text "Date of Completion", at: [left_sig_x + 20, sig_y - 15], size: 9
 
-    # Right signature area - Director
+    # Right signature area - Director signature
+    draw_signature(pdf, right_sig_x + 15, sig_y + 25)
+    pdf.stroke_color CHARCOAL
+    pdf.line_width = 0.5
     pdf.stroke_line [right_sig_x, sig_y], [right_sig_x + 120, sig_y]
     pdf.font "Times-Roman", style: :italic
     pdf.draw_text "Director of Education", at: [right_sig_x + 15, sig_y - 15], size: 9
+  end
+
+  def draw_signature(pdf, start_x, start_y)
+    # Draw an elegant cursive signature using bezier curves
+    # This creates a stylized "E. Morrison" signature
+    pdf.stroke_color NAVY
+    pdf.line_width = 0.8
+
+    # Capital E with flourish
+    pdf.stroke do
+      # E vertical stroke
+      pdf.move_to [start_x, start_y]
+      pdf.curve_to [start_x + 2, start_y - 18],
+                   bounds: [[start_x - 3, start_y - 6], [start_x - 2, start_y - 14]]
+
+      # E top curve
+      pdf.move_to [start_x, start_y]
+      pdf.curve_to [start_x + 12, start_y - 2],
+                   bounds: [[start_x + 4, start_y + 2], [start_x + 10, start_y + 1]]
+
+      # E middle stroke
+      pdf.move_to [start_x + 1, start_y - 9]
+      pdf.curve_to [start_x + 10, start_y - 8],
+                   bounds: [[start_x + 4, start_y - 7], [start_x + 8, start_y - 7]]
+
+      # Period after E
+      pdf.fill_color NAVY
+      pdf.fill_circle [start_x + 14, start_y - 16], 0.8
+    end
+
+    # "Morrison" in flowing script
+    m_start = start_x + 20
+
+    pdf.stroke do
+      # M - first hump
+      pdf.move_to [m_start, start_y - 18]
+      pdf.curve_to [m_start + 6, start_y - 5],
+                   bounds: [[m_start, start_y - 12], [m_start + 3, start_y - 5]]
+      pdf.curve_to [m_start + 12, start_y - 18],
+                   bounds: [[m_start + 9, start_y - 5], [m_start + 12, start_y - 12]]
+
+      # M - second hump
+      pdf.move_to [m_start + 12, start_y - 18]
+      pdf.curve_to [m_start + 18, start_y - 8],
+                   bounds: [[m_start + 12, start_y - 12], [m_start + 15, start_y - 6]]
+      pdf.curve_to [m_start + 24, start_y - 18],
+                   bounds: [[m_start + 21, start_y - 6], [m_start + 24, start_y - 12]]
+
+      # "orrison" - flowing continuation
+      pdf.move_to [m_start + 24, start_y - 18]
+      pdf.curve_to [m_start + 70, start_y - 16],
+                   bounds: [[m_start + 35, start_y - 10], [m_start + 55, start_y - 22]]
+
+      # Final flourish underline
+      pdf.move_to [m_start + 70, start_y - 16]
+      pdf.curve_to [m_start + 45, start_y - 22],
+                   bounds: [[m_start + 65, start_y - 20], [m_start + 55, start_y - 24]]
+    end
   end
 
   def draw_footer(pdf)
