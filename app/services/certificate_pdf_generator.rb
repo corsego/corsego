@@ -81,7 +81,7 @@ class CertificatePdfGenerator
     end
   end
 
-  def draw_corner_flourish(pdf, x, y, size, corner_index)
+  def draw_corner_flourish(pdf, x, y, size, corner_index) # rubocop:disable Naming/MethodParameterName
     pdf.stroke_color GOLD
     pdf.line_width = 1.5
 
@@ -179,7 +179,7 @@ class CertificatePdfGenerator
   end
 
   def draw_body(pdf)
-    pdf.bounding_box([80, pdf.bounds.top - 185], width: pdf.bounds.width - 160, height: 200) do
+    pdf.bounding_box([80, pdf.bounds.top - 185], width: pdf.bounds.width - 160, height: 200) do # rubocop:disable Metrics/BlockLength
       pdf.fill_color CHARCOAL
       pdf.font 'Times-Roman'
 
