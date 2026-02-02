@@ -12,4 +12,7 @@ InvisibleCaptcha.setup do |config|
 
   # Sentence displayed in the honeypot field (for accessibility)
   config.visual_honeypots = false
+
+  # Disable timestamp check in test environment (tests submit forms immediately)
+  config.timestamp_enabled = !Rails.env.test?
 end
