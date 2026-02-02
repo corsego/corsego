@@ -1,66 +1,276 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
+  <title>Something Went Wrong - Corsego</title>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      overflow: hidden;
+    }
 
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    .container {
+      text-align: center;
+      padding: 2rem;
+      max-width: 600px;
+    }
 
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
+    .error-code {
+      font-size: clamp(120px, 25vw, 200px);
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.05);
+      line-height: 1;
+      position: relative;
+    }
 
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+    .error-code::after {
+      content: '500';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(80px, 18vw, 150px);
+      background: linear-gradient(45deg, #e94560, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glitch 3s infinite;
+    }
+
+    @keyframes glitch {
+      0%, 90%, 100% { transform: translate(-50%, -50%); }
+      92% { transform: translate(-52%, -50%); }
+      94% { transform: translate(-48%, -50%); }
+      96% { transform: translate(-50%, -52%); }
+      98% { transform: translate(-50%, -48%); }
+    }
+
+    .illustration {
+      width: 180px;
+      height: 150px;
+      margin: 1rem auto 2rem;
+      position: relative;
+    }
+
+    .computer {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .screen {
+      width: 100px;
+      height: 70px;
+      background: linear-gradient(135deg, #2d3436, #636e72);
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .screen::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      background: linear-gradient(135deg, #0f3460, #1a1a2e);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .screen::after {
+      content: ':(';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: #e94560;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49%, 100% { opacity: 1; }
+      50%, 99% { opacity: 0.3; }
+    }
+
+    .stand {
+      width: 30px;
+      height: 20px;
+      background: linear-gradient(135deg, #636e72, #2d3436);
+      margin: 0 auto;
+      clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    }
+
+    .base {
+      width: 60px;
+      height: 8px;
+      background: linear-gradient(135deg, #636e72, #2d3436);
+      margin: 0 auto;
+      border-radius: 4px;
+    }
+
+    .smoke {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: smoke 2s infinite;
+    }
+
+    .smoke:nth-child(1) { right: 10px; top: 0; animation-delay: 0s; }
+    .smoke:nth-child(2) { right: 20px; top: 5px; animation-delay: 0.4s; }
+    .smoke:nth-child(3) { right: 5px; top: 10px; animation-delay: 0.8s; }
+
+    @keyframes smoke {
+      0% { opacity: 0; transform: translateY(0) scale(1); }
+      50% { opacity: 0.8; }
+      100% { opacity: 0; transform: translateY(-40px) scale(2); }
+    }
+
+    .gear {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 4px solid #e94560;
+      border-radius: 50%;
+      animation: spin 4s linear infinite;
+    }
+
+    .gear:nth-child(4) { left: 10px; top: 20px; }
+    .gear:nth-child(5) { right: 10px; bottom: 30px; width: 25px; height: 25px; animation-direction: reverse; }
+
+    .gear::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: #e94560;
+      border-radius: 50%;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    h1 {
+      color: #fff;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    p {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(135deg, #e94560, #ff6b6b);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(233, 69, 96, 0.5);
+    }
+
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 2s infinite;
+    }
+
+    .star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+    .star:nth-child(2) { top: 20%; left: 80%; animation-delay: 0.3s; }
+    .star:nth-child(3) { top: 40%; left: 10%; animation-delay: 0.6s; }
+    .star:nth-child(4) { top: 60%; left: 90%; animation-delay: 0.9s; }
+    .star:nth-child(5) { top: 80%; left: 30%; animation-delay: 1.2s; }
+    .star:nth-child(6) { top: 15%; left: 50%; animation-delay: 1.5s; }
+    .star:nth-child(7) { top: 70%; left: 70%; animation-delay: 1.8s; }
+    .star:nth-child(8) { top: 30%; left: 40%; animation-delay: 0.2s; width: 4px; height: 4px; }
+    .star:nth-child(9) { top: 85%; left: 60%; animation-delay: 0.5s; }
+    .star:nth-child(10) { top: 50%; left: 15%; animation-delay: 0.8s; width: 4px; height: 4px; }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
   </style>
 </head>
+<body>
+  <div class="stars">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+  </div>
 
-<body class="rails-default-error-page">
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <div>
-      <h1>We're sorry, but something went wrong.</h1>
+  <div class="container">
+    <div class="error-code">500</div>
+    <div class="illustration">
+      <div class="smoke"></div>
+      <div class="smoke"></div>
+      <div class="smoke"></div>
+      <div class="gear"></div>
+      <div class="gear"></div>
+      <div class="computer">
+        <div class="screen"></div>
+        <div class="stand"></div>
+        <div class="base"></div>
+      </div>
     </div>
-    <p>If you are the application owner check the logs for more information.</p>
+    <h1>Oops! Our servers need a coffee break</h1>
+    <p>Something went wrong on our end. Our team of coding wizards has been notified and is working on a fix. In the meantime, why not head back and explore some courses?</p>
+    <a href="/" class="btn">Back to Homepage</a>
   </div>
 </body>
 </html>
