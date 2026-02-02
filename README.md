@@ -1,76 +1,70 @@
-# Corsego - online learning platform.
+# Corsego - Online Learning Platform
 
-###### Best udemy clone on the market. Set up your online school in minutes!
+A Udemy-like online learning platform built with Ruby on Rails. Set up your online school in minutes!
 
-[![N|Solid](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
+[![Demo](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
 
-### Entity-Relationship Diagram
+## Entity-Relationship Diagram
 
-[![N|Solid](https://i.imgur.com/IIWWYxW.png)](https://corsego.herokuapp.com)
+[![ERD](https://i.imgur.com/IIWWYxW.png)](https://corsego.herokuapp.com)
 
-### Video: How to install
+## Tech Stack
 
-[![Corsego e-learning platform: How to run localy on ubuntu + AWS C9](http://img.youtube.com/vi/nQd03MgXDXY/0.jpg)](http://www.youtube.com/watch?v=nQd03MgXDXY "Video Title")
+- Ruby 3.3.6
+- Rails 7.1.6
+- PostgreSQL
+- Shakapacker 7 (Webpack-based asset bundling)
+- Bootstrap 4.5
 
-### Installation Requirements 
-* ruby v 2.7.1 +
-* rails 6.0.3 +
-* postgresql database
-* yarn
+## Prerequisites
 
-### Connected services required
-* AWS S3 - file storage ** in production **
-* Amazon SES - sending emails ** in production **
-* google analytics code ** in production **
-* invisible_captcha gem (honeypot) for spam protection on sign up
-* google oauth API ** in development and production **
-* github oauth API ** in development and production **
-* facebook oauth API
-* stripe API ** in development and production **
+- Ruby 3.3.6
+- Node.js (v18+ recommended)
+- Yarn
+- PostgreSQL
+- ImageMagick (for image processing)
+- Graphviz (optional, for generating ERD diagrams)
 
-### 1. Installing RoR
+### macOS
 
-```
-rvm install ruby-2.7.1
-rvm --default use 2.7.1
-rvm uninstall 2.6.3
-gem install rails -v 6.0.3
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update
-sudo apt install postgresql libpq-dev redis-server redis-tools yarn
+```bash
+brew install postgresql imagemagick graphviz
 ```
 
-# postgresql setup
+### Ubuntu/Debian
 
-```
-sudo su postgres
-createuser --interactive
-ubuntu
-y 
-exit
+```bash
+sudo apt-get install postgresql libpq-dev imagemagick graphviz
 ```
 
-### 2. Installation the app
+## Installation
 
-1. Create app
-```
+### 1. Clone the repository
+
+```bash
 git clone https://github.com/rormvp/corsego
 cd corsego
-bundle
-yarn
-
-sudo apt-get install graphviz
-sudo apt install imagemagick
 ```
-2. IMPORTANT Set up your secret credentials, otherwise you will not be able to run the app:
 
-Go to **config** folder and delete the file `credentials.yml.enc`
+### 2. Install dependencies
+
+```bash
+bundle install
+yarn install
 ```
+
+### 3. Configure credentials
+
+Delete the existing encrypted credentials and create your own:
+
+```bash
+rm config/credentials.yml.enc
 EDITOR=vim rails credentials:edit
 ```
-and inside the file:
-```
+
+Add the following structure (replace with your actual keys):
+
+```yaml
 awss3:
   access_key_id: YOUR_CODE_FOR_S3_STORAGE
   secret_access_key: YOUR_CODE_FOR_S3_STORAGE
@@ -100,61 +94,126 @@ smtp:
   user_name: SMTP_CREDENTIALS_USER_NAME
   password: SMTP_CREDENTIALS_PASSWORD
 ```
-* i = to make the file editable
-* :set paste = to disable autoindentation when pasting
-* Ctrl + V = to paste
-* ESC + : + w + q + Enter = save changes in the file
 
-3. Run the migrations 
-```
-rails db:create
-rails db:migrate
-```
-4. Configure your development environment in config/environments/development.rb
-5. Start the server
-```
-rails s
+### 4. Setup database
+
+```bash
+rails db:create db:migrate
 ```
 
-### For production environments
+## Running the App Locally
+
+The app uses Shakapacker for JavaScript and CSS bundling. You need to run both the Rails server and the Shakapacker dev server for live reloading of assets.
+
+### Option 1: Using bin/dev (Recommended)
+
+This starts both servers with a single command using Foreman:
+
+```bash
+bin/dev
 ```
+
+The app will be available at `http://localhost:3000`
+
+### Option 2: Run servers separately
+
+In one terminal, start the Rails server:
+
+```bash
+rails server
+```
+
+In another terminal, start the Shakapacker dev server:
+
+```bash
+bin/shakapacker-dev-server
+```
+
+The app will be available at `http://localhost:3000`
+
+### Option 3: Without live asset reloading
+
+If you don't need live reloading, you can compile assets once and run just the Rails server:
+
+```bash
+bin/shakapacker
+rails server
+```
+
+## Connected Services
+
+### Required for full functionality
+
+- **Stripe** - Payment processing (development and production)
+- **OAuth providers** - Google, GitHub, Facebook authentication
+
+### Production only
+
+- **AWS S3** - File storage
+- **Amazon SES** - Email delivery
+- **Google Analytics** - Usage tracking
+
+## Running Tests
+
+```bash
+# All tests
+rails test
+
+# System tests (browser-based)
+rails test:system
+
+# Controller tests only
+rails test test/controllers
+```
+
+## Deployment (Heroku)
+
+```bash
 heroku create
-heroku rename *your-app-name*
-heroku git:remote -a *your-app-name*
-git push heroku master
-heroku run rake db:migrate
+heroku rename your-app-name
+heroku git:remote -a your-app-name
+heroku buildpacks:add heroku/nodejs
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
+git push heroku main
+heroku run rails db:migrate
 ```
-If you have troubles running the app or any questions don't hesitate to contact me at yashm@outlook.com 🧐 
 
-****
+## Useful Commands
 
-Manually creating an enrollment:
+### Rails console
 
+```bash
+rails c
 ```
+
+### Creating an enrollment manually
+
+```ruby
 PublicActivity.enabled = false
-Enrollment.create(user: User.find(544), course: Course.find(56), price: 0)
+Enrollment.create(user: User.find(id), course: Course.find(id), price: 0)
 ```
 
-add stripe ids to all exiting products
-```
-Course.all.each do |course|
+### Backfill Stripe IDs for existing courses
+
+```ruby
+Course.where(stripe_product_id: nil).each do |course|
   product = Stripe::Product.create(name: course.title)
-  price = Stripe::Price.create(product: product, currency: "usd", unit_amount: course.price.to_i * 100)
+  price = Stripe::Price.create(product: product, currency: "usd", unit_amount: course.price.to_i)
   course.update(stripe_product_id: product.id, stripe_price_id: price.id)
 end
 ```
 
-TODO:
-fix yarn/webpacker errors. they block deployment!
-bundle update
-upgrade rails
-upgrade puma to v5
-make system tests work
-lint
-upgrade ruby version to 3.2.3
-upgrade heroku stack to 24
+### Generate ERD diagram
 
-heroku buildpacks:add heroku/nodejs
+```bash
+bundle exec erd
+```
 
-bundle exec rake webpacker:clobber webpacker:compile
+## TODO
+
+- Upgrade Heroku stack to 24
+- Code linting improvements
+
+## Video Tutorial
+
+[![How to install](http://img.youtube.com/vi/nQd03MgXDXY/0.jpg)](http://www.youtube.com/watch?v=nQd03MgXDXY "Corsego e-learning platform: How to run locally")
