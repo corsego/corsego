@@ -1,6 +1,14 @@
 // Corsego Application JavaScript
 // Bundled with Bun
 
+// jQuery - must be loaded first and made global for Bootstrap 4 and other plugins
+import jQuery from "jquery"
+window.$ = window.jQuery = jQuery
+
+// Popper.js for Bootstrap dropdowns/tooltips
+import Popper from "popper.js"
+window.Popper = Popper
+
 // Turbo for SPA-like navigation
 import "@hotwired/turbo-rails"
 
@@ -11,7 +19,7 @@ ActiveStorage.start()
 // Action Cable (import consumer directly, no channels currently used)
 import "./channels/consumer"
 
-// Bootstrap JS
+// Bootstrap JS (requires jQuery and Popper)
 import "bootstrap/dist/js/bootstrap"
 
 // Trix editor and ActionText
