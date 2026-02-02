@@ -1,9 +1,10 @@
 // Corsego Application JavaScript
 // Bundled with Bun
 
-// jQuery - must be loaded first and made global for Bootstrap 4 and other plugins
-import jQuery from "jquery"
-window.$ = window.jQuery = jQuery
+// jQuery is loaded via CDN script tag before this bundle
+// This ensures jQuery is available globally before any jQuery-dependent modules
+const jQuery = window.jQuery
+const $ = jQuery
 
 // Popper.js for Bootstrap dropdowns/tooltips
 import Popper from "popper.js"
@@ -44,9 +45,6 @@ import "cocoon-js"
 
 // YouTube embed functionality
 import "./youtube"
-
-// Use the imported jQuery for all code below
-const $ = jQuery
 
 // Document ready handler for Turbo
 document.addEventListener('turbo:load', function(){

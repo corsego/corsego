@@ -15,6 +15,7 @@ async function build() {
     minify: isProd,
     sourcemap: isProd ? 'none' : 'external',
     target: 'browser',
+    external: ['jquery'],
     define: {
       'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
     },
