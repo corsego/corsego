@@ -3,7 +3,12 @@
 require "prawn"
 
 class CertificatePdfGenerator
-  PURPLE = "563d7c"
+  # Elegant color palette
+  GOLD = "B8860B"
+  DARK_GOLD = "8B7355"
+  NAVY = "1a1a2e"
+  CHARCOAL = "2d2d2d"
+  LIGHT_GOLD = "D4AF37"
 
   def initialize(enrollment, base_url:, full_path:)
     @enrollment = enrollment
@@ -12,80 +17,275 @@ class CertificatePdfGenerator
   end
 
   def generate
-    Prawn::Document.new(page_size: "A4", page_layout: :landscape) do |pdf|
-      draw_border(pdf)
-      draw_content(pdf)
+    Prawn::Document.new(page_size: "A4", page_layout: :landscape, margin: 0) do |pdf|
+      draw_background(pdf)
+      draw_decorative_border(pdf)
+      draw_corner_ornaments(pdf)
+      draw_header(pdf)
+      draw_body(pdf)
+      draw_seal(pdf)
+      draw_signatures(pdf)
+      draw_footer(pdf)
     end.render
   end
 
   private
 
-  def draw_border(pdf)
-    # Outer border
-    pdf.stroke_color PURPLE
-    pdf.line_width = 10
-    pdf.stroke_rectangle [0, pdf.bounds.top], pdf.bounds.width, pdf.bounds.height
-
-    # Inner border
-    pdf.line_width = 5
-    pdf.stroke_rectangle [20, pdf.bounds.top - 20], pdf.bounds.width - 40, pdf.bounds.height - 40
+  def draw_background(pdf)
+    # Subtle cream/ivory background
+    pdf.fill_color "FFFEF5"
+    pdf.fill_rectangle [0, pdf.bounds.top], pdf.bounds.width, pdf.bounds.height
   end
 
-  def draw_content(pdf)
-    pdf.fill_color "000000"
+  def draw_decorative_border(pdf)
+    margin = 25
+    inner_margin = 35
+    width = pdf.bounds.width
+    height = pdf.bounds.height
 
-    pdf.move_down 60
+    # Outer gold border
+    pdf.stroke_color GOLD
+    pdf.line_width = 3
+    pdf.stroke_rectangle [margin, height - margin], width - (margin * 2), height - (margin * 2)
 
-    # Title
-    pdf.font_size 42
-    pdf.text "Certificate of Completion", align: :center, style: :bold
+    # Middle thin line
+    pdf.stroke_color DARK_GOLD
+    pdf.line_width = 0.5
+    pdf.stroke_rectangle [margin + 5, height - margin - 5], width - (margin * 2) - 10, height - (margin * 2) - 10
 
-    pdf.move_down 50
+    # Inner border
+    pdf.stroke_color GOLD
+    pdf.line_width = 1.5
+    pdf.stroke_rectangle [inner_margin, height - inner_margin], width - (inner_margin * 2), height - (inner_margin * 2)
+  end
 
-    # Body text
-    pdf.font_size 16
-    pdf.text "This is to certify that the owner of the email address", align: :center
+  def draw_corner_ornaments(pdf)
+    pdf.stroke_color GOLD
+    pdf.fill_color GOLD
+    pdf.line_width = 1
 
-    pdf.move_down 15
+    ornament_size = 20
+    offset = 45
 
-    # User email
-    pdf.font_size 22
-    pdf.text @enrollment.user.email, align: :center, style: :bold_italic
+    corners = [
+      [offset, pdf.bounds.top - offset],
+      [pdf.bounds.width - offset, pdf.bounds.top - offset],
+      [offset, offset],
+      [pdf.bounds.width - offset, offset]
+    ]
 
-    pdf.move_down 15
+    corners.each_with_index do |(x, y), index|
+      draw_corner_flourish(pdf, x, y, ornament_size, index)
+    end
+  end
 
-    pdf.font_size 16
-    pdf.text "has successfully completed the course", align: :center
+  def draw_corner_flourish(pdf, x, y, size, corner_index)
+    pdf.stroke_color GOLD
+    pdf.line_width = 1.5
 
-    pdf.move_down 15
+    # Draw elegant corner flourishes based on position
+    case corner_index
+    when 0 # Top-left
+      pdf.stroke_line [x, y], [x + size, y]
+      pdf.stroke_line [x, y], [x, y - size]
+      pdf.fill_circle [x + 3, y - 3], 2
+    when 1 # Top-right
+      pdf.stroke_line [x, y], [x - size, y]
+      pdf.stroke_line [x, y], [x, y - size]
+      pdf.fill_circle [x - 3, y - 3], 2
+    when 2 # Bottom-left
+      pdf.stroke_line [x, y], [x + size, y]
+      pdf.stroke_line [x, y], [x, y + size]
+      pdf.fill_circle [x + 3, y + 3], 2
+    when 3 # Bottom-right
+      pdf.stroke_line [x, y], [x - size, y]
+      pdf.stroke_line [x, y], [x, y + size]
+      pdf.fill_circle [x - 3, y + 3], 2
+    end
+  end
 
-    # Course title
-    pdf.font_size 22
-    pdf.text @enrollment.course.title, align: :center, style: :bold_italic
+  def draw_header(pdf)
+    pdf.bounding_box([50, pdf.bounds.top - 50], width: pdf.bounds.width - 100, height: 120) do
+      # Institution name
+      pdf.fill_color NAVY
+      pdf.font "Helvetica", style: :bold
+      pdf.font_size 14
+      pdf.text "CORSEGO ACADEMY", align: :center, character_spacing: 4
 
-    pdf.move_down 15
+      pdf.move_down 8
 
-    pdf.font_size 16
-    pdf.text "on the Corsego.com platform", align: :center
+      # Decorative line
+      draw_decorative_divider(pdf, pdf.cursor)
 
-    pdf.move_down 50
+      pdf.move_down 15
 
-    # Certificate details
-    pdf.font_size 11
-    pdf.text "Certificate ID: #{@enrollment.slug}", align: :center
+      # Certificate title
+      pdf.font "Times-Roman", style: :bold
+      pdf.fill_color CHARCOAL
+      pdf.font_size 38
+      pdf.text "Certificate of Completion", align: :center
 
-    pdf.move_down 8
+      pdf.move_down 8
 
-    pdf.text "Certificate URL: #{@base_url}#{@full_path}", align: :center
+      # Subtitle
+      pdf.font "Times-Roman", style: :italic
+      pdf.fill_color DARK_GOLD
+      pdf.font_size 12
+      pdf.text "This document certifies the successful completion of studies", align: :center
+    end
+  end
 
-    pdf.move_down 8
+  def draw_decorative_divider(pdf, y_position)
+    center_x = pdf.bounds.width / 2
+    line_width = 180
 
-    pdf.text "Registration date: #{@enrollment.created_at.strftime('%d-%b-%Y')}", align: :center
+    pdf.stroke_color GOLD
+    pdf.line_width = 0.75
 
-    pdf.move_down 40
+    # Left line
+    pdf.stroke_line [center_x - line_width, y_position], [center_x - 20, y_position]
+    # Right line
+    pdf.stroke_line [center_x + 20, y_position], [center_x + line_width, y_position]
 
-    # Footer
-    pdf.font_size 14
-    pdf.text "www.Corsego.com", align: :center, style: :bold
+    # Center diamond ornament
+    pdf.fill_color GOLD
+    diamond_size = 4
+    pdf.fill_polygon(
+      [center_x, y_position + diamond_size],
+      [center_x + diamond_size, y_position],
+      [center_x, y_position - diamond_size],
+      [center_x - diamond_size, y_position]
+    )
+  end
+
+  def draw_body(pdf)
+    pdf.bounding_box([80, pdf.bounds.top - 185], width: pdf.bounds.width - 160, height: 200) do
+      pdf.fill_color CHARCOAL
+      pdf.font "Times-Roman"
+
+      # Preamble
+      pdf.font_size 13
+      pdf.text "This is to certify that", align: :center
+
+      pdf.move_down 18
+
+      # Recipient name/email - prominent display
+      pdf.fill_color NAVY
+      pdf.font "Times-Roman", style: :bold_italic
+      pdf.font_size 26
+      pdf.text @enrollment.user.email, align: :center
+
+      pdf.move_down 18
+
+      # Achievement text
+      pdf.fill_color CHARCOAL
+      pdf.font "Times-Roman"
+      pdf.font_size 13
+      pdf.text "has successfully completed all requirements for the course", align: :center
+
+      pdf.move_down 18
+
+      # Course title - elegant display
+      pdf.fill_color NAVY
+      pdf.font "Times-Roman", style: :bold
+      pdf.font_size 22
+      pdf.text "\"#{@enrollment.course.title}\"", align: :center
+
+      pdf.move_down 18
+
+      # Platform attribution
+      pdf.fill_color CHARCOAL
+      pdf.font "Times-Roman", style: :italic
+      pdf.font_size 11
+      pdf.text "offered through the Corsego Academy online learning platform", align: :center
+    end
+  end
+
+  def draw_seal(pdf)
+    # Draw an official-looking seal on the left side
+    seal_x = 130
+    seal_y = 95
+    outer_radius = 40
+    inner_radius = 30
+
+    # Outer circle
+    pdf.stroke_color GOLD
+    pdf.line_width = 2
+    pdf.stroke_circle [seal_x, seal_y], outer_radius
+
+    # Inner circle
+    pdf.line_width = 1
+    pdf.stroke_circle [seal_x, seal_y], inner_radius
+
+    # Decorative dots around the seal
+    12.times do |i|
+      angle = i * 30 * Math::PI / 180
+      dot_x = seal_x + (outer_radius - 5) * Math.cos(angle)
+      dot_y = seal_y + (outer_radius - 5) * Math.sin(angle)
+      pdf.fill_color GOLD
+      pdf.fill_circle [dot_x, dot_y], 1.5
+    end
+
+    # Seal text
+    pdf.fill_color NAVY
+    pdf.font "Helvetica", style: :bold
+    pdf.draw_text "CORSEGO", at: [seal_x - 22, seal_y + 8], size: 8
+    pdf.draw_text "VERIFIED", at: [seal_x - 18, seal_y - 5], size: 7
+    pdf.fill_color GOLD
+    pdf.draw_text "★", at: [seal_x - 4, seal_y - 18], size: 12
+  end
+
+  def draw_signatures(pdf)
+    sig_y = 110
+    left_sig_x = pdf.bounds.width / 2 - 60
+    right_sig_x = pdf.bounds.width / 2 + 140
+
+    pdf.fill_color CHARCOAL
+    pdf.stroke_color CHARCOAL
+
+    # Date of completion (left side, after seal)
+    pdf.font "Times-Roman"
+    pdf.font_size 10
+    completion_date = @enrollment.created_at.strftime("%B %d, %Y")
+
+    # Left signature area - Date
+    pdf.line_width = 0.5
+    pdf.stroke_line [left_sig_x, sig_y], [left_sig_x + 120, sig_y]
+    pdf.draw_text completion_date, at: [left_sig_x + 25, sig_y + 8], size: 11
+    pdf.font "Times-Roman", style: :italic
+    pdf.draw_text "Date of Completion", at: [left_sig_x + 20, sig_y - 15], size: 9
+
+    # Right signature area - Director
+    pdf.stroke_line [right_sig_x, sig_y], [right_sig_x + 120, sig_y]
+    pdf.font "Times-Roman", style: :italic
+    pdf.draw_text "Director of Education", at: [right_sig_x + 15, sig_y - 15], size: 9
+  end
+
+  def draw_footer(pdf)
+    pdf.bounding_box([50, 55], width: pdf.bounds.width - 100, height: 40) do
+      # Decorative line above footer
+      pdf.stroke_color GOLD
+      pdf.line_width = 0.5
+      center_x = pdf.bounds.width / 2
+      pdf.stroke_line [center_x - 200, pdf.cursor], [center_x + 200, pdf.cursor]
+
+      pdf.move_down 12
+
+      # Certificate ID and verification info
+      pdf.fill_color DARK_GOLD
+      pdf.font "Helvetica"
+      pdf.font_size 8
+
+      certificate_info = "Certificate ID: #{@enrollment.slug}  •  Verify at: #{@base_url}#{@full_path}"
+      pdf.text certificate_info, align: :center
+
+      pdf.move_down 5
+
+      pdf.fill_color CHARCOAL
+      pdf.font_size 7
+      pdf.text "This certificate validates the completion of the above-mentioned course. " \
+               "The authenticity of this document can be verified using the certificate ID.",
+               align: :center
+    end
   end
 end
