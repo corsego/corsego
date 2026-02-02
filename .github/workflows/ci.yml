@@ -33,10 +33,11 @@ jobs:
 
     env:
       RAILS_ENV: test
-      DATABASE_HOST: localhost
+      DATABASE_HOST: 127.0.0.1
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DISABLE_SPRING: 1
 
     steps:
       - name: Checkout code
@@ -63,9 +64,7 @@ jobs:
           echo '{"application.js": "/packs-test/application.js"}' > public/packs-test/manifest.json
 
       - name: Set up database
-        run: |
-          bin/rails db:create
-          bin/rails db:schema:load
+        run: bin/rails db:prepare
 
       - name: Run tests
         run: bin/rails test
