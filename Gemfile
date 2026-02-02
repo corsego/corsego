@@ -83,3 +83,6 @@ gem 'invisible_captcha' # honeypot spam protection for registration
 
 # Error monitoring and uptime
 gem 'honeybadger'
+
+# Background jobs
+gem 'good_job', '~> 4.0'
