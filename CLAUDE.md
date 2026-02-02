@@ -80,7 +80,8 @@ corsego/
 │   ├── controllers/
 │   ├── system/               # Browser tests
 │   └── fixtures/             # Test data
-└── Procfile                  # Heroku deployment
+├── Procfile                  # Heroku deployment
+└── app.json                  # Heroku app configuration (stack: heroku-24)
 ```
 
 ## Core Domain Models
@@ -328,7 +329,7 @@ From README.md:
 - Make system tests work
 - Code linting improvements
 - ~~Upgrade Ruby to 3.2.3~~ (DONE - upgraded to Ruby 3.3.6)
-- Upgrade Heroku stack to 24
+- ~~Upgrade Heroku stack to 24~~ (DONE - added app.json with heroku-24 stack)
 
 ## Deployment (Heroku)
 
