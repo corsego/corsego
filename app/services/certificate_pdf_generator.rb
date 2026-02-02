@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'prawn'
+require 'rqrcode'
 
 class CertificatePdfGenerator
   # Elegant color palette
@@ -24,6 +25,7 @@ class CertificatePdfGenerator
       draw_header(pdf)
       draw_body(pdf)
       draw_seal(pdf)
+      draw_qr_code(pdf)
       draw_signatures(pdf)
       draw_footer(pdf)
     end.render
@@ -233,6 +235,54 @@ class CertificatePdfGenerator
     pdf.draw_text 'VERIFIED', at: [seal_x - 18, seal_y - 5], size: 7
     pdf.fill_color GOLD
     pdf.draw_text '*', at: [seal_x - 4, seal_y - 18], size: 14
+  end
+
+  def draw_qr_code(pdf)
+    # Generate QR code for verification URL
+    verification_url = "#{@base_url}#{@full_path}"
+    qr = RQRCode::QRCode.new(verification_url, level: :m)
+
+    # Position QR code on the right side, mirroring the seal
+    qr_x = pdf.bounds.width - 170
+    qr_y = 135
+    qr_size = 70
+    module_size = qr_size.to_f / qr.modules.length
+
+    # Draw decorative frame around QR code
+    frame_padding = 8
+    pdf.stroke_color GOLD
+    pdf.line_width = 1.5
+    pdf.stroke_rectangle(
+      [qr_x - frame_padding, qr_y + frame_padding],
+      qr_size + (frame_padding * 2),
+      qr_size + (frame_padding * 2)
+    )
+
+    # Draw inner frame
+    pdf.line_width = 0.5
+    pdf.stroke_rectangle(
+      [qr_x - frame_padding + 3, qr_y + frame_padding - 3],
+      qr_size + (frame_padding * 2) - 6,
+      qr_size + (frame_padding * 2) - 6
+    )
+
+    # Draw QR code modules
+    qr.modules.each_with_index do |row, row_index|
+      row.each_with_index do |mod, col_index|
+        if mod
+          x = qr_x + (col_index * module_size)
+          y = qr_y - (row_index * module_size)
+          pdf.fill_color NAVY
+          pdf.fill_rectangle [x, y], module_size, module_size
+        end
+      end
+    end
+
+    # Label below QR code
+    pdf.fill_color DARK_GOLD
+    pdf.font "Helvetica", style: :bold
+    pdf.font_size 7
+    pdf.draw_text "SCAN TO VERIFY", at: [qr_x + 5, qr_y - qr_size - 15]
   end
 
   def draw_signatures(pdf)

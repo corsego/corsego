@@ -129,6 +129,7 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     choice (0.2.0)
+    chunky_png (1.4.0)
     cocoon (1.2.15)
     concurrent-ruby (1.3.6)
     connection_pool (3.0.2)
@@ -394,6 +395,10 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.4)
+    rqrcode (2.2.0)
+      chunky_png (~> 1.0)
+      rqrcode_core (~> 1.0)
+    rqrcode_core (1.2.0)
     rolify (6.0.1)
     rubocop (1.82.1)
       json (~> 2.3)
@@ -578,6 +583,9 @@ DEPENDENCIES
   turbo-rails
   web-console
   webmock
+  prawn
+  prawn-table
+  rqrcode
   wicked
 
 RUBY VERSION

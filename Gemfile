@@ -75,6 +75,7 @@ gem 'image_processing' # sudo apt install imagemagick
 # PDF
 gem 'prawn' # Pure Ruby PDF generation
 gem 'prawn-table' # Table support for Prawn
+gem 'rqrcode' # QR code generation for certificates
 
 gem 'stripe' # accept payments
 
