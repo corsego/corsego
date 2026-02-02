@@ -57,6 +57,7 @@ class CoursesController < ApplicationController
       @course.update(approved: true)
     end
     CourseMailer.approved(@course).deliver_later
+    CourseApprovedNotifier.with(course: @course).deliver(@course.user)
     redirect_to @course, notice: "Course approval: #{@course.approved}"
   end
 

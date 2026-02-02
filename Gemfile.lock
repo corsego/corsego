@@ -262,6 +262,8 @@ GEM
     nio4r (2.7.5)
     nokogiri (1.19.0-arm64-darwin)
       racc (~> 1.4)
+    noticed (2.9.3)
+      rails (>= 6.1.0)
     oauth2 (2.0.18)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
@@ -547,6 +549,7 @@ DEPENDENCIES
   listen
   minitest
   mocha
+  noticed (~> 2.0)
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
