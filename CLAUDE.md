@@ -99,6 +99,7 @@ corsego/
 - Slug-based URLs via FriendlyId
 - Rich text `description` via ActionText
 - Stripe integration: `stripe_product_id`, `stripe_price_id`
+- Invitation sharing: `invite_token`, `invite_enabled` (Google Docs-style sharing)
 
 ### Lesson
 - Individual learning unit within a chapter
@@ -108,8 +109,9 @@ corsego/
 
 ### Enrollment
 - Join model between User and Course
-- Tracks: `rating`, `review`, `price` (paid)
+- Tracks: `rating`, `review`, `price` (paid), `invited` (boolean)
 - Created via Stripe webhook on successful payment
+- Can also be created via course invitation (free, `invited: true`)
 
 ### Chapter
 - Groups lessons within a course
@@ -126,13 +128,14 @@ corsego/
 | `CheckoutController` | Creates Stripe Checkout Sessions |
 | `WebhooksController` | Handles Stripe webhook events |
 | `Courses::CourseWizardController` | Multi-step course creation (Wicked gem) |
+| `CourseInvitationsController` | Course sharing: invite links, QR codes, email invites |
 
 ## Routes Overview
 
 ```ruby
 # Main resources
 root -> static_pages#landing_page
-resources :courses (nested: chapters, lessons, enrollments, course_wizard)
+resources :courses (nested: chapters, lessons, enrollments, course_wizard, invitations)
 resources :enrollments
 resources :users
 resources :tags
@@ -141,6 +144,7 @@ resources :tags
 /courses/:course_id/chapters
 /courses/:course_id/lessons/:lesson_id/comments
 /courses/:course_id/course_wizard (multi-step form)
+/courses/:course_id/invitations (sharing/invite management)
 
 # Stripe endpoints
 POST /checkout/create
@@ -150,6 +154,40 @@ POST /webhooks/create
 GET /activity, /analytics
 GET /charts/*
 ```
+
+## Course Invitation/Sharing
+
+Teachers can share courses with others for free enrollment (Google Docs-style sharing):
+
+### Features
+- **Shareable link**: One secret token per course, toggle on/off
+- **QR code**: Auto-generated for easy mobile sharing
+- **Email invitations**: Send to multiple recipients
+- **Auto-enrollment**: Non-registered users prompted to sign up, then auto-enrolled
+
+### How It Works
+```ruby
+# Enable sharing and get link
+course.generate_invite_token!
+course.update(invite_enabled: true)
+invite_url = course.invite_url(host: 'https://example.com')
+
+# Validate token
+course.valid_invite_token?('token_here')  # => true/false
+
+# Create invited enrollment
+Enrollment.create(user: user, course: course, price: 0, invited: true)
+```
+
+### Routes
+- `GET /courses/:id/invitations` - Share management page
+- `PATCH /courses/:id/invitations/toggle` - Enable/disable sharing
+- `POST /courses/:id/invitations/regenerate_token` - Generate new link
+- `POST /courses/:id/invitations/send_emails` - Send email invitations
+- `GET /courses/:id/invitations/accept?token=xxx` - Accept invitation
+
+### Analytics
+The course analytics page shows enrollment breakdown (paid vs invited).
 
 ## Authentication & Authorization
 
@@ -254,20 +292,120 @@ end
 
 ### Framework
 - Minitest (Rails default)
-- Parallel test execution enabled
+- Mocha for mocking/stubbing
+- WebMock for HTTP request stubbing
 - Devise test helpers included
 
 ### Running Tests
 ```bash
-rails test                    # All tests
-rails test test/controllers   # Controller tests only
-rails test:system             # System/browser tests
+rails test                        # All tests
+rails test test/controllers       # Controller tests only
+rails test test/models            # Model tests only
+rails test test/mailers           # Mailer tests only
+rails test:system                 # System/browser tests
+rails test test/path/to_test.rb   # Single test file
 ```
 
 ### Test Files Location
-- `test/controllers/` - Controller tests
-- `test/system/` - Browser-based system tests
-- `test/fixtures/` - Test data fixtures
+```
+test/
+├── controllers/          # Integration tests for controllers
+├── models/               # Unit tests for models
+├── mailers/              # Mailer tests
+│   └── previews/         # Email previews (view at /rails/mailers)
+├── system/               # Browser-based system tests
+├── fixtures/             # Test data (YAML files)
+└── test_helper.rb        # Test configuration
+```
+
+### Test Configuration (test_helper.rb)
+- PublicActivity tracking disabled globally
+- Stripe API stubbed via WebMock
+- Shakapacker helpers stubbed to avoid asset compilation
+- ActionMailer delivery suppressed
+
+### Writing Tests
+
+#### Controller Tests
+```ruby
+class MyControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
+  setup do
+    @user = users(:teacher)  # Load from fixtures
+  end
+
+  test 'unauthenticated user is redirected' do
+    get protected_url
+    assert_redirected_to new_user_session_url
+  end
+
+  test 'authorized user can access' do
+    sign_in @user
+    get protected_url
+    assert_response :success
+  end
+end
+```
+
+#### Model Tests
+```ruby
+class CourseTest < ActiveSupport::TestCase
+  test 'valid course with all required fields' do
+    course = Course.new(title: 'Test', ...)
+    assert course.valid?, course.errors.full_messages.join(', ')
+  end
+
+  test 'scope returns expected records' do
+    assert_includes Course.published, courses(:published_course)
+  end
+end
+```
+
+#### Mailer Tests
+```ruby
+class MyMailerTest < ActionMailer::TestCase
+  test 'email has correct recipient' do
+    email = MyMailer.notify(user)
+    assert_equal [user.email], email.to
+  end
+end
+```
+
+### Fixtures
+- Located in `test/fixtures/`
+- Use ERB for dynamic values: `<%= User.new.send(:password_digest, 'password') %>`
+- Reference associations by name: `user: teacher`
+- Update counter caches manually in fixtures
+
+### Test Naming Conventions
+- Use descriptive test names: `test 'user cannot enroll in own course'`
+- Group related tests with comments: `# SHOW`, `# CREATE`, etc.
+- Test both happy path and error cases
+
+### Assertions Reference
+```ruby
+assert                          # Truthy
+assert_not                      # Falsy
+assert_equal expected, actual   # Equality
+assert_nil                      # Nil check
+assert_includes collection, item
+assert_not_includes collection, item
+assert_difference 'Model.count', 1 do ... end
+assert_no_difference 'Model.count' do ... end
+assert_response :success        # HTTP 200
+assert_redirected_to path       # Redirect check
+assert_enqueued_emails 2 do ... end
+```
+
+### Pragmatic Testing Guidelines
+1. **Test behavior, not implementation** - Focus on what the code does, not how
+2. **Test edge cases** - Invalid input, unauthorized access, missing data
+3. **Keep tests fast** - Stub external services, minimize database writes
+4. **One assertion concept per test** - But multiple assertions for same concept is OK
+5. **Use fixtures for stable test data** - Avoid creating records in every test
+6. **Test authorization** - Verify Pundit policies are enforced
+7. **Test both success and failure paths** - Don't just test the happy path
 
 ## Common Development Tasks
 

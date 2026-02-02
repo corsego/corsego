@@ -1,0 +1,35 @@
+%p
+  Hi there!
+
+%p
+  %b= @invited_by.username
+  has invited you to enroll in the course
+  %b= @course.title
+  for free!
+
+%p
+  %b Course:
+  = @course.title
+
+%p
+  %b Instructor:
+  = @course.user.username
+
+- if @course.marketing_description.present?
+  %p
+    %b Description:
+    = @course.marketing_description
+
+%p
+  Click the link below to accept this invitation and get free access to the course:
+
+%p
+  = link_to 'Accept Invitation', @invite_url
+
+%p
+  This invitation grants you free enrollment (normally #{number_to_currency(@course.price / 100.0)}).
+
+%p
+  Regards,
+  .row
+  = link_to 'The Corsego team', root_url

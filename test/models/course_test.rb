@@ -238,4 +238,99 @@ class CourseTest < ActiveSupport::TestCase
     student.view_lesson(lessons(:lesson_one))
     assert_equal 50.0, course.progress(student)
   end
+
+  # Invitation/Sharing Tests
+  test 'generate_invite_token! creates a new token' do
+    course = courses(:published_course)
+    assert_nil course.invite_token
+
+    course.generate_invite_token!
+
+    assert course.invite_token.present?
+    assert course.invite_token.length >= 16
+  end
+
+  test 'regenerate_invite_token! replaces existing token' do
+    course = courses(:course_with_invites)
+    old_token = course.invite_token
+
+    course.regenerate_invite_token!
+
+    assert_not_equal old_token, course.invite_token
+  end
+
+  test 'invite_url returns correct URL format' do
+    course = courses(:course_with_invites)
+    url = course.invite_url(host: 'https://example.com')
+
+    assert_includes url, 'https://example.com'
+    assert_includes url, course.slug
+    assert_includes url, course.invite_token
+    assert_includes url, 'token='
+  end
+
+  test 'valid_invite_token? returns true for valid token when enabled' do
+    course = courses(:course_with_invites)
+
+    assert course.valid_invite_token?('test_invite_token_abc123')
+  end
+
+  test 'valid_invite_token? returns false for invalid token' do
+    course = courses(:course_with_invites)
+
+    assert_not course.valid_invite_token?('wrong_token')
+  end
+
+  test 'valid_invite_token? returns false when invite disabled' do
+    course = courses(:course_with_invites)
+    course.update!(invite_enabled: false)
+
+    assert_not course.valid_invite_token?('test_invite_token_abc123')
+  end
+
+  test 'valid_invite_token? returns false when token is nil' do
+    course = courses(:published_course)
+
+    assert_not course.valid_invite_token?(nil)
+  end
+
+  test 'find_by_invite_token returns course for valid token' do
+    course = courses(:course_with_invites)
+    found = Course.find_by_invite_token('test_invite_token_abc123')
+
+    assert_equal course, found
+  end
+
+  test 'find_by_invite_token returns nil for invalid token' do
+    found = Course.find_by_invite_token('nonexistent_token')
+
+    assert_nil found
+  end
+
+  test 'find_by_invite_token returns nil for blank token' do
+    assert_nil Course.find_by_invite_token('')
+    assert_nil Course.find_by_invite_token(nil)
+  end
+
+  test 'find_by_invite_token returns nil when invite disabled' do
+    course = courses(:course_with_invites)
+    course.update!(invite_enabled: false)
+
+    found = Course.find_by_invite_token('test_invite_token_abc123')
+    assert_nil found
+  end
+
+  test 'invite_enabled defaults to false' do
+    course = Course.new(
+      title: 'New Course',
+      description: 'Description here',
+      marketing_description: 'Marketing desc',
+      language: 'English',
+      level: 'Beginner',
+      price: 100,
+      user: users(:teacher)
+    )
+
+    assert_not course.invite_enabled?
+  end
 end

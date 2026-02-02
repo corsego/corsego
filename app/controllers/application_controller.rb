@@ -24,6 +24,17 @@ class ApplicationController < ActionController::Base
 
   # devise
   def after_sign_in_path_for(resource)
+    # Check for pending course invitation
+    if session[:pending_course_invite].present?
+      invite_data = session.delete(:pending_course_invite)
+      course = Course.find_by(id: invite_data['course_id'] || invite_data[:course_id])
+      token = invite_data['token'] || invite_data[:token]
+
+      if course&.valid_invite_token?(token)
+        return accept_course_invitations_path(course, token: token)
+      end
+    end
+
     user_path(resource)
   end
 

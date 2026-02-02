@@ -5,3 +5,13 @@ student_enrollment:
   rating:
   review:
   slug: student-example-com-introduction-to-ruby
+  invited: false
+
+invited_enrollment:
+  user: another_teacher
+  course: published_course
+  price: 0
+  rating:
+  review:
+  slug: another-teacher-example-com-introduction-to-ruby
+  invited: true
