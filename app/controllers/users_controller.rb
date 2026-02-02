@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
   def index
+    authorize User
     @q = User.ransack(params[:q])
     @pagy, @users = pagy(@q.result(distinct: true).order(created_at: :desc))
-
-    authorize @users
   end
 
   def show
+    authorize @user
     @courses_teaching = @user.courses
     @courses_learning = @user.enrollments.includes(:course)
   end

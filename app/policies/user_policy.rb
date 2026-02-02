@@ -11,6 +11,10 @@ class UserPolicy < ApplicationPolicy
     @user.has_role?(:admin)
   end
 
+  def show?
+    @user.present?
+  end
+
   def edit?
     @user.has_role?(:admin)
   end

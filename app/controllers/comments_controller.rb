@@ -2,9 +2,11 @@
 
 class CommentsController < ApplicationController
   def create
-    @comment = Comment.new(comment_params)
     @course = Course.friendly.find(params[:course_id])
     @lesson = Lesson.friendly.find(params[:lesson_id])
+    authorize @lesson, :show?
+
+    @comment = Comment.new(comment_params)
     @comment.lesson = @lesson
     @comment.user = current_user
 

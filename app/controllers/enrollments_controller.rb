@@ -5,10 +5,10 @@ class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: %i[show edit update destroy certificate]
 
   def index
+    authorize Enrollment
     @ransack_path = enrollments_path
     @q = Enrollment.ransack(params[:q])
     @pagy, @enrollments = pagy(@q.result.includes(:user))
-    authorize @enrollments
   end
 
   def teaching
@@ -37,6 +37,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def show
+    authorize @enrollment
   end
 
   def edit
@@ -45,6 +46,8 @@ class EnrollmentsController < ApplicationController
 
   def create
     @course = Course.friendly.find(params[:course_id])
+    authorize @course, :show?
+
     if @course.price.positive?
       redirect_to course_path(@course), alert: 'The course is not free...'
     else
