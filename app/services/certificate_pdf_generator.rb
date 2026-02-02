@@ -353,59 +353,75 @@ class CertificatePdfGenerator
 
   def draw_signature(pdf, start_x, start_y)
     # Draw an elegant cursive signature using bezier curves
-    # This creates a stylized "E. Morrison" signature
+    # This creates a stylized "Y. Shmarov" signature
     pdf.stroke_color NAVY
     pdf.line_width = 0.8
 
-    # Capital E with flourish
+    # Capital Y with flourish
     pdf.stroke do
-      # E vertical stroke
+      # Y left arm
       pdf.move_to [start_x, start_y]
-      pdf.curve_to [start_x + 2, start_y - 18],
-                   bounds: [[start_x - 3, start_y - 6], [start_x - 2, start_y - 14]]
+      pdf.curve_to [start_x + 10, start_y - 12],
+                   bounds: [[start_x + 3, start_y - 4], [start_x + 7, start_y - 8]]
 
-      # E top curve
-      pdf.move_to [start_x, start_y]
-      pdf.curve_to [start_x + 12, start_y - 2],
-                   bounds: [[start_x + 4, start_y + 2], [start_x + 10, start_y + 1]]
+      # Y right arm
+      pdf.move_to [start_x + 18, start_y]
+      pdf.curve_to [start_x + 10, start_y - 12],
+                   bounds: [[start_x + 15, start_y - 4], [start_x + 12, start_y - 8]]
 
-      # E middle stroke
-      pdf.move_to [start_x + 1, start_y - 9]
-      pdf.curve_to [start_x + 10, start_y - 8],
-                   bounds: [[start_x + 4, start_y - 7], [start_x + 8, start_y - 7]]
+      # Y tail with flourish
+      pdf.move_to [start_x + 10, start_y - 12]
+      pdf.curve_to [start_x + 6, start_y - 22],
+                   bounds: [[start_x + 10, start_y - 16], [start_x + 8, start_y - 20]]
+      pdf.curve_to [start_x - 2, start_y - 18],
+                   bounds: [[start_x + 2, start_y - 24], [start_x - 2, start_y - 22]]
 
-      # Period after E
+      # Period after Y
       pdf.fill_color NAVY
-      pdf.fill_circle [start_x + 14, start_y - 16], 0.8
+      pdf.fill_circle [start_x + 22, start_y - 16], 0.8
     end
 
-    # "Morrison" in flowing script
-    m_start = start_x + 20
+    # "Shmarov" in flowing script
+    s_start = start_x + 28
 
     pdf.stroke do
-      # M - first hump
-      pdf.move_to [m_start, start_y - 18]
-      pdf.curve_to [m_start + 6, start_y - 5],
-                   bounds: [[m_start, start_y - 12], [m_start + 3, start_y - 5]]
-      pdf.curve_to [m_start + 12, start_y - 18],
-                   bounds: [[m_start + 9, start_y - 5], [m_start + 12, start_y - 12]]
+      # S curve
+      pdf.move_to [s_start + 8, start_y - 5]
+      pdf.curve_to [s_start, start_y - 10],
+                   bounds: [[s_start + 2, start_y - 4], [s_start - 2, start_y - 6]]
+      pdf.curve_to [s_start + 10, start_y - 18],
+                   bounds: [[s_start + 2, start_y - 14], [s_start + 6, start_y - 18]]
 
-      # M - second hump
-      pdf.move_to [m_start + 12, start_y - 18]
-      pdf.curve_to [m_start + 18, start_y - 8],
-                   bounds: [[m_start + 12, start_y - 12], [m_start + 15, start_y - 6]]
-      pdf.curve_to [m_start + 24, start_y - 18],
-                   bounds: [[m_start + 21, start_y - 6], [m_start + 24, start_y - 12]]
+      # h - upstroke and curve
+      pdf.move_to [s_start + 10, start_y - 18]
+      pdf.curve_to [s_start + 14, start_y - 6],
+                   bounds: [[s_start + 10, start_y - 12], [s_start + 12, start_y - 6]]
+      pdf.curve_to [s_start + 20, start_y - 18],
+                   bounds: [[s_start + 17, start_y - 6], [s_start + 20, start_y - 12]]
 
-      # "orrison" - flowing continuation
-      pdf.move_to [m_start + 24, start_y - 18]
-      pdf.curve_to [m_start + 70, start_y - 16],
-                   bounds: [[m_start + 35, start_y - 10], [m_start + 55, start_y - 22]]
+      # m - first hump
+      pdf.move_to [s_start + 20, start_y - 18]
+      pdf.curve_to [s_start + 26, start_y - 10],
+                   bounds: [[s_start + 20, start_y - 14], [s_start + 24, start_y - 10]]
+      pdf.curve_to [s_start + 32, start_y - 18],
+                   bounds: [[s_start + 28, start_y - 10], [s_start + 32, start_y - 14]]
+
+      # m - second hump
+      pdf.move_to [s_start + 32, start_y - 18]
+      pdf.curve_to [s_start + 38, start_y - 10],
+                   bounds: [[s_start + 32, start_y - 14], [s_start + 36, start_y - 10]]
+      pdf.curve_to [s_start + 44, start_y - 18],
+                   bounds: [[s_start + 40, start_y - 10], [s_start + 44, start_y - 14]]
+
+      # "arov" - flowing continuation
+      pdf.move_to [s_start + 44, start_y - 18]
+      pdf.curve_to [s_start + 75, start_y - 14],
+                   bounds: [[s_start + 52, start_y - 10], [s_start + 65, start_y - 20]]
 
       # Final flourish underline
-      pdf.move_to [m_start + 70, start_y - 16]
-      pdf.curve_to [m_start + 45, start_y - 22],
-                   bounds: [[m_start + 65, start_y - 20], [m_start + 55, start_y - 24]]
+      pdf.move_to [s_start + 75, start_y - 14]
+      pdf.curve_to [s_start + 50, start_y - 22],
+                   bounds: [[s_start + 70, start_y - 20], [s_start + 60, start_y - 24]]
     end
   end
 
