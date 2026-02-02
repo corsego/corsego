@@ -1,35 +1,36 @@
-.card.shadow
-  .card-body
-    .row
-      .col-md-4
-        - if course.avatar.attached?
-          = link_to course_path(course) do
-            = image_tag course.avatar, loading: "lazy", height: "auto", width: "100%"
-      .col-md-5
-        %b= link_to course.title, course_path(course)
-        %small= simple_format(course.marketing_description)
-        .text-warning.fa.fa-star
-        %b= course.average_rating
-        (
-        .fa.fa-user-graduate
-        = course.enrollments_count
-        )
-        .fa.fa-tasks
-        = course.lessons_count
-        %br
-        - if course.tags.any?
-          - course.tags.each do |tag|
-            .badge.badge-info
-              = tag.name
-        %br
-        - if course.user 
-          - if course.user.image?
-            = image_tag course.user.image, size: '20x20', alt: "#{course.user.email}", class: 'rounded-circle'
-          = link_to course.user.username, user_path(course.user)
-      .col-md-3
-        .text-center
-          = enrollment_button(course)
-          .row
-          = review_button(course)
-          .row
-          %small= certificate_button(course)
+.col-12
+  .card.shadow
+    .card-body
+      .row
+        .col-md-4
+          - if course.avatar.attached?
+            = link_to course_path(course) do
+              = image_tag course.avatar, loading: "lazy", height: "auto", width: "100%"
+        .col-md-5
+          %b= link_to course.title, course_path(course)
+          %small= simple_format(course.marketing_description)
+          .text-warning.fa.fa-star
+          %b= course.average_rating
+          (
+          .fa.fa-user-graduate
+          = course.enrollments_count
+          )
+          .fa.fa-tasks
+          = course.lessons_count
+          %br
+          - if course.tags.any?
+            - course.tags.each do |tag|
+              .badge.badge-info
+                = tag.name
+          %br
+          - if course.user
+            - if course.user.image?
+              = image_tag course.user.image, size: '20x20', alt: "#{course.user.email}", class: 'rounded-circle'
+            = link_to course.user.username, user_path(course.user)
+        .col-md-3
+          .text-center
+            = enrollment_button(course)
+            .row
+            = review_button(course)
+            .row
+            %small= certificate_button(course)
