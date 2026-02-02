@@ -113,4 +113,38 @@ class EnrollmentTest < ActiveSupport::TestCase
     assert_equal 100, course.income
     assert_equal 100, student.enrollment_expences
   end
+
+  # Invitation Tests
+  test 'invited scope returns only invited enrollments' do
+    invited = Enrollment.invited
+    assert_includes invited, enrollments(:invited_enrollment)
+    assert_not_includes invited, enrollments(:student_enrollment)
+  end
+
+  test 'invited defaults to false' do
+    student = users(:admin)
+    student.add_role(:student)
+    course = courses(:free_course)
+
+    enrollment = Enrollment.create!(user: student, course: course, price: 0)
+
+    assert_not enrollment.invited?
+  end
+
+  test 'enrollment can be marked as invited' do
+    student = users(:admin)
+    student.add_role(:student)
+    course = courses(:free_course)
+
+    enrollment = Enrollment.create!(user: student, course: course, price: 0, invited: true)
+
+    assert enrollment.invited?
+  end
+
+  test 'invited enrollment has zero price' do
+    invited_enrollment = enrollments(:invited_enrollment)
+
+    assert invited_enrollment.invited?
+    assert_equal 0, invited_enrollment.price
+  end
 end

@@ -10,13 +10,15 @@ published_course:
   published: true
   approved: true
   slug: introduction-to-ruby
-  enrollments_count: 1
+  enrollments_count: 2
   lessons_count: 2
   chapters_count: 1
   average_rating: 0.0
   income: 0
   stripe_product_id: prod_test123
   stripe_price_id: price_test123
+  invite_token:
+  invite_enabled: false
 
 # Unpublished course
 unpublished_course:
@@ -37,6 +39,8 @@ unpublished_course:
   income: 0
   stripe_product_id: prod_test456
   stripe_price_id: price_test456
+  invite_token:
+  invite_enabled: false
 
 # Free course
 free_course:
@@ -57,3 +61,27 @@ free_course:
   income: 0
   stripe_product_id: prod_test789
   stripe_price_id: price_test789
+  invite_token:
+  invite_enabled: false
+
+# Course with invite sharing enabled
+course_with_invites:
+  title: Python Bootcamp
+  description: Learn Python programming from scratch
+  marketing_description: Become a Python developer
+  language: English
+  level: Beginner
+  price: 4900
+  user: teacher
+  published: true
+  approved: true
+  slug: python-bootcamp
+  enrollments_count: 0
+  lessons_count: 0
+  chapters_count: 0
+  average_rating: 0.0
+  income: 0
+  stripe_product_id: prod_test_invite
+  stripe_price_id: price_test_invite
+  invite_token: test_invite_token_abc123
+  invite_enabled: true
