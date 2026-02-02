@@ -373,29 +373,21 @@ class CertificatePdfGenerator
   end
 
   def draw_footer(pdf)
-    pdf.bounding_box([50, 55], width: pdf.bounds.width - 100, height: 40) do
-      # Decorative line above footer
-      pdf.stroke_color GOLD
-      pdf.line_width = 0.5
-      center_x = pdf.bounds.width / 2
-      pdf.stroke_line [center_x - 200, pdf.cursor], [center_x + 200, pdf.cursor]
-
-      pdf.move_down 12
-
+    pdf.bounding_box([50, 70], width: pdf.bounds.width - 100, height: 30) do
       # Certificate ID and verification info
       pdf.fill_color DARK_GOLD
       pdf.font 'Helvetica'
-      pdf.font_size 8
+      pdf.font_size 7
 
       certificate_info = "Certificate ID: #{@enrollment.slug}  •  Verify at: #{@base_url}#{@full_path}"
       pdf.text certificate_info, align: :center
 
-      pdf.move_down 5
+      pdf.move_down 3
 
       pdf.fill_color CHARCOAL
-      pdf.font_size 7
+      pdf.font_size 6
       pdf.text 'This certificate validates the completion of the above-mentioned course. ' \
-               'The authenticity of this document can be verified using the certificate ID.',
+               'Verify authenticity by scanning the QR code or visiting the URL above.',
                align: :center
     end
   end
