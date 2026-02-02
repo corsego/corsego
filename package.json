@@ -1,45 +1,28 @@
 {
   "name": "corsego",
   "private": true,
+  "version": "0.1.0",
+  "packageManager": "bun@1.3.6",
+  "scripts": {
+    "build": "bun run build.js",
+    "build:production": "NODE_ENV=production bun run build.js",
+    "dev": "bun run build.js --watch"
+  },
   "dependencies": {
-    "@babel/core": "^7.29.0",
-    "@babel/plugin-transform-runtime": "^7.29.0",
-    "@babel/preset-env": "^7.29.0",
-    "@babel/runtime": "^7.28.6",
-    "@fortawesome/fontawesome-free": "^5.14.0",
     "@hotwired/stimulus": "^3.2.0",
     "@hotwired/turbo-rails": "^8.0.0",
     "@rails/actioncable": "^7.0.0",
     "@rails/actiontext": "^7.0.0",
     "@rails/activestorage": "^7.0.0",
-    "@rails/request.js": "^0.0.9",
     "@rails/ujs": "^7.1.3-4",
-    "babel-loader": "^9.0.0",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
     "chartkick": "^5.0.0",
     "cocoon-js": "^0.0.5",
-    "compression-webpack-plugin": "^11.1.0",
-    "core-js": "^3.48.0",
-    "css-loader": "^7.1.3",
     "jquery": "^3.5.1",
     "jquery-ui-dist": "^1.12.1",
-    "mini-css-extract-plugin": "^2.10.0",
     "popper.js": "^1.16.1",
-    "sass": "^1.97.3",
-    "sass-loader": "^16.0.6",
     "selectize": "^0.12.6",
-    "shakapacker": "^7.0.0",
-    "style-loader": "^4.0.0",
-    "terser-webpack-plugin": "^5.3.16",
-    "trix": "^2.0.0",
-    "webpack": "^5.0.0",
-    "webpack-assets-manifest": "^5.2.1",
-    "webpack-cli": "^5.0.0",
-    "webpack-merge": "^5.10.0"
-  },
-  "version": "0.1.0",
-  "devDependencies": {
-    "webpack-dev-server": "^5.0.0"
+    "trix": "^2.0.0"
   }
 }

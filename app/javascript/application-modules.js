@@ -1,46 +1,52 @@
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
+// Application modules that depend on jQuery being globally available
+// This file is dynamically imported after jQuery is set up
 
+// Popper.js for Bootstrap dropdowns/tooltips
+import Popper from "popper.js"
+window.Popper = Popper
+
+// Turbo for SPA-like navigation
 import "@hotwired/turbo-rails"
+
+// Active Storage for file uploads
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
 
-import "channels"
+// Action Cable (import consumer directly, no channels currently used)
+import "./channels/consumer"
 
-import 'bootstrap/dist/js/bootstrap'
-import "bootstrap/dist/css/bootstrap"
+// Bootstrap JS (requires jQuery and Popper)
+import "bootstrap/dist/js/bootstrap"
 
-import "@fortawesome/fontawesome-free/css/all"
-
-require("stylesheets/application.scss")
-
-// Uncomment to copy all static images under ../images to the output folder and reference
-// them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
-// or the `imagePath` JavaScript helper below.
-//
-// const images = require.context('../images', true)
-// const imagePath = (name) => images(name, true)
-
+// Trix editor and ActionText
 import "trix"
 import "@rails/actiontext"
 
+// Charts
 import "chartkick"
 import "chart.js"
 
-import "../trix-editor-overrides"
+// Custom Trix overrides with YouTube embed
+import "./trix-editor-overrides"
 
-require("jquery-ui-dist/jquery-ui")
+// jQuery UI for sortable
+import "jquery-ui-dist/jquery-ui"
 
-require("selectize")
+// Selectize for enhanced dropdowns
+import "selectize"
 
+// Cocoon for nested forms (jQuery require is handled by the global require shim)
 import "cocoon-js"
 
-import "youtube"
+// YouTube embed functionality
+import "./youtube"
 
+const $ = window.jQuery
+
+// Document ready handler for Turbo
 document.addEventListener('turbo:load', function(){
 
+  // Chapter drag-drop sorting
   $('.chapter-sortable').sortable({
     axis        : "y",
     cursor      : "grabbing",
@@ -62,6 +68,7 @@ document.addEventListener('turbo:load', function(){
     },
   })
 
+  // Lesson drag-drop sorting with cross-chapter support
   $('.lesson-sortable').sortable({
     axis        : "y",
     cursor      : "grabbing",
@@ -87,16 +94,19 @@ document.addEventListener('turbo:load', function(){
     }
   })
 
+  // Disable right-click on videos
   $("video").bind("contextmenu",function(){
       return false;
   });
 
+  // Initialize selectize dropdowns
   if ($('.selectize')){
       $('.selectize').selectize({
           sortField: 'text'
       });
   }
 
+  // Selectize with dynamic tag creation
   $(".selectize-tags").selectize({
     create: function(input, callback) {
       $.post('/tags.json', { tag: { name: input } })
@@ -109,21 +119,17 @@ document.addEventListener('turbo:load', function(){
 
 });
 
+// Service Worker registration
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/service-worker.js")
     .then((registration) => {
       registration.addEventListener("updatefound", () => {
-        // If updatefound is fired, it means that there's
-        // a new service worker being installed.
         const installingWorker = registration.installing;
         console.log(
           "A new service worker is being installed:",
           installingWorker,
         );
-
-        // You can listen for changes to the installing service worker's
-        // state via installingWorker.onstatechange
       });
     })
     .catch((error) => {

@@ -26,20 +26,6 @@ WebMock.stub_request(:any, /api\.stripe\.com/).to_return(
   headers: { 'Content-Type' => 'application/json' }
 )
 
-# Stub Shakapacker helpers to avoid asset compilation issues in tests
-# This overrides the helpers at the module level before tests run
-module Shakapacker
-  module Helper
-    def javascript_pack_tag(*names, **options)
-      ''.html_safe
-    end
-
-    def stylesheet_pack_tag(*names, **options)
-      ''.html_safe
-    end
-  end
-end
-
 class ActiveSupport::TestCase
   # parallelize(workers: :number_of_processors) # Disabled due to pg gem segfault with fork on macOS
   fixtures :all
