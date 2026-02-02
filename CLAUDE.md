@@ -8,7 +8,7 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 
 - **Backend**: Ruby 3.3.6, Rails 7.1.6
 - **Database**: PostgreSQL
-- **Frontend**: Shakapacker 7, Bootstrap 4.5, jQuery, Hotwire (Turbo)
+- **Frontend**: Bun 1.3.6, Shakapacker 7, Bootstrap 4.5, jQuery, Hotwire (Turbo)
 - **Views**: HAML templates with Simple Form
 - **Rich Text**: ActionText with Trix editor
 - **Authentication**: Devise with OmniAuth (Google, GitHub, Facebook)
@@ -22,12 +22,13 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 ```bash
 # Setup
 bundle install
-yarn install
+bun install
 rails db:create db:migrate
 
 # Development
 rails s                           # Start server
 rails c                           # Rails console
+bun run dev                       # Start webpack dev server
 
 # Database
 rails db:migrate                  # Run migrations
@@ -44,7 +45,8 @@ bundle exec rubocop               # Run RuboCop
 bundle exec rubocop -a            # Auto-fix issues
 
 # Assets
-bin/shakapacker                       # Compile JS assets
+bun run build                     # Compile JS assets (development)
+bun run build:production          # Compile JS assets (production)
 bundle exec rake assets:precompile    # Precompile all assets
 
 # Utilities
@@ -228,6 +230,7 @@ Views use HAML, not ERB:
 - Entry point: `app/javascript/packs/application.js`
 - Uses: jQuery, Bootstrap, Hotwire Turbo, Trix, Chartkick
 - Sortable UI for drag-drop lesson/chapter ordering
+- Package manager: Bun (replaces Yarn/npm for faster installs)
 - Bundled with Shakapacker (webpack-based)
 
 ### Forms
@@ -337,11 +340,14 @@ From README.md:
 heroku create
 heroku rename <app-name>
 heroku git:remote -a <app-name>
-heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add https://github.com/nickhstr/heroku-buildpack-bun.git
+heroku buildpacks:add heroku/ruby
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 git push heroku master
 heroku run rake db:migrate
 ```
+
+Note: The app uses Bun instead of Node.js for frontend package management. The `app.json` file is pre-configured with the Bun buildpack for Heroku deployments.
 
 ## AI Assistant Guidelines
 
