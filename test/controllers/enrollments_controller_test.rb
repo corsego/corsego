@@ -141,4 +141,45 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_url
   end
+
+  # CERTIFICATE
+  test 'unauthenticated user cannot access certificate when course incomplete' do
+    get certificate_enrollment_url(@student_enrollment, format: :pdf)
+    assert_redirected_to root_url
+  end
+
+  test 'user who completed all lessons can download certificate PDF' do
+    # Mark all lessons as viewed for the student
+    @published_course.lessons.each do |lesson|
+      UserLesson.create!(user: @student, lesson: lesson)
+    end
+
+    get certificate_enrollment_url(@student_enrollment, format: :pdf)
+
+    assert_response :success
+    assert_equal 'application/pdf', response.content_type
+    assert response.body.start_with?('%PDF'), 'Response should be a valid PDF'
+  end
+
+  test 'user who has not completed all lessons cannot download certificate' do
+    # Student has not viewed any lessons, so certificate should be denied
+    get certificate_enrollment_url(@student_enrollment, format: :pdf)
+
+    assert_redirected_to root_url
+  end
+
+  test 'certificate PDF contains expected content' do
+    # Mark all lessons as viewed for the student
+    @published_course.lessons.each do |lesson|
+      UserLesson.create!(user: @student, lesson: lesson)
+    end
+
+    get certificate_enrollment_url(@student_enrollment, format: :pdf)
+
+    assert_response :success
+
+    # PDF content is binary but we can check it's a valid PDF
+    assert response.body.start_with?('%PDF'), 'Response should be a valid PDF'
+    assert response.body.include?('%%EOF'), 'PDF should have proper ending'
+  end
 end

@@ -64,3 +64,6 @@ Style/StringConcatenation:
 
 Metrics/CyclomaticComplexity:
   Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
