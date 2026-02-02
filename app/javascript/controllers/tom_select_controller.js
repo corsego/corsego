@@ -31,6 +31,12 @@ export default class extends Controller {
   }
 
   async createTag(input, callback) {
+    // Guard against calling callback after disconnect
+    if (!this.tomSelect) {
+      callback()
+      return
+    }
+
     try {
       const response = await post(this.createUrlValue, {
         body: JSON.stringify({ tag: { name: input } }),
@@ -38,9 +44,10 @@ export default class extends Controller {
         responseKind: "json"
       })
 
-      if (response.ok) {
+      if (response.ok && this.tomSelect) {
         const data = await response.json
-        callback({ value: data.id, text: data.name })
+        // Tom Select expects value to be a string
+        callback({ value: String(data.id), text: data.name })
       } else {
         callback()
       }
