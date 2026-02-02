@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'ostruct'
 
 class WebhooksControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -14,13 +15,13 @@ class WebhooksControllerTest < ActionDispatch::IntegrationTest
   end
 
   def generate_stripe_signature(payload)
-    timestamp = Time.now.to_i
+    timestamp = Time.now
     signature = Stripe::Webhook::Signature.compute_signature(
       timestamp,
       payload,
       @webhook_secret
     )
-    "t=#{timestamp},v1=#{signature}"
+    "t=#{timestamp.to_i},v1=#{signature}"
   end
 
   test 'webhook rejects invalid signature' do

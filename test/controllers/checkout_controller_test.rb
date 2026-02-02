@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'ostruct'
 
 class CheckoutControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
