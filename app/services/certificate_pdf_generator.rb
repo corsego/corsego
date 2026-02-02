@@ -192,18 +192,15 @@ class CertificatePdfGenerator
       # Recipient name and email - prominent display
       pdf.fill_color NAVY
       pdf.font 'Times-Roman', style: :bold_italic
+      pdf.font_size 26
       if @enrollment.user.name.present?
-        pdf.font_size 26
         pdf.text @enrollment.user.name, align: :center
         pdf.move_down 4
         pdf.font 'Times-Roman', style: :italic
         pdf.fill_color CHARCOAL
         pdf.font_size 12
-        pdf.text @enrollment.user.email, align: :center
-      else
-        pdf.font_size 26
-        pdf.text @enrollment.user.email, align: :center
       end
+      pdf.text @enrollment.user.email, align: :center
 
       pdf.move_down 18
 
@@ -316,12 +313,12 @@ class CertificatePdfGenerator
     # Draw QR code modules
     qr.modules.each_with_index do |row, row_index|
       row.each_with_index do |mod, col_index|
-        if mod
-          x = qr_x + (col_index * module_size)
-          y = qr_y - (row_index * module_size)
-          pdf.fill_color NAVY
-          pdf.fill_rectangle [x, y], module_size, module_size
-        end
+        next unless mod
+
+        x = qr_x + (col_index * module_size)
+        y = qr_y - (row_index * module_size)
+        pdf.fill_color NAVY
+        pdf.fill_rectangle [x, y], module_size, module_size
       end
     end
 
