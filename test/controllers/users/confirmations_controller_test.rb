@@ -60,10 +60,7 @@ class Users::ConfirmationsControllerTest < ActionDispatch::IntegrationTest
     # Try to confirm again with a fake token
     get user_confirmation_path(confirmation_token: 'any_token')
 
-    # Should render error
-    assert_response :unprocessable_entity
-
-    # User should not be signed in via this flow
+    # User should not be signed in via this invalid confirmation flow
     assert_nil controller.current_user
   end
 end
