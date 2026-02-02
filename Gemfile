@@ -27,6 +27,7 @@ end
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'faker' # fake data for seeds.rb
+  gem 'mocha' # mocking and stubbing for tests
 end
 
 # Frontend
@@ -70,3 +71,6 @@ gem 'wkhtmltopdf-heroku', group: :production
 gem 'stripe' # accept payments
 
 gem 'invisible_captcha' # honeypot spam protection for registration
+
+# Error monitoring and uptime
+gem 'honeybadger'

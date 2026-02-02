@@ -1,0 +1,7 @@
+published_ruby:
+  course: published_course
+  tag: ruby
+
+free_rails:
+  course: free_course
+  tag: rails

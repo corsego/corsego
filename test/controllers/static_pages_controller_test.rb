@@ -5,9 +5,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     @admin = users(:admin)
-    @admin.add_role :admin
-    @user = users(:regular_user)
-    @user.add_role :student
+    @user = users(:student)
   end
 
   test "should get landing_page" do

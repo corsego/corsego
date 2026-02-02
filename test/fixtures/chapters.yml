@@ -1,0 +1,20 @@
+chapter_one:
+  title: Getting Started
+  course: published_course
+  row_order: 0
+  slug: getting-started
+  lessons_count: 2
+
+chapter_advanced:
+  title: Advanced Topics
+  course: unpublished_course
+  row_order: 0
+  slug: advanced-topics
+  lessons_count: 1
+
+chapter_free:
+  title: Free Intro
+  course: free_course
+  row_order: 0
+  slug: free-intro
+  lessons_count: 1

@@ -208,6 +208,11 @@ course.price = 9900  # $99.00
 - Production SMTP via credentials
 - Development uses `letter_opener` gem
 
+### Honeybadger (Error Monitoring)
+- Error tracking and uptime monitoring
+- Configured in `config/honeybadger.yml`
+- API key via `HONEYBADGER_API_KEY` environment variable
+
 ## Frontend Patterns
 
 ### HAML Templates
