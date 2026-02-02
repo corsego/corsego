@@ -13,8 +13,7 @@
 // Trix editor
 @import "trix/dist/trix";
 
-// Tom Select dropdowns (Bootstrap 4 theme)
-@import "tom-select/dist/css/tom-select.bootstrap4";
+// Tom Select CSS loaded via CDN in layout (uses modern CSS features not supported by sassc)
 
 // jQuery UI (base theme)
 @import "jquery-ui-dist/jquery-ui";
