@@ -22,7 +22,7 @@ class CommentMailerTest < ActionMailer::TestCase
     assert_match comment.lesson.course.title, mail.body.encoded
     assert_match comment.lesson.title, mail.body.encoded
     assert_match comment.user.username, mail.body.encoded
-    assert_match comment.content, mail.body.encoded
+    assert_match comment.content.to_plain_text, mail.body.encoded
   end
 
   test 'new_comment email is properly formatted' do
