@@ -51,11 +51,8 @@ class User < ApplicationRecord
     user.image = access_token.info.image
     user.provider = access_token.provider
     user.uid = access_token.uid
-    user.token = access_token.credentials.token
-    user.expires_at = access_token.credentials.expires_at
-    user.expires = access_token.credentials.expires
-    user.refresh_token = access_token.credentials.refresh_token
     user.confirmed_at = Time.zone.now # autoconfirm user from omniauth
+    # OAuth tokens intentionally not stored for security (not used by application)
 
     user
   end

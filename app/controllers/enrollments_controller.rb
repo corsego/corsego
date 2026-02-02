@@ -30,6 +30,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def show
+    authorize @enrollment
   end
 
   def edit
@@ -38,6 +39,17 @@ class EnrollmentsController < ApplicationController
 
   def create
     @course = Course.friendly.find(params[:course_id])
+
+    if @course.user == current_user
+      redirect_to course_path(@course), alert: 'You cannot enroll in your own course.'
+      return
+    end
+
+    if current_user.bought?(@course)
+      redirect_to course_path(@course), alert: 'You are already enrolled in this course.'
+      return
+    end
+
     if @course.price.positive?
       redirect_to course_path(@course), alert: 'The course is not free...'
     else

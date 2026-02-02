@@ -11,6 +11,12 @@ class EnrollmentPolicy < ApplicationPolicy
     @user.has_role?(:admin)
   end
 
+  def show?
+    @record.user == @user ||
+      @record.course.user == @user ||
+      @user.has_role?(:admin)
+  end
+
   def edit?
     @record.user == @user
   end

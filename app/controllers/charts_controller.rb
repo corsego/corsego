@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ChartsController < ApplicationController
+  before_action :require_admin
+
   def users_per_day
     render json: User.group_by_day(:created_at).count
   end
@@ -15,5 +17,13 @@ class ChartsController < ApplicationController
 
   def money_makers
     render json: Enrollment.joins(:course).group(:'courses.title').sum(:price)
+  end
+
+  private
+
+  def require_admin
+    return if current_user&.has_role?(:admin)
+
+    render json: { error: 'Unauthorized' }, status: :forbidden
   end
 end

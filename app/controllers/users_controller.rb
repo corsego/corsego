@@ -11,8 +11,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @courses_teaching = @user.courses
-    @courses_learning = @user.enrollments.includes(:course)
+    @courses_teaching = @user.courses.published.approved
+    @courses_learning = if current_user == @user || current_user&.has_role?(:admin)
+                          @user.enrollments.includes(:course)
+                        else
+                          Enrollment.none
+                        end
   end
 
   def edit

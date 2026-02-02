@@ -7,6 +7,7 @@ class CommentsController < ApplicationController
     @lesson = Lesson.friendly.find(params[:lesson_id])
     @comment.lesson = @lesson
     @comment.user = current_user
+    authorize @comment
 
     if @comment.save
       CommentMailer.new_comment(@comment).deliver_later if @comment.user_id != @course.user_id
