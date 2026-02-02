@@ -61,7 +61,7 @@ module VideoEmbed
     # Support legacy Vimeo ID-only entries
     return video_url if video_url.match?(/^\d+$/)
 
-    PLATFORM_CONFIGS.each do |_, config|
+    PLATFORM_CONFIGS.each_value do |config|
       match = video_url.match(config[:regex])
       return match[1] if match
     end

@@ -67,3 +67,6 @@ Metrics/CyclomaticComplexity:
 
 Metrics/ClassLength:
   Enabled: false
+
+Naming/PredicatePrefix:
+  Enabled: false
