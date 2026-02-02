@@ -2,6 +2,6 @@
 class CommentMailerPreview < ActionMailer::Preview
   # /rails/mailers/comment_mailer/new_comment
   def new_comment
-    CommentMailer.new_comment(Comment.first).deliver_now
+    CommentMailer.new_comment(Comment.first)
   end
 end
