@@ -296,7 +296,7 @@ class CertificatePdfGenerator
 
     # Position QR code next to the seal on the left
     qr_x = 150
-    qr_y = 130
+    qr_y = 145
     qr_size = 55
     module_size = qr_size.to_f / qr.modules.length
 
@@ -345,7 +345,8 @@ class CertificatePdfGenerator
     # Left signature area - Date
     pdf.line_width = 0.5
     pdf.stroke_line [left_sig_x, sig_y], [left_sig_x + 120, sig_y]
-    pdf.draw_text completion_date, at: [left_sig_x + 25, sig_y + 8], size: 11
+    pdf.font 'Times-Roman', style: :italic
+    pdf.draw_text completion_date, at: [left_sig_x + 15, sig_y + 8], size: 14
     pdf.font 'Times-Roman', style: :italic
     pdf.draw_text 'Date of Completion', at: [left_sig_x + 20, sig_y - 15], size: 9
 
@@ -372,8 +373,9 @@ class CertificatePdfGenerator
       pdf.font 'Helvetica'
       pdf.font_size 7
 
-      certificate_info = "Certificate ID: #{@enrollment.slug}  •  Verify at: #{@base_url}#{@full_path}"
-      pdf.text certificate_info, align: :center
+      pdf.text "Certificate ID: #{@enrollment.slug}", align: :center
+      pdf.move_down 2
+      pdf.text "Verify at: #{@base_url}#{@full_path}", align: :center
 
       pdf.move_down 3
 
