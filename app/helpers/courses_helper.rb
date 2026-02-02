@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 module CoursesHelper
+  def course_avatar_tag(course, **options)
+    default_options = { loading: 'lazy', height: 'auto', width: '100%' }
+    merged_options = default_options.merge(options)
+
+    if course.avatar.attached?
+      image_tag course.avatar, merged_options
+    else
+      image_tag 'course-placeholder.svg', merged_options.merge(alt: 'Course placeholder')
+    end
+  end
+
   def enrollment_button(course)
     if current_user
       if course.user == current_user
