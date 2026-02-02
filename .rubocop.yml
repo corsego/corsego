@@ -73,3 +73,6 @@ Naming/PredicatePrefix:
 
 Metrics/PerceivedComplexity:
   Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
