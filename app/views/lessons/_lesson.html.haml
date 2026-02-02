@@ -1,7 +1,7 @@
 - if @course.user == current_user
   = link_to edit_course_lesson_path(@course, lesson), class: 'badge badge-warning mr-1' do
     .fa.fa-edit
-  = link_to [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'badge badge-danger' do
+  = link_to [@course, lesson], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'badge badge-danger' do
     .fa.fa-trash
 - elsif current_user.viewed?(lesson)
   .text-success.fa.fa-check-square

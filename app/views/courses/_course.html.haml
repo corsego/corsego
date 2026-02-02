@@ -65,7 +65,7 @@
         .row
         - if policy(course).approve?
           .custom-control.custom-switch
-            = link_to approve_course_path(course), method: :patch do
+            = link_to approve_course_path(course), data: { turbo_method: :patch } do
               - if course.approved?
                 %input#customSwitch1.custom-control-input{:type => "checkbox", :checked => "checked"}/
               - else
@@ -80,7 +80,7 @@
             %label.custom-control-label{:for => "Published"} Admin Approved
       - if policy(course).destroy?
         .card-footer
-          = link_to course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' do
+          = link_to course, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' do
             .fa.fa-trash
   - if course.tags.any?
     .card-footer

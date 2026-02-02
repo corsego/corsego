@@ -108,7 +108,7 @@
             = link_to edit_user_registration_path, class: "dropdown-item #{'active' if current_page?(edit_user_registration_path)}" do
               .fa.fa-cog
               %b Account settings
-            = link_to destroy_user_session_path, method: :delete, class: "dropdown-item" do
+            = link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" do
               .fa.fa-sign-out-alt
               %b Sign out
     - else
@@ -116,9 +116,9 @@
       %ul.navbar-nav.mr-right
         = active_link_to 'Register', new_user_registration_path
         = active_link_to 'Login', new_user_session_path
-        = link_to user_google_oauth2_omniauth_authorize_path, method: :post, class: 'nav-link' do
+        = link_to user_google_oauth2_omniauth_authorize_path, data: { turbo_method: :post }, class: 'nav-link' do
           .fab.fa-google
-        = link_to user_github_omniauth_authorize_path, method: :post, class: 'nav-link' do
+        = link_to user_github_omniauth_authorize_path, data: { turbo_method: :post }, class: 'nav-link' do
           .fab.fa-github
-        = link_to user_facebook_omniauth_authorize_path, method: :post, class: 'nav-link' do
+        = link_to user_facebook_omniauth_authorize_path, data: { turbo_method: :post }, class: 'nav-link' do
           .fab.fa-facebook
