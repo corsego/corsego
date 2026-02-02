@@ -156,7 +156,7 @@ GET /charts/*
 - Email/password with confirmation
 - OmniAuth: Google, GitHub, Facebook
 - Invitable for user invitations
-- reCAPTCHA on registration
+- Invisible captcha (honeypot) on registration
 
 ### Role-Based Access (Rolify + Pundit)
 ```ruby
@@ -294,9 +294,6 @@ awss3:
   access_key_id: ...
   secret_access_key: ...
 google_analytics: ...
-recaptcha:
-  site_key: ...
-  secret_key: ...
 google_oauth2:
   client_id: ...
   client_secret: ...
@@ -321,7 +318,6 @@ From README.md:
 - Fix yarn/webpacker errors blocking deployment
 - Bundle update and Rails upgrade needed
 - Upgrade Puma to v5
-- Replace google_captcha with invisible_captcha
 - Make system tests work
 - Code linting improvements
 - Upgrade Ruby to 3.2.3

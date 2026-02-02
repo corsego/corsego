@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.3'
+ruby '>= 2.7.3'
 
 gem 'rails', '~> 6.1.3.2'
 # gem 'rails', github: 'rails/rails', branch: 'master'
@@ -69,5 +69,4 @@ gem 'wkhtmltopdf-heroku', group: :production
 
 gem 'stripe' # accept payments
 
-# TODO: replace with invisible_captcha
-gem 'recaptcha' # for new user registration
+gem 'invisible_captcha' # honeypot spam protection for registration
