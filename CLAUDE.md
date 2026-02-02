@@ -6,7 +6,7 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 
 ## Tech Stack
 
-- **Backend**: Ruby 3.3.6, Rails 7.1.6
+- **Backend**: Ruby 3.4.5, Rails 8.1
 - **Database**: PostgreSQL
 - **Frontend**: Bun 1.3.6 (bundler), Sprockets (CSS), Bootstrap 4.5, jQuery, Hotwire (Turbo)
 - **Views**: HAML templates with Simple Form
@@ -332,13 +332,14 @@ Edit with: `EDITOR=vim rails credentials:edit`
 
 From README.md:
 - ~~Fix yarn/webpacker errors blocking deployment~~ (DONE - migrated to Bun bundler)
-- ~~Bundle update and Rails upgrade needed~~ (DONE - upgraded to Rails 7.1.6)
+- ~~Bundle update and Rails upgrade needed~~ (DONE - upgraded to Rails 8.1)
 - ~~Upgrade Puma to v5~~ (DONE - upgraded to Puma 6)
 - ~~Replace google_captcha with invisible_captcha~~ (DONE)
 - Make system tests work
 - Code linting improvements
-- ~~Upgrade Ruby to 3.2.3~~ (DONE - upgraded to Ruby 3.3.6)
+- ~~Upgrade Ruby to 3.2.3~~ (DONE - upgraded to Ruby 3.4.5)
 - ~~Upgrade Heroku stack to 24~~ (DONE - added app.json with heroku-24 stack)
+- ~~Upgrade to Rails 8.1 and Ruby 3.4.5~~ (DONE)
 
 ## Deployment (Heroku)
 

@@ -108,3 +108,9 @@
       %br
       %small
         Build your library for your career and personal growth
+
+-# Stimulus smoke test element (hidden from visual UI)
+
+- if Rails.env.local?
+  %div{data: {controller: "hello"}, id: "stimulus-smoke-test"}
+    %span{data: {hello_target: "output"}} Loading...
