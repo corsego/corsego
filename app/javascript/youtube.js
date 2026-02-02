@@ -1,5 +1,5 @@
 import Trix from "trix"
-import Rails from "@rails/ujs"
+import { get } from "@rails/request.js"
 
 let lang = Trix.config.lang;
 Trix.config.toolbar = {
@@ -87,13 +87,20 @@ class EmbedController {
     }
   }
 
-  fetch(value) {
-    Rails.ajax({
-      url: `/youtube/${encodeURIComponent(value)}`,
-      type: 'get',
-      error: this.reset.bind(this),
-      success: this.showEmbed.bind(this)
-    })
+  async fetch(value) {
+    try {
+      const response = await get(`/youtube/${encodeURIComponent(value)}`, {
+        responseKind: "json"
+      })
+      if (response.ok) {
+        const embed = await response.json
+        this.showEmbed(embed)
+      } else {
+        this.reset()
+      }
+    } catch {
+      this.reset()
+    }
   }
 
   embed(event) {

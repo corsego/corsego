@@ -35,9 +35,6 @@ import "./trix-editor-overrides"
 // jQuery UI for sortable
 import "jquery-ui-dist/jquery-ui"
 
-// Selectize for enhanced dropdowns
-import "selectize"
-
 // Cocoon for nested forms (jQuery require is handled by the global require shim)
 import "cocoon-js"
 
@@ -100,24 +97,6 @@ document.addEventListener('turbo:load', function(){
   // Disable right-click on videos
   $("video").bind("contextmenu",function(){
       return false;
-  });
-
-  // Initialize selectize dropdowns
-  if ($('.selectize')){
-      $('.selectize').selectize({
-          sortField: 'text'
-      });
-  }
-
-  // Selectize with dynamic tag creation
-  $(".selectize-tags").selectize({
-    create: function(input, callback) {
-      $.post('/tags.json', { tag: { name: input } })
-        .done(function(response){
-          console.log(response)
-          callback({value: response.id, text: response.name });
-        })
-    }
   });
 
 });
