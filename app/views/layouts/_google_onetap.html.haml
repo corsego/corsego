@@ -1,0 +1,10 @@
+-# Google One Tap authentication - only shown to non-logged-in users
+- unless user_signed_in?
+  %script{src: "https://accounts.google.com/gsi/client", async: true, defer: true}
+
+  %div#g_id_onload{"data-client_id" => Rails.application.credentials.dig(:google_oauth2, :id),
+                   "data-login_uri" => google_onetap_callback_url,
+                   "data-auto_prompt" => "true",
+                   "data-cancel_on_tap_outside" => "false",
+                   "data-context" => "signin",
+                   "data-itp_support" => "true"}
