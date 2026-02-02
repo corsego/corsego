@@ -88,6 +88,16 @@ class User < ApplicationRecord
     enrollments.create(course: course, price: course.price)
   end
 
+  # Idempotent enrollment creation - returns [enrollment, newly_created_flag]
+  # Used by checkout success verification and webhook fallback
+  def enroll_in_course(course, price:)
+    enrollment = enrollments.find_by(course: course)
+    return [enrollment, false] if enrollment.present?
+
+    enrollment = enrollments.create(course: course, price: price)
+    [enrollment, enrollment.persisted?]
+  end
+
   def view_lesson(lesson)
     view = user_lessons.find_or_create_by(lesson: lesson)
     view.increment!(:impressions)
