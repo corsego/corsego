@@ -6,9 +6,9 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 
 ## Tech Stack
 
-- **Backend**: Ruby 2.7.3, Rails 6.1.3.2
+- **Backend**: Ruby 3.3.6, Rails 7.1.6
 - **Database**: PostgreSQL
-- **Frontend**: Webpacker 5, Bootstrap 4.5, jQuery, Turbolinks
+- **Frontend**: Shakapacker 7, Bootstrap 4.5, jQuery, Hotwire (Turbo)
 - **Views**: HAML templates with Simple Form
 - **Rich Text**: ActionText with Trix editor
 - **Authentication**: Devise with OmniAuth (Google, GitHub, Facebook)
@@ -44,7 +44,7 @@ bundle exec rubocop               # Run RuboCop
 bundle exec rubocop -a            # Auto-fix issues
 
 # Assets
-bundle exec rake webpacker:compile    # Compile JS assets
+bin/shakapacker                       # Compile JS assets
 bundle exec rake assets:precompile    # Precompile all assets
 
 # Utilities
@@ -225,8 +225,9 @@ Views use HAML, not ERB:
 
 ### JavaScript
 - Entry point: `app/javascript/packs/application.js`
-- Uses: jQuery, Bootstrap, Turbolinks, Trix, Chartkick
+- Uses: jQuery, Bootstrap, Hotwire Turbo, Trix, Chartkick
 - Sortable UI for drag-drop lesson/chapter ordering
+- Bundled with Shakapacker (webpack-based)
 
 ### Forms
 - Simple Form with Bootstrap integration
@@ -320,12 +321,13 @@ Edit with: `EDITOR=vim rails credentials:edit`
 ## Known Issues / TODOs
 
 From README.md:
-- Fix yarn/webpacker errors blocking deployment
-- Bundle update and Rails upgrade needed
-- Upgrade Puma to v5
+- ~~Fix yarn/webpacker errors blocking deployment~~ (DONE - migrated to Shakapacker)
+- ~~Bundle update and Rails upgrade needed~~ (DONE - upgraded to Rails 7.1.6)
+- ~~Upgrade Puma to v5~~ (DONE - upgraded to Puma 6)
+- ~~Replace google_captcha with invisible_captcha~~ (DONE)
 - Make system tests work
 - Code linting improvements
-- Upgrade Ruby to 3.2.3
+- ~~Upgrade Ruby to 3.2.3~~ (DONE - upgraded to Ruby 3.3.6)
 - Upgrade Heroku stack to 24
 
 ## Deployment (Heroku)

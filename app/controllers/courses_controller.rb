@@ -2,7 +2,7 @@
 
 class CoursesController < ApplicationController
   skip_before_action :authenticate_user!, only: %i[show index]
-  before_action :set_course, only: %i[show edit update destroy approve analytics]
+  before_action :set_course, only: %i[show destroy approve analytics]
   before_action :set_tags, only: %i[index learning pending_review teaching unapproved]
 
   def index

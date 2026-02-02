@@ -12,6 +12,6 @@
           .badge.badge-light
             = tag.course_tags_count
         - if policy(tag).destroy?
-          = link_to 'Destory', tag, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-lg btn-danger mt-1"
+          = link_to 'Destory', tag, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-lg btn-danger mt-1"
 
 

@@ -113,6 +113,14 @@ class User < ApplicationRecord
     update_column :balance, (course_income - enrollment_expences)
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[name email created_at updated_at courses_count enrollments_count]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[courses enrollments roles]
+  end
+
   private
 
   def must_have_a_role

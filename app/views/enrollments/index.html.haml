@@ -85,6 +85,6 @@
               = link_to 'Add Review', edit_enrollment_path(enrollment)
           %td
             - if policy(enrollment).destroy?
-              = link_to 'Delete Enrollment', enrollment, method: :delete, data: { confirm: 'Are you sure?' }
+              = link_to 'Delete Enrollment', enrollment, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }
 != pagy_bootstrap_nav(@pagy)
 %br

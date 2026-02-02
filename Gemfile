@@ -3,53 +3,56 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '>= 2.7.3'
+ruby '>= 3.3.0'
 
-gem 'rails', '~> 6.1.3.2'
-# gem 'rails', github: 'rails/rails', branch: 'master'
-gem 'pg', '>= 0.18', '< 1.5'
-gem 'puma', '~> 4.1' # ~> 5.0
-gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 5.0'
-gem 'turbolinks', '~> 5'
+gem 'rails', '~> 7.1.0'
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'puma', '~> 6.0'
+gem 'sprockets-rails'
+gem 'sassc-rails' # SCSS compilation for asset pipeline
+gem 'shakapacker', '~> 7.0'
+gem 'turbo-rails'
+gem 'stimulus-rails'
 gem 'jbuilder', '~> 2.7'
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', require: false
 
 group :development do
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console'
+  gem 'listen'
   gem 'rubocop-rails', require: false
-  gem 'letter_opener'  
+  gem 'standard', require: false
+  gem 'letter_opener'
   gem 'rails-erd' # sudo apt-get install graphviz; bundle exec erd
 end
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'debug', platforms: %i[mri windows]
   gem 'faker' # fake data for seeds.rb
   gem 'mocha' # mocking and stubbing for tests
+  gem 'minitest', '~> 5.0' # Rails 7.1 incompatible with minitest 6.x
+  gem 'webmock' # stub HTTP requests in tests
 end
 
 # Frontend
 gem 'haml-rails', '~> 2.0' # HTML abstraction markup language
-# gem 'font-awesome-sass', '~> 5.12.0' #add icons for styling #installed via yarn withot gem
 gem 'simple_form' # creating forms made easier
 gem 'cocoon' # nested forms
 
 # Authentication
 gem 'devise'
-gem 'devise_invitable', '~> 2.0.0' # invite users
+gem 'devise_invitable', '~> 2.0' # invite users
 gem 'omniauth-google-oauth2' # sign in with google
 gem 'omniauth-github' # sign in with github
 gem 'omniauth-facebook' # sign in with facebook
 gem 'omniauth-rails_csrf_protection'
 
 # Active Record
-gem 'friendly_id', '~> 5.2.4' # nice URLs and hide IDs
-gem 'ransack', '< 4.0.0'
+gem 'friendly_id', '~> 5.5' # nice URLs and hide IDs
+gem 'ransack'
 gem 'public_activity' # see all activity in the app
 gem 'rolify' # give users roles (admin, teacher, student)
 gem 'pundit' # authorization (different roles have different accesses)
-gem 'pagy', '< 7.0.0'
+gem 'pagy', '~> 8.0' # v9+ changed Backend/Frontend module API
 gem 'ranked-model' # give serial/index numbers to items in a list
 gem 'wicked' # multistep forms
 gem 'sitemap_generator' # SEO and webmasters

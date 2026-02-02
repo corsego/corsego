@@ -31,7 +31,7 @@ class Course < ApplicationRecord
 
   has_one_attached :avatar
   validates :avatar,
-            content_type: ['image/png', 'image/jpg', 'image/jpeg'],
+            content_type: ['image/png', 'image/jpeg'],
             size: { less_than: 500.kilobytes, message: 'size should be under 500 kilobytes' }
 
   def to_s
@@ -76,7 +76,8 @@ class Course < ApplicationRecord
     end
   end
 
-  after_create do
+  after_create :create_stripe_product
+  def create_stripe_product
     product = Stripe::Product.create(name: title)
     price = Stripe::Price.create(product: product, currency: 'usd', unit_amount: self.price.to_i * 100)
     update(stripe_product_id: product.id, stripe_price_id: price.id)
@@ -98,5 +99,13 @@ class Course < ApplicationRecord
         )
         .group(:id)
         .order(tags_in_common: :desc)
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[title marketing_description language level price published approved average_rating created_at updated_at]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[user chapters lessons enrollments tags course_tags]
   end
 end
