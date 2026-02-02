@@ -18,10 +18,7 @@ Rails.application.configure do
   config.good_job.dashboard_default_locale = :en
 end
 
-# Authenticate the GoodJob dashboard - restrict to admin users only
-GoodJob::Engine.middleware.use(Rack::Auth::Basic) do |username, password|
-  # In production, use proper authentication
-  # For now, only allow access if user is authenticated as admin
-  ActiveSupport::SecurityUtils.secure_compare(username, "admin") &&
-    ActiveSupport::SecurityUtils.secure_compare(password, Rails.application.credentials.dig(:good_job, :password) || "admin")
-end
+# Authentication is handled via Devise in routes.rb:
+# authenticate :user, ->(user) { user.has_role?(:admin) } do
+#   mount GoodJob::Engine, at: "/good_job"
+# end

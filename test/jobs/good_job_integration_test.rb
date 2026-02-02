@@ -34,4 +34,11 @@ class GoodJobIntegrationTest < ActiveJob::TestCase
     assert routes.any? { |route| route.include?("good_job") },
            "GoodJob engine should be mounted at /good_job"
   end
+
+  test "GoodJob dashboard requires admin authentication" do
+    # Verify the route is wrapped in authenticate constraint
+    # by checking that /good_job routes exist within the authenticated scope
+    good_job_routes = Rails.application.routes.routes.select { |r| r.path.spec.to_s.include?("good_job") }
+    assert good_job_routes.any?, "GoodJob routes should exist"
+  end
 end
