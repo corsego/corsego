@@ -28,6 +28,7 @@ end
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
+  gem 'dotenv-rails' # load environment variables from .env
   gem 'faker' # fake data for seeds.rb
   gem 'mocha' # mocking and stubbing for tests
   gem 'minitest', '~> 5.0' # Rails 7.1 incompatible with minitest 6.x
@@ -72,9 +73,9 @@ gem 'active_storage_validations' # validate image and file uploads
 gem 'image_processing' # sudo apt install imagemagick
 
 # PDF
-gem 'wicked_pdf' # PDF for Ruby on Rails
-gem 'wkhtmltopdf-binary', group: :development
-gem 'wkhtmltopdf-heroku', group: :production
+gem 'prawn' # Pure Ruby PDF generation
+gem 'prawn-table' # Table support for Prawn
+gem 'rqrcode' # QR code generation for certificates
 
 gem 'stripe' # accept payments
 

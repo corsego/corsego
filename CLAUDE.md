@@ -15,7 +15,7 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 - **Authorization**: Pundit policies with Rolify roles
 - **Payments**: Stripe (Checkout Sessions, Webhooks)
 - **File Storage**: AWS S3 (production), local disk (development)
-- **PDF Generation**: wicked_pdf with wkhtmltopdf
+- **PDF Generation**: Prawn (pure Ruby)
 
 ## Quick Commands
 
