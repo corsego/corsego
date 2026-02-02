@@ -20,7 +20,6 @@ group :development do
   gem 'listen'
   gem 'rubocop-rails', require: false
   gem 'standard', require: false
-  gem 'brakeman', require: false # security vulnerability scanner (Rails 8 default)
   gem 'letter_opener'
   gem 'letter_opener_web' # web interface for letter_opener
   gem 'rails-erd' # sudo apt-get install graphviz; bundle exec erd
