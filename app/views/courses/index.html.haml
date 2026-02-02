@@ -3,13 +3,11 @@
   \|
   = controller_name.humanize
   = action_name.humanize
-- set_meta_tags(
-    title: "Browse Online Courses",
-    description: "Explore #{@courses.count}+ online courses in web development, Ruby on Rails, and more. Filter by language, level, and price. Start learning today.",
-    keywords: @tags.pluck(:name).join(", "),
-    type: "website",
-    url: courses_url
-  )
+- set_meta_tags(title: "Browse Online Courses",
+                description: "Explore #{@courses.count}+ online courses in web development, Ruby on Rails, and more. Filter by language, level, and price. Start learning today.",
+                keywords: @tags.pluck(:name).join(", "),
+                type: "website",
+                url: courses_url)
 
 %h3
   .text-center
