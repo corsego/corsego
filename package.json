@@ -35,11 +35,11 @@
     "trix": "^2.0.0",
     "webpack": "^5.0.0",
     "webpack-assets-manifest": "^5.2.1",
+    "webpack-cli": "^5.0.0",
     "webpack-merge": "^5.10.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-cli": "^5.0.0",
     "webpack-dev-server": "^5.0.0"
   }
 }
