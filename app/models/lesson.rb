@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Lesson < ApplicationRecord
+  include VideoEmbed
+
   belongs_to :course, counter_cache: true
   belongs_to :chapter, counter_cache: true
   # Course.find_each { |course| Course.reset_counters(course.id, :lessons) }

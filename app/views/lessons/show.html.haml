@@ -11,9 +11,9 @@
             #{@lesson.row_order_rank + 1}.
           = @lesson.title
       .card-body
-        - if @lesson.vimeo.present?
-          .embed-responsive.embed-responsive-3by2
-            %iframe.embed-responsive-item{:allow => "fullscreen", :src => "https://player.vimeo.com/video/#{@lesson.vimeo}"}
+        - if @lesson.has_video?
+          .embed-responsive.embed-responsive-16by9
+            %iframe.embed-responsive-item{allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen", allowfullscreen: true, src: @lesson.video_embed_url}
         /  /%iframe{:allow => "autoplay; fullscreen", :allowfullscreen => "", :frameborder => "0", :height => "427", :src => "https://player.vimeo.com/video/#{@lesson.vimeo}", :width => "640"}
         = @lesson.content
       - if policy(@lesson).edit?

@@ -6,6 +6,6 @@
     = f.input :title, input_html: { autocomplete: 'off' }
     = f.association :chapter, collection: @course.chapters.order(row_order: :asc), include_blank: false
     = f.input :content, as: :rich_text_area
-    = f.input :vimeo, label: "Vimeo video ID"
+    = f.input :video_url, label: "Video URL", hint: "Supports Vimeo, YouTube, and Loom URLs (e.g., https://vimeo.com/123456, https://youtube.com/watch?v=abc123, https://loom.com/share/abc123)", placeholder: "Enter video URL"
   .form-actions
     = f.button :submit
