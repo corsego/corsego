@@ -44,7 +44,7 @@ gem 'simple_form' # creating forms made easier
 gem 'cocoon' # nested forms
 
 # Authentication
-gem 'devise'
+gem 'devise', '>= 4.9.5'
 gem 'devise_invitable', '~> 2.0' # invite users
 gem 'omniauth-google-oauth2' # sign in with google
 gem 'omniauth-github' # sign in with github
