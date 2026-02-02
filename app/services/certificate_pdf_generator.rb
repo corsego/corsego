@@ -160,6 +160,24 @@ class CertificatePdfGenerator
     )
   end
 
+  def draw_star(pdf, center_x, center_y, radius)
+    # Draw a 5-pointed star
+    points = []
+    5.times do |i|
+      # Outer point
+      outer_angle = (i * 72 - 90) * Math::PI / 180
+      points << [center_x + radius * Math.cos(outer_angle), center_y + radius * Math.sin(outer_angle)]
+
+      # Inner point (at 0.4 of radius for nice star shape)
+      inner_angle = ((i * 72) + 36 - 90) * Math::PI / 180
+      inner_radius = radius * 0.4
+      points << [center_x + inner_radius * Math.cos(inner_angle), center_y + inner_radius * Math.sin(inner_angle)]
+    end
+
+    pdf.fill_color LIGHT_GOLD
+    pdf.fill_polygon(*points)
+  end
+
   def draw_body(pdf)
     pdf.bounding_box([80, pdf.bounds.top - 185], width: pdf.bounds.width - 160, height: 200) do
       pdf.fill_color CHARCOAL
@@ -258,8 +276,9 @@ class CertificatePdfGenerator
     pdf.rotate(rotation * 180 / Math::PI, origin: [seal_x, seal_y]) do
       pdf.draw_text 'CORSEGO', at: [seal_x - 20, seal_y + 6], size: 8
       pdf.draw_text 'ACADEMY', at: [seal_x - 19, seal_y - 4], size: 7
-      pdf.fill_color LIGHT_GOLD
-      pdf.draw_text "\u2605", at: [seal_x - 5, seal_y - 15], size: 10 # Star character
+
+      # Draw a 5-pointed star instead of Unicode character
+      draw_star(pdf, seal_x, seal_y - 12, 6)
     end
   end
 
