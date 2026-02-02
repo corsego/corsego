@@ -208,6 +208,11 @@ course.price = 9900  # $99.00
 - Production SMTP via credentials
 - Development uses `letter_opener` gem
 
+### Honeybadger (Error Monitoring)
+- Error tracking and uptime monitoring
+- Configured in `config/honeybadger.yml`
+- API key stored in Rails credentials
+
 ## Frontend Patterns
 
 ### HAML Templates
@@ -293,6 +298,8 @@ Credentials stored in `config/credentials.yml.enc`. Required keys:
 awss3:
   access_key_id: ...
   secret_access_key: ...
+honeybadger:
+  api_key: ...
 google_analytics: ...
 recaptcha:
   site_key: ...

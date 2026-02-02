@@ -69,5 +69,8 @@ gem 'wkhtmltopdf-heroku', group: :production
 
 gem 'stripe' # accept payments
 
+# Error monitoring and uptime
+gem 'honeybadger'
+
 # TODO: replace with invisible_captcha
 gem 'recaptcha' # for new user registration
