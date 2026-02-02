@@ -1,16 +1,25 @@
-You have a new comment in the course
-%b= link_to @comment.lesson.course, @comment.lesson.course
-.row
-in the lesson
-%b= link_to @comment.lesson, course_lesson_url(@comment.lesson.course, @comment.lesson)
-.row
-written by
-%b= link_to @comment.user, user_url(@comment.user)
-.row
-%b Comment content: 
-.row
-= @comment.content
+%p Hello #{@course.user.username},
+
 %p
-Regards, 
-.row
-= link_to 'The Corsego team', root_url
+  A new comment has been posted on your course
+  %strong= link_to @course.title, @course
+  in the lesson
+  = succeed '.' do
+    %strong= link_to @lesson.title, course_lesson_url(@course, @lesson)
+
+%table{ border: '0', cellpadding: '8', cellspacing: '0', style: 'margin: 16px 0; background-color: #f8f9fa; border-left: 4px solid #007bff;' }
+  %tr
+    %td
+      %p{ style: 'margin: 0 0 8px 0;' }
+        %strong From:
+        = link_to @comment.user.username, user_url(@comment.user)
+      %p{ style: 'margin: 0; font-style: italic;' }= @comment.content
+
+%p You can reply to this comment by visiting your course dashboard.
+
+%p
+  Best regards,
+  %br
+  The Corsego Team
+
+%p{ style: 'font-size: 12px; color: #6c757d;' }= link_to 'Visit Corsego', root_url

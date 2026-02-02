@@ -58,3 +58,12 @@ class ActiveSupport::TestCase
     ActionMailer::Base.perform_deliveries = false
   end
 end
+
+class ActionMailer::TestCase
+  setup do
+    # Set default host for URL generation in mailer tests
+    Rails.application.routes.default_url_options[:host] = 'localhost:3000'
+    # Enable mail delivery for mailer tests (overrides global suppression)
+    ActionMailer::Base.perform_deliveries = true
+  end
+end

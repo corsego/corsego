@@ -1,10 +1,28 @@
-%b 
-  Your course
-  = link_to @course.title, @course
-  approval status is
-  = @course.approved
-.row
+%p Hello #{@course.user.username},
+
+- if @course.approved?
+  %p
+    Great news! Your course
+    %strong= link_to @course.title, @course
+    has been
+    %strong{ style: 'color: #28a745;' } approved
+    and is now available for students to enroll.
+
+  %p You can start promoting your course and track enrollments from your instructor dashboard.
+
+- else
+  %p
+    Your course
+    %strong= link_to @course.title, @course
+    has been reviewed and is currently
+    = succeed '.' do
+      %strong{ style: 'color: #dc3545;' } not approved
+
+  %p Please review your course content and ensure it meets our quality guidelines. You can resubmit for approval after making the necessary changes.
+
 %p
-Regards, 
-.row
-= link_to 'The Corsego team', root_url
+  Best regards,
+  %br
+  The Corsego Team
+
+%p{ style: 'font-size: 12px; color: #6c757d;' }= link_to 'Visit Corsego', root_url

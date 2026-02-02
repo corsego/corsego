@@ -3,6 +3,7 @@
 class CourseMailer < ApplicationMailer
   def approved(course)
     @course = course
-    mail(to: @course.user.email, subject: "Your course #{@course} approval status: #{@course.approved}")
+    @status = @course.approved? ? 'approved' : 'not approved'
+    mail(to: @course.user.email, subject: "Your course \"#{@course.title}\" has been #{@status}")
   end
 end
