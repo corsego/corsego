@@ -13,14 +13,13 @@ A Udemy-like online learning platform built with Ruby on Rails. Set up your onli
 - Ruby 3.3.6
 - Rails 7.1.6
 - PostgreSQL
-- Shakapacker 7 (Webpack-based asset bundling)
+- Bun 1.3.6 (JavaScript bundler and package manager)
 - Bootstrap 4.5
 
 ## Prerequisites
 
 - Ruby 3.3.6
-- Node.js (v18+ recommended)
-- Yarn
+- Bun (v1.3+ recommended)
 - PostgreSQL
 - ImageMagick (for image processing)
 - Graphviz (optional, for generating ERD diagrams)
@@ -29,12 +28,14 @@ A Udemy-like online learning platform built with Ruby on Rails. Set up your onli
 
 ```bash
 brew install postgresql imagemagick graphviz
+curl -fsSL https://bun.sh/install | bash
 ```
 
 ### Ubuntu/Debian
 
 ```bash
 sudo apt-get install postgresql libpq-dev imagemagick graphviz
+curl -fsSL https://bun.sh/install | bash
 ```
 
 ## Installation
@@ -50,7 +51,7 @@ cd corsego
 
 ```bash
 bundle install
-yarn install
+bun install
 ```
 
 ### 3. Configure credentials
@@ -103,11 +104,9 @@ rails db:create db:migrate
 
 ## Running the App Locally
 
-The app uses Shakapacker for JavaScript and CSS bundling. You need to run both the Rails server and the Shakapacker dev server for live reloading of assets.
-
 ### Option 1: Using bin/dev (Recommended)
 
-This starts both servers with a single command using Foreman:
+This starts both the Rails server and Bun watcher with a single command:
 
 ```bash
 bin/dev
@@ -123,10 +122,10 @@ In one terminal, start the Rails server:
 rails server
 ```
 
-In another terminal, start the Shakapacker dev server:
+In another terminal, start the Bun watcher for JavaScript:
 
 ```bash
-bin/shakapacker-dev-server
+bun run dev
 ```
 
 The app will be available at `http://localhost:3000`
@@ -136,7 +135,7 @@ The app will be available at `http://localhost:3000`
 If you don't need live reloading, you can compile assets once and run just the Rails server:
 
 ```bash
-bin/shakapacker
+bun run build
 rails server
 ```
 
@@ -172,7 +171,8 @@ rails test test/controllers
 heroku create
 heroku rename your-app-name
 heroku git:remote -a your-app-name
-heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add https://github.com/nickhstr/heroku-buildpack-bun.git
+heroku buildpacks:add heroku/ruby
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 git push heroku main
 heroku run rails db:migrate
@@ -211,7 +211,6 @@ bundle exec erd
 
 ## TODO
 
-- Upgrade Heroku stack to 24
 - Code linting improvements
 
 ## Video Tutorial
