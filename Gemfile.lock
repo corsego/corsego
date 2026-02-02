@@ -175,8 +175,8 @@ GEM
       fugit (>= 1.11.0)
       railties (>= 6.1.0)
       thor (>= 1.0.0)
-    groupdate (6.4.0)
-      activesupport (>= 6.1)
+    groupdate (6.7.0)
+      activesupport (>= 7.1)
     haml (6.4.0)
       temple (>= 0.8.2)
       thor
