@@ -183,7 +183,7 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
     sign_in @teacher
 
     patch course_lesson_url(@published_course, @lesson_one), params: {
-      lesson: { video_url: 'https://vimeo.com/123456789' }
+      lesson: { title: 'Updated with Video', content: 'Lesson content', video_url: 'https://vimeo.com/123456789' }
     }
 
     @lesson_one.reload
@@ -195,7 +195,7 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
     sign_in @teacher
 
     patch course_lesson_url(@published_course, @lesson_one), params: {
-      lesson: { video_url: 'https://www.loom.com/share/abc123def456' }
+      lesson: { title: 'Loom Video Lesson', content: 'Lesson content', video_url: 'https://www.loom.com/share/abc123def456' }
     }
 
     @lesson_one.reload
