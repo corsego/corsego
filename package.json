@@ -9,7 +9,6 @@
     "dev": "bun run build.js --watch"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
     "@hotwired/stimulus": "^3.2.0",
     "@hotwired/turbo-rails": "^8.0.0",
     "@rails/actioncable": "^7.0.0",

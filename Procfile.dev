@@ -1,2 +1,2 @@
 web: bin/rails server -p 3000
-js: mise x -- bun run dev
+js: bun run dev
