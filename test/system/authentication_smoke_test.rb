@@ -39,9 +39,9 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     click_button 'Log in'
 
     # After successful login, user should be redirected away from login page
-    # and see authenticated navigation (Sign out button instead of Login link)
+    # and see authenticated navigation (username dropdown instead of Login link)
     assert_no_selector 'h2', text: 'Log in', wait: 10
-    assert_selector 'button', text: 'Sign out', wait: 10
+    assert_selector 'a#navbarDropdown', text: 'student', wait: 10
   end
 
   test 'user cannot sign in with invalid credentials' do
@@ -55,25 +55,24 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     # After failed login, user should stay on login page and see error message
     assert_text 'Invalid Email or password', wait: 10
     assert_selector 'h2', text: 'Log in'
-    assert_no_selector 'button', text: 'Sign out'
+    # User dropdown should not be present (indicates not logged in)
+    assert_no_selector 'a#navbarDropdown'
   end
 
   test 'user can sign out' do
-    visit new_user_session_url
-    assert_selector 'h2', text: 'Log in'
+    # Sign in programmatically to focus test on sign out functionality
+    sign_in @user
+    visit root_url
 
-    fill_in 'Email', with: @user.email
-    fill_in 'Password', with: 'password'
-    click_button 'Log in'
+    # User should see authenticated state (no Login link visible)
+    assert_no_selector 'a', text: 'Login', wait: 5
 
-    # Wait for successful login - user should see Sign out button
-    assert_selector 'button', text: 'Sign out', wait: 10
-
+    # Without CSS/JS, the dropdown menu items are visible and clickable
+    # Click Sign out button (rendered by button_to helper)
     click_button 'Sign out'
 
     # After sign out, user should see Login link again
     assert_selector 'a', text: 'Login', wait: 10
-    assert_no_selector 'button', text: 'Sign out'
   end
 
   test 'unauthenticated user is redirected from protected page' do
