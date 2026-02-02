@@ -2,6 +2,9 @@
 
 module Users
   class RegistrationsController < Devise::RegistrationsController
+    # Rate limit registration attempts: 5 attempts per 15 minutes per IP
+    rate_limit to: 5, within: 15.minutes, only: :create, by: -> { request.remote_ip }
+
     # before_action :configure_sign_up_params, only: [:create]
     # before_action :configure_account_update_params, only: [:update]
 

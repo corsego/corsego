@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  # Rate limit comment creation: 10 comments per 5 minutes per user
+  # Prevents comment spam
+  rate_limit to: 10, within: 5.minutes, only: :create, by: -> { current_user.id }
+
   def create
     @comment = Comment.new(comment_params)
     @course = Course.friendly.find(params[:course_id])
