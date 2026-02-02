@@ -365,6 +365,7 @@ Note: The app uses Bun for both package management and JavaScript bundling. The 
 4. Add authorization via Pundit for any new controller actions
 5. Update counter caches if adding new associations
 6. Use FriendlyId for user-facing resources
+7. **NEVER remove the `x86_64-linux` platform from Gemfile.lock** - CI runs on Linux and requires this platform. If you modify Gemfile.lock, ensure the platform is preserved. Run `bundle lock --add-platform x86_64-linux` if needed.
 
 ### Security Considerations
 - All controller actions must be authorized via Pundit
