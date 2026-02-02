@@ -45,6 +45,14 @@ class Enrollment < ApplicationRecord
     user.calculate_enrollment_expences
   end
 
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[course_id created_at id price rating review slug updated_at user_id]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    %w[course user]
+  end
+
   protected
 
   def cant_subscribe_to_own_course
