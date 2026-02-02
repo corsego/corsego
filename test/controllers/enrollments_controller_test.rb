@@ -45,6 +45,36 @@ class EnrollmentsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  # SHOW
+  test 'unauthenticated user cannot view enrollment' do
+    get enrollment_url(@student_enrollment)
+    assert_redirected_to new_user_session_url
+  end
+
+  test 'enrollment owner can view their enrollment' do
+    sign_in @student
+    get enrollment_url(@student_enrollment)
+    assert_response :success
+  end
+
+  test 'course teacher can view enrollment for their course' do
+    sign_in @teacher
+    get enrollment_url(@student_enrollment)
+    assert_response :success
+  end
+
+  test 'admin can view any enrollment' do
+    sign_in @admin
+    get enrollment_url(@student_enrollment)
+    assert_response :success
+  end
+
+  test 'other users cannot view enrollment' do
+    sign_in @another_teacher
+    get enrollment_url(@student_enrollment)
+    assert_redirected_to root_url
+  end
+
   # CREATE (for free courses)
   test 'user can enroll in free course' do
     sign_in @student

@@ -9,11 +9,12 @@ class TagsController < ApplicationController
   end
 
   def create
+    authorize Tag
     @tag = Tag.new(tag_params)
     if @tag.save
       render json: @tag
     else
-      render json: { errors: @tag.errors.full_messages }
+      render json: { errors: @tag.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

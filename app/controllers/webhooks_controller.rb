@@ -13,12 +13,13 @@ class WebhooksController < ApplicationController
       event = Stripe::Webhook.construct_event(
         payload, sig_header, Rails.application.credentials.dig(Rails.env.to_sym, :stripe, :webhook)
       )
-    rescue JSON::ParserError
-      status 400
+    rescue JSON::ParserError => e
+      Rails.logger.error("Webhook JSON parse error: #{e.message}")
+      render json: { error: 'Invalid payload' }, status: :bad_request
       return
     rescue Stripe::SignatureVerificationError => e
-      puts 'Signature error'
-      p e
+      Rails.logger.error("Webhook signature verification failed: #{e.message}")
+      render json: { error: 'Invalid signature' }, status: :unauthorized
       return
     end
 

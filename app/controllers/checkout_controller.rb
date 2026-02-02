@@ -3,6 +3,13 @@
 class CheckoutController < ApplicationController
   def create
     course = Course.find(params[:id])
+    authorize course, :show?
+
+    if course.bought(current_user)
+      render json: { error: 'Already enrolled' }, status: :unprocessable_entity
+      return
+    end
+
     @session = Stripe::Checkout::Session.create({
                                                   customer: current_user.stripe_customer_id,
                                                   payment_method_types: ['card'],

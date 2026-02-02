@@ -25,7 +25,7 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # CREATE
-  test 'authenticated user can create tag' do
+  test 'teacher can create tag' do
     sign_in @teacher
 
     assert_difference 'Tag.count', 1 do
@@ -35,13 +35,25 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'create tag with invalid data returns errors' do
+  test 'student cannot create tag' do
+    sign_in @student
+
+    assert_no_difference 'Tag.count' do
+      post tags_url, params: { tag: { name: 'StudentTag' } }, as: :json
+    end
+
+    # Pundit redirects unauthorized users
+    assert_response :redirect
+  end
+
+  test 'create tag with invalid data returns errors with unprocessable entity status' do
     sign_in @teacher
 
     assert_no_difference 'Tag.count' do
       post tags_url, params: { tag: { name: '' } }, as: :json
     end
 
+    assert_response :unprocessable_entity
     response_body = JSON.parse(response.body)
     assert response_body['errors'].present?
   end
