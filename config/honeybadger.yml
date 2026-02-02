@@ -4,11 +4,8 @@
 # See https://docs.honeybadger.io/lib/ruby/gem-reference/configuration for options
 
 ---
-# The API key is read from Rails credentials
-# Add your API key with: EDITOR=vim rails credentials:edit
-# honeybadger:
-#   api_key: your_api_key_here
-api_key: '<%= Rails.application.credentials.dig(:honeybadger, :api_key) %>'
+# The API key is read from HONEYBADGER_API_KEY environment variable
+api_key: '<%= ENV["HONEYBADGER_API_KEY"] %>'
 
 # The environment name defaults to RAILS_ENV, RACK_ENV, or "development"
 env: '<%= Rails.env %>'

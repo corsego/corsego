@@ -211,7 +211,7 @@ course.price = 9900  # $99.00
 ### Honeybadger (Error Monitoring)
 - Error tracking and uptime monitoring
 - Configured in `config/honeybadger.yml`
-- API key stored in Rails credentials
+- API key via `HONEYBADGER_API_KEY` environment variable
 
 ## Frontend Patterns
 
@@ -298,8 +298,6 @@ Credentials stored in `config/credentials.yml.enc`. Required keys:
 awss3:
   access_key_id: ...
   secret_access_key: ...
-honeybadger:
-  api_key: ...
 google_analytics: ...
 recaptcha:
   site_key: ...
