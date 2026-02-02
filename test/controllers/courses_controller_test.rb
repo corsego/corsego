@@ -27,6 +27,36 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'body' # Basic response check
   end
 
+  # Ransack sorting tests - verifies Arel::Table#table_name fix
+  test 'index with ransack sort by average_rating succeeds' do
+    get courses_url, params: { courses_search: { s: 'average_rating asc' } }
+    assert_response :success
+  end
+
+  test 'index with ransack sort by price succeeds' do
+    get courses_url, params: { courses_search: { s: 'price desc' } }
+    assert_response :success
+  end
+
+  test 'index with ransack sort by enrollments_count succeeds' do
+    get courses_url, params: { courses_search: { s: 'enrollments_count desc' } }
+    assert_response :success
+  end
+
+  test 'index with ransack sort by created_at succeeds' do
+    get courses_url, params: { courses_search: { s: 'created_at desc' } }
+    assert_response :success
+  end
+
+  test 'index with ransack filter and sort succeeds' do
+    # This replicates the exact production error URL pattern
+    get courses_url, params: {
+      courses_search: { course_tags_tag_id_eq: 1, s: 'average_rating asc' },
+      page: 1
+    }
+    assert_response :success
+  end
+
   # SHOW
   test 'should show published and approved course without authentication' do
     get course_url(@published_course)
