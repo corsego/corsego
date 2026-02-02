@@ -7,7 +7,7 @@ ruby '>= 2.7.3'
 
 gem 'rails', '~> 6.1.3.2'
 # gem 'rails', github: 'rails/rails', branch: 'master'
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '>= 0.18', '< 1.5'
 gem 'puma', '~> 4.1' # ~> 5.0
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
@@ -19,7 +19,6 @@ group :development do
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rubocop-rails', require: false
-  gem 'standard' # remove
   gem 'letter_opener'  
   gem 'rails-erd' # sudo apt-get install graphviz; bundle exec erd
 end
@@ -70,8 +69,7 @@ gem 'wkhtmltopdf-heroku', group: :production
 
 gem 'stripe' # accept payments
 
+gem 'invisible_captcha' # honeypot spam protection for registration
+
 # Error monitoring and uptime
 gem 'honeybadger'
-
-# TODO: replace with invisible_captcha
-gem 'recaptcha' # for new user registration

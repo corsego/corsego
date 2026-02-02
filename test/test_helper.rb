@@ -26,7 +26,7 @@ module StripeTestHelper
 end
 
 class ActiveSupport::TestCase
-  parallelize(workers: :number_of_processors)
+  # parallelize(workers: :number_of_processors) # Disabled due to pg gem segfault with fork on macOS
   fixtures :all
   include Devise::Test::IntegrationHelpers
   include StripeTestHelper

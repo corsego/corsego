@@ -22,7 +22,7 @@
 * AWS S3 - file storage ** in production **
 * Amazon SES - sending emails ** in production **
 * google analytics code ** in production **
-* google recaptcha API for signing up ** in development & production **
+* invisible_captcha gem (honeypot) for spam protection on sign up
 * google oauth API ** in development and production **
 * github oauth API ** in development and production **
 * facebook oauth API
@@ -75,9 +75,6 @@ awss3:
   access_key_id: YOUR_CODE_FOR_S3_STORAGE
   secret_access_key: YOUR_CODE_FOR_S3_STORAGE
 google_analytics: YOUR_CODE_FOR_GOOGLE_ANALYTICS
-recaptcha:
-  site_key: YOUR_CODE_FOR_RECAPTCHA
-  secret_key: YOUR_CODE_FOR_RECAPTCHA
 google_oauth2:
   client_id: YOUR_CODE_FOR_OAUTH
   client_secret: YOUR_CODE_FOR_OAUTH
@@ -153,7 +150,6 @@ fix yarn/webpacker errors. they block deployment!
 bundle update
 upgrade rails
 upgrade puma to v5
-replace google_captcha with invisible_captcha
 make system tests work
 lint
 upgrade ruby version to 3.2.3
