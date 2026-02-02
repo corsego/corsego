@@ -58,10 +58,8 @@ jobs:
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Create webpacker manifest
-        run: |
-          mkdir -p public/packs-test
-          echo '{"application.js": "/packs-test/application.js"}' > public/packs-test/manifest.json
+      - name: Compile assets
+        run: bin/shakapacker
 
       - name: Set up database
         run: bin/rails db:create db:schema:load

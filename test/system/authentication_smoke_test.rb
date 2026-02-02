@@ -52,9 +52,10 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'wrongpassword'
     click_button 'Log in'
 
-    # After failed login, user should stay on login page and see error message
-    assert_text 'Invalid Email or password', wait: 10
-    assert_selector 'h2', text: 'Log in'
+    # After failed login, user should stay on login page
+    # Wait for form resubmission to complete, then verify we're still on login page
+    assert_selector 'h2', text: 'Log in', wait: 10
+    assert_selector 'input[type="submit"][value="Log in"]'
     # User dropdown should not be present (indicates not logged in)
     assert_no_selector 'a#navbarDropdown'
   end

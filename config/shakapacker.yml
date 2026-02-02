@@ -69,10 +69,8 @@ development:
 
 test:
   <<: *default
-  compile: false  # Use precompiled development assets
-
-  # Use same packs as development to avoid recompilation issues
-  # public_output_path: packs-test
+  compile: false
+  public_output_path: packs  # Share precompiled development assets
 
 production:
   <<: *default
