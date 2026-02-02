@@ -39,4 +39,34 @@
   .card-body
     = bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').sum(:impressions)
 
-
+%h4.text-center
+  Enrollment source
+.card
+  .card-body
+    .row
+      .col-md-6
+        %h5.text-center Paid vs Invited
+        = pie_chart [['Paid', @course.enrollments.where(invited: false).count], ['Invited (Free)', @course.enrollments.invited.count]]
+      .col-md-6
+        %table.table.table-sm
+          %thead
+            %tr
+              %th Type
+              %th Count
+              %th Revenue
+          %tbody
+            %tr
+              %td Paid enrollments
+              %td= @course.enrollments.where(invited: false).count
+              %td= number_to_currency(@course.enrollments.where(invited: false).sum(:price) / 100.0)
+            %tr
+              %td Invited (free) enrollments
+              %td= @course.enrollments.invited.count
+              %td $0.00
+            %tr.table-info
+              %td
+                %strong Total
+              %td
+                %strong= @course.enrollments_count
+              %td
+                %strong= number_to_currency(@course.income / 100.0)

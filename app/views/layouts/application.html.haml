@@ -19,6 +19,7 @@
     = javascript_pack_tag 'application', 'data-turbo-track': 'reload'
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbo-track': 'reload'
     = stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload'
+    = yield :head
     - if Rails.env.production?
       %script{"data-domain" => "corsego.com", :defer => "defer", :src => "https://plausible.io/js/plausible.js"}
       = render 'layouts/google_analytics'

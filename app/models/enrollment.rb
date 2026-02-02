@@ -19,6 +19,7 @@ class Enrollment < ApplicationRecord
   scope :pending_review, -> { where(rating: [0, nil, ''], review: [0, nil, '']) }
   scope :reviewed, -> { where.not(review: [0, nil, '']) }
   scope :latest_good_reviews, -> { order(rating: :desc, created_at: :desc).limit(3) }
+  scope :invited, -> { where(invited: true) }
 
   include PublicActivity::Model
   tracked owner: proc { |controller, _model| controller.current_user }
@@ -46,7 +47,7 @@ class Enrollment < ApplicationRecord
   end
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[course_id created_at id price rating review slug updated_at user_id]
+    %w[course_id created_at id invited price rating review slug updated_at user_id]
   end
 
   def self.ransackable_associations(_auth_object = nil)

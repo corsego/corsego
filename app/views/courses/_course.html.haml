@@ -50,6 +50,9 @@
             = link_to course_course_wizard_index_path(course), class: 'btn btn-sm btn-warning' do
               .fa.fa-edit
               Editor
+            = link_to course_invitations_path(course), class: 'btn btn-sm btn-success' do
+              .fa.fa-share-alt
+              Share
     - if policy(course).admin_or_owner?
       .card-footer
         = link_to analytics_course_path(course), class: 'btn btn-sm btn-info' do

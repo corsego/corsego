@@ -1,0 +1,122 @@
+- content_for :title do
+  Share: #{@course.title}
+
+- content_for :head do
+  %script{src: "https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"}
+
+.row
+  .col-lg-8.offset-lg-2
+    .card.shadow
+      .card-header
+        %h4
+          .fa.fa-share-alt
+          Share Course: #{@course.title}
+
+      .card-body
+        %p.text-muted
+          Share this course with others to give them free access. Anyone with the link can enroll for free.
+
+        %hr
+
+        / Enable/Disable toggle
+        .d-flex.justify-content-between.align-items-center.mb-4
+          %div
+            %h5.mb-0 Link Sharing
+            %small.text-muted
+              - if @course.invite_enabled?
+                Anyone with the link can enroll for free
+              - else
+                Link sharing is currently disabled
+          = link_to toggle_course_invitations_path(@course), method: :patch, class: "btn btn-#{@course.invite_enabled? ? 'success' : 'secondary'}" do
+            - if @course.invite_enabled?
+              .fa.fa-toggle-on
+              Enabled
+            - else
+              .fa.fa-toggle-off
+              Disabled
+
+        - if @course.invite_enabled? && @course.invite_token.present?
+          %hr
+
+          / Shareable Link Section
+          .mb-4
+            %h5
+              .fa.fa-link
+              Shareable Link
+            .input-group
+              %input.form-control{type: 'text', value: accept_course_invitations_url(@course, token: @course.invite_token), readonly: true, id: 'invite-link'}
+              .input-group-append
+                %button.btn.btn-outline-primary{type: 'button', onclick: "copyToClipboard('invite-link')", title: 'Copy to clipboard'}
+                  .fa.fa-copy
+                  Copy
+
+            .mt-2
+              = link_to regenerate_token_course_invitations_path(@course), method: :post, class: 'btn btn-sm btn-outline-warning', data: { confirm: 'This will invalidate all existing invite links. Continue?' } do
+                .fa.fa-sync
+                Regenerate Link
+
+          %hr
+
+          / QR Code Section
+          .mb-4
+            %h5
+              .fa.fa-qrcode
+              QR Code
+            %p.text-muted
+              Scan this QR code to access the course invitation link.
+            .text-center
+              #qrcode.d-inline-block.p-3.bg-white.border.rounded
+
+          %hr
+
+          / Email Invitations Section
+          .mb-4
+            %h5
+              .fa.fa-envelope
+              Send Email Invitations
+            %p.text-muted
+              Enter email addresses (separated by commas, spaces, or new lines) to send invitation emails.
+
+            = form_tag send_emails_course_invitations_path(@course), method: :post do
+              .form-group
+                = text_area_tag :emails, nil, class: 'form-control', rows: 3, placeholder: "email1@example.com, email2@example.com\nemail3@example.com"
+              = submit_tag 'Send Invitations', class: 'btn btn-primary'
+
+        - elsif !@course.invite_enabled?
+          .alert.alert-info
+            .fa.fa-info-circle
+            Enable link sharing to get a shareable link and send email invitations.
+
+      .card-footer
+        = link_to course_path(@course), class: 'btn btn-secondary' do
+          .fa.fa-arrow-left
+          Back to Course
+
+- if @course.invite_enabled? && @course.invite_token.present?
+  :javascript
+    // Copy to clipboard function
+    function copyToClipboard(elementId) {
+      var copyText = document.getElementById(elementId);
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(copyText.value);
+      alert('Link copied to clipboard!');
+    }
+
+    // Generate QR Code
+    function initQRCode() {
+      var qrContainer = document.getElementById("qrcode");
+      if (qrContainer && typeof QRCode !== 'undefined' && qrContainer.children.length === 0) {
+        new QRCode(qrContainer, {
+          text: "#{j accept_course_invitations_url(@course, token: @course.invite_token)}",
+          width: 200,
+          height: 200,
+          colorDark: "#000000",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initQRCode);
+    document.addEventListener('turbo:load', initQRCode);

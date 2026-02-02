@@ -101,6 +101,29 @@ class Course < ApplicationRecord
         .order(tags_in_common: :desc)
   end
 
+  # Course invitation/sharing functionality
+  def generate_invite_token!
+    update!(invite_token: SecureRandom.urlsafe_base64(16))
+  end
+
+  def regenerate_invite_token!
+    generate_invite_token!
+  end
+
+  def invite_url(host:)
+    "#{host}/courses/#{slug}/enroll?token=#{invite_token}"
+  end
+
+  def valid_invite_token?(token)
+    invite_enabled? && invite_token.present? && invite_token == token
+  end
+
+  def self.find_by_invite_token(token)
+    return nil if token.blank?
+
+    find_by(invite_token: token, invite_enabled: true)
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[title marketing_description language level price published approved average_rating created_at updated_at]
   end

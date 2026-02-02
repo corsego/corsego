@@ -40,6 +40,14 @@ Rails.application.routes.draw do
     end
     resources :enrollments, only: [:new, :create]
     resources :course_wizard, controller: "courses/course_wizard"
+
+    # Course invitations/sharing
+    resource :invitations, controller: 'course_invitations', only: [:show] do
+      patch :toggle
+      post :regenerate_token
+      post :send_emails
+      get :accept
+    end
   end
   resources :youtube, only: :show
 
