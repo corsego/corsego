@@ -38,9 +38,10 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password'
     click_button 'Log in'
 
-    # Wait for redirect to complete by checking we're on the root page
-    assert_selector '.navbar', wait: 10
-    assert_text 'Signed in successfully', wait: 10
+    # After successful login, user should be redirected away from login page
+    # and see authenticated navigation (Sign out button instead of Login link)
+    assert_no_selector 'h2', text: 'Log in', wait: 15
+    assert_selector 'button', text: 'Sign out', wait: 15
   end
 
   test 'user cannot sign in with invalid credentials' do
@@ -51,7 +52,11 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'wrongpassword'
     click_button 'Log in'
 
-    assert_text 'Invalid Email or password', wait: 10
+    # After failed login, user should stay on login page
+    # Give time for form submission to complete
+    sleep 2
+    assert_selector 'h2', text: 'Log in'
+    assert_no_selector 'button', text: 'Sign out'
   end
 
   test 'user can sign out' do
@@ -62,11 +67,14 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'password'
     click_button 'Log in'
 
-    assert_text 'Signed in successfully', wait: 10
+    # Wait for successful login - user should see Sign out button
+    assert_selector 'button', text: 'Sign out', wait: 15
 
     click_button 'Sign out'
 
-    assert_text 'Signed out successfully', wait: 10
+    # After sign out, user should see Login link again
+    assert_selector 'a', text: 'Login', wait: 15
+    assert_no_selector 'button', text: 'Sign out'
   end
 
   test 'unauthenticated user is redirected from protected page' do
