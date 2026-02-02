@@ -9,7 +9,6 @@ gem 'rails', '~> 8.1.1'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 6.0'
 gem 'sprockets-rails'
-gem 'sassc-rails' # SCSS compilation for asset pipeline
 gem 'turbo-rails'
 gem 'stimulus-rails'
 gem 'jbuilder', '~> 2.7'
@@ -45,7 +44,7 @@ gem 'simple_form' # creating forms made easier
 gem 'cocoon' # nested forms
 
 # Authentication
-gem 'devise'
+gem 'devise', '>= 4.9.5'
 gem 'devise_invitable', '~> 2.0' # invite users
 gem 'omniauth-google-oauth2' # sign in with google
 gem 'omniauth-github' # sign in with github

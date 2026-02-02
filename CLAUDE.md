@@ -8,7 +8,7 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 
 - **Backend**: Ruby 3.4.5, Rails 8.1
 - **Database**: PostgreSQL
-- **Frontend**: Bun 1.3.6 (bundler), Sprockets (CSS), Bootstrap 4.5, jQuery, Hotwire (Turbo)
+- **Frontend**: Bun 1.3.6 (JS + CSS bundler), PostCSS, Sprockets (asset serving), Bootstrap 4.5, jQuery, Hotwire (Turbo)
 - **Views**: HAML templates with Simple Form
 - **Rich Text**: ActionText with Trix editor
 - **Authentication**: Devise with OmniAuth (Google, GitHub, Facebook)
@@ -28,7 +28,7 @@ rails db:create db:migrate
 # Development
 rails s                           # Start server
 rails c                           # Rails console
-bun run dev                       # Watch JS files and rebuild on change
+bun run dev                       # Watch JS and CSS files, rebuild on change
 
 # Database
 rails db:migrate                  # Run migrations
@@ -45,8 +45,8 @@ bundle exec rubocop               # Run RuboCop
 bundle exec rubocop -a            # Auto-fix issues
 
 # Assets
-bun run build                     # Compile JS assets (development)
-bun run build:production          # Compile JS assets (production)
+bun run build                     # Compile JS and CSS assets (development)
+bun run build:production          # Compile JS and CSS assets (production)
 bundle exec rake assets:precompile    # Precompile all assets
 
 # Utilities
@@ -65,11 +65,11 @@ corsego/
 │   ├── policies/             # Pundit authorization (8 policies)
 │   ├── mailers/              # Email notifications (5 mailers)
 │   ├── helpers/              # View helpers
-│   ├── javascript/           # JavaScript source (bundled by Bun)
-│   │   └── application.js    # Main JS entry point
+│   ├── javascript/           # Source files (bundled by Bun/PostCSS)
+│   │   ├── application.js    # Main JS entry point
+│   │   └── application.css   # Main CSS entry point (modern CSS)
 │   └── assets/               # Asset pipeline (Sprockets)
-│       ├── builds/           # Bun output (application.js)
-│       └── stylesheets/      # SCSS files (compiled by sassc-rails)
+│       └── builds/           # Bun/PostCSS output (application.js, application.css)
 ├── config/
 │   ├── routes.rb             # URL routing
 │   ├── database.yml          # DB configuration
@@ -235,9 +235,12 @@ Views use HAML, not ERB:
 - Output: `app/assets/builds/application.js`
 
 ### CSS
-- Entry point: `app/assets/stylesheets/application.scss`
-- Compiled by sassc-rails via Sprockets
-- Imports npm packages from node_modules (Bootstrap, FontAwesome, Trix, etc.)
+- Entry point: `app/javascript/application.css`
+- Uses modern CSS features: custom properties (variables), nesting
+- Processed by PostCSS with `postcss-import`, `postcss-nesting`, `autoprefixer`
+- Bundled by Bun (via build.js) to `app/assets/builds/application.css`
+- Imports npm packages from node_modules (Bootstrap, Trix, Selectize, jQuery UI)
+- FontAwesome loaded via CDN in layout (font files don't work via npm import)
 
 ### Forms
 - Simple Form with Bootstrap integration
@@ -340,6 +343,7 @@ From README.md:
 - ~~Upgrade Ruby to 3.2.3~~ (DONE - upgraded to Ruby 3.4.5)
 - ~~Upgrade Heroku stack to 24~~ (DONE - added app.json with heroku-24 stack)
 - ~~Upgrade to Rails 8.1 and Ruby 3.4.5~~ (DONE)
+- ~~Replace SCSS with modern CSS~~ (DONE - migrated to PostCSS with CSS custom properties and nesting)
 
 ## Deployment (Heroku)
 
@@ -354,7 +358,7 @@ git push heroku master
 heroku run rake db:migrate
 ```
 
-Note: The app uses Bun for both package management and JavaScript bundling. The `app.json` file is pre-configured with the Bun buildpack for Heroku deployments. CSS is compiled by Rails' asset pipeline (sassc-rails).
+Note: The app uses Bun for package management, JavaScript bundling, and CSS bundling (via PostCSS). The `app.json` file is pre-configured with the Bun buildpack for Heroku deployments.
 
 ## AI Assistant Guidelines
 

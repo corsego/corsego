@@ -3,14 +3,22 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = "1.0"
 
+# Disable SCSS/SASS processing since we use modern CSS with PostCSS.
+# This prevents Sprockets from trying to load sassc gem.
+Rails.application.config.assets.configure do |env|
+  # Unregister SCSS processors to prevent sassc from being loaded
+  %w[text/scss text/sass].each do |mime_type|
+    if env.transformers[mime_type]
+      env.transformers[mime_type].clear
+    end
+  end
+end
+
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
-# Add Yarn node_modules folder to the asset load path.
-Rails.application.config.assets.paths << Rails.root.join("node_modules")
-
-# Configure sassc-rails to find CSS files in node_modules
-Rails.application.config.sass.load_paths ||= []
-Rails.application.config.sass.load_paths << Rails.root.join("node_modules")
+# Note: node_modules is NOT added to asset paths because Bun handles all bundling
+# from node_modules to app/assets/builds/. Adding node_modules causes Sprockets
+# to try loading SassC for Bootstrap's .scss source files.
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets

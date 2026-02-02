@@ -1,0 +1,186 @@
+/* Corsego Application Styles
+ * This file is bundled by Bun and output to app/assets/builds/application.css
+ * Uses modern CSS features: custom properties, nesting, color-mix()
+ */
+
+/* ==========================================================================
+   NPM Package Styles (from node_modules)
+   ========================================================================== */
+
+/* Bootstrap 4 */
+@import "bootstrap/dist/css/bootstrap.css";
+
+/* FontAwesome icons loaded via CDN in layout (fonts don't work via npm import) */
+
+/* Trix editor */
+@import "trix/dist/trix.css";
+
+/* Selectize dropdowns */
+@import "selectize/dist/css/selectize.css";
+@import "selectize/dist/css/selectize.default.css";
+
+/* jQuery UI (base theme) */
+@import "jquery-ui-dist/jquery-ui.css";
+
+/* ==========================================================================
+   CSS Custom Properties (Variables)
+   ========================================================================== */
+
+:root {
+  --custom-purple: #563d7c;
+  --custom-purple-hover: #452f63;
+  --custom-purple-border: #3d2956;
+  --body-bg: #ede3d5;
+}
+
+/* ==========================================================================
+   ActionText / Trix Overrides
+   ========================================================================== */
+
+.trix-content {
+  .attachment-gallery {
+    > action-text-attachment,
+    > .attachment {
+      flex: 1 0 33%;
+      padding: 0 0.5em;
+      max-width: 33%;
+    }
+
+    &.attachment-gallery--2,
+    &.attachment-gallery--4 {
+      > action-text-attachment,
+      > .attachment {
+        flex-basis: 50%;
+        max-width: 50%;
+      }
+    }
+  }
+
+  action-text-attachment {
+    .attachment {
+      padding: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+}
+
+/* Hide attachments button in Trix */
+.trix-button-group--file-tools {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Custom Application Styles
+   ========================================================================== */
+
+/* Shadow for text on landing page */
+.text-shadow {
+  text-shadow: 1px 1px black;
+}
+
+/* Light background */
+body {
+  background-color: var(--body-bg);
+}
+
+/* Purple brand elements */
+.purple-background {
+  background-color: var(--custom-purple);
+}
+
+/* White background for tables */
+.table {
+  background: white;
+}
+
+/* Hide simple_form checkmarks */
+.form-control.is-invalid {
+  background-image: none;
+}
+
+.form-control.is-valid {
+  background-image: none;
+}
+
+/* Nested fields shadow on hover */
+.nested-fields.container.rounded {
+  background-color: rgb(238, 238, 238);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  z-index: 1;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+
+  &:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    z-index: 3;
+  }
+}
+
+/* Highlight for drag and drop */
+.ui-state-highlight {
+  height: 3em;
+  line-height: 1.2em;
+  background-color: yellow;
+}
+
+/* Custom purple button */
+.btn-custom-purple {
+  color: #fff;
+  background-color: var(--custom-purple);
+  border-color: var(--custom-purple);
+
+  &:hover {
+    color: #fff;
+    background-color: var(--custom-purple-hover);
+    border-color: var(--custom-purple-border);
+  }
+}
+
+/* Navbar dropdown on top */
+.dropdown {
+  z-index: 9999;
+}
+
+/* Rich text area input */
+trix-editor.form-control {
+  height: auto;
+}
+
+/* Footer on bottom */
+html {
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
+
+/* Scrollable lessons list */
+#scrollable {
+  max-height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Vimeo embed 3:2 aspect ratio */
+.embed-responsive-3by2 {
+  padding-top: 66.66666667%;
+}
+
+/* Parallax background */
+.parallax {
+  background-image: url("https://i.imgur.com/bldd1wu.jpg");
+  height: auto;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
