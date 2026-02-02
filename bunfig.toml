@@ -1,0 +1,6 @@
+# Bun configuration for Corsego
+# https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Production mode for CI/deployment
+production = false

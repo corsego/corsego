@@ -8,7 +8,7 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 
 - **Backend**: Ruby 3.3.6, Rails 7.1.6
 - **Database**: PostgreSQL
-- **Frontend**: Shakapacker 7, Bootstrap 4.5, jQuery, Hotwire (Turbo)
+- **Frontend**: Bun 1.3.6 (bundler), Sprockets (CSS), Bootstrap 4.5, jQuery, Hotwire (Turbo)
 - **Views**: HAML templates with Simple Form
 - **Rich Text**: ActionText with Trix editor
 - **Authentication**: Devise with OmniAuth (Google, GitHub, Facebook)
@@ -22,12 +22,13 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 ```bash
 # Setup
 bundle install
-yarn install
+bun install
 rails db:create db:migrate
 
 # Development
 rails s                           # Start server
 rails c                           # Rails console
+bun run dev                       # Watch JS files and rebuild on change
 
 # Database
 rails db:migrate                  # Run migrations
@@ -44,7 +45,8 @@ bundle exec rubocop               # Run RuboCop
 bundle exec rubocop -a            # Auto-fix issues
 
 # Assets
-bin/shakapacker                       # Compile JS assets
+bun run build                     # Compile JS assets (development)
+bun run build:production          # Compile JS assets (production)
 bundle exec rake assets:precompile    # Precompile all assets
 
 # Utilities
@@ -63,10 +65,11 @@ corsego/
 │   ├── policies/             # Pundit authorization (8 policies)
 │   ├── mailers/              # Email notifications (5 mailers)
 │   ├── helpers/              # View helpers
-│   ├── javascript/           # Webpacker entry points
-│   │   ├── packs/            # application.js main entry
-│   │   └── stylesheets/      # SCSS files
-│   └── assets/               # Legacy asset pipeline (images, CSS)
+│   ├── javascript/           # JavaScript source (bundled by Bun)
+│   │   └── application.js    # Main JS entry point
+│   └── assets/               # Asset pipeline (Sprockets)
+│       ├── builds/           # Bun output (application.js)
+│       └── stylesheets/      # SCSS files (compiled by sassc-rails)
 ├── config/
 │   ├── routes.rb             # URL routing
 │   ├── database.yml          # DB configuration
@@ -225,10 +228,16 @@ Views use HAML, not ERB:
 ```
 
 ### JavaScript
-- Entry point: `app/javascript/packs/application.js`
+- Entry point: `app/javascript/application.js`
 - Uses: jQuery, Bootstrap, Hotwire Turbo, Trix, Chartkick
 - Sortable UI for drag-drop lesson/chapter ordering
-- Bundled with Shakapacker (webpack-based)
+- Bundled with Bun's native bundler (no webpack)
+- Output: `app/assets/builds/application.js`
+
+### CSS
+- Entry point: `app/assets/stylesheets/application.scss`
+- Compiled by sassc-rails via Sprockets
+- Imports npm packages from node_modules (Bootstrap, FontAwesome, Trix, etc.)
 
 ### Forms
 - Simple Form with Bootstrap integration
@@ -322,7 +331,7 @@ Edit with: `EDITOR=vim rails credentials:edit`
 ## Known Issues / TODOs
 
 From README.md:
-- ~~Fix yarn/webpacker errors blocking deployment~~ (DONE - migrated to Shakapacker)
+- ~~Fix yarn/webpacker errors blocking deployment~~ (DONE - migrated to Bun bundler)
 - ~~Bundle update and Rails upgrade needed~~ (DONE - upgraded to Rails 7.1.6)
 - ~~Upgrade Puma to v5~~ (DONE - upgraded to Puma 6)
 - ~~Replace google_captcha with invisible_captcha~~ (DONE)
@@ -337,11 +346,14 @@ From README.md:
 heroku create
 heroku rename <app-name>
 heroku git:remote -a <app-name>
-heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add https://github.com/nickhstr/heroku-buildpack-bun.git
+heroku buildpacks:add heroku/ruby
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 git push heroku master
 heroku run rake db:migrate
 ```
+
+Note: The app uses Bun for both package management and JavaScript bundling. The `app.json` file is pre-configured with the Bun buildpack for Heroku deployments. CSS is compiled by Rails' asset pipeline (sassc-rails).
 
 ## AI Assistant Guidelines
 
