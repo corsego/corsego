@@ -57,6 +57,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :edit, :show, :update]
 
+  resources :notifications, only: [:index, :show] do
+    post :mark_all_as_read, on: :collection
+  end
+
   # stripe
   post "checkout/create", to: "checkout#create"
   get "checkout/success", to: "checkout#success"

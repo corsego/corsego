@@ -61,6 +61,7 @@ class CheckoutController < ApplicationController
       if newly_created && enrollment.present?
         EnrollmentMailer.student_enrollment(enrollment).deliver_later
         EnrollmentMailer.teacher_enrollment(enrollment).deliver_later
+        NewEnrollmentNotifier.with(enrollment: enrollment).deliver(course.user)
       end
     end
 

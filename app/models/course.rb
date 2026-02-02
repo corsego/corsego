@@ -89,6 +89,16 @@ class Course < ApplicationRecord
     update(stripe_price_id: price.id)
   end
 
+  after_update :notify_admins_of_pending_review, if: :just_published?
+  def just_published?
+    saved_change_to_published? && published? && !approved?
+  end
+
+  def notify_admins_of_pending_review
+    admin_users = User.with_role(:admin)
+    CoursePendingReviewNotifier.with(course: self).deliver(admin_users)
+  end
+
   def similiar_courses
     self.class.joins(:tags)
         .where.not(id: id)

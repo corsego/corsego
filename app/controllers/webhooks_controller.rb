@@ -52,10 +52,11 @@ class WebhooksController < ApplicationController
       # Use idempotent enrollment - webhook serves as fallback if success URL verification failed
       enrollment, newly_created = user.enroll_in_course(course, price: line_item.amount_total)
 
-      # Only send emails if enrollment was newly created by webhook (not already created by success URL)
+      # Only send emails/notifications if enrollment was newly created by webhook (not already created by success URL)
       if newly_created && enrollment.present?
         EnrollmentMailer.student_enrollment(enrollment).deliver_later
         EnrollmentMailer.teacher_enrollment(enrollment).deliver_later
+        NewEnrollmentNotifier.with(enrollment: enrollment).deliver(course.user)
       end
     end
   end

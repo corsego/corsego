@@ -94,6 +94,12 @@
                 .fa.fa-chart-line
                 Analytics
       %ul.navbar-nav.mr-right
+        %li.nav-item
+          = link_to notifications_path, class: 'nav-link' do
+            .fa.fa-bell
+            - unread_count = current_user.notifications.unread.count
+            - if unread_count > 0
+              %span.badge.badge-danger= unread_count
         %li.nav-item.dropdown
           %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             - if current_user.image?

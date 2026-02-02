@@ -85,3 +85,6 @@ gem 'honeybadger'
 
 # Background jobs
 gem 'good_job', '~> 4.0'
+
+# Notifications
+gem 'noticed', '~> 3.0'

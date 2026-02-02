@@ -1,0 +1,20 @@
+.container.py-4
+  .d-flex.justify-content-between.align-items-center.mb-4
+    %h2 Notifications
+    - if @notifications.any?
+      = link_to 'Mark all as read', mark_all_as_read_notifications_path, method: :post, class: 'btn btn-outline-secondary btn-sm'
+
+  - if @notifications.any?
+    .list-group
+      - @notifications.each do |notification|
+        = link_to notification_path(notification), class: "list-group-item list-group-item-action #{'bg-light' unless notification.read?}" do
+          .d-flex.w-100.justify-content-between
+            %p.mb-1= notification.message
+            %small.text-muted= time_ago_in_words(notification.created_at) + ' ago'
+          - unless notification.read?
+            %small.text-primary
+              %i.fa.fa-circle
+              Unread
+  - else
+    .alert.alert-info
+      No notifications yet.
