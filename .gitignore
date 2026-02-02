@@ -26,9 +26,8 @@
 # Ignore environment variables file.
 .env
 
-/public/packs
-/public/packs-test
 /node_modules
-/yarn-error.log
-yarn-debug.log*
-.yarn-integrity
+
+# Ignore Bun build output (keep .gitkeep)
+/app/assets/builds/*
+!/app/assets/builds/.gitkeep

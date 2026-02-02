@@ -101,8 +101,10 @@ jobs:
           chrome-version: stable
       - name: Install JS dependencies
         run: bun install --frozen-lockfile
-      - name: Compile assets
+      - name: Build JavaScript
         run: bun run build
+      - name: Precompile assets
+        run: bundle exec rake assets:precompile
       - name: Set up database
         run: bin/rails db:create db:schema:load
       - name: Run system tests
