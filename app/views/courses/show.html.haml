@@ -1,5 +1,12 @@
 - content_for :title do
   = @course.title
+- set_meta_tags(title: @course.title,
+                description: @course.marketing_description,
+                keywords: @course.tags.pluck(:name).join(", "),
+                image: course_image_url(@course),
+                type: "product",
+                url: course_url(@course),
+                json_ld: [course_json_ld(@course), course_product_json_ld(@course), breadcrumb_json_ld([{ name: "Home", url: root_url }, { name: "Courses", url: courses_url }, { name: @course.title, url: course_url(@course) }])])
 .row
   .col-lg-8.order-1.order-lg-1
     .card.shadow
