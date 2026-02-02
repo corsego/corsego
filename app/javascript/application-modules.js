@@ -8,6 +8,9 @@ window.Popper = Popper
 // Turbo for SPA-like navigation
 import "@hotwired/turbo-rails"
 
+// Stimulus for JavaScript sprinkles
+import "./controllers"
+
 // Active Storage for file uploads
 import * as ActiveStorage from "@rails/activestorage"
 ActiveStorage.start()
