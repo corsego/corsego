@@ -18,6 +18,7 @@ async function buildJS() {
     minify: isProd,
     sourcemap: isProd ? 'none' : 'external',
     target: 'browser',
+    format: 'iife',
     external: ['jquery'],
     define: {
       'process.env.NODE_ENV': JSON.stringify(isProd ? 'production' : 'development'),
