@@ -1,30 +1,32 @@
-%b
-  You have enrolled in the course
-= link_to @enrollment.course, @enrollment.course
-.row
-%b
-  Enrollment date:
-= @enrollment.created_at
-.row
-%b
-  Enrollment ID:
-= @enrollment.slug
-.row
-%b
-  Course price:
-= number_to_currency(@enrollment.course.price)
-.row
-%b
-  Price paid:
-= number_to_currency(@enrollment.price)
-.row
-%b
-  Course instructor:
-= @enrollment.course.user.username
-= mail_to @enrollment.course.user.email, @enrollment.course.user.email
+%p Hello #{@student.username},
+
 %p
-After completing the course, you will be entitled to a Certificate of Completion.
+  Congratulations! You have successfully enrolled in
+  = succeed '.' do
+    %strong= link_to @course.title, @course
+
+%table{ border: '0', cellpadding: '8', cellspacing: '0', style: 'margin: 16px 0; background-color: #f8f9fa; border-radius: 4px; width: 100%;' }
+  %tr
+    %td{ style: 'padding: 16px;' }
+      %p{ style: 'margin: 0 0 8px 0;' }
+        %strong Enrollment Date:
+        = @enrollment.created_at.strftime('%B %d, %Y')
+      %p{ style: 'margin: 0 0 8px 0;' }
+        %strong Amount Paid:
+        = number_to_currency(@enrollment.price)
+      %p{ style: 'margin: 0;' }
+        %strong Instructor:
+        = @course.user.username
+
+%p You now have full access to all course materials. Start learning today!
+
+%p= link_to 'Go to Course', @course, style: 'display: inline-block; background-color: #007bff; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 4px;'
+
+%p{ style: 'margin-top: 24px;' } After completing the course, you will receive a Certificate of Completion.
+
 %p
-Regards,
-.row
-= link_to 'The Corsego team', root_url
+  Best regards,
+  %br
+  The Corsego Team
+
+%p{ style: 'font-size: 12px; color: #6c757d;' }= link_to 'Visit Corsego', root_url

@@ -1,6 +1,23 @@
-New user registered:
-= link_to @user.email, user_url(@user)
+%p Hello Admin,
+
+%p A new user has registered on Corsego.
+
+%table{ border: '0', cellpadding: '8', cellspacing: '0', style: 'margin: 16px 0; background-color: #f8f9fa; border-radius: 4px;' }
+  %tr
+    %td
+      %p{ style: 'margin: 0 0 8px 0;' }
+        %strong Email:
+        = link_to @user.email, user_url(@user)
+      %p{ style: 'margin: 0 0 8px 0;' }
+        %strong Username:
+        = @user.username
+      %p{ style: 'margin: 0;' }
+        %strong Registered:
+        = @user.created_at.strftime('%B %d, %Y at %H:%M UTC')
+
+%p= link_to 'View User Profile', user_url(@user)
+
 %p
-Regards, 
-.row
-= link_to 'The Corsego team', root_url
+  Best regards,
+  %br
+  The Corsego System

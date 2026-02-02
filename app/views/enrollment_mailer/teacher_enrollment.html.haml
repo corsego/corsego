@@ -1,28 +1,30 @@
-%b 
-  You have a new student in the course
-= link_to @enrollment.course, @enrollment.course
-.row
-%b 
-  Enrollment date:
-= @enrollment.created_at
-.row
-%b 
-  Enrollment ID: 
-= @enrollment.slug
-.row
-%b 
-  Course price:
-= number_to_currency(@enrollment.course.price)
-.row
-%b 
-  Price paid:
-= number_to_currency(@enrollment.price)
-.row
-%b 
-  Student:
-= @enrollment.user.username
-= mail_to @enrollment.user.email, @enrollment.user.email
+%p Hello #{@teacher.username},
+
 %p
-Regards, 
-.row
-= link_to 'The Corsego team', root_url
+  Great news! A new student has enrolled in your course
+  = succeed '.' do
+    %strong= link_to @course.title, @course
+
+%table{ border: '0', cellpadding: '8', cellspacing: '0', style: 'margin: 16px 0; background-color: #f8f9fa; border-radius: 4px; width: 100%;' }
+  %tr
+    %td{ style: 'padding: 16px;' }
+      %p{ style: 'margin: 0 0 8px 0;' }
+        %strong Student:
+        = @student.username
+      %p{ style: 'margin: 0 0 8px 0;' }
+        %strong Enrollment Date:
+        = @enrollment.created_at.strftime('%B %d, %Y')
+      %p{ style: 'margin: 0;' }
+        %strong Revenue:
+        = number_to_currency(@enrollment.price)
+
+%p You can view your course analytics and student progress from your instructor dashboard.
+
+%p= link_to 'View Dashboard', @course, style: 'display: inline-block; background-color: #28a745; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 4px;'
+
+%p
+  Best regards,
+  %br
+  The Corsego Team
+
+%p{ style: 'font-size: 12px; color: #6c757d;' }= link_to 'Visit Corsego', root_url

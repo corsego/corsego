@@ -3,6 +3,8 @@
 class CommentMailer < ApplicationMailer
   def new_comment(comment)
     @comment = comment
-    mail(to: @comment.lesson.course.user.email, subject: "New comment in #{@course}")
+    @course = @comment.lesson.course
+    @lesson = @comment.lesson
+    mail(to: @course.user.email, subject: "New comment on your course: #{@course.title}")
   end
 end
