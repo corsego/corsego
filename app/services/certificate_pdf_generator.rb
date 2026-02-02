@@ -189,11 +189,12 @@ class CertificatePdfGenerator
 
       pdf.move_down 18
 
-      # Recipient name/email - prominent display
+      # Recipient name - prominent display
       pdf.fill_color NAVY
       pdf.font 'Times-Roman', style: :bold_italic
       pdf.font_size 26
-      pdf.text @enrollment.user.email, align: :center
+      recipient_name = @enrollment.user.name.presence || @enrollment.user.email
+      pdf.text recipient_name, align: :center
 
       pdf.move_down 18
 
