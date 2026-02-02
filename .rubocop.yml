@@ -2,7 +2,8 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.7.3
+  TargetRubyVersion: 3.3
+  SuggestExtensions: false
   Exclude:
   - '**/db/**/*'
   - 'bin/*'
@@ -41,3 +42,25 @@ Layout/LineLength:
 Rails/Output:
   Enabled: false
   # puts 'abc'
+
+Rails/SkipsModelValidations:
+  Enabled: false
+  # update_column for performance-critical operations
+
+Rails/UniqueValidationWithoutIndex:
+  Enabled: false
+  # TODO: Add database indexes for uniqueness validations
+
+Rails/HasAndBelongsToMany:
+  Enabled: false
+  # Rolify gem uses has_and_belongs_to_many
+
+Lint/EmptyWhen:
+  Enabled: false
+  # Wicked wizard uses empty when branches for step definitions
+
+Style/StringConcatenation:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
