@@ -40,8 +40,8 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
 
     # After successful login, user should be redirected away from login page
     # and see authenticated navigation (Sign out button instead of Login link)
-    assert_no_selector 'h2', text: 'Log in', wait: 15
-    assert_selector 'button', text: 'Sign out', wait: 15
+    assert_no_selector 'h2', text: 'Log in', wait: 10
+    assert_selector 'button', text: 'Sign out', wait: 10
   end
 
   test 'user cannot sign in with invalid credentials' do
@@ -52,9 +52,8 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     fill_in 'Password', with: 'wrongpassword'
     click_button 'Log in'
 
-    # After failed login, user should stay on login page
-    # Give time for form submission to complete
-    sleep 2
+    # After failed login, user should stay on login page and see error message
+    assert_text 'Invalid Email or password', wait: 10
     assert_selector 'h2', text: 'Log in'
     assert_no_selector 'button', text: 'Sign out'
   end
@@ -68,12 +67,12 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     click_button 'Log in'
 
     # Wait for successful login - user should see Sign out button
-    assert_selector 'button', text: 'Sign out', wait: 15
+    assert_selector 'button', text: 'Sign out', wait: 10
 
     click_button 'Sign out'
 
     # After sign out, user should see Login link again
-    assert_selector 'a', text: 'Login', wait: 15
+    assert_selector 'a', text: 'Login', wait: 10
     assert_no_selector 'button', text: 'Sign out'
   end
 
