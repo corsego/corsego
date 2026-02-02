@@ -4,6 +4,9 @@
   "stack": "heroku-24",
   "buildpacks": [
     {
+      "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git"
+    },
+    {
       "url": "heroku/nodejs"
     },
     {
