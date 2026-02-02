@@ -28,7 +28,12 @@ Rails.application.routes.draw do
 
   resources :tags, only: [:create, :index, :destroy]
   resources :courses, except: [:edit] do
-    get :learning, :pending_review, :teaching, :unapproved, on: :collection
+    collection do
+      get :learning
+      get :pending_review
+      get :teaching
+      get :unapproved
+    end
     member do
       get :analytics
       patch :approve

@@ -3,9 +3,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '>= 3.3.0'
+ruby '>= 3.4.0'
 
-gem 'rails', '~> 7.1.0'
+gem 'rails', '~> 8.1.1'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 6.0'
 gem 'sprockets-rails'
@@ -30,7 +30,7 @@ group :development, :test do
   gem 'dotenv-rails' # load environment variables from .env
   gem 'faker' # fake data for seeds.rb
   gem 'mocha' # mocking and stubbing for tests
-  gem 'minitest', '~> 5.0' # Rails 7.1 incompatible with minitest 6.x
+  gem 'minitest' # Testing framework
   gem 'webmock' # stub HTTP requests in tests
 end
 
@@ -54,7 +54,7 @@ gem 'omniauth-rails_csrf_protection'
 
 # Active Record
 gem 'friendly_id', '~> 5.5' # nice URLs and hide IDs
-gem 'ransack'
+gem 'ransack', '~> 4.4' # Rails 8.1 compatible
 gem 'public_activity' # see all activity in the app
 gem 'rolify' # give users roles (admin, teacher, student)
 gem 'pundit' # authorization (different roles have different accesses)
