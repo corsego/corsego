@@ -71,9 +71,8 @@ gem 'active_storage_validations' # validate image and file uploads
 gem 'image_processing' # sudo apt install imagemagick
 
 # PDF
-gem 'wicked_pdf' # PDF for Ruby on Rails
-gem 'wkhtmltopdf-binary', group: :development
-gem 'wkhtmltopdf-heroku', group: :production
+gem 'prawn' # Pure Ruby PDF generation
+gem 'prawn-table' # Table support for Prawn
 
 gem 'stripe' # accept payments
 

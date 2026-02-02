@@ -22,9 +22,16 @@ class EnrollmentsController < ApplicationController
     authorize @enrollment, :certificate?
     respond_to do |format|
       format.pdf do
-        render pdf: "#{@enrollment.course.title}, #{@enrollment.user.email}",
-               page_size: 'A4',
-               template: 'enrollments/certificate.pdf.haml'
+        pdf = CertificatePdfGenerator.new(
+          @enrollment,
+          base_url: request.base_url,
+          full_path: request.original_fullpath
+        ).generate
+
+        send_data pdf,
+                  filename: "#{@enrollment.course.title}, #{@enrollment.user.email}.pdf",
+                  type: "application/pdf",
+                  disposition: :inline
       end
     end
   end
