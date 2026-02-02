@@ -110,7 +110,7 @@ GEM
     base64 (0.3.0)
     bcrypt (3.1.21)
     benchmark (0.5.0)
-    bigdecimal (4.0.1)
+    bigdecimal (3.3.1)
     bindex (0.8.1)
     bootsnap (1.22.0)
       msgpack (~> 1.2)
@@ -544,6 +544,8 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   pagy (~> 8.0)
   pg (>= 0.18, < 2.0)
+  prawn
+  prawn-table
   public_activity
   puma (~> 6.0)
   pundit
@@ -565,8 +567,6 @@ DEPENDENCIES
   turbo-rails
   web-console
   webmock
-  prawn
-  prawn-table
   wicked
 
 RUBY VERSION
