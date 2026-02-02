@@ -46,7 +46,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: '3.3'
           bundler-cache: true
 
       - name: Set up Node.js
@@ -58,7 +58,7 @@ jobs:
       - name: Install Yarn dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Create webpacker manifest
+      - name: Create shakapacker manifest
         run: |
           mkdir -p public/packs-test
           echo '{"application.js": "/packs-test/application.js"}' > public/packs-test/manifest.json
@@ -83,7 +83,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: '3.3'
           bundler-cache: true
 
       - name: Run RuboCop

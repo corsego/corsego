@@ -63,7 +63,7 @@ corsego/
 │   ├── policies/             # Pundit authorization (8 policies)
 │   ├── mailers/              # Email notifications (5 mailers)
 │   ├── helpers/              # View helpers
-│   ├── javascript/           # Webpacker entry points
+│   ├── javascript/           # Shakapacker entry points
 │   │   ├── packs/            # application.js main entry
 │   │   └── stylesheets/      # SCSS files
 │   └── assets/               # Legacy asset pipeline (images, CSS)

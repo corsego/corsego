@@ -39,6 +39,13 @@ import "cocoon-js"
 
 import "youtube"
 
+// Configure jQuery to include CSRF token in AJAX requests
+$.ajaxSetup({
+  headers: {
+    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+  }
+});
+
 document.addEventListener('turbo:load', function(){
 
   $('.chapter-sortable').sortable({
