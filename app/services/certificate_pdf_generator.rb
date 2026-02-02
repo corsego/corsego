@@ -204,37 +204,63 @@ class CertificatePdfGenerator
   end
 
   def draw_seal(pdf)
-    # Draw an official-looking seal on the left side
-    seal_x = 130
-    seal_y = 95
-    outer_radius = 40
-    inner_radius = 30
+    # Draw an elegant official seal with slight rotation effect
+    seal_x = 95
+    seal_y = 105
+    outer_radius = 35
+    inner_radius = 26
+    rotation = -12 * Math::PI / 180 # Slight counter-clockwise rotation
 
-    # Outer circle
+    # Outer decorative ring with serrated edge
     pdf.stroke_color GOLD
-    pdf.line_width = 2
+    pdf.fill_color GOLD
+    pdf.line_width = 2.5
     pdf.stroke_circle [seal_x, seal_y], outer_radius
 
-    # Inner circle
-    pdf.line_width = 1
-    pdf.stroke_circle [seal_x, seal_y], inner_radius
-
-    # Decorative dots around the seal
-    12.times do |i|
-      angle = i * 30 * Math::PI / 180
-      dot_x = seal_x + (outer_radius - 5) * Math.cos(angle)
-      dot_y = seal_y + (outer_radius - 5) * Math.sin(angle)
-      pdf.fill_color GOLD
-      pdf.fill_circle [dot_x, dot_y], 1.5
+    # Serrated/starburst edge effect
+    24.times do |i|
+      angle = (i * 15 * Math::PI / 180) + rotation
+      inner_point = outer_radius - 3
+      outer_point = outer_radius + 2
+      x1 = seal_x + inner_point * Math.cos(angle)
+      y1 = seal_y + inner_point * Math.sin(angle)
+      x2 = seal_x + outer_point * Math.cos(angle)
+      y2 = seal_y + outer_point * Math.sin(angle)
+      pdf.line_width = 1.5
+      pdf.stroke_line [x1, y1], [x2, y2]
     end
 
-    # Seal text
-    pdf.fill_color NAVY
-    pdf.font 'Helvetica', style: :bold
-    pdf.draw_text 'CORSEGO', at: [seal_x - 22, seal_y + 8], size: 8
-    pdf.draw_text 'VERIFIED', at: [seal_x - 18, seal_y - 5], size: 7
+    # Middle decorative ring
+    pdf.line_width = 1
+    pdf.stroke_circle [seal_x, seal_y], outer_radius - 6
+
+    # Inner circle
+    pdf.line_width = 2
+    pdf.stroke_circle [seal_x, seal_y], inner_radius
+
+    # Innermost circle
+    pdf.line_width = 0.5
+    pdf.stroke_circle [seal_x, seal_y], inner_radius - 4
+
+    # Small decorative dots between rings
+    16.times do |i|
+      angle = (i * 22.5 * Math::PI / 180) + rotation
+      dot_x = seal_x + (outer_radius - 3) * Math.cos(angle)
+      dot_y = seal_y + (outer_radius - 3) * Math.sin(angle)
+      pdf.fill_circle [dot_x, dot_y], 1
+    end
+
+    # Seal text - all in gold
     pdf.fill_color GOLD
-    pdf.draw_text '*', at: [seal_x - 4, seal_y - 18], size: 14
+    pdf.font 'Helvetica', style: :bold
+
+    # Draw rotated text by using transformation
+    pdf.rotate(rotation * 180 / Math::PI, origin: [seal_x, seal_y]) do
+      pdf.draw_text 'CORSEGO', at: [seal_x - 20, seal_y + 6], size: 8
+      pdf.draw_text 'ACADEMY', at: [seal_x - 19, seal_y - 4], size: 7
+      pdf.fill_color LIGHT_GOLD
+      pdf.draw_text "\u2605", at: [seal_x - 5, seal_y - 15], size: 10 # Star character
+    end
   end
 
   def draw_qr_code(pdf)
@@ -242,28 +268,20 @@ class CertificatePdfGenerator
     verification_url = "#{@base_url}#{@full_path}"
     qr = RQRCode::QRCode.new(verification_url, level: :m)
 
-    # Position QR code on the right side, mirroring the seal
-    qr_x = pdf.bounds.width - 170
-    qr_y = 135
-    qr_size = 70
+    # Position QR code next to the seal on the left
+    qr_x = 150
+    qr_y = 130
+    qr_size = 55
     module_size = qr_size.to_f / qr.modules.length
 
     # Draw decorative frame around QR code
-    frame_padding = 8
+    frame_padding = 5
     pdf.stroke_color GOLD
     pdf.line_width = 1.5
     pdf.stroke_rectangle(
       [qr_x - frame_padding, qr_y + frame_padding],
       qr_size + (frame_padding * 2),
       qr_size + (frame_padding * 2)
-    )
-
-    # Draw inner frame
-    pdf.line_width = 0.5
-    pdf.stroke_rectangle(
-      [qr_x - frame_padding + 3, qr_y + frame_padding - 3],
-      qr_size + (frame_padding * 2) - 6,
-      qr_size + (frame_padding * 2) - 6
     )
 
     # Draw QR code modules
@@ -279,10 +297,10 @@ class CertificatePdfGenerator
     end
 
     # Label below QR code
-    pdf.fill_color DARK_GOLD
-    pdf.font "Helvetica", style: :bold
-    pdf.font_size 7
-    pdf.draw_text "SCAN TO VERIFY", at: [qr_x + 5, qr_y - qr_size - 15]
+    pdf.fill_color GOLD
+    pdf.font 'Helvetica', style: :bold
+    pdf.font_size 6
+    pdf.draw_text 'SCAN TO VERIFY', at: [qr_x + 2, qr_y - qr_size - 12]
   end
 
   def draw_signatures(pdf)
