@@ -11,10 +11,9 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.0",
     "@hotwired/turbo-rails": "^8.0.0",
-    "@rails/actioncable": "^7.0.0",
-    "@rails/actiontext": "^7.0.0",
-    "@rails/activestorage": "^7.0.0",
-    "@rails/ujs": "^7.1.3-4",
+    "@rails/actioncable": "^8.0.0",
+    "@rails/actiontext": "^8.0.0",
+    "@rails/activestorage": "^8.0.0",
     "bootstrap": "^4.5.0",
     "chart.js": "^2.9.3",
     "chartkick": "^5.0.0",
