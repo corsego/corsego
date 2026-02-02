@@ -1,0 +1,8 @@
+admin:
+  name: admin
+
+teacher:
+  name: teacher
+
+student:
+  name: student

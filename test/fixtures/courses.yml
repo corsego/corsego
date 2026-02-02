@@ -1,0 +1,59 @@
+# Published and approved course
+published_course:
+  title: Introduction to Ruby
+  description: Learn Ruby programming fundamentals
+  marketing_description: Master Ruby programming from scratch
+  language: English
+  level: Beginner
+  price: 9900
+  user: teacher
+  published: true
+  approved: true
+  slug: introduction-to-ruby
+  enrollments_count: 1
+  lessons_count: 2
+  chapters_count: 1
+  average_rating: 0.0
+  income: 0
+  stripe_product_id: prod_test123
+  stripe_price_id: price_test123
+
+# Unpublished course
+unpublished_course:
+  title: Advanced Ruby
+  description: Advanced Ruby programming techniques
+  marketing_description: Take your Ruby skills to the next level
+  language: English
+  level: Advanced
+  price: 19900
+  user: teacher
+  published: false
+  approved: false
+  slug: advanced-ruby
+  enrollments_count: 0
+  lessons_count: 1
+  chapters_count: 1
+  average_rating: 0.0
+  income: 0
+  stripe_product_id: prod_test456
+  stripe_price_id: price_test456
+
+# Free course
+free_course:
+  title: Getting Started with Rails
+  description: A free introduction to Rails
+  marketing_description: Learn Rails basics for free
+  language: English
+  level: All levels
+  price: 0
+  user: another_teacher
+  published: true
+  approved: true
+  slug: getting-started-with-rails
+  enrollments_count: 0
+  lessons_count: 1
+  chapters_count: 1
+  average_rating: 0.0
+  income: 0
+  stripe_product_id: prod_test789
+  stripe_price_id: price_test789
