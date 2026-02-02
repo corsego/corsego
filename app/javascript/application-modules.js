@@ -35,8 +35,8 @@ import "./trix-editor-overrides"
 // jQuery UI for sortable
 import "jquery-ui-dist/jquery-ui"
 
-// Selectize for enhanced dropdowns
-import "selectize"
+// Tom Select for enhanced dropdowns (jQuery-free selectize replacement)
+import TomSelect from "tom-select"
 
 // Cocoon for nested forms (jQuery require is handled by the global require shim)
 import "cocoon-js"
@@ -102,21 +102,34 @@ document.addEventListener('turbo:load', function(){
       return false;
   });
 
-  // Initialize selectize dropdowns
-  if ($('.selectize')){
-      $('.selectize').selectize({
-          sortField: 'text'
+  // Initialize Tom Select dropdowns (jQuery-free)
+  document.querySelectorAll('.selectize').forEach(function(el) {
+    if (!el.tomselect) {
+      new TomSelect(el, {
+        sortField: { field: 'text', direction: 'asc' }
       });
-  }
+    }
+  });
 
-  // Selectize with dynamic tag creation
-  $(".selectize-tags").selectize({
-    create: function(input, callback) {
-      $.post('/tags.json', { tag: { name: input } })
-        .done(function(response){
-          console.log(response)
-          callback({value: response.id, text: response.name });
-        })
+  // Tom Select with dynamic tag creation
+  document.querySelectorAll('.selectize-tags').forEach(function(el) {
+    if (!el.tomselect) {
+      new TomSelect(el, {
+        create: function(input, callback) {
+          fetch('/tags.json', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ tag: { name: input } })
+          })
+          .then(response => response.json())
+          .then(data => {
+            callback({ value: data.id, text: data.name });
+          });
+        }
+      });
     }
   });
 

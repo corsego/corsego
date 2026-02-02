@@ -23,7 +23,7 @@
     "jquery": "^3.5.1",
     "jquery-ui-dist": "^1.12.1",
     "popper.js": "^1.16.1",
-    "selectize": "^0.12.6",
+    "tom-select": "^2.4.1",
     "trix": "^2.0.0"
   },
   "devDependencies": {
