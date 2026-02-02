@@ -64,7 +64,7 @@ jobs:
           echo '{"application.js": "/packs-test/application.js"}' > public/packs-test/manifest.json
 
       - name: Set up database
-        run: bin/rails db:prepare
+        run: bin/rails db:create db:schema:load
 
       - name: Run tests
         run: bin/rails test
