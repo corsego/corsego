@@ -145,4 +145,112 @@ class LessonTest < ActiveSupport::TestCase
     lesson_two = lessons(:lesson_two)
     assert_nil lesson_two.next
   end
+
+  # VideoEmbed concern tests
+
+  test 'has_video? returns false when video_url is blank' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = nil
+    assert_not lesson.has_video?
+
+    lesson.video_url = ''
+    assert_not lesson.has_video?
+  end
+
+  test 'detects vimeo platform from full URL' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://vimeo.com/123456789'
+    assert_equal :vimeo, lesson.video_platform
+    assert_equal '123456789', lesson.video_id
+    assert_equal 'https://player.vimeo.com/video/123456789', lesson.video_embed_url
+    assert lesson.has_video?
+  end
+
+  test 'detects vimeo platform from player URL' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://player.vimeo.com/video/123456789'
+    assert_equal :vimeo, lesson.video_platform
+    assert_equal '123456789', lesson.video_id
+    assert_equal 'https://player.vimeo.com/video/123456789', lesson.video_embed_url
+  end
+
+  test 'detects vimeo platform from legacy ID-only value' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = '123456789'
+    assert_equal :vimeo, lesson.video_platform
+    assert_equal '123456789', lesson.video_id
+    assert_equal 'https://player.vimeo.com/video/123456789', lesson.video_embed_url
+  end
+
+  test 'detects youtube platform from watch URL' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    assert_equal :youtube, lesson.video_platform
+    assert_equal 'dQw4w9WgXcQ', lesson.video_id
+    assert_equal 'https://www.youtube.com/embed/dQw4w9WgXcQ', lesson.video_embed_url
+    assert lesson.has_video?
+  end
+
+  test 'detects youtube platform from short URL' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://youtu.be/dQw4w9WgXcQ'
+    assert_equal :youtube, lesson.video_platform
+    assert_equal 'dQw4w9WgXcQ', lesson.video_id
+    assert_equal 'https://www.youtube.com/embed/dQw4w9WgXcQ', lesson.video_embed_url
+  end
+
+  test 'detects youtube platform from embed URL' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+    assert_equal :youtube, lesson.video_platform
+    assert_equal 'dQw4w9WgXcQ', lesson.video_id
+    assert_equal 'https://www.youtube.com/embed/dQw4w9WgXcQ', lesson.video_embed_url
+  end
+
+  test 'detects loom platform from share URL' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://www.loom.com/share/abc123def456'
+    assert_equal :loom, lesson.video_platform
+    assert_equal 'abc123def456', lesson.video_id
+    assert_equal 'https://www.loom.com/embed/abc123def456', lesson.video_embed_url
+    assert lesson.has_video?
+  end
+
+  test 'detects loom platform from embed URL' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://www.loom.com/embed/abc123def456'
+    assert_equal :loom, lesson.video_platform
+    assert_equal 'abc123def456', lesson.video_id
+    assert_equal 'https://www.loom.com/embed/abc123def456', lesson.video_embed_url
+  end
+
+  test 'returns nil for unsupported video URLs' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://example.com/video/123'
+    assert_nil lesson.video_platform
+    assert_nil lesson.video_id
+    assert_nil lesson.video_embed_url
+    assert_not lesson.has_video?
+  end
+
+  test 'handles vimeo URLs without www prefix' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://vimeo.com/987654321'
+    assert_equal :vimeo, lesson.video_platform
+    assert_equal '987654321', lesson.video_id
+  end
+
+  test 'handles youtube URLs without www prefix' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://youtube.com/watch?v=abcdefghijk'
+    assert_equal :youtube, lesson.video_platform
+    assert_equal 'abcdefghijk', lesson.video_id
+  end
+
+  test 'handles loom URLs without www prefix' do
+    lesson = lessons(:lesson_one)
+    lesson.video_url = 'https://loom.com/share/xyz789abc123'
+    assert_equal :loom, lesson.video_platform
+    assert_equal 'xyz789abc123', lesson.video_id
+  end
 end

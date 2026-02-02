@@ -158,4 +158,48 @@ class LessonsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_url
   end
+
+  # VIDEO URL
+  test 'course owner can create lesson with video_url' do
+    sign_in @teacher
+
+    assert_difference 'Lesson.count', 1 do
+      post course_lessons_url(@published_course), params: {
+        lesson: {
+          title: 'Video Lesson',
+          content: 'Lesson with video',
+          chapter_id: @chapter_one.id,
+          video_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        }
+      }
+    end
+
+    lesson = Lesson.last
+    assert_equal 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', lesson.video_url
+    assert_equal :youtube, lesson.video_platform
+  end
+
+  test 'course owner can update lesson with video_url' do
+    sign_in @teacher
+
+    patch course_lesson_url(@published_course, @lesson_one), params: {
+      lesson: { title: 'Updated with Video', content: 'Lesson content', video_url: 'https://vimeo.com/123456789' }
+    }
+
+    @lesson_one.reload
+    assert_equal 'https://vimeo.com/123456789', @lesson_one.video_url
+    assert_equal :vimeo, @lesson_one.video_platform
+  end
+
+  test 'course owner can update lesson with loom video_url' do
+    sign_in @teacher
+
+    patch course_lesson_url(@published_course, @lesson_one), params: {
+      lesson: { title: 'Loom Video Lesson', content: 'Lesson content', video_url: 'https://www.loom.com/share/abc123def456' }
+    }
+
+    @lesson_one.reload
+    assert_equal 'https://www.loom.com/share/abc123def456', @lesson_one.video_url
+    assert_equal :loom, @lesson_one.video_platform
+  end
 end
