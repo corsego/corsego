@@ -166,7 +166,6 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
-    ffi (1.17.3-arm64-darwin)
     ffi (1.17.3-x86_64-linux-gnu)
     friendly_id (5.6.0)
       activerecord (>= 4.0.0)
@@ -250,11 +249,11 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.0.4)
+    marcel (1.1.0)
     matrix (0.4.3)
     mini_magick (5.3.1)
       logger
-    mini_mime (1.0.3)
+    mini_mime (1.1.5)
     minitest (6.0.1)
       prism (~> 1.5)
     mocha (3.0.1)
@@ -263,7 +262,7 @@ GEM
     multi_xml (0.6.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.5.13)
+    net-imap (0.6.2)
       date
       net-protocol
     net-pop (0.1.2)
@@ -273,9 +272,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.18.10-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.10-x86_64-linux-gnu)
+    nokogiri (1.19.0-x86_64-linux-gnu)
       racc (~> 1.4)
     oauth2 (2.0.18)
       faraday (>= 0.17.3, < 4.0)
@@ -530,11 +527,9 @@ GEM
       railties (>= 3.0.7)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.18)
+    zeitwerk (2.7.4)
 
 PLATFORMS
-  arm64-darwin-24
-  arm64-darwin-25
   x86_64-linux
 
 DEPENDENCIES
