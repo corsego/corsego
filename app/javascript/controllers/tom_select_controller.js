@@ -30,13 +30,7 @@ export default class extends Controller {
     }
   }
 
-  async createTag(input, callback) {
-    // Guard against calling callback after disconnect
-    if (!this.tomSelect) {
-      callback()
-      return
-    }
-
+  async createTag(input) {
     try {
       const response = await post(this.createUrlValue, {
         body: JSON.stringify({ tag: { name: input } }),
@@ -44,16 +38,14 @@ export default class extends Controller {
         responseKind: "json"
       })
 
-      if (response.ok && this.tomSelect) {
+      if (response.ok) {
         const data = await response.json
         // Tom Select expects value to be a string
-        callback({ value: String(data.id), text: data.name })
-      } else {
-        callback()
+        return { value: String(data.id), text: data.name }
       }
     } catch (error) {
       console.error("Error creating tag:", error)
-      callback()
     }
+    return false
   }
 }
