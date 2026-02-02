@@ -27,6 +27,7 @@ end
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
+  gem 'dotenv-rails' # load environment variables from .env
   gem 'faker' # fake data for seeds.rb
   gem 'mocha' # mocking and stubbing for tests
   gem 'minitest', '~> 5.0' # Rails 7.1 incompatible with minitest 6.x
