@@ -68,8 +68,10 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
     # User should see authenticated state (no Login link visible)
     assert_no_selector 'a', text: 'Login', wait: 5
 
-    # Without CSS/JS, the dropdown menu items are visible and clickable
-    # Click Sign out button (rendered by button_to helper)
+    # Open the user dropdown menu first
+    find('a#navbarDropdown').click
+
+    # Click Sign out button (rendered by button_to helper inside dropdown)
     click_button 'Sign out'
 
     # After sign out, user should see Login link again
