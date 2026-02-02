@@ -232,7 +232,7 @@ class CertificatePdfGenerator
     pdf.draw_text 'CORSEGO', at: [seal_x - 22, seal_y + 8], size: 8
     pdf.draw_text 'VERIFIED', at: [seal_x - 18, seal_y - 5], size: 7
     pdf.fill_color GOLD
-    pdf.draw_text '★', at: [seal_x - 4, seal_y - 18], size: 12
+    pdf.draw_text '*', at: [seal_x - 4, seal_y - 18], size: 14
   end
 
   def draw_signatures(pdf)
