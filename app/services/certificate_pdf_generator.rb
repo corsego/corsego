@@ -189,12 +189,21 @@ class CertificatePdfGenerator
 
       pdf.move_down 18
 
-      # Recipient name - prominent display
+      # Recipient name and email - prominent display
       pdf.fill_color NAVY
       pdf.font 'Times-Roman', style: :bold_italic
-      pdf.font_size 26
-      recipient_name = @enrollment.user.name.presence || @enrollment.user.email
-      pdf.text recipient_name, align: :center
+      if @enrollment.user.name.present?
+        pdf.font_size 26
+        pdf.text @enrollment.user.name, align: :center
+        pdf.move_down 4
+        pdf.font 'Times-Roman', style: :italic
+        pdf.fill_color CHARCOAL
+        pdf.font_size 12
+        pdf.text @enrollment.user.email, align: :center
+      else
+        pdf.font_size 26
+        pdf.text @enrollment.user.email, align: :center
+      end
 
       pdf.move_down 18
 
@@ -353,77 +362,10 @@ class CertificatePdfGenerator
   end
 
   def draw_signature(pdf, start_x, start_y)
-    # Draw an elegant cursive signature using bezier curves
-    # This creates a stylized "Y. Shmarov" signature
-    pdf.stroke_color NAVY
-    pdf.line_width = 0.8
-
-    # Capital Y with flourish
-    pdf.stroke do
-      # Y left arm
-      pdf.move_to [start_x, start_y]
-      pdf.curve_to [start_x + 10, start_y - 12],
-                   bounds: [[start_x + 3, start_y - 4], [start_x + 7, start_y - 8]]
-
-      # Y right arm
-      pdf.move_to [start_x + 18, start_y]
-      pdf.curve_to [start_x + 10, start_y - 12],
-                   bounds: [[start_x + 15, start_y - 4], [start_x + 12, start_y - 8]]
-
-      # Y tail with flourish
-      pdf.move_to [start_x + 10, start_y - 12]
-      pdf.curve_to [start_x + 6, start_y - 22],
-                   bounds: [[start_x + 10, start_y - 16], [start_x + 8, start_y - 20]]
-      pdf.curve_to [start_x - 2, start_y - 18],
-                   bounds: [[start_x + 2, start_y - 24], [start_x - 2, start_y - 22]]
-
-      # Period after Y
-      pdf.fill_color NAVY
-      pdf.fill_circle [start_x + 22, start_y - 16], 0.8
-    end
-
-    # "Shmarov" in flowing script
-    s_start = start_x + 28
-
-    pdf.stroke do
-      # S curve
-      pdf.move_to [s_start + 8, start_y - 5]
-      pdf.curve_to [s_start, start_y - 10],
-                   bounds: [[s_start + 2, start_y - 4], [s_start - 2, start_y - 6]]
-      pdf.curve_to [s_start + 10, start_y - 18],
-                   bounds: [[s_start + 2, start_y - 14], [s_start + 6, start_y - 18]]
-
-      # h - upstroke and curve
-      pdf.move_to [s_start + 10, start_y - 18]
-      pdf.curve_to [s_start + 14, start_y - 6],
-                   bounds: [[s_start + 10, start_y - 12], [s_start + 12, start_y - 6]]
-      pdf.curve_to [s_start + 20, start_y - 18],
-                   bounds: [[s_start + 17, start_y - 6], [s_start + 20, start_y - 12]]
-
-      # m - first hump
-      pdf.move_to [s_start + 20, start_y - 18]
-      pdf.curve_to [s_start + 26, start_y - 10],
-                   bounds: [[s_start + 20, start_y - 14], [s_start + 24, start_y - 10]]
-      pdf.curve_to [s_start + 32, start_y - 18],
-                   bounds: [[s_start + 28, start_y - 10], [s_start + 32, start_y - 14]]
-
-      # m - second hump
-      pdf.move_to [s_start + 32, start_y - 18]
-      pdf.curve_to [s_start + 38, start_y - 10],
-                   bounds: [[s_start + 32, start_y - 14], [s_start + 36, start_y - 10]]
-      pdf.curve_to [s_start + 44, start_y - 18],
-                   bounds: [[s_start + 40, start_y - 10], [s_start + 44, start_y - 14]]
-
-      # "arov" - flowing continuation
-      pdf.move_to [s_start + 44, start_y - 18]
-      pdf.curve_to [s_start + 75, start_y - 14],
-                   bounds: [[s_start + 52, start_y - 10], [s_start + 65, start_y - 20]]
-
-      # Final flourish underline
-      pdf.move_to [s_start + 75, start_y - 14]
-      pdf.curve_to [s_start + 50, start_y - 22],
-                   bounds: [[s_start + 70, start_y - 20], [s_start + 60, start_y - 24]]
-    end
+    # Draw signature using italic font for legibility
+    pdf.fill_color NAVY
+    pdf.font 'Times-Roman', style: :italic
+    pdf.draw_text 'Yaroslav Shmarov', at: [start_x - 15, start_y - 18], size: 14
   end
 
   def draw_footer(pdf)
