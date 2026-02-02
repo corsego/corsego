@@ -87,4 +87,4 @@ gem 'honeybadger'
 gem 'good_job', '~> 4.0'
 
 # Notifications
-gem 'noticed', '~> 2.0'
+gem 'noticed', '~> 3.0'
