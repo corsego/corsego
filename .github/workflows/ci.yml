@@ -4,18 +4,32 @@ name: CI
 
 on:
   push:
-    branches:
-      - master
-      - main
+    branches: [master, main]
   pull_request:
-    branches:
-      - master
-      - main
+    branches: [master, main]
+
+# Cancel in-progress runs when new commits are pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
+  # Lint runs first - fastest check, fails early on code style issues
+  lint:
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Run RuboCop
+        run: bundle exec rubocop --fail-fast
 
+  # Unit tests run after lint passes
+  test:
+    needs: lint
+    runs-on: ubuntu-latest
     services:
       postgres:
         image: postgres:14
@@ -30,7 +44,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
     env:
       RAILS_ENV: test
       DATABASE_HOST: 127.0.0.1
@@ -38,54 +51,60 @@ jobs:
       DATABASE_PASSWORD: postgres
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       DISABLE_SPRING: 1
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.3'
           bundler-cache: true
+      - name: Set up database
+        run: bin/rails db:create db:schema:load
+      - name: Run tests
+        run: bin/rails test --fail-fast
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+  # System tests run last - most expensive (requires Chrome + assets)
+  system-test:
+    needs: test
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: corsego_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      RAILS_ENV: test
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DISABLE_SPRING: 1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: 'yarn'
-
-      - name: Install Yarn dependencies
+      - uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Install JS dependencies
         run: yarn install --frozen-lockfile
-
-      - name: Create webpacker manifest
-        run: |
-          mkdir -p public/packs-test
-          echo '{"application.js": "/packs-test/application.js"}' > public/packs-test/manifest.json
-
+      - name: Compile assets
+        run: bin/shakapacker
       - name: Set up database
         run: bin/rails db:create db:schema:load
-
-      - name: Run tests
-        run: bin/rails test
-
       - name: Run system tests
-        run: bin/rails test:system
-        continue-on-error: true
-
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true
-
-      - name: Run RuboCop
-        run: bundle exec rubocop --parallel
-        continue-on-error: true
+        run: bin/rails test:system --fail-fast

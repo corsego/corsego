@@ -33,6 +33,11 @@ group :development, :test do
   gem 'webmock' # stub HTTP requests in tests
 end
 
+group :test do
+  gem 'capybara' # system testing
+  gem 'selenium-webdriver' # browser driver for system tests
+end
+
 # Frontend
 gem 'haml-rails', '~> 2.0' # HTML abstraction markup language
 gem 'simple_form' # creating forms made easier
