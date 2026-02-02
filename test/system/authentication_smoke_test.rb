@@ -32,35 +32,41 @@ class AuthenticationSmokeTest < ApplicationSystemTestCase
 
   test 'user can sign in with valid credentials' do
     visit new_user_session_url
+    assert_selector 'h2', text: 'Log in'
 
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
 
-    assert_text 'Signed in successfully'
+    # Wait for redirect to complete by checking we're on the root page
+    assert_selector '.navbar', wait: 10
+    assert_text 'Signed in successfully', wait: 10
   end
 
   test 'user cannot sign in with invalid credentials' do
     visit new_user_session_url
+    assert_selector 'h2', text: 'Log in'
 
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'wrongpassword'
     click_button 'Log in'
 
-    assert_text 'Invalid Email or password'
+    assert_text 'Invalid Email or password', wait: 10
   end
 
   test 'user can sign out' do
     visit new_user_session_url
+    assert_selector 'h2', text: 'Log in'
+
     fill_in 'Email', with: @user.email
     fill_in 'Password', with: 'password'
     click_button 'Log in'
 
-    assert_text 'Signed in successfully'
+    assert_text 'Signed in successfully', wait: 10
 
-    click_link 'Sign out'
+    click_button 'Sign out'
 
-    assert_text 'Signed out successfully'
+    assert_text 'Signed out successfully', wait: 10
   end
 
   test 'unauthenticated user is redirected from protected page' do
