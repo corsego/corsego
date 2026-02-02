@@ -46,47 +46,6 @@ const $ = window.jQuery
 // Document ready handler for Turbo
 document.addEventListener('turbo:load', function(){
 
-  // Re-initialize cocoon for dynamically loaded content
-  $(document).off('click.cocoon').on('click.cocoon', '.add_fields', function(e) {
-    e.preventDefault();
-    const $this = $(this);
-    const assoc = $this.data('association');
-    const content = $this.data('association-insertion-template');
-    const insertionMethod = $this.data('association-insertion-method') || 'before';
-    const insertionNode = $this.data('association-insertion-node') || $this;
-    const insertionTraversal = $this.data('association-insertion-traversal');
-
-    let target = insertionNode;
-    if (insertionTraversal) {
-      target = $this[insertionTraversal](insertionNode);
-    } else if (typeof insertionNode === 'string') {
-      target = $(insertionNode);
-    }
-
-    const regexp = new RegExp('new_' + assoc, 'g');
-    const newId = new Date().getTime();
-    const newContent = content.replace(regexp, newId);
-
-    const $newContent = $(newContent);
-    target[insertionMethod]($newContent);
-    $newContent.trigger('cocoon:after-insert');
-  });
-
-  $(document).off('click.cocoon-remove').on('click.cocoon-remove', '.remove_fields', function(e) {
-    e.preventDefault();
-    const $this = $(this);
-    const wrapper = $this.closest('.nested-fields');
-    const destroyField = wrapper.find('input[type=hidden][name*="_destroy"]');
-
-    if (destroyField.length) {
-      destroyField.val('1');
-      wrapper.hide();
-    } else {
-      wrapper.remove();
-    }
-    wrapper.trigger('cocoon:after-remove');
-  });
-
   // Chapter drag-drop sorting
   $('.chapter-sortable').sortable({
     axis        : "y",
