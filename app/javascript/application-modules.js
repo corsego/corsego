@@ -35,8 +35,7 @@ import "./trix-editor-overrides"
 // jQuery UI for sortable
 import "jquery-ui-dist/jquery-ui"
 
-// Tom Select for enhanced dropdowns (jQuery-free selectize replacement)
-import TomSelect from "tom-select"
+// Tom Select is initialized via Stimulus controller (tom_select_controller.js)
 
 // Cocoon for nested forms (jQuery require is handled by the global require shim)
 import "cocoon-js"
@@ -100,37 +99,6 @@ document.addEventListener('turbo:load', function(){
   // Disable right-click on videos
   $("video").bind("contextmenu",function(){
       return false;
-  });
-
-  // Initialize Tom Select dropdowns (jQuery-free)
-  document.querySelectorAll('.selectize').forEach(function(el) {
-    if (!el.tomselect) {
-      new TomSelect(el, {
-        sortField: { field: 'text', direction: 'asc' }
-      });
-    }
-  });
-
-  // Tom Select with dynamic tag creation
-  document.querySelectorAll('.selectize-tags').forEach(function(el) {
-    if (!el.tomselect) {
-      new TomSelect(el, {
-        create: function(input, callback) {
-          fetch('/tags.json', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify({ tag: { name: input } })
-          })
-          .then(response => response.json())
-          .then(data => {
-            callback({ value: data.id, text: data.name });
-          });
-        }
-      });
-    }
   });
 
 });
