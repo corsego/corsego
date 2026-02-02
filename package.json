@@ -17,12 +17,12 @@
     "popper.js": "^1.16.1",
     "selectize": "^0.12.6",
     "trix": "^1.0.0",
-    "turbolinks": "^5.2.0",
-    "webpack": "^5.0.0"
+    "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",
   "devDependencies": {
-    "webpack-cli": "^4.3.1",
+    "webpack": "^4.47.0",
+    "webpack-cli": "3",
     "webpack-dev-server": "^4.0.0"
   }
 }

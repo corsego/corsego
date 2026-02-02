@@ -7,7 +7,7 @@ ruby '>= 2.7.3'
 
 gem 'rails', '~> 6.1.3.2'
 # gem 'rails', github: 'rails/rails', branch: 'master'
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '>= 0.18', '< 1.5'
 gem 'puma', '~> 4.1' # ~> 5.0
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'

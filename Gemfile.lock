@@ -241,8 +241,7 @@ GEM
     parser (3.3.10.1)
       ast (~> 2.4.1)
       racc
-    pg (1.6.3-arm64-darwin)
-    pg (1.6.3-x86_64-linux)
+    pg (1.4.6)
     prism (1.9.0)
     public_activity (3.0.2)
       actionpack (>= 6.1)
@@ -436,7 +435,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
   pagy (< 7.0.0)
-  pg (>= 0.18, < 2.0)
+  pg (>= 0.18, < 1.5)
   public_activity
   puma (~> 4.1)
   pundit
