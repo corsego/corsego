@@ -70,3 +70,6 @@ Metrics/ClassLength:
 
 Naming/PredicatePrefix:
   Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false

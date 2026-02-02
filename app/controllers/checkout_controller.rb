@@ -22,7 +22,7 @@ class CheckoutController < ApplicationController
   def success
     session_id = params[:session_id]
 
-    unless session_id.present?
+    if session_id.blank?
       flash[:alert] = 'Invalid checkout session.'
       redirect_to root_path and return
     end
