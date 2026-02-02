@@ -50,6 +50,7 @@ Rails.application.routes.draw do
 
   # stripe
   post "checkout/create", to: "checkout#create"
+  get "checkout/success", to: "checkout#success"
   post "webhooks/create", to: "webhooks#create"
 
   namespace :charts do
