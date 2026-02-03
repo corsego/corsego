@@ -1,15 +1,15 @@
 - content_for :title do
   Corsego Online Courses
 - set_meta_tags(title: "Corsego - Online Learning Platform",
-                description: "Discover expert-led online courses in Ruby on Rails and web development. Learn at your own pace with lifetime access to video tutorials, Q&A, and certificates.",
-                keywords: "online courses, Ruby on Rails, web development, programming tutorials, e-learning, video courses",
+                description: "Discover expert-led online courses on any topic. Learn at your own pace with lifetime access to video tutorials, Q&A, and certificates.",
+                keywords: "online courses, e-learning, video courses, online education, teach online, learn online",
                 type: "website",
                 url: root_url,
                 json_ld: website_json_ld)
 
 .jumbotron.shadow.parallax
   %h1.text-shadow
-    %b Good Ruby on Rails courses
+    %b Learn anything, teach anything
   .p-4
   - if current_user
     .p-3
@@ -21,7 +21,7 @@
             %span.fa.fa-search{"aria-hidden" => "true"}
     .p-2
   - else
-    %h3.text-shadow Join to access all the courses
+    %h3.text-shadow Join our community of learners and instructors
     .p-2
     = link_to 'Register', new_user_registration_path, class: 'btn btn-custom-purple btn-lg'
     = link_to 'Login', new_user_session_path, class: 'btn btn-custom-purple btn-lg'

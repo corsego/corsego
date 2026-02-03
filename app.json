@@ -1,6 +1,6 @@
 {
   "name": "Corsego",
-  "description": "Udemy-like online learning platform built with Ruby on Rails",
+  "description": "Online learning platform where anyone can publish and take courses",
   "stack": "heroku-24",
   "buildpacks": [
     {

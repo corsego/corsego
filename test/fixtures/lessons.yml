@@ -1,6 +1,6 @@
 lesson_one:
   title: Introduction to Variables
-  content: Learn about variables in Ruby
+  content: Learn about camera settings and exposure
   course: published_course
   chapter: chapter_one
   row_order: 0
@@ -10,7 +10,7 @@ lesson_one:
 
 lesson_two:
   title: Working with Strings
-  content: Learn about strings in Ruby
+  content: Learn about composition and framing
   course: published_course
   chapter: chapter_one
   row_order: 1
@@ -20,7 +20,7 @@ lesson_two:
 
 lesson_advanced:
   title: Metaprogramming Basics
-  content: Learn about Ruby metaprogramming
+  content: Learn about advanced color mixing techniques
   course: unpublished_course
   chapter: chapter_advanced
   row_order: 0
@@ -29,8 +29,8 @@ lesson_advanced:
   user_lessons_count: 0
 
 lesson_free:
-  title: Rails Overview
-  content: Overview of Ruby on Rails framework
+  title: Kitchen Essentials
+  content: Overview of essential kitchen tools and ingredients
   course: free_course
   chapter: chapter_free
   row_order: 0
