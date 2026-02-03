@@ -233,6 +233,20 @@ Views use HAML, not ERB:
 - Sortable UI for drag-drop lesson/chapter ordering
 - Bundled with Bun's native bundler (no webpack)
 - Output: `app/assets/builds/application.js`
+- **CRITICAL**: Bundle must use `format: 'iife'` in `build.js` (see below)
+
+#### Bun Bundler Configuration
+The `build.js` file configures Bun's bundler. The `format: 'iife'` setting is **required** to prevent naming conflicts between libraries:
+
+```javascript
+const result = await Bun.build({
+  // ...
+  format: 'iife',  // DO NOT REMOVE - prevents Stimulus/Turbo fetch conflict
+  // ...
+});
+```
+
+**Why this matters**: Stimulus exports an internal helper function named `fetch` for its Multimap class. Without IIFE wrapping, this becomes a top-level function that conflicts with `window.fetch`, causing Turbo's HTTP requests to fail with `TypeError: map.get is not a function`. The IIFE wrapper isolates all internal functions within a closure.
 
 ### CSS
 - Entry point: `app/javascript/application.css`
@@ -344,6 +358,7 @@ From README.md:
 - ~~Upgrade Heroku stack to 24~~ (DONE - added app.json with heroku-24 stack)
 - ~~Upgrade to Rails 8.1 and Ruby 3.4.5~~ (DONE)
 - ~~Replace SCSS with modern CSS~~ (DONE - migrated to PostCSS with CSS custom properties and nesting)
+- ~~Fix Turbo/Stimulus fetch conflict breaking forms~~ (DONE - added `format: 'iife'` to Bun build config)
 
 ## Deployment (Heroku)
 
