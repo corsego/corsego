@@ -11,6 +11,9 @@ Rails.application.routes.draw do
                                    passwords: "users/passwords",
                                    omniauth_callbacks: "users/omniauth_callbacks"}
 
+  # Google One Tap authentication callback
+  post 'users/auth/google_onetap/callback', to: 'users/omniauth_callbacks#google_onetap', as: :google_onetap_callback
+
   root "static_pages#landing_page"
 
   get "activity", to: "static_pages#activity"
