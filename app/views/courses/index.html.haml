@@ -3,8 +3,8 @@
   \|
   = controller_name.humanize
   = action_name.humanize
-- set_meta_tags(title: "Browse Online Courses",
-                description: "Explore #{@courses.count}+ online courses on any topic. Filter by language, level, and price. Start learning today.",
+- set_meta_tags(title: "Browse Courses",
+                description: "#{@courses.count}+ courses published by independent instructors. Filter by topic, language, level, or price and enroll with lifetime access.",
                 keywords: @tags.pluck(:name).join(", "),
                 type: "website",
                 url: courses_url)

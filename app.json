@@ -1,6 +1,6 @@
 {
   "name": "Corsego",
-  "description": "Online learning platform where anyone can publish and take courses",
+  "description": "Publish courses on any topic, enroll with lifetime access",
   "stack": "heroku-24",
   "buildpacks": [
     {

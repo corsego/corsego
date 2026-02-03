@@ -1,15 +1,15 @@
 - content_for :title do
   Corsego Online Courses
-- set_meta_tags(title: "Corsego - Online Learning Platform",
-                description: "Discover expert-led online courses on any topic. Learn at your own pace with lifetime access to video tutorials, Q&A, and certificates.",
-                keywords: "online courses, e-learning, video courses, online education, teach online, learn online",
+- set_meta_tags(title: "Corsego - Publish and discover courses on any topic",
+                description: "Corsego lets anyone create and sell courses. Whether you want to teach what you know or learn something new, get started with lifetime access, certificates, and a global community.",
+                keywords: "create online course, sell courses, teach online, learn new skills, online education, video courses",
                 type: "website",
                 url: root_url,
                 json_ld: website_json_ld)
 
 .jumbotron.shadow.parallax
   %h1.text-shadow
-    %b Learn anything, teach anything
+    %b Turn what you know into a course — or pick up a new skill
   .p-4
   - if current_user
     .p-3
@@ -21,7 +21,7 @@
             %span.fa.fa-search{"aria-hidden" => "true"}
     .p-2
   - else
-    %h3.text-shadow Join our community of learners and instructors
+    %h3.text-shadow Publish your own course or enroll in one today
     .p-2
     = link_to 'Register', new_user_registration_path, class: 'btn btn-custom-purple btn-lg'
     = link_to 'Login', new_user_session_path, class: 'btn btn-custom-purple btn-lg'
@@ -43,30 +43,33 @@
     .card-body
       %h1
         .fa.fa-graduation-cap
-      = pluralize(Course.approved.published.count, 'online courses')
+      = pluralize(Course.approved.published.count, 'course')
+      published
       .row
-      %small Explore a variety of fresh topics
+      %small From cooking to coding — new courses added regularly
   .card
     .card-body
       %h1
         .fa.fa-chalkboard-teacher
-      = pluralize(Course.distinct.count(:user_id), 'expert instructors')
+      = pluralize(Course.distinct.count(:user_id), 'instructor')
+      already teaching
       .row
-      %small Find the right instructor for you
+      %small Anyone with expertise can create a course and earn
   .card
     .card-body
       %h1
         .fa.fa-user-graduate
-      = pluralize(User.count, 'active learners')
+      = pluralize(User.count, 'learner')
+      enrolled
       .row
-      %small Join the knowledge sharing community
+      %small Enroll once, keep access forever
   .card
     .card-body
       %h1
         .fa.fa-infinity
       Lifetime access
       .row
-      %small Learn on your schedule
+      %small No subscriptions, no deadlines — learn at your pace
 
 %p
 
@@ -94,26 +97,26 @@
     .card-body
       %b
         .fa.fa-clock
-        Go at your own pace
+        Start learning in minutes
       %br
       %small
-        Enjoy lifetime access to courses whenever you want
+        Pick a course, enroll, and begin — no waiting
   .card
     .card-body
       %b
         .far.fa-check-circle
-        Learn from industry experts
+        Earn a certificate when you finish
       %br
       %small
-        Select from top instructors around the world
+        Complete all lessons and download your certificate
   .card
     .card-body
       %b
         .far.fa-play-circle
-        Find video courses on almost any topic
+        Teach what you know and get paid
       %br
       %small
-        Build your library for your career and personal growth
+        Create your course, set a price, and reach students worldwide
 
 -# Stimulus smoke test element (hidden from visual UI)
 

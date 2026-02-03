@@ -1,6 +1,6 @@
-# Corsego - Online Learning Platform
+# Corsego
 
-An online learning platform where anyone can create, publish, and sell courses on any topic.
+Publish a course on any topic and start earning, or enroll in one and learn at your own pace with lifetime access.
 
 [![Demo](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
 

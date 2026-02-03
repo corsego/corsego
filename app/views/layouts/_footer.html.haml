@@ -23,7 +23,7 @@
         .row
         = link_to 'Terms', terms_path, class: "#{'active font-weight-bold' if current_page?(terms_path)}"
       .col-lg-4
-        %p.mb-1 Share your knowledge with the world.
+        %p.mb-1 Know something worth teaching?
         %p.mb-0
-          %small Anyone can create and publish courses on Corsego.
+          = link_to 'Create your first course', new_course_path, class: 'text-light'
     %br/
