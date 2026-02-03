@@ -1,15 +1,17 @@
-.card
-  .card-header
-    %h2 Sign up
-  .card-body
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-      = f.error_notification
-      .form-inputs
-        = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
-        = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }
-        = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
-        = invisible_captcha :subtitle
-      .form-actions
-        = f.button :submit, "Sign up"
-  .card-footer
-    = render "devise/shared/links"
+.devise-auth
+  .card
+    .card-header
+      %h4 Sign up
+      %p Create your Corsego account
+    .card-body
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = f.error_notification
+        .form-inputs
+          = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
+          = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }
+          = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
+          = invisible_captcha :subtitle
+        .form-actions
+          = f.button :submit, "Sign up", class: "btn btn-primary btn-block"
+    .card-footer
+      = render "devise/shared/links"

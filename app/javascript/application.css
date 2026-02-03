@@ -330,6 +330,67 @@ footer {
   -webkit-overflow-scrolling: touch;
 }
 
+/* Devise auth form layout */
+.devise-auth {
+  max-width: 480px;
+  margin: 2rem auto;
+
+  .card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background-color: var(--custom-purple);
+    color: #fff;
+    text-align: center;
+    padding: 1.5rem;
+    border-bottom: none;
+
+    h4 {
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 0;
+      margin-top: 0.5rem;
+      opacity: 0.85;
+      font-size: 0.9rem;
+    }
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+
+  .card-footer {
+    background-color: #f8f9fa;
+    padding: 1.25rem 2rem;
+    border-top: 1px solid #eee;
+  }
+
+  .form-actions {
+    margin-top: 1rem;
+  }
+
+  .devise-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 0.25rem 0;
+    }
+
+    a, .btn-link {
+      font-size: 0.9rem;
+    }
+  }
+}
+
 /* Vimeo embed 3:2 aspect ratio */
 .embed-responsive-3by2 {
   padding-top: 66.66666667%;
