@@ -14,6 +14,12 @@
   = link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name)
   %br
 - if devise_mapping.omniauthable?
-  - resource_class.omniauth_providers.each do |provider|
-    = button_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "btn btn-link p-0"
-    %br
+  %hr
+  %p.text-center.text-muted Or sign in with
+  .oauth-buttons
+    - resource_class.omniauth_providers.each do |provider|
+      - icon_name = provider.to_s.gsub('_oauth2', '')
+      - display_name = OmniAuth::Utils.camelize(provider).gsub('Oauth2', '')
+      = button_to omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class: "btn btn-oauth btn-oauth-#{icon_name}", form_class: 'd-block mb-2' do
+        %span.fab{class: "fa-#{icon_name}"}
+        Sign in with #{display_name}
