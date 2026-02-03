@@ -162,6 +162,167 @@ footer {
   margin-top: auto;
 }
 
+/* ==========================================================================
+   Footer Styles
+   ========================================================================== */
+
+.site-footer {
+  background-color: #1e1e2f;
+  color: #b0b0c0;
+  padding: 3.5rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.footer-section {
+  margin-bottom: 2rem;
+}
+
+.footer-heading {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2rem;
+    height: 2px;
+    background-color: var(--custom-purple);
+  }
+}
+
+.footer-tagline {
+  color: #8e8ea0;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.footer-social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #b0b0c0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  text-decoration: none;
+  font-size: 0.9rem;
+
+  &:hover {
+    background-color: var(--custom-purple);
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  & li {
+    margin-bottom: 0.5rem;
+  }
+
+  & a {
+    color: #b0b0c0;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+}
+
+.footer-external-icon {
+  font-size: 0.65rem;
+  margin-left: 0.35rem;
+  opacity: 0.5;
+  vertical-align: middle;
+}
+
+.footer-bottom {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1.25rem 0;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-copyright {
+  color: #6e6e80;
+}
+
+.footer-bottom-links {
+  text-align: right;
+
+  & a {
+    color: #6e6e80;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #b0b0c0;
+      text-decoration: none;
+    }
+  }
+}
+
+.footer-divider {
+  color: #3a3a4a;
+  margin: 0 0.5rem;
+}
+
+/* Footer responsive adjustments */
+@media (max-width: 767.98px) {
+  .site-footer {
+    padding: 2.5rem 0 0;
+    text-align: center;
+  }
+
+  .footer-heading::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-copyright {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-bottom-links {
+    text-align: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .footer-section {
+    margin-bottom: 2.5rem;
+  }
+}
+
 /* Scrollable lessons list */
 #scrollable {
   max-height: 100vh;
