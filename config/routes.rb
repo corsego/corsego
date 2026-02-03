@@ -64,6 +64,33 @@ Rails.application.routes.draw do
   get "checkout/success", to: "checkout#success"
   post "webhooks/create", to: "webhooks#create"
 
+  # API for MCP and external integrations
+  namespace :api do
+    namespace :v1 do
+      post 'auth/token', to: 'authentication#create'
+
+      resources :courses, only: %i[index show create update destroy] do
+        member do
+          patch :publish
+        end
+        resources :chapters, only: %i[create update destroy] do
+          collection do
+            patch :reorder
+          end
+        end
+        resources :lessons, only: %i[create update destroy] do
+          collection do
+            patch :reorder
+          end
+        end
+        post 'tags', to: 'tags#add_to_course'
+        delete 'tags/:tag_id', to: 'tags#remove_from_course', as: :remove_tag
+      end
+
+      resources :tags, only: %i[index]
+    end
+  end
+
   namespace :charts do
     get "users_per_day"
     get "enrollments_per_day"

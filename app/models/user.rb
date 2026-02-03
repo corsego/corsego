@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   rolify
 
+  has_secure_token :api_token
+
   has_many :courses, dependent: :nullify
   has_many :enrollments, dependent: :nullify
   has_many :user_lessons, dependent: :nullify
