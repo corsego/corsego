@@ -1,4 +1,14 @@
+%p Hello #{@email},
+
+%p Welcome to Corsego! Please confirm your email address by clicking the button below to activate your account.
+
+%p= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token), style: 'display: inline-block; background-color: #007bff; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 4px;'
+
+%p{ style: 'margin-top: 24px;' } Once confirmed, you'll be able to browse courses, enroll, and start learning.
+
 %p
-  Welcome #{@email}!
-%p You can confirm your account email through the link below:
-%p= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token)
+  Best regards,
+  %br
+  The Corsego Team
+
+%p{ style: 'font-size: 12px; color: #6c757d;' }= link_to 'Visit Corsego', root_url

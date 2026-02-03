@@ -1,5 +1,14 @@
-%p
-  Hello #{@resource.email}!
+%p Hello #{@resource.email},
+
 %p Your account has been locked due to an excessive number of unsuccessful sign in attempts.
-%p Click the link below to unlock your account:
-%p= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token)
+
+%p Click the button below to unlock your account:
+
+%p= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token), style: 'display: inline-block; background-color: #007bff; color: #ffffff; padding: 10px 20px; text-decoration: none; border-radius: 4px;'
+
+%p
+  Best regards,
+  %br
+  The Corsego Team
+
+%p{ style: 'font-size: 12px; color: #6c757d;' }= link_to 'Visit Corsego', root_url
