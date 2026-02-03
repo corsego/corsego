@@ -7,7 +7,7 @@
       "url": "https://github.com/gaffneyc/heroku-buildpack-jemalloc.git"
     },
     {
-      "url": "https://github.com/nickhstr/heroku-buildpack-bun.git"
+      "url": "https://github.com/jakeg/heroku-buildpack-bun"
     },
     {
       "url": "heroku/ruby"

@@ -366,7 +366,7 @@ From README.md:
 heroku create
 heroku rename <app-name>
 heroku git:remote -a <app-name>
-heroku buildpacks:add https://github.com/nickhstr/heroku-buildpack-bun.git
+heroku buildpacks:add https://github.com/jakeg/heroku-buildpack-bun
 heroku buildpacks:add heroku/ruby
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 git push heroku master
