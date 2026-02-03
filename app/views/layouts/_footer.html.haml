@@ -1,48 +1,56 @@
-%footer.purple-background.text-light
-  .container-fluid.text-center
-    %br/
+%footer.site-footer
+  .container
     .row
-      .col-lg-4
-        = link_to 'Corsego', root_path, class: "#{'active font-weight-bold' if current_page?(root_path)}"
-        ©
-        \#{Time.now.year}
-        %br/
-        = link_to t('navigation.home'), root_path, class: "#{'active font-weight-bold' if current_page?(root_path)}"
-        %br/
-        = mail_to 'hello@corsego.com' do
-          .fa.fa-envelope
-        = link_to "https://twitter.com/yarotheslav", target: :_blank do
-          .fab.fa-twitter
-        = link_to "https://github.com/yshmarov", target: :_blank do
-          .fab.fa-github
-        .row
-        /%script{:src => "https://platform.linkedin.com/in.js", :type => "text/javascript"}
-        /  :cdata
-        /    lang: en_US
-        %script{"data-counter" => "top", "data-id" => "42835367", :type => "IN/FollowCompany"}
-      .col-lg-4
-        .row
-        = link_to 'Teach on Corsego', new_course_path, class: "#{'active font-weight-bold' if current_page?(new_course_path)}"
-        .row
-        = link_to 'About', about_path, class: "#{'active font-weight-bold' if current_page?(about_path)}"
-        .row
-        = link_to 'Privacy', privacy_path, class: "#{'active font-weight-bold' if current_page?(privacy_path)}"
-        .row
-        = link_to 'Terms', terms_path, class: "#{'active font-weight-bold' if current_page?(terms_path)}"
-      .col-lg-4
-        = link_to "https://gumroad.com/l/ror6saas", target: :_blank do
-          Learn to build a Multi-Tenancy SaaS
-          .fa.fa-external-link-alt
-        .row
-        = link_to "https://www.udemy.com/course/ruby-on-rails-6-learn-20-gems-build-an-e-learning-platform/?referralCode=4721E9D437DEE1734159", target: :_blank do
-          Learn to build an eLearning platform
-          .fa.fa-external-link-alt
-        .row
-        = link_to "https://saas.corsego.com", target: :_blank do
-          SaaS Multi-Tenancy Boilerplate
-          .fa.fa-external-link-alt
-        .row
-        = link_to "https://blog.corsego.com", target: :_blank do
-          Corsego Ruby on Rails Blog
-          .fa.fa-external-link-alt
-  %br/
+      .col-lg-4.col-md-6.footer-section
+        %h5.footer-heading Corsego
+        %p.footer-tagline The online learning platform for creators and learners.
+        .footer-social
+          = mail_to 'hello@corsego.com', class: 'footer-social-link', title: 'Email' do
+            %i.fa.fa-envelope
+          = link_to "https://twitter.com/yarotheslav", target: :_blank, rel: 'noopener noreferrer', class: 'footer-social-link', title: 'Twitter' do
+            %i.fab.fa-twitter
+          = link_to "https://github.com/yshmarov", target: :_blank, rel: 'noopener noreferrer', class: 'footer-social-link', title: 'GitHub' do
+            %i.fab.fa-github
+
+      .col-lg-2.col-md-6.footer-section
+        %h5.footer-heading Platform
+        %ul.footer-links
+          %li= link_to t('navigation.home'), root_path
+          %li= link_to 'Teach on Corsego', new_course_path
+          %li= link_to 'About', about_path
+          %li= link_to 'Privacy', privacy_path
+          %li= link_to 'Terms', terms_path
+
+      .col-lg-3.col-md-6.footer-section
+        %h5.footer-heading Resources
+        %ul.footer-links
+          %li
+            = link_to "https://blog.corsego.com", target: :_blank, rel: 'noopener noreferrer' do
+              Corsego Blog
+              %i.fa.fa-external-link-alt.footer-external-icon
+          %li
+            = link_to "https://saas.corsego.com", target: :_blank, rel: 'noopener noreferrer' do
+              SaaS Boilerplate
+              %i.fa.fa-external-link-alt.footer-external-icon
+
+      .col-lg-3.col-md-6.footer-section
+        %h5.footer-heading Learn More
+        %ul.footer-links
+          %li
+            = link_to "https://gumroad.com/l/ror6saas", target: :_blank, rel: 'noopener noreferrer' do
+              Multi-Tenancy SaaS Course
+              %i.fa.fa-external-link-alt.footer-external-icon
+          %li
+            = link_to "https://www.udemy.com/course/ruby-on-rails-6-learn-20-gems-build-an-e-learning-platform/?referralCode=4721E9D437DEE1734159", target: :_blank, rel: 'noopener noreferrer' do
+              eLearning Platform Course
+              %i.fa.fa-external-link-alt.footer-external-icon
+
+  .footer-bottom
+    .container
+      .row.align-items-center
+        .col-md-6.footer-copyright
+          &copy; #{Time.now.year} Corsego. All rights reserved.
+        .col-md-6.footer-bottom-links
+          = link_to 'Privacy', privacy_path
+          %span.footer-divider |
+          = link_to 'Terms', terms_path
