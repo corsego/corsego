@@ -1,6 +1,6 @@
-# Corsego - Online Learning Platform
+# Corsego
 
-A Udemy-like online learning platform built with Ruby on Rails. Set up your online school in minutes!
+Publish a course on any topic and start earning, or enroll in one and learn at your own pace with lifetime access.
 
 [![Demo](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
 

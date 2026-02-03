@@ -4,7 +4,7 @@
   "start_url": "/",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "Best Ruby on Rails Udemy clone",
+  "description": "Publish courses on any topic, enroll with lifetime access",
   "id": "/",
   "screenshots" : [
     {
