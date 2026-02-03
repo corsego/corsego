@@ -1,6 +1,6 @@
 # Corsego - Online Learning Platform
 
-An online learning platform where anyone can create, publish, and sell courses on any topic. Built with Ruby on Rails.
+An online learning platform where anyone can create, publish, and sell courses on any topic.
 
 [![Demo](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
 
