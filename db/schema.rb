@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_02_160000) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_03_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -304,6 +304,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_160000) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "api_token"
     t.integer "balance", default: 0, null: false
     t.integer "comments_count", default: 0, null: false
     t.datetime "confirmation_sent_at", precision: nil
@@ -345,6 +346,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_02_160000) do
     t.string "unconfirmed_email"
     t.datetime "updated_at", null: false
     t.integer "user_lessons_count", default: 0, null: false
+    t.index ["api_token"], name: "index_users_on_api_token", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
