@@ -3,5 +3,5 @@
     = f.input :language, collection: Course.languages, include_blank: true, as: :radio_buttons
     = f.input :level, collection: Course.levels, include_blank: true, as: :radio_buttons
     = f.label :tags
-    = f.select :tag_ids, @tags.all.pluck(:name, :id), {}, { multiple: true, class: "selectize-tags" }
+    = f.select :tag_ids, @tags.all.pluck(:name, :id), {}, { multiple: true, data: { controller: "tom-select", tom_select_create_url_value: tags_path(format: :json) } }
     = f.button :submit, "Save & Continue"
