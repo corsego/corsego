@@ -50,6 +50,7 @@ gem 'omniauth-google-oauth2' # sign in with google
 gem 'omniauth-github' # sign in with github
 gem 'omniauth-facebook' # sign in with facebook
 gem 'omniauth-rails_csrf_protection'
+gem 'googleauth' # verify Google One Tap JWT tokens
 
 # Active Record
 gem 'friendly_id', '~> 5.5' # nice URLs and hide IDs
