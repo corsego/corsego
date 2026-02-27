@@ -55,7 +55,8 @@
         %th 
           .text-warning.fa.fa-comment
           Review
-        %th Progress
+        %th
+          = sort_link(@q, :completion_percentage, "Progress")
         %th Certificate
         %th
         %th
@@ -77,7 +78,7 @@
               = enrollment.updated_at.strftime("%d/%m/%Y, %H:%M")
           %td= enrollment.rating
           %td= enrollment.review
-          %td= number_to_percentage(enrollment.course.progress(enrollment.user), precision: 0)
+          %td= number_to_percentage(enrollment.completion_percentage, precision: 0)
           %td= link_to 'PDF', certificate_enrollment_path(enrollment, format: :pdf)
           %td= link_to 'See Review', enrollment
           %td
