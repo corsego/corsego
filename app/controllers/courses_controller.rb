@@ -9,6 +9,11 @@ class CoursesController < ApplicationController
     @ransack_path = courses_path
     @ransack_courses = Course.published.approved.ransack(params[:courses_search], search_key: :courses_search)
     @pagy, @courses = pagy(@ransack_courses.result.includes(:user, :course_tags, course_tags: :tag))
+
+    respond_to do |format|
+      format.html
+      format.rss { @courses = Course.published.approved.order(created_at: :desc).limit(50).includes(:tags) }
+    end
   end
 
   def learning
