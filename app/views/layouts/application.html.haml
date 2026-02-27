@@ -34,8 +34,6 @@
   %body
     = render 'layouts/header'
     = render 'layouts/messages'
-    .container
-      %p
+    .container.mb-4
       = yield
-  %p
-  = render 'layouts/footer'
+    = render 'layouts/footer'

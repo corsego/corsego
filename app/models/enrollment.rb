@@ -30,16 +30,16 @@ class Enrollment < ApplicationRecord
     "#{user} #{course}"
   end
 
-  after_save do
+  after_save_commit do
     course.update_rating unless rating.nil? || rating.zero?
   end
 
-  after_destroy do
+  after_destroy_commit do
     course.update_rating
   end
 
-  after_create :calculate_balance
-  after_destroy :calculate_balance
+  after_create_commit :calculate_balance
+  after_destroy_commit :calculate_balance
   def calculate_balance
     course.calculate_income
     user.calculate_enrollment_expences
@@ -53,6 +53,25 @@ class Enrollment < ApplicationRecord
       completed = UserLesson.where(user_id: user_id, lesson_id: course.lesson_ids).count
       update_column(:completion_percentage, (completed.to_f / total) * 100)
     end
+  end
+
+  # Processes a Stripe checkout session and creates enrollments for each line item.
+  # Idempotent — safe to call from both the success URL redirect and the webhook.
+  # Returns the last enrollment created/found, or nil.
+  def self.create_from_stripe_session(stripe_session, user:)
+    stripe_session.line_items.data.filter_map do |line_item|
+      course = Course.find_by(stripe_product_id: line_item.price.product)
+      next unless course
+
+      enrollment, newly_created = user.enroll_in_course(course, price: line_item.amount_total)
+
+      if newly_created && enrollment.persisted?
+        EnrollmentMailer.student_enrollment(enrollment).deliver_later
+        EnrollmentMailer.teacher_enrollment(enrollment).deliver_later
+      end
+
+      enrollment
+    end.last
   end
 
   def self.ransackable_attributes(_auth_object = nil)

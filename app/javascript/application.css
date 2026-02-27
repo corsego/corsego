@@ -28,8 +28,6 @@
 
 :root {
   --custom-purple: #563d7c;
-  --custom-purple-hover: #452f63;
-  --custom-purple-border: #3d2956;
   --body-bg: #ede3d5;
 }
 
@@ -78,9 +76,12 @@
   text-shadow: 1px 1px black;
 }
 
-/* Light background */
+/* Body layout and background */
 body {
   background-color: var(--body-bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* Purple brand elements */
@@ -132,14 +133,9 @@ body {
 
   &:hover {
     color: #fff;
-    background-color: var(--custom-purple-hover);
-    border-color: var(--custom-purple-border);
+    background-color: color-mix(in srgb, var(--custom-purple), black 15%);
+    border-color: color-mix(in srgb, var(--custom-purple), black 20%);
   }
-}
-
-/* Navbar dropdown on top */
-.dropdown {
-  z-index: 9999;
 }
 
 /* Rich text area input */
@@ -150,12 +146,6 @@ trix-editor.form-control {
 /* Footer on bottom */
 html {
   margin: 0;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 
 footer {

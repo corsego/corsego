@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'ostruct'
 
 class EnrollmentTest < ActiveSupport::TestCase
   test 'enrollment fixture is valid' do
@@ -146,6 +147,64 @@ class EnrollmentTest < ActiveSupport::TestCase
     ul.destroy!
     enrollment.reload
     assert_in_delta 0.0, enrollment.completion_percentage, 0.01
+  end
+
+  # --- create_from_stripe_session tests ---
+
+  test 'create_from_stripe_session creates enrollment and sends emails' do
+    student = users(:admin)
+    student.add_role(:student)
+    course = courses(:free_course)
+
+    mock_line_item = OpenStruct.new(
+      price: OpenStruct.new(product: course.stripe_product_id),
+      amount_total: 9900
+    )
+    mock_session = OpenStruct.new(line_items: OpenStruct.new(data: [mock_line_item]))
+
+    assert_difference 'Enrollment.count', 1 do
+      enrollment = Enrollment.create_from_stripe_session(mock_session, user: student)
+      assert enrollment.persisted?
+      assert_equal 9900, enrollment.price
+      assert_equal course, enrollment.course
+    end
+  end
+
+  test 'create_from_stripe_session is idempotent' do
+    student = users(:admin)
+    student.add_role(:student)
+    course = courses(:free_course)
+
+    mock_line_item = OpenStruct.new(
+      price: OpenStruct.new(product: course.stripe_product_id),
+      amount_total: 9900
+    )
+    mock_session = OpenStruct.new(line_items: OpenStruct.new(data: [mock_line_item]))
+
+    # First call creates
+    Enrollment.create_from_stripe_session(mock_session, user: student)
+
+    # Second call does not duplicate
+    assert_no_difference 'Enrollment.count' do
+      enrollment = Enrollment.create_from_stripe_session(mock_session, user: student)
+      assert enrollment.persisted?
+    end
+  end
+
+  test 'create_from_stripe_session skips unknown products' do
+    student = users(:admin)
+    student.add_role(:student)
+
+    mock_line_item = OpenStruct.new(
+      price: OpenStruct.new(product: 'prod_nonexistent'),
+      amount_total: 9900
+    )
+    mock_session = OpenStruct.new(line_items: OpenStruct.new(data: [mock_line_item]))
+
+    assert_no_difference 'Enrollment.count' do
+      result = Enrollment.create_from_stripe_session(mock_session, user: student)
+      assert_nil result
+    end
   end
 
   test 'calculate_balance updates course income and user expenses' do

@@ -53,24 +53,11 @@ class CheckoutController < ApplicationController
       redirect_to root_path and return
     end
 
-    enrollment = nil
-    course = nil
-
-    session.line_items.data.each do |line_item|
-      course = Course.find_by(stripe_product_id: line_item.price.product)
-      next unless course
-
-      enrollment, newly_created = user.enroll_in_course(course, price: line_item.amount_total)
-
-      if newly_created && enrollment.present?
-        EnrollmentMailer.student_enrollment(enrollment).deliver_later
-        EnrollmentMailer.teacher_enrollment(enrollment).deliver_later
-      end
-    end
+    enrollment = Enrollment.create_from_stripe_session(session, user: user)
 
     if enrollment&.persisted?
       flash[:notice] = 'Payment successful! You are now enrolled in the course.'
-      redirect_to course_path(course)
+      redirect_to course_path(enrollment.course)
     else
       flash[:alert] = 'Unable to complete enrollment. Please contact support.'
       redirect_to root_path

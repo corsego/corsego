@@ -45,18 +45,6 @@ class WebhooksController < ApplicationController
 
     return unless user
 
-    session_with_expand.line_items.data.each do |line_item|
-      course = Course.find_by(stripe_product_id: line_item.price.product)
-      next unless course
-
-      # Use idempotent enrollment - webhook serves as fallback if success URL verification failed
-      enrollment, newly_created = user.enroll_in_course(course, price: line_item.amount_total)
-
-      # Only send emails if enrollment was newly created by webhook (not already created by success URL)
-      if newly_created && enrollment.present?
-        EnrollmentMailer.student_enrollment(enrollment).deliver_later
-        EnrollmentMailer.teacher_enrollment(enrollment).deliver_later
-      end
-    end
+    Enrollment.create_from_stripe_session(session_with_expand, user: user)
   end
 end

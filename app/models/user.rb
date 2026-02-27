@@ -104,11 +104,11 @@ class User < ApplicationRecord
   end
 
   def bought?(course)
-    enrolled_courses.include?(course)
+    enrollments.exists?(course: course)
   end
 
   def viewed?(lesson)
-    lessons.include?(lesson)
+    user_lessons.exists?(lesson: lesson)
   end
 
   # private
