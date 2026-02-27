@@ -1,12 +1,14 @@
 - if @course.user == current_user
   = link_to edit_course_chapter_path(@course, chapter), class: 'badge text-bg-warning me-1' do
-    .fa.fa-edit
+    %i.fa.fa-edit
+    %span.visually-hidden Edit
   = link_to [@course, chapter], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'badge text-bg-danger me-1' do
-    .fa.fa-trash
-.far.fa-bookmark
+    %i.fa.fa-trash
+    %span.visually-hidden Delete
+%i.far.fa-bookmark
 Chapter
 #{chapter.row_order_rank + 1}.
 = chapter.title
-.text-center 
-  .fa.fa-tasks
+.text-center
+  %i.fa.fa-tasks
   = pluralize(chapter.lessons_count, 'lesson')

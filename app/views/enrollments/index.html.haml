@@ -1,17 +1,16 @@
 - content_for :title do
-  Corsego 
+  Corsego
   |
   = controller_name.humanize
   = action_name.humanize
 
 %h3
   .text-center
-    .fa.fa-lock-open
+    %i.fa.fa-lock-open
     = controller_name.humanize + ":"
     = action_name.humanize
     .badge.text-bg-info
       = @enrollments.count
-%p
 
 = search_form_for @q, url: @ransack_path do |f|
   = f.search_field :user_email_cont, placeholder: 'user email'
@@ -22,7 +21,7 @@
   = f.submit
 = link_to 'refresh', @ransack_path
 
-.table-responsive
+.table-responsive.mt-3
   %table.table.table-bordered.table-striped.table-sm.table-hover
     %thead
       %tr
@@ -34,16 +33,16 @@
         %th
           = sort_link(@q, :course_title, "Course")
         %th Teacher
-        %th 
+        %th
           = sort_link(@q, :price)
-        %th 
-          .text-warning.fa.fa-clock
+        %th
+          %i.text-warning.fa.fa-clock
           = sort_link(@q, :updated_at, 'Reviewed')
-        %th 
-          .text-warning.fa.fa-star
+        %th
+          %i.text-warning.fa.fa-star
           = sort_link(@q, :rating)
-        %th 
-          .text-warning.fa.fa-comment
+        %th
+          %i.text-warning.fa.fa-comment
           Review
         %th
           = sort_link(@q, :completion_percentage, "Progress")
@@ -51,7 +50,7 @@
         %th
         %th
         %th
-  
+
     %tbody
       - @enrollments.each do |enrollment|
         %tr
@@ -78,4 +77,3 @@
             - if policy(enrollment).destroy?
               = link_to 'Delete Enrollment', enrollment, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }
 != pagy_bootstrap_nav(@pagy)
-%br

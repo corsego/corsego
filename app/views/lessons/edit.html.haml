@@ -4,11 +4,11 @@
   Edit Lesson
   = @lesson.title
 
-.fa.fa-graduation-cap
+%i.fa.fa-graduation-cap
 = link_to course_path(@course) do
   = @course.title
 |
-.fa.fa-check-square
+%i.fa.fa-check-square
 = link_to course_lesson_path(@course, @lesson, anchor: "current_lesson") do
   = @lesson.title
 |
@@ -17,7 +17,7 @@
 .card.shadow
   .card-header
     %h3
-      .far.fa-check-square
+      %i.far.fa-check-square
       Edit lesson
   .card-body
     = render 'form'

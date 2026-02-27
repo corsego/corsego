@@ -1,6 +1,6 @@
 .card.shadow
   .card-header
-    .fa.fa-graduation-cap
+    %i.fa.fa-graduation-cap
     = link_to course.title, course_path(course)
   - if course.avatar.attached?
     .card-img-top
@@ -11,25 +11,23 @@
   .card-footer
     .text-center
       = enrollment_button(course)
-      .row
       = review_button(course)
-      .row
       = certificate_button(course)
 
   .card-footer
     .row
       .col-md-6
-        .text-warning.fa.fa-star
+        %i.text-warning.fa.fa-star
         %b= course.average_rating
         (
-        .fa.fa-user-graduate
+        %i.fa.fa-user-graduate
         = course.enrollments_count
         )
-        .fa.fa-tasks
+        %i.fa.fa-tasks
         = course.lessons_count
       .col-md-6
         .text-end
-          - if course.user 
+          - if course.user
             - if course.user.image?
               = image_tag course.user.image, size: '20x20', alt: "#{course.user.email}", class: 'rounded-circle'
             = link_to course.user.username, user_path(course.user)
@@ -39,22 +37,22 @@
         .text-center
           .btn-group
             = link_to new_course_chapter_path(course, @chapter), class: 'btn btn-sm btn-primary' do
-              .fa.fa-plus
+              %i.fa.fa-plus
               Chapter
             = link_to new_course_lesson_path(course, @lesson), class: 'btn btn-sm btn-primary' do
-              .fa.fa-plus
+              %i.fa.fa-plus
               Lesson
             = link_to course_course_wizard_index_path(course), class: 'btn btn-sm btn-warning' do
-              .fa.fa-edit
+              %i.fa.fa-edit
               Editor
     - if policy(course).admin_or_owner?
       .card-footer
         .btn-group
           = link_to analytics_course_path(course), class: 'btn btn-sm btn-info' do
-            .fa.fa-chart-bar
+            %i.fa.fa-chart-bar
             Analytics
           = link_to new_course_access_grant_path(course), class: 'btn btn-sm btn-success' do
-            .fa.fa-user-plus
+            %i.fa.fa-user-plus
             Grant Access
       .card-footer
         .form-check.form-switch
@@ -63,7 +61,6 @@
           - else
             %input#customSwitch2.form-check-input{:disabled => "disabled", :type => "checkbox"}/
           %label.form-check-label{:for => "Published"} Teacher Published
-        .row
         - if policy(course).approve?
           .form-check.form-switch
             = link_to approve_course_path(course), data: { turbo_method: :patch } do
@@ -82,7 +79,8 @@
       - if policy(course).destroy?
         .card-footer
           = link_to course, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' do
-            .fa.fa-trash
+            %i.fa.fa-trash
+            Delete
   - if course.tags.any?
     .card-footer
       - course.tags.each do |tag|

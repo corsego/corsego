@@ -4,7 +4,7 @@
   .col-lg-8
     .card.shadow
       .card-header
-        .text-success.fa.fa-check-square
+        %i.text-success.fa.fa-check-square
         = link_to course_lesson_path(@course, @lesson, anchor: "current_lesson") do
           %b
             #{@lesson.chapter.row_order_rank + 1}.
@@ -18,23 +18,24 @@
       - if policy(@lesson).edit?
         .card-footer
           = link_to edit_course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-warning me-1' do
-            .fa.fa-edit
+            %i.fa.fa-edit
+            %span.visually-hidden Edit
           = link_to [@course, @lesson], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
-            .fa.fa-trash
+            %i.fa.fa-trash
+            %span.visually-hidden Delete
       .card-footer
         - unless @lesson.prev.nil?
           .float-start
             = link_to course_lesson_path(@course, @lesson.prev, anchor: "current_lesson"), class: 'btn btn-sm btn-info' do
-              .fa.fa-arrow-left
+              %i.fa.fa-arrow-left
               Previous
         - unless @lesson.next.nil?
           .float-end
             = link_to course_lesson_path(@course, @lesson.next, anchor: "current_lesson"), class: 'btn btn-sm btn-info' do
-              .fa.fa-arrow-right
+              %i.fa.fa-arrow-right
               Next
-    %p
-    %h4
-      .fa.fa-comment
+    %h4.mt-3
+      %i.fa.fa-comment
       Comments:
       = @lesson.comments_count
     .card.shadow
@@ -50,10 +51,9 @@
   .col-lg-4
     .list-group.shadow
       .list-group-item
-        .fa.fa-graduation-cap
+        %i.fa.fa-graduation-cap
         = link_to course_path(@lesson.course) do
           = @lesson.course.title
-        .row
         = render 'courses/progress', course: @lesson.course
 
     .list-group
@@ -68,4 +68,3 @@
               - else
                 %li.list-group-item.list-group-item-secondary
                   = render 'lessons/lesson', lesson: lesson
-%br

@@ -1,12 +1,12 @@
 - content_for :title do
-  Corsego 
-  \| 
+  Corsego
+  \|
   Editing course
   = @course.title
 
 = link_to 'Courses', courses_path
 |
-.fa.fa-graduation-cap
+%i.fa.fa-graduation-cap
 = link_to course_path(@course) do
   = @course.title
 |
@@ -34,14 +34,13 @@
       .container.text-danger
         - @course.errors.full_messages.each do |msg|
           %li= msg
-      %p
     = yield
   .card-footer
     .float-start
       = link_to previous_wizard_path, class: 'btn btn-sm btn-info' do
-        .fa.fa-arrow-left
+        %i.fa.fa-arrow-left
         Previous
     .float-end
       = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
-        .fa.fa-arrow-right
+        %i.fa.fa-arrow-right
         Skip

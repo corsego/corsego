@@ -1,5 +1,5 @@
 - content_for :title do
-  Corsego 
+  Corsego
   |
   = @course.title
   |
@@ -8,11 +8,11 @@
 = link_to 'Courses', courses_path
 |
 = link_to course_path(@course) do
-  .fa.fa-graduation-cap
+  %i.fa.fa-graduation-cap
   = @course.title
 |
 = link_to analytics_course_path(@course) do
-  .fa.fa-chart-bar
+  %i.fa.fa-chart-bar
   Analtycs
 
 %h4.text-center
@@ -38,5 +38,3 @@
 .card
   .card-body
     = bar_chart @course.user_lessons.joins(:lesson).group(:'lessons.title').sum(:impressions)
-
-

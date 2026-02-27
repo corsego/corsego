@@ -1,29 +1,26 @@
 - content_for :title do
-  Corsego 
-  \| 
+  Corsego
+  \|
   = @user.username
 
 .row
   .col-md-6
-
     .card.shadow
       .card-header
-        .fa.fa-user
+        %i.fa.fa-user
         - if @user.online?
-          .text-success.fa.fa-signal
+          %i.text-success.fa.fa-signal
         - else
-          .text-danger.fa.fa-signal
+          %i.text-danger.fa.fa-signal
         = link_to @user.username, user_path(@user)
       .card-footer
         - if @user == current_user && @user.uid.nil?
           = button_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-outline-primary btn-sm' do
             %span.fab.fa-google
             Sync with Google
-          %p
         - if @user.image?
-          .row
+          .mb-2
           = image_tag @user.image, size: '40x40', alt: "#{@user.email}", class: 'rounded-circle'
-        .row
         = @user.name
       .card-footer
         Signed up
@@ -33,19 +30,19 @@
         .card-footer
           %b= 'email'.humanize + ":"
           = @user.email
-          .row
+          %br
           %b= 'sign_in_count'.humanize + ":"
           = @user.sign_in_count
-          .row
+          %br
           %b= 'current_sign_in_at'.humanize + ":"
           = @user.current_sign_in_at
-          .row
+          %br
           %b= 'last_sign_in_at'.humanize + ":"
           = @user.last_sign_in_at
-          .row
+          %br
           %b= 'current_sign_in_ip'.humanize + ":"
           = @user.current_sign_in_ip
-          .row
+          %br
           %b= 'last_sign_in_ip'.humanize + ":"
           = @user.last_sign_in_ip
         .card-footer
@@ -54,30 +51,30 @@
         .card-footer
           %b= 'course_income'.humanize + ":"
           = @user.course_income
-          .row
+          %br
           %b= 'enrollment_expences'.humanize + ":"
           = @user.enrollment_expences
-          .row
+          %br
           %b= 'balance'.humanize + ":"
           = @user.balance
       .card-footer
-        .fa.fa-graduation-cap
+        %i.fa.fa-graduation-cap
         Courses created:
         = @user.courses_count
-        .row
-        .fa.fa-lock-open
+        %br
+        %i.fa.fa-lock-open
         Enrollments:
         = @user.enrollments_count
-        .row
-        .fa.fa-comment
+        %br
+        %i.fa.fa-comment
         Comments:
         = @user.comments_count
-        .row
-        .fa.fa-eye
+        %br
+        %i.fa.fa-eye
         Lessons viewed:
         = @user.user_lessons_count
-        .row
-        .fa.fa-user-graduate
+        %br
+        %i.fa.fa-user-graduate
         Students:
         = @user.students.count
       .card-footer
@@ -90,20 +87,18 @@
         - if policy(@user).edit?
           = link_to 'Edit roles', edit_user_path(@user), class: 'btn btn-sm btn-warning'
 
-    %p
   .col-md-6
     .card.shadow
       .card-header
         %b Courses: Teaching
       .card-body
         - @courses_teaching.each do |course|
-          .row
+          .mb-1
           = link_to course.title, course_path(course)
-    %p
-    .card.shadow
+    .card.shadow.mt-3
       .card-header
         %b Courses: Learning
       .card-body
         - @courses_learning.each do |enrollment|
-          .row
+          .mb-1
           = link_to enrollment.course.title, course_path(enrollment.course)

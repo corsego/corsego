@@ -3,18 +3,18 @@
   |
   Edit Chapter
 
-.fa.fa-graduation-cap
+%i.fa.fa-graduation-cap
 = link_to course_path(@course) do
   = @course.title
 |
-.far.fa-bookmark
+%i.far.fa-bookmark
 = link_to edit_course_chapter_path(@course, @chapter) do
   Edit Chapter
 
 .card.shadow
   .card-header
     %h3
-      .far.fa-bookmark
+      %i.far.fa-bookmark
       Edit chapter
   .card-body
     = render 'form'

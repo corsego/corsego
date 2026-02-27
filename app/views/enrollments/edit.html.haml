@@ -1,5 +1,5 @@
 - content_for :title do
-  Corsego 
+  Corsego
   |
   Review
   = @enrollment.course
@@ -7,7 +7,7 @@
 = link_to 'Courses', courses_path
 |
 = link_to course_path(@enrollment.course) do
-  .fa.fa-graduation-cap
+  %i.fa.fa-graduation-cap
   = @enrollment.course.title
 |
 = link_to 'Add Review', edit_enrollment_path(@enrollment)
@@ -15,7 +15,7 @@
 .card.shadow
   .card-header
     %h3
-      .text-warning.fa.fa-star
+      %i.text-warning.fa.fa-star
       Add a Review
   .card-body
     = render 'form'

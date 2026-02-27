@@ -9,13 +9,13 @@
         .col-md-5
           %b= link_to course.title, course_path(course)
           %small= simple_format(course.marketing_description)
-          .text-warning.fa.fa-star
+          %i.text-warning.fa.fa-star
           %b= course.average_rating
           (
-          .fa.fa-user-graduate
+          %i.fa.fa-user-graduate
           = course.enrollments_count
           )
-          .fa.fa-tasks
+          %i.fa.fa-tasks
           = course.lessons_count
           %br
           - if course.tags.any?
@@ -30,7 +30,5 @@
         .col-md-3
           .text-center
             = enrollment_button(course)
-            .row
             = review_button(course)
-            .row
             %small= certificate_button(course)

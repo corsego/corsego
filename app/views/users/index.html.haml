@@ -1,6 +1,6 @@
 - content_for :title do
-  Corsego 
-  \| 
+  Corsego
+  \|
   All Users
 
 %h3
@@ -8,7 +8,6 @@
     Users
     .badge.text-bg-info
       = @users.count
-%p
 
 .d-flex
   = search_form_for @q do |f|
@@ -16,8 +15,8 @@
     = f.submit
   .ms-2
   = link_to 'refresh', users_path
-%br
-.table-responsive
+
+.table-responsive.mt-3
   %table.table.table-bordered.table-striped.table-sm.table-hover
     %thead
       %tr
@@ -44,9 +43,9 @@
           %td= user.id
           %td
             - if user.online?
-              .text-success.fa.fa-signal
+              %i.text-success.fa.fa-signal
             - else
-              .text-danger.fa.fa-signal
+              %i.text-danger.fa.fa-signal
             = link_to user.email, user_path(user)
           %td= user.created_at.strftime('%d/%m/%y, %H:%M')
           %td= boolean_label(user.confirmed?)
@@ -72,7 +71,4 @@
               = user.last_sign_in_at.strftime('%d/%m/%y - %H:%M')
           %td= user.current_sign_in_ip
           %td= user.last_sign_in_ip
-%p
 != pagy_bootstrap_nav(@pagy)
-
-%br

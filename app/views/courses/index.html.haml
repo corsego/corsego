@@ -11,65 +11,57 @@
 
 %h3
   .text-center
-    .fa.fa-graduation-cap
+    %i.fa.fa-graduation-cap
     = controller_name.humanize + ":"
     = action_name.humanize
     .badge.text-bg-info
       = @courses.count
-%p
 
 .row
-  .col-lg-2.order-0.order-lg-1.shadow
+  .col-lg-3.order-0.order-lg-1.shadow
     .sticky-top
       = search_form_for @ransack_courses, as: :courses_search, url: @ransack_path do |f|
-        = f.label :title_or_description
-        = f.search_field :title_or_marketing_description_cont, placeholder: 'Title', class: 'form-control form-control-sm'
-        .row
-        = f.label :tag
-        = f.select :course_tags_tag_name_cont, @tags, {include_blank: true}, class: "form-control  form-control-sm"
-        .row
-        = f.label :language
-        .row
-        = f.select :language_cont, Course.languages, {include_blank: true}, class: "form-control  form-control-sm"
-        .row
-        = f.label :level
-        .row
-        = f.select :level_cont, Course.levels, {include_blank: true}, class: "form-control  form-control-sm"
-        .row
-        = f.label :price
-        = f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm'
-        = f.label :teacher
-        = f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm'
-        .row
-        = sort_link(@ransack_courses, :price)
-        .row
-        = sort_link(@ransack_courses, :average_rating, "Top Rated")
-        .row
-        = sort_link(@ransack_courses, :enrollments_count, "Most Popular")
-        .row
-        = sort_link(@ransack_courses, :created_at, "Fresh")
-        .row
-        .d-grid
+        .mb-2
+          = f.label :title_or_description
+          = f.search_field :title_or_marketing_description_cont, placeholder: 'Title', class: 'form-control form-control-sm'
+        .mb-2
+          = f.label :tag
+          = f.select :course_tags_tag_name_cont, @tags, {include_blank: true}, class: "form-control form-control-sm"
+        .mb-2
+          = f.label :language
+          = f.select :language_cont, Course.languages, {include_blank: true}, class: "form-control form-control-sm"
+        .mb-2
+          = f.label :level
+          = f.select :level_cont, Course.levels, {include_blank: true}, class: "form-control form-control-sm"
+        .mb-2
+          = f.label :price
+          = f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm'
+        .mb-2
+          = f.label :teacher
+          = f.search_field :user_email_cont, placeholder: 'Email', class: 'form-control form-control-sm'
+        .mb-1
+          = sort_link(@ransack_courses, :price)
+        .mb-1
+          = sort_link(@ransack_courses, :average_rating, "Top Rated")
+        .mb-1
+          = sort_link(@ransack_courses, :enrollments_count, "Most Popular")
+        .mb-1
+          = sort_link(@ransack_courses, :created_at, "Fresh")
+        .d-grid.mt-2
           = f.button :search, class: "btn btn-primary"
         - if params[:courses_search]
-          .row
           .d-grid.mt-1
             = link_to 'unfilter', {controller: controller_name, action: action_name}, class: "btn btn-secondary"
       %hr
-      .row
       - @tags.each do |tag|
         = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
           .badge.text-bg-info
             = tag.name
             %span.badge.text-bg-light
               = tag.course_tags_count
-      %p
-      %br
-  .col-lg-10.order-1.order-lg-1
+  .col-lg-9.order-1.order-lg-1
     .container
       .row
         - @courses.each do |course|
           = render 'courses/course_landscape', course: course
-          %p
     != pagy_bootstrap_nav(@pagy)
-%br

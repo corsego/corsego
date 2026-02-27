@@ -12,100 +12,66 @@
     .card.shadow
       .card-body
         %h3
-          .fa.fa-graduation-cap
+          %i.fa.fa-graduation-cap
           = @course.title
         %hr
-        .far.fa-bookmark
+        %i.far.fa-bookmark
         = pluralize(@course.chapters_count, 'Chapter')
-        .row
-        .fa.fa-tasks
+        %br
+        %i.fa.fa-tasks
         = pluralize(@course.lessons_count, 'Lesson')
-        .row
-        .far.fa-clock
+        %br
+        %i.far.fa-clock
         Created
         = @course.created_at.strftime("%m/%Y")
-        .row
-        .far.fa-clock
+        %br
+        %i.far.fa-clock
         Last updated
         = @course.updated_at.strftime("%m/%Y")
-        .row
-        .fa.fa-globe-africa
+        %br
+        %i.fa.fa-globe-africa
         = @course.language
-        .row
-        .fa.fa-signal
+        %br
+        %i.fa.fa-signal
         = @course.level
-        .row
-        .fa.fa-file-pdf
+        %br
+        %i.fa.fa-file-pdf
         Certificate of Completion
-        .row
-        .far.fa-comment
+        %br
+        %i.far.fa-comment
         Access to Member-Only Q&A
-        .row
-        .fa.fa-download
+        %br
+        %i.fa.fa-download
         Access to Member-Only Resources
-        .row
-        .fa.fa-infinity
+        %br
+        %i.fa.fa-infinity
         Full Lifetime Access & Updates
         %hr
         = @course.description
-    %br
-    %h4.text-center
-      .far.fa-bookmark
+    %h4.text-center.mt-3
+      %i.far.fa-bookmark
       = pluralize(@course.chapters_count, 'chapter')
-      .fa.fa-tasks
+      %i.fa.fa-tasks
       = pluralize(@course.lessons_count, 'lesson')
     - if current_user
       - if @course.user == current_user
-        .list-group.shadow.chapter-sortable{:style => "cursor: grab;"}
-          - @chapters.each do |chapter|
-            = content_tag "div", id: "chapter-#{chapter.id}", data: { id: chapter.id, model_name: chapter.class.name.underscore, update_url: course_chapter_sort_path(@course, chapter)} do
-              .list-group-item.list-group-item-secondary
-                = render 'chapters/chapter', chapter: chapter
-                .list-group.lesson-sortable{:style => "cursor: grab; min-height: 10px;"}
-                  - chapter.lessons.rank(:row_order).each do |lesson|
-                    = content_tag "div", id: "lesson-#{lesson.id}", data: { model_name: lesson.class.name.underscore, update_url: course_lesson_sort_path(@course, lesson)} do
-                      .list-group-item
-                        = render 'lessons/lesson', lesson: lesson
+        = render 'courses/chapter_list', chapters: @chapters, course: @course, sortable: true, lesson_partial: 'lessons/lesson'
       - elsif current_user.has_role?(:admin) || current_user.bought?(@course)
-        .list-group.shadow
-          - @chapters.each do |chapter|
-            .list-group-item.list-group-item-secondary
-              = render 'chapters/chapter', chapter: chapter
-              .list-group
-                - chapter.lessons.rank(:row_order).each do |lesson|
-                  .list-group-item
-                    = render 'lessons/lesson', lesson: lesson
+        = render 'courses/chapter_list', chapters: @chapters, course: @course, sortable: false, lesson_partial: 'lessons/lesson'
       - else
-        .list-group.shadow
-          - @chapters.each do |chapter|
-            .list-group-item.list-group-item-secondary
-              = render 'chapters/chapter', chapter: chapter
-              .list-group
-                - chapter.lessons.rank(:row_order).each do |lesson|
-                  .list-group-item
-                    = render 'lessons/lesson_preview', lesson: lesson
+        = render 'courses/chapter_list', chapters: @chapters, course: @course, sortable: false, lesson_partial: 'lessons/lesson_preview'
     - else
-      .list-group.shadow
-        - @chapters.each do |chapter|
-          .list-group-item.list-group-item-secondary
-            = render 'chapters/chapter', chapter: chapter
-            .list-group
-              - chapter.lessons.rank(:row_order).each do |lesson|
-                .list-group-item
-                  = render 'lessons/lesson_preview', lesson: lesson
+      = render 'courses/chapter_list', chapters: @chapters, course: @course, sortable: false, lesson_partial: 'lessons/lesson_preview'
 
     - if @reviews.any?
-      %br
-      %h4
-        .far.fa-comment
+      %h4.mt-3
+        %i.far.fa-comment
         = pluralize(@reviews.count, 'review')
       .list-group
         - @reviews.each do |enrollment|
           .list-group-item
             = render 'enrollments/enrollment', enrollment: enrollment
-        %p
 
   .col-lg-4.order-0.order-lg-1
     .sticky-top
       = render 'courses/course', course: @course
-    %p
