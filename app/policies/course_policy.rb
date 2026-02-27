@@ -39,6 +39,10 @@ class CoursePolicy < ApplicationPolicy
       @user.has_role?(:admin) && @record.enrollments.none?
   end
 
+  def grant_access?
+    @user.has_role?(:admin) || @record.user == @user
+  end
+
   # course wizard
   def edit?
     @record.user == @user
