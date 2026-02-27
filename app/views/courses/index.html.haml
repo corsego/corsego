@@ -7,7 +7,8 @@
                 description: "#{@courses.count}+ courses published by independent instructors. Filter by topic, language, level, or price and enroll with lifetime access.",
                 keywords: @tags.pluck(:name).join(", "),
                 type: "website",
-                url: courses_url)
+                url: courses_url,
+                json_ld: course_item_list_json_ld(@courses))
 
 %h1.h3
   .text-center

@@ -243,6 +243,22 @@ module MetaTagsHelper
     }
   end
 
+  # Build ItemList JSON-LD for course listings
+  def course_item_list_json_ld(courses)
+    {
+      '@context' => 'https://schema.org',
+      '@type' => 'ItemList',
+      'itemListElement' => courses.each_with_index.map do |course, index|
+        {
+          '@type' => 'ListItem',
+          'position' => index + 1,
+          'url' => course_url(course),
+          'name' => course.title
+        }
+      end
+    }
+  end
+
   # Website schema for homepage
   def website_json_ld
     {
