@@ -12,14 +12,75 @@
         Privacy Policy
     .card-body
       %p
-        Your privacy is important to us. It is Corsego's policy to respect your privacy regarding any information we may collect from you across our website,
-        = succeed "," do
-          %a{:href => "http://corsego.com"} corsego.com
-      %p We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.
-      %p We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or modification.
-      %p We don’t share any personally identifying information publicly or with third-parties, except when required to by law.
-      %p Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
-      %p You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.
-      %p Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.
-      %p This policy is effective as of 24 April 2020.
+        This Privacy Policy describes how Corsego ("we", "us", or "our") collects, uses, and protects your personal information when you use our website
+        = succeed "." do
+          %a{:href => "https://corsego.com"} corsego.com
+
+      %h2.h5 1. Information We Collect
+      %p We collect information you provide directly when you:
+      %ul
+        %li Create an account (name, email address, profile image)
+        %li Enroll in courses (payment information processed securely via Stripe)
+        %li Create and publish courses as an instructor
+        %li Leave comments, ratings, and reviews
+        %li Contact us for support
+      %p We also automatically collect certain technical information when you visit our site, including your IP address, browser type, pages visited, and time spent on pages.
+
+      %h2.h5 2. How We Use Your Information
+      %p We use the information we collect to:
+      %ul
+        %li Provide and maintain our learning platform
+        %li Process enrollments and payments
+        %li Track your course progress and issue completion certificates
+        %li Send you important account notifications
+        %li Improve our platform and develop new features
+        %li Prevent fraud and ensure platform security
+
+      %h2.h5 3. Payment Processing
+      %p All payment transactions are processed through Stripe. We do not store your credit card details on our servers. Stripe’s privacy policy governs the handling of your payment information.
+
+      %h2.h5 4. Third-Party Services
+      %p We use the following third-party services that may collect information:
+      %ul
+        %li
+          %strong Stripe
+          — payment processing
+        %li
+          %strong Amazon Web Services (AWS)
+          — file storage and email delivery
+        %li
+          %strong Google Analytics
+          — website usage analytics
+        %li
+          %strong OAuth providers (Google, GitHub, Facebook)
+          — authentication, only when you choose to sign in with these services
+
+      %h2.h5 5. Data Retention
+      %p We retain your personal information for as long as your account is active or as needed to provide you with our services. You may request deletion of your account and associated data by contacting us.
+
+      %h2.h5 6. Data Security
+      %p We implement industry-standard security measures to protect your personal information, including encrypted connections (HTTPS), secure password hashing, and restricted access to personal data.
+
+      %h2.h5 7. Your Rights
+      %p You have the right to:
+      %ul
+        %li Access the personal information we hold about you
+        %li Request correction of inaccurate information
+        %li Request deletion of your account and personal data
+        %li Withdraw consent for optional data processing
+        %li Export your data in a portable format
+
+      %h2.h5 8. Cookies
+      %p We use cookies to maintain your session, remember your preferences, and understand how you use our platform. You can configure your browser to reject cookies, though this may affect some platform functionality.
+
+      %h2.h5 9. Children’s Privacy
+      %p Our platform is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13.
+
+      %h2.h5 10. Changes to This Policy
+      %p We may update this Privacy Policy from time to time. We will notify you of significant changes by posting a notice on our website or sending you an email.
+
+      %h2.h5 11. Contact Us
+      %p If you have questions about this Privacy Policy or how we handle your data, please contact us at #{mail_to "support@corsego.com"}.
+
+      %p.text-muted.mt-4 Last updated: January 1, 2025
 %br
