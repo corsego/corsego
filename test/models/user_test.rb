@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'test_helper'
+require 'ostruct'
 
 class UserTest < ActiveSupport::TestCase
   test 'user fixture is valid' do
@@ -143,5 +144,102 @@ class UserTest < ActiveSupport::TestCase
     student = users(:student)
     assert_respond_to student, :enrolled_courses
     assert_includes student.enrolled_courses, courses(:published_course)
+  end
+
+  # --- OmniAuth from_omniauth tests ---
+
+  test 'from_omniauth returns existing user matched by provider and uid' do
+    existing = users(:student)
+    existing.update_columns(provider: 'google_oauth2', uid: '12345')
+
+    access_token = mock_omniauth_token(
+      provider: 'google_oauth2',
+      uid: '12345',
+      email: existing.email,
+      name: 'Student User'
+    )
+
+    user = User.from_omniauth(access_token)
+    assert_equal existing.id, user.id
+  end
+
+  test 'from_omniauth links legacy email-only user on first OAuth login' do
+    existing = users(:student)
+    # existing user registered via email — provider/uid are nil
+    existing.update_columns(provider: nil, uid: nil)
+
+    access_token = mock_omniauth_token(
+      provider: 'google_oauth2',
+      uid: 'first_oauth_uid',
+      email: existing.email,
+      name: 'Student User'
+    )
+
+    user = User.from_omniauth(access_token)
+    # Should link to the existing account (legacy user, no provider set)
+    assert_equal existing.id, user.id
+  end
+
+  test 'from_omniauth does not allow account takeover when user already has a different provider' do
+    existing = users(:student)
+    # existing user already linked to GitHub
+    existing.update_columns(provider: 'github', uid: 'gh_existing_123')
+
+    access_token = mock_omniauth_token(
+      provider: 'google_oauth2',
+      uid: 'attacker_uid_999',
+      email: existing.email,
+      name: 'Attacker'
+    )
+
+    user = User.from_omniauth(access_token)
+    # Should NOT return the existing user — they already have a different provider
+    assert_not_equal existing.id, user.id
+    assert_equal 'google_oauth2', user.provider
+    assert_equal 'attacker_uid_999', user.uid
+  end
+
+  test 'from_omniauth returns existing user when same provider+uid with different email' do
+    existing = users(:student)
+    existing.update_columns(provider: 'github', uid: 'gh_777')
+
+    access_token = mock_omniauth_token(
+      provider: 'github',
+      uid: 'gh_777',
+      email: 'newemail@example.com',
+      name: 'Student New Email'
+    )
+
+    user = User.from_omniauth(access_token)
+    assert_equal existing.id, user.id
+  end
+
+  test 'from_omniauth creates new user for completely new oauth user' do
+    access_token = mock_omniauth_token(
+      provider: 'google_oauth2',
+      uid: 'brand_new_uid',
+      email: 'brand_new@example.com',
+      name: 'Brand New'
+    )
+
+    assert_difference 'User.count', 1 do
+      user = User.from_omniauth(access_token)
+      assert user.persisted?
+      assert_equal 'brand_new@example.com', user.email
+      assert_equal 'google_oauth2', user.provider
+      assert_equal 'brand_new_uid', user.uid
+      assert user.confirmed_at.present?
+    end
+  end
+
+  private
+
+  def mock_omniauth_token(provider:, uid:, email:, name:, image: nil, token: 'fake_token')
+    OpenStruct.new(
+      provider: provider,
+      uid: uid,
+      info: OpenStruct.new(email: email, name: name, image: image),
+      credentials: OpenStruct.new(token: token, expires_at: nil, expires: false, refresh_token: nil)
+    )
   end
 end

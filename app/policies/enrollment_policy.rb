@@ -11,6 +11,10 @@ class EnrollmentPolicy < ApplicationPolicy
     @user.has_role?(:admin)
   end
 
+  def show?
+    @record.user == @user || @user.has_role?(:admin)
+  end
+
   def edit?
     @record.user == @user
   end
@@ -24,7 +28,8 @@ class EnrollmentPolicy < ApplicationPolicy
   end
 
   def certificate?
-    # course has as many lessons as the user has viewed for this course
+    # Public access — certificates are shared on LinkedIn/resumes.
+    # Only require that the enrollment owner completed all lessons.
     @record.course.lessons_count == @record.course.user_lessons.where(user: @record.user).count
   end
 end

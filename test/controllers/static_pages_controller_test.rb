@@ -23,7 +23,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     get activity_url
     assert_redirected_to root_url
-    assert_equal 'You are not authorized to access this page', flash[:alert]
+    assert_equal 'You are not authorized to perform this action.', flash[:alert]
   end
 
   test "admin should get analytics" do
@@ -36,7 +36,7 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
     get analytics_url
     assert_redirected_to root_url
-    assert_equal 'You are not authorized to access this page', flash[:alert]
+    assert_equal 'You are not authorized to perform this action.', flash[:alert]
   end
 
   test "should get privacy" do

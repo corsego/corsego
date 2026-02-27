@@ -25,8 +25,8 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # CREATE
-  test 'authenticated user can create tag' do
-    sign_in @teacher
+  test 'admin can create tag' do
+    sign_in @admin
 
     assert_difference 'Tag.count', 1 do
       post tags_url, params: { tag: { name: 'NewTag' } }, as: :json
@@ -35,8 +35,16 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test 'non-admin cannot create tag' do
+    sign_in @student
+
+    assert_no_difference 'Tag.count' do
+      post tags_url, params: { tag: { name: 'StudentTag' } }, as: :json
+    end
+  end
+
   test 'create tag with invalid data returns errors' do
-    sign_in @teacher
+    sign_in @admin
 
     assert_no_difference 'Tag.count' do
       post tags_url, params: { tag: { name: '' } }, as: :json

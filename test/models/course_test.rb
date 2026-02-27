@@ -226,6 +226,61 @@ class CourseTest < ActiveSupport::TestCase
     assert_equal 9900, course.income
   end
 
+  test 'update_stripe_price archives old price when price changes' do
+    course = courses(:published_course)
+    old_price_id = course.stripe_price_id
+
+    # Stub Stripe Price.create to return a new price
+    new_price_response = { id: 'price_new_999', object: 'price' }
+    stub_request(:post, 'https://api.stripe.com/v1/prices')
+      .to_return(status: 200, body: new_price_response.to_json, headers: { 'Content-Type' => 'application/json' })
+
+    # Stub Stripe Price.update for archiving the old price
+    archive_request = stub_request(:post, "https://api.stripe.com/v1/prices/#{old_price_id}")
+      .with(body: hash_including('active' => 'false'))
+      .to_return(status: 200, body: { id: old_price_id, active: false }.to_json, headers: { 'Content-Type' => 'application/json' })
+
+    # Use save with validate: false to bypass ActionText validations
+    course.price = 19900
+    course.save!(validate: false)
+
+    assert_requested archive_request
+  end
+
+  test 'avatar rejects non-image file with spoofed content type' do
+    course = courses(:published_course)
+
+    # Create a file that claims to be a PNG but contains text
+    fake_image = StringIO.new("This is not a real image file, just plain text")
+    course.avatar.attach(
+      io: fake_image,
+      filename: 'malicious.png',
+      content_type: 'image/png'
+    )
+
+    assert_not course.valid?
+    assert course.errors[:avatar].any?, "Expected avatar validation errors for non-processable file"
+  end
+
+  test 'avatar accepts valid image file' do
+    course = courses(:published_course)
+
+    # Create a minimal valid PNG (1x1 pixel)
+    png_data = "\x89PNG\r\n\x1A\n" \
+               "\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xDE" \
+               "\x00\x00\x00\x0CIDAT\x08\xD7c\xF8\x0F\x00\x00\x01\x01\x00\x05\x18\xD8N" \
+               "\x00\x00\x00\x00IEND\xAEB`\x82"
+    valid_image = StringIO.new(png_data.dup.force_encoding('BINARY'))
+    course.avatar.attach(
+      io: valid_image,
+      filename: 'valid.png',
+      content_type: 'image/png'
+    )
+
+    course.valid?
+    assert course.errors[:avatar].empty?, "Expected no avatar errors for valid PNG: #{course.errors[:avatar].join(', ')}"
+  end
+
   test 'progress returns percentage of lessons viewed' do
     course = courses(:published_course)
     student = users(:student)

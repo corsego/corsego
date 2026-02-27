@@ -9,6 +9,7 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.new(tag_params)
+    authorize @tag
     if @tag.save
       render json: @tag
     else

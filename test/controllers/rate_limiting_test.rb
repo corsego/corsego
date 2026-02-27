@@ -137,7 +137,7 @@ class RateLimitingTest < ActionDispatch::IntegrationTest
     assert_not_equal 429, response.status
   end
 
-  # Certificate download rate limiting (IP-based)
+  # Certificate download rate limiting (IP-based, no auth required)
   test 'certificate download is accessible under rate limit' do
     enrollment = enrollments(:student_enrollment)
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ChartsController < ApplicationController
+  before_action -> { authorize :chart, "#{action_name}?" }
+
   def users_per_day
     render json: User.group_by_day(:created_at).count
   end

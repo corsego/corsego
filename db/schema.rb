@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_27_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_27_223841) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -136,7 +136,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_120000) do
     t.bigint "user_id"
     t.index ["course_id"], name: "index_enrollments_on_course_id"
     t.index ["slug"], name: "index_enrollments_on_slug", unique: true
-    t.index ["user_id"], name: "index_enrollments_on_user_id"
+    t.index ["user_id", "course_id"], name: "index_enrollments_on_user_id_and_course_id", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -321,6 +321,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_120000) do
     t.integer "enrollments_count", default: 0, null: false
     t.boolean "expires"
     t.integer "expires_at"
+    t.integer "failed_attempts", default: 0, null: false
     t.string "image"
     t.datetime "invitation_accepted_at", precision: nil
     t.datetime "invitation_created_at", precision: nil
@@ -332,6 +333,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_120000) do
     t.string "invited_by_type"
     t.datetime "last_sign_in_at", precision: nil
     t.inet "last_sign_in_ip"
+    t.datetime "locked_at"
     t.string "name"
     t.string "provider"
     t.string "refresh_token"
@@ -344,6 +346,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_120000) do
     t.string "token"
     t.string "uid"
     t.string "unconfirmed_email"
+    t.string "unlock_token"
     t.datetime "updated_at", null: false
     t.integer "user_lessons_count", default: 0, null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -353,6 +356,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_27_120000) do
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|

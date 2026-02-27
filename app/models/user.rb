@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable, :confirmable, :invitable,
+         :recoverable, :rememberable, :validatable, :trackable, :confirmable, :invitable, :lockable,
          :omniauthable, omniauth_providers: %i[google_oauth2 github facebook]
 
   rolify
@@ -28,11 +28,21 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data['email']).first
+
+    # Look up by provider+uid first (secure primary path)
+    user = User.find_by(provider: access_token.provider, uid: access_token.uid)
+
+    # Fallback: match existing user by email ONLY if they have no provider set yet
+    # (legacy user who registered via email and is now linking OAuth for the first time).
+    # If the existing user already has a different provider+uid, do NOT match — that
+    # would allow an attacker to claim someone else's account via a different OAuth provider.
+    user ||= User.find_by(email: data['email'], provider: [nil, ''])
 
     user ||= User.create(
       email: data['email'],
-      password: Devise.friendly_token[0, 20]
+      password: Devise.friendly_token[0, 20],
+      provider: access_token.provider,
+      uid: access_token.uid
     )
 
     user.name = access_token.info.name

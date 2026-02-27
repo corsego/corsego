@@ -9,12 +9,12 @@ class StaticPagesController < ApplicationController
   end
 
   def activity
-    redirect_to root_path, alert: 'You are not authorized to access this page' unless current_user.has_role?(:admin)
+    authorize :static_page, :activity?
     @pagy, @activities = pagy(PublicActivity::Activity.all.order(created_at: :desc))
   end
 
   def analytics
-    redirect_to root_path, alert: 'You are not authorized to access this page' unless current_user.has_role?(:admin)
+    authorize :static_page, :analytics?
   end
 
   def privacy

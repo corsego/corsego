@@ -79,4 +79,21 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_url
   end
+
+  # FINANCIAL DATA VISIBILITY
+  test 'non-admin viewing another users profile does not see financial data' do
+    sign_in @student
+    get user_url(@teacher)
+    assert_response :success
+    assert_no_match(/stripe_customer_id/i, response.body)
+    assert_no_match(/course.income/i, response.body)
+    assert_no_match(/enrollment.expences/i, response.body)
+  end
+
+  test 'admin viewing user profile sees financial data' do
+    sign_in @admin
+    get user_url(@teacher)
+    assert_response :success
+    assert_match(/Course income/, response.body)
+  end
 end

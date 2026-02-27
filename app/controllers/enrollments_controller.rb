@@ -43,6 +43,7 @@ class EnrollmentsController < ApplicationController
   end
 
   def show
+    authorize @enrollment
   end
 
   def edit

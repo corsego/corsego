@@ -1,6 +1,6 @@
 / Global site tag (gtag.js) - Google Analytics
-%script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=#{Rails.application.credentials.dig(:google_analytics)}"}
-:javascript
+%script{:async => "", :src => "https://www.googletagmanager.com/gtag/js?id=#{Rails.application.credentials.dig(:google_analytics)}", :nonce => content_security_policy_nonce}
+= javascript_tag nonce: true do
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());

@@ -32,7 +32,8 @@ class Course < ApplicationRecord
   has_one_attached :avatar
   validates :avatar,
             content_type: ['image/png', 'image/jpeg'],
-            size: { less_than: 500.kilobytes, message: 'size should be under 500 kilobytes' }
+            size: { less_than: 500.kilobytes, message: 'size should be under 500 kilobytes' },
+            processable_image: true
 
   def to_s
     title
@@ -98,6 +99,9 @@ class Course < ApplicationRecord
   end
 
   def update_stripe_price
+    # Archive the old price to prevent checkout with stale lower prices
+    Stripe::Price.update(stripe_price_id, active: false) if stripe_price_id.present?
+
     price = Stripe::Price.create(product: stripe_product_id, currency: 'usd', unit_amount: self.price.to_i * 100)
     update(stripe_price_id: price.id)
   end

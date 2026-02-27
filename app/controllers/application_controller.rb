@@ -34,6 +34,8 @@ class ApplicationController < ActionController::Base
   # pundit
   def user_not_authorized
     flash[:alert] = 'You are not authorized to perform this action.'
-    redirect_to(request.referer || root_path)
+    redirect_to(request.referer || root_path, allow_other_host: false)
+  rescue ActionController::Redirecting::OpenRedirectError
+    redirect_to root_path
   end
 end
