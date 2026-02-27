@@ -9,8 +9,8 @@ class UserLesson < ApplicationRecord
   validates :user_id, uniqueness: { scope: :lesson_id } # user cant see the same lesson twice for the first time
   validates :lesson_id, uniqueness: { scope: :user_id }
 
-  after_create_commit :update_enrollment_completion
-  after_destroy_commit :update_enrollment_completion
+  after_create :update_enrollment_completion
+  after_destroy :update_enrollment_completion
 
   private
 

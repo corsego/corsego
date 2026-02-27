@@ -55,6 +55,11 @@ class Course < ApplicationRecord
   include PublicActivity::Model
   tracked owner: proc { |controller, _model| controller.current_user }
 
+  # External side effects: only fire after the DB transaction commits
+  # so a rollback doesn't leave orphaned Stripe products
+  after_create_commit :create_stripe_product
+  after_update_commit :update_stripe_price, if: :saved_change_to_price?
+
   def bought(user)
     enrollments.exists?(user_id: user.id)
   end
@@ -76,24 +81,24 @@ class Course < ApplicationRecord
     end
   end
 
-  after_create :create_stripe_product
-  def create_stripe_product
-    product = Stripe::Product.create(name: title)
-    price = Stripe::Price.create(product: product, currency: 'usd', unit_amount: self.price.to_i * 100)
-    update(stripe_product_id: product.id, stripe_price_id: price.id)
-  end
-
-  after_update :update_stripe_price, if: :saved_change_to_price?
-  def update_stripe_price
-    price = Stripe::Price.create(product: stripe_product_id, currency: 'usd', unit_amount: self.price.to_i * 100)
-    update(stripe_price_id: price.id)
-  end
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[title marketing_description language level price published approved average_rating created_at updated_at]
   end
 
   def self.ransackable_associations(_auth_object = nil)
     %w[user chapters lessons enrollments tags course_tags]
+  end
+
+  private
+
+  def create_stripe_product
+    product = Stripe::Product.create(name: title)
+    price = Stripe::Price.create(product: product, currency: 'usd', unit_amount: self.price.to_i * 100)
+    update(stripe_product_id: product.id, stripe_price_id: price.id)
+  end
+
+  def update_stripe_price
+    price = Stripe::Price.create(product: stripe_product_id, currency: 'usd', unit_amount: self.price.to_i * 100)
+    update(stripe_price_id: price.id)
   end
 end

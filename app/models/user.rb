@@ -16,27 +16,15 @@ class User < ApplicationRecord
 
   has_many :enrolled_courses, through: :enrollments, source: :course
 
-  after_create do
-    # tell admin that new user signed up
-    UserMailer.new_user(self).deliver_later
+  after_create :assign_default_roles
 
-    # create stripe customer
-    Stripe::Customer.create(email: email)
-
-    # assign_default_role
-    if User.count == 1
-      add_role(:admin) if roles.blank?
-      add_role(:teacher)
-      add_role(:student)
-    else
-      add_role(:student) if roles.blank?
-      add_role(:teacher) # if you want any user to be able to create own courses
-    end
-  end
+  # External side effects: only fire after the DB transaction commits
+  # so a rollback doesn't leave orphaned Stripe customers or spurious emails
+  after_create_commit :send_welcome_notifications
+  after_create_commit :create_stripe_customer
 
   include PublicActivity::Model
   tracked only: %i[create destroy], owner: :itself
-  # tracked owner: Proc.new{ |controller, model| controller.current_user } #current_user is set after create, so it gives an error
 
   def self.from_omniauth(access_token)
     data = access_token.info
@@ -111,8 +99,6 @@ class User < ApplicationRecord
     user_lessons.exists?(lesson: lesson)
   end
 
-  # private
-
   def calculate_course_income
     update_column :course_income, courses.map(&:income).sum
     update_column :balance, (course_income - enrollment_expences)
@@ -132,6 +118,25 @@ class User < ApplicationRecord
   end
 
   private
+
+  def assign_default_roles
+    if User.count == 1
+      add_role(:admin) if roles.blank?
+      add_role(:teacher)
+      add_role(:student)
+    else
+      add_role(:student) if roles.blank?
+      add_role(:teacher)
+    end
+  end
+
+  def send_welcome_notifications
+    UserMailer.new_user(self).deliver_later
+  end
+
+  def create_stripe_customer
+    Stripe::Customer.create(email: email)
+  end
 
   def must_have_a_role
     errors.add(:roles, 'must have at least one role') unless roles.any?

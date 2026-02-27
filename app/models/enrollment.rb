@@ -30,16 +30,16 @@ class Enrollment < ApplicationRecord
     "#{user} #{course}"
   end
 
-  after_save_commit do
+  after_save do
     course.update_rating unless rating.nil? || rating.zero?
   end
 
-  after_destroy_commit do
+  after_destroy do
     course.update_rating
   end
 
-  after_create_commit :calculate_balance
-  after_destroy_commit :calculate_balance
+  after_create :calculate_balance
+  after_destroy :calculate_balance
   def calculate_balance
     course.calculate_income
     user.calculate_enrollment_expences

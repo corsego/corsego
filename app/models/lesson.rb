@@ -25,8 +25,8 @@ class Lesson < ApplicationRecord
   include RankedModel
   ranks :row_order, with_same: %i[course_id chapter_id]
 
-  after_create_commit :recalculate_enrollment_completions
-  after_destroy_commit :recalculate_enrollment_completions
+  after_create :recalculate_enrollment_completions
+  after_destroy :recalculate_enrollment_completions
 
   def to_s
     title
