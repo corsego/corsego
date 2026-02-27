@@ -27,6 +27,7 @@ module MetaTagsHelper
     content_for(:meta_type) { options[:type] } if options[:type]
     content_for(:meta_url) { options[:url] } if options[:url]
     content_for(:json_ld_data) { options[:json_ld] } if options[:json_ld]
+    content_for(:meta_robots) { options[:robots] } if options[:robots]
   end
 
   private
@@ -64,10 +65,11 @@ module MetaTagsHelper
   end
 
   def render_basic_meta_tags
+    robots = content_for(:meta_robots).presence || 'index, follow'
     tags = []
     tags << tag.meta(name: 'description', content: truncate_description(meta_description))
     tags << tag.meta(name: 'keywords', content: meta_keywords)
-    tags << tag.meta(name: 'robots', content: 'index, follow')
+    tags << tag.meta(name: 'robots', content: robots)
     safe_join(tags, "\n")
   end
 
