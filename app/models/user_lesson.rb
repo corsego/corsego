@@ -8,4 +8,14 @@ class UserLesson < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :lesson_id } # user cant see the same lesson twice for the first time
   validates :lesson_id, uniqueness: { scope: :user_id }
+
+  after_create :update_enrollment_completion
+  after_destroy :update_enrollment_completion
+
+  private
+
+  def update_enrollment_completion
+    enrollment = Enrollment.find_by(user_id: user_id, course_id: lesson.course_id)
+    enrollment&.update_completion_percentage!
+  end
 end

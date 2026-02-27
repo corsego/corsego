@@ -45,8 +45,18 @@ class Enrollment < ApplicationRecord
     user.calculate_enrollment_expences
   end
 
+  def update_completion_percentage!
+    total = course.lessons_count
+    if total.zero?
+      update_column(:completion_percentage, 0)
+    else
+      completed = UserLesson.where(user_id: user_id, lesson_id: course.lesson_ids).count
+      update_column(:completion_percentage, (completed.to_f / total) * 100)
+    end
+  end
+
   def self.ransackable_attributes(_auth_object = nil)
-    %w[course_id created_at id price rating review slug updated_at user_id]
+    %w[completion_percentage course_id created_at id price rating review slug updated_at user_id]
   end
 
   def self.ransackable_associations(_auth_object = nil)
