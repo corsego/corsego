@@ -19,3 +19,48 @@ Allow: /users/sign_in
 Allow: /users/sign_up
 Allow: /courses
 Allow: /tags
+
+# AI Search Crawlers
+User-agent: GPTBot
+Allow: /courses
+Allow: /tags
+Allow: /about
+Allow: /privacy
+Allow: /terms
+Disallow: /users
+Disallow: /activity
+Disallow: /analytics
+Disallow: /enrollments
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /courses
+Allow: /tags
+Allow: /about
+Disallow: /users
+Disallow: /activity
+Disallow: /analytics
+Disallow: /enrollments
+
+User-agent: ClaudeBot
+Allow: /courses
+Allow: /tags
+Allow: /about
+Disallow: /users
+Disallow: /activity
+Disallow: /analytics
+Disallow: /enrollments
+
+User-agent: PerplexityBot
+Allow: /courses
+Allow: /tags
+Allow: /about
+Disallow: /users
+Disallow: /activity
+Disallow: /analytics
+Disallow: /enrollments
+
+User-agent: Applebot-Extended
+Allow: /
