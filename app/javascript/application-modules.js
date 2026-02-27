@@ -2,7 +2,7 @@
 // This file is dynamically imported after jQuery is set up
 
 // Popper.js for Bootstrap dropdowns/tooltips
-import Popper from "popper.js"
+import * as Popper from "@popperjs/core"
 window.Popper = Popper
 
 // Turbo for SPA-like navigation
@@ -18,8 +18,8 @@ ActiveStorage.start()
 // Action Cable (import consumer directly, no channels currently used)
 import "./channels/consumer"
 
-// Bootstrap JS (requires jQuery and Popper)
-import "bootstrap/dist/js/bootstrap"
+// Bootstrap JS (bundle includes Popper)
+import "bootstrap/dist/js/bootstrap.bundle"
 
 // Trix editor and ActionText
 import "trix"

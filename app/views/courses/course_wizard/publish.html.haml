@@ -3,10 +3,10 @@
 
     /= f.input :published
 
-    /.custom-control.custom-switch
-    /  %input#customSwitch1.custom-control-input{:type => "checkbox"}/
-    /  %label.custom-control-label{:for => "customSwitch1"} Toggle this switch element
-    .custom-control.custom-switch
-      = f.check_box :published, class: "custom-control-input", id: "publishSwitch1"
-      %label.custom-control-label{:for => "publishSwitch1"} Publish
+    /.form-check.form-switch
+    /  %input#customSwitch1.form-check-input{:type => "checkbox"}/
+    /  %label.form-check-label{:for => "customSwitch1"} Toggle this switch element
+    .form-check.form-switch
+      = f.check_box :published, class: "form-check-input", id: "publishSwitch1"
+      %label.form-check-label{:for => "publishSwitch1"} Publish
     = f.button :submit, "Save & Continue"

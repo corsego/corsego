@@ -1,7 +1,7 @@
 - if @course.user == current_user
-  = link_to edit_course_chapter_path(@course, chapter), class: 'badge badge-warning mr-1' do
+  = link_to edit_course_chapter_path(@course, chapter), class: 'badge text-bg-warning me-1' do
     .fa.fa-edit
-  = link_to [@course, chapter], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'badge badge-danger mr-1' do
+  = link_to [@course, chapter], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'badge text-bg-danger me-1' do
     .fa.fa-trash
 .far.fa-bookmark
 Chapter

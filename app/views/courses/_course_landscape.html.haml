@@ -20,7 +20,7 @@
           %br
           - if course.tags.any?
             - course.tags.each do |tag|
-              .badge.badge-info
+              .badge.text-bg-info
                 = tag.name
           %br
           - if course.user

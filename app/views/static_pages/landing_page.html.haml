@@ -7,7 +7,7 @@
                 url: root_url,
                 json_ld: website_json_ld)
 
-.jumbotron.shadow.parallax
+.shadow.parallax.p-5.mb-4.rounded-3
   %h1.text-shadow
     %b Turn what you know into a course — or pick up a new skill
   .p-4
@@ -15,10 +15,9 @@
     .p-3
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       .input-group
-        = f.search_field :title_cont, class: 'form-control-lg', style: 'float: left; width: 200px; ', placeholder: 'Find a course', :autocomplete => :off
-        %span.input-group-append
-          %button.btn.btn-primary.btn-lg{:type => "submit"}
-            %span.fa.fa-search{"aria-hidden" => "true"}
+        = f.search_field :title_cont, class: 'form-control form-control-lg', style: 'width: 200px; ', placeholder: 'Find a course', :autocomplete => :off
+        %button.btn.btn-primary.btn-lg{:type => "submit"}
+          %span.fa.fa-search{"aria-hidden" => "true"}
     .p-2
   - else
     %h3.text-shadow Publish your own course or enroll in one today
@@ -26,15 +25,15 @@
     = link_to 'Register', new_user_registration_path, class: 'btn btn-custom-purple btn-lg'
     = link_to 'Login', new_user_session_path, class: 'btn btn-custom-purple btn-lg'
     .row.mt-1
-    = button_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-danger btn-lg mr-1' do
+    = button_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-danger btn-lg me-1' do
       Continue with
       %span.fab.fa-google
     .row.mt-1
-    = button_to user_github_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-dark btn-lg mr-1' do
+    = button_to user_github_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-dark btn-lg me-1' do
       Continue with
       %span.fab.fa-github
     .row.mt-1
-    = button_to user_facebook_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-primary btn-lg mr-1' do
+    = button_to user_facebook_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-primary btn-lg me-1' do
       Continue with
       %span.fab.fa-facebook
 
@@ -80,7 +79,7 @@
   = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
     .mt-1.btn.btn-info
       = tag.name
-      %span.badge.badge-light
+      %span.badge.text-bg-light
         = tag.course_tags_count
 %hr
 

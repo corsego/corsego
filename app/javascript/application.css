@@ -7,7 +7,7 @@
    NPM Package Styles (from node_modules)
    ========================================================================== */
 
-/* Bootstrap 4 */
+/* Bootstrap 5 */
 @import "bootstrap/dist/css/bootstrap.css";
 
 /* FontAwesome icons loaded via CDN in layout (fonts don't work via npm import) */
@@ -391,9 +391,9 @@ footer {
   }
 }
 
-/* Vimeo embed 3:2 aspect ratio */
-.embed-responsive-3by2 {
-  padding-top: 66.66666667%;
+/* Vimeo embed 3:2 aspect ratio (Bootstrap 5 ratio utility) */
+.ratio-3x2 {
+  --bs-aspect-ratio: 66.66666667%;
 }
 
 /* Parallax background */

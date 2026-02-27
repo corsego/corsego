@@ -41,11 +41,11 @@
       %p
     = yield
   .card-footer
-    .float-left
+    .float-start
       = link_to previous_wizard_path, class: 'btn btn-sm btn-info' do
         .fa.fa-arrow-left
         Previous
-    .float-right
+    .float-end
       = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
         .fa.fa-arrow-right
         Skip

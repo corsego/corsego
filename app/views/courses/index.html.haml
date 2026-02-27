@@ -14,7 +14,7 @@
     .fa.fa-graduation-cap
     = controller_name.humanize + ":"
     = action_name.humanize
-    .badge.badge-info
+    .badge.text-bg-info
       = @courses.count
 %p
 
@@ -49,17 +49,19 @@
         .row
         = sort_link(@ransack_courses, :created_at, "Fresh")
         .row
-        = f.button :search, class: "btn btn-block btn-primary"
+        .d-grid
+          = f.button :search, class: "btn btn-primary"
         - if params[:courses_search]
           .row
-          = link_to 'unfilter', {controller: controller_name, action: action_name}, class: "btn btn-block btn-secondary mt-1"
+          .d-grid.mt-1
+            = link_to 'unfilter', {controller: controller_name, action: action_name}, class: "btn btn-secondary"
       %hr
       .row
       - @tags.each do |tag|
         = link_to controller: controller_name, action: action_name, courses_search: {course_tags_tag_id_eq: tag.id} do
-          .badge.badge-info
+          .badge.text-bg-info
             = tag.name
-            %span.badge.badge-light
+            %span.badge.text-bg-light
               = tag.course_tags_count
       %p
       %br

@@ -2,10 +2,10 @@
   %a.navbar-brand{:href => "/"}
     = image_tag 'logo-navbar.png', size: '30x30', alt: "logo", class: "d-inline-block align-top"
     Corsego
-  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarSupportedContent", "data-bs-toggle" => "collapse", :type => "button"}
     %span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
-    %ul.navbar-nav.mr-auto
+    %ul.navbar-nav.me-auto
       = long_active_link_to root_path do
         .fa.fa-home
         Home
@@ -15,77 +15,76 @@
       = long_active_link_to courses_path do
         .fa.fa-graduation-cap
         Courses
-      .form-inline
+      .d-flex
         /SEARCH IN NAVBAR
         //temporary if statement. when a user tries to log in and there is a form input error, @ransack_courses is not initialized.
         - if @ransack_courses.present?
           = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
             .input-group
-              = f.search_field :title_cont, class: 'form-control-sm', style: 'float: left; width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
-              %span.input-group-append
-                %button.btn.btn-primary.btn-sm{:type => "submit"}
-                  %span.fa.fa-search{"aria-hidden" => "true"}
+              = f.search_field :title_cont, class: 'form-control form-control-sm', style: 'width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
+              %button.btn.btn-primary.btn-sm{:type => "submit"}
+                %span.fa.fa-search{"aria-hidden" => "true"}
     - if current_user
-      %ul.navbar-nav.mr-auto
+      %ul.navbar-nav.me-auto
         = long_active_link_to new_user_invitation_path do
           .fa.fa-plus
           Invite User
         - if current_user.has_role?(:student)
           %li.nav-item.dropdown
-            %a#studentDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %a#studentDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
               .fa.fa-graduation-cap
               Learn
-            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "studentDropdown"}
+            .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "studentDropdown"}
               = link_to learning_courses_path, class: "dropdown-item #{'active' if current_page?(learning_courses_path)}" do
                 .fa.fa-graduation-cap
                 Courses: Learning
-                .badge.badge-danger
+                .badge.text-bg-danger
                   = current_user.enrollments_count
               = link_to pending_review_courses_path, class: "dropdown-item #{'active' if current_page?(pending_review_courses_path)}" do
                 .fa.fa-star
                 Courses: Pending Review
-                .badge.badge-danger
+                .badge.text-bg-danger
                   = current_user.enrollments.pending_review.count
         - if current_user.has_role?(:teacher)
           %li.nav-item.dropdown
-            %a#teacherDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %a#teacherDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
               .fa.fa-chalkboard-teacher
               Teach
-            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "teacherDropdown"}
+            .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "teacherDropdown"}
               = link_to new_course_path, class: "dropdown-item #{'active' if current_page?(new_course_path)}" do
                 .fa.fa-plus
                 Create Course
               = link_to teaching_courses_path, class: "dropdown-item #{'active' if current_page?(teaching_courses_path)}" do
                 .fa.fa-graduation-cap
                 Courses: Teaching
-                .badge.badge-danger
+                .badge.text-bg-danger
                   = current_user.courses_count
               = link_to teaching_enrollments_path, class: "dropdown-item #{'active' if current_page?(teaching_enrollments_path)}" do
                 .fa.fa-lock-open
                 Enrollments: Teaching
-                .badge.badge-danger
+                .badge.text-bg-danger
                   = current_user.students.count
                   /= Enrollment.joins(:course).where(courses: {user: current_user}).count
         - if current_user.has_role?(:admin)
           %li.nav-item.dropdown
-            %a#adminDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %a#adminDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
               .fa.fa-cog
               Admin
-            .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "adminDropdown"}
+            .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "adminDropdown"}
               = link_to unapproved_courses_path, class: "dropdown-item #{'active' if current_page?(unapproved_courses_path)}" do
                 .fa.fa-graduation-cap
                 Courses: Unapproved 
-                .badge.badge-danger
+                .badge.text-bg-danger
                   = Course.unapproved.published.count
               = link_to users_path, class: "dropdown-item #{'active' if current_page?(users_path)}" do
                 .fa.fa-users
                 Users
-                .badge.badge-danger
+                .badge.text-bg-danger
                   = User.count
               = link_to enrollments_path, class: "dropdown-item #{'active' if current_page?(enrollments_path)}" do
                 .fa.fa-lock-open
                 Enrollments
-                .badge.badge-danger
+                .badge.text-bg-danger
                   = Enrollment.count
               = link_to activity_path, class: "dropdown-item #{'active' if current_page?(activity_path)}" do
                 .fa.fa-bell
@@ -93,15 +92,15 @@
               = link_to analytics_path, class: "dropdown-item #{'active' if current_page?(analytics_path)}" do
                 .fa.fa-chart-line
                 Analytics
-      %ul.navbar-nav.mr-right
+      %ul.navbar-nav.ms-auto
         %li.nav-item.dropdown
-          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
             - if current_user.image?
               = image_tag current_user.image, size: '30x30', alt: "#{current_user.email}", class: 'rounded-circle'
             - else
               .fa.fa-user
             %b= current_user.username
-          .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdown"}
+          .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "navbarDropdown"}
             = link_to user_path(current_user), class: "dropdown-item #{'active' if current_page?(user_path(current_user))}" do
               .fa.fa-user
               %b My profile
@@ -112,8 +111,8 @@
               %span.fa.fa-sign-out-alt
               %b Sign out
     - else
-      %ul.navbar-nav.mr-auto
-      %ul.navbar-nav.mr-right
+      %ul.navbar-nav.me-auto
+      %ul.navbar-nav.ms-auto
         = active_link_to 'Register', new_user_registration_path
         = active_link_to 'Login', new_user_session_path
         = button_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-link nav-link', form_class: 'd-inline' do

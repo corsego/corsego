@@ -12,23 +12,23 @@
           = @lesson.title
       .card-body
         - if @lesson.has_video?
-          .embed-responsive.embed-responsive-16by9
-            %iframe.embed-responsive-item{allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen", allowfullscreen: true, src: @lesson.video_embed_url}
+          .ratio.ratio-16x9
+            %iframe{allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen", allowfullscreen: true, src: @lesson.video_embed_url}
         = @lesson.content
       - if policy(@lesson).edit?
         .card-footer
-          = link_to edit_course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-warning mr-1' do
+          = link_to edit_course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-warning me-1' do
             .fa.fa-edit
           = link_to [@course, @lesson], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
             .fa.fa-trash
       .card-footer
         - unless @lesson.prev.nil?
-          .float-left
+          .float-start
             = link_to course_lesson_path(@course, @lesson.prev, anchor: "current_lesson"), class: 'btn btn-sm btn-info' do
               .fa.fa-arrow-left
               Previous
         - unless @lesson.next.nil?
-          .float-right
+          .float-end
             = link_to course_lesson_path(@course, @lesson.next, anchor: "current_lesson"), class: 'btn btn-sm btn-info' do
               .fa.fa-arrow-right
               Next
@@ -59,7 +59,7 @@
     .list-group
       #scrollable
         - @chapters.each do |chapter|
-          .list-group-item.shadow{"data-offset" => "0", "data-spy" => "scroll", "data-target" => "#scrollable"}
+          .list-group-item.shadow{"data-offset" => "0", "data-bs-spy" => "scroll", "data-bs-target" => "#scrollable"}
             = render 'chapters/chapter', chapter: chapter
             - chapter.lessons.rank(:row_order).each do |lesson|
               - if lesson.eql?(@lesson)
