@@ -40,7 +40,7 @@
   .col-sm-6.col-lg-3
     .card.h-100
       .card-body
-        %h1
+        %span.h1{"aria-hidden" => "true"}
           %i.fa.fa-graduation-cap
         = pluralize(Course.approved.published.count, 'course')
         published
@@ -49,7 +49,7 @@
   .col-sm-6.col-lg-3
     .card.h-100
       .card-body
-        %h1
+        %span.h1{"aria-hidden" => "true"}
           %i.fa.fa-chalkboard-teacher
         = pluralize(Course.distinct.count(:user_id), 'instructor')
         already teaching
@@ -58,7 +58,7 @@
   .col-sm-6.col-lg-3
     .card.h-100
       .card-body
-        %h1
+        %span.h1{"aria-hidden" => "true"}
           %i.fa.fa-user-graduate
         = pluralize(User.count, 'learner')
         enrolled
@@ -67,7 +67,7 @@
   .col-sm-6.col-lg-3
     .card.h-100
       .card-body
-        %h1
+        %span.h1{"aria-hidden" => "true"}
           %i.fa.fa-infinity
         Lifetime access
         %br

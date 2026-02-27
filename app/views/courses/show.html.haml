@@ -11,7 +11,7 @@
   .col-lg-8.order-1.order-lg-1
     .card.shadow
       .card-body
-        %h3
+        %h1.h3
           %i.fa.fa-graduation-cap
           = @course.title
         %hr
@@ -48,7 +48,7 @@
         Full Lifetime Access & Updates
         %hr
         = @course.description
-    %h4.text-center.mt-3
+    %h2.h4.text-center.mt-3
       %i.far.fa-bookmark
       = pluralize(@course.chapters_count, 'chapter')
       %i.fa.fa-tasks
@@ -64,7 +64,7 @@
       = render 'courses/chapter_list', chapters: @chapters, course: @course, sortable: false, lesson_partial: 'lessons/lesson_preview'
 
     - if @reviews.any?
-      %h4.mt-3
+      %h2.h4.mt-3
         %i.far.fa-comment
         = pluralize(@reviews.count, 'review')
       .list-group

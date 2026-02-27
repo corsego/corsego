@@ -10,12 +10,13 @@
   .col-lg-8
     .card.shadow
       .card-header
-        %i.text-success.fa.fa-check-square
-        = link_to course_lesson_path(@course, @lesson, anchor: "current_lesson") do
-          %b
-            #{@lesson.chapter.row_order_rank + 1}.
-            #{@lesson.row_order_rank + 1}.
-          = @lesson.title
+        %h1.h5.mb-0
+          %i.text-success.fa.fa-check-square
+          = link_to course_lesson_path(@course, @lesson, anchor: "current_lesson") do
+            %b
+              #{@lesson.chapter.row_order_rank + 1}.
+              #{@lesson.row_order_rank + 1}.
+            = @lesson.title
       .card-body
         - if @lesson.has_video?
           .ratio.ratio-16x9
@@ -40,7 +41,7 @@
             = link_to course_lesson_path(@course, @lesson.next, anchor: "current_lesson"), class: 'btn btn-sm btn-info' do
               %i.fa.fa-arrow-right
               Next
-    %h4.mt-3
+    %h2.h4.mt-3
       %i.fa.fa-comment
       Comments:
       = @lesson.comments_count
