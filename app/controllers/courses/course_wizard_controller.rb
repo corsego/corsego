@@ -30,9 +30,6 @@ module Courses
         @tags = Tag.all
       when :pricing
       when :chapters
-        # unless @course.chapters.any? # chapter title and content validation fires only if this line is present
-        #  @course.chapters.build
-        # end
       when :publish
       end
       @course.update(course_params)
@@ -41,7 +38,6 @@ module Courses
 
     def finish_wizard_path
       authorize @course, :edit?
-      # courses_path
       course_path(@course)
     end
 

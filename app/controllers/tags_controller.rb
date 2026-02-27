@@ -4,8 +4,7 @@ class TagsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index]
 
   def index
-    # @tags = Tag.all.includes(:courses).where(courses: {approved: true, published: true}).order(course_tags_count: :desc) #tags for only published courses
-    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc) # display only used tags
+    @tags = Tag.all.where.not(course_tags_count: 0).order(course_tags_count: :desc)
   end
 
   def create

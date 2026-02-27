@@ -11,7 +11,6 @@ gem 'puma', '~> 6.0'
 gem 'sprockets-rails'
 gem 'turbo-rails'
 gem 'stimulus-rails'
-gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', require: false
 
 group :development do
@@ -87,4 +86,3 @@ gem 'good_job', '~> 4.0'
 
 # Deployment
 gem 'kamal', require: false
-gem 'thruster', require: false

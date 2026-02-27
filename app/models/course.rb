@@ -89,18 +89,6 @@ class Course < ApplicationRecord
     update(stripe_price_id: price.id)
   end
 
-  def similiar_courses
-    self.class.joins(:tags)
-        .where.not(id: id)
-        .where(tags: { id: tags.ids })
-        .select(
-          'courses.*',
-          'COUNT(tags.*) AS tags_in_common'
-        )
-        .group(:id)
-        .order(tags_in_common: :desc)
-  end
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[title marketing_description language level price published approved average_rating created_at updated_at]
   end

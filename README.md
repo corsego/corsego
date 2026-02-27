@@ -2,11 +2,11 @@
 
 Publish a course on any topic and start earning, or enroll in one and learn at your own pace with lifetime access.
 
-[![Demo](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.herokuapp.com)
+[![Demo](https://i.imgur.com/Hvjl2YJ.png)](https://corsego.com)
 
 ## Entity-Relationship Diagram
 
-[![ERD](https://i.imgur.com/IIWWYxW.png)](https://corsego.herokuapp.com)
+[![ERD](https://i.imgur.com/IIWWYxW.png)](https://corsego.com)
 
 ## Tech Stack
 
@@ -165,17 +165,13 @@ rails test:system
 rails test test/controllers
 ```
 
-## Deployment (Heroku)
+## Deployment (Kamal + Hetzner)
+
+See `DEPLOYMENT.md` for full deployment instructions.
 
 ```bash
-heroku create
-heroku rename your-app-name
-heroku git:remote -a your-app-name
-heroku buildpacks:add https://github.com/nickhstr/heroku-buildpack-bun.git
-heroku buildpacks:add heroku/ruby
-heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
-git push heroku main
-heroku run rails db:migrate
+kamal setup    # First-time setup
+kamal deploy   # Deploy latest committed code
 ```
 
 ## Useful Commands

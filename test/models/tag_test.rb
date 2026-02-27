@@ -50,11 +50,6 @@ class TagTest < ActiveSupport::TestCase
     assert_includes tag.courses, courses(:published_course)
   end
 
-  test 'popular_name returns name with count' do
-    tag = tags(:ruby)
-    assert_equal 'Ruby: 1', tag.popular_name
-  end
-
   test 'destroying tag destroys associated course_tags' do
     tag = tags(:ruby)
     course_tag_count = tag.course_tags.count

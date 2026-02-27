@@ -207,9 +207,6 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.13.0)
-      actionview (>= 5.0.0)
-      activesupport (>= 5.0.0)
     jmespath (1.6.2)
     json (2.18.0)
     jwt (3.1.2)
@@ -500,8 +497,6 @@ GEM
     stripe (18.3.0)
     temple (0.10.4)
     thor (1.5.0)
-    thruster (0.1.18-arm64-darwin)
-    thruster (0.1.18-x86_64-linux)
     tilt (2.7.0)
     timeout (0.6.0)
     tsort (0.2.0)
@@ -564,7 +559,6 @@ DEPENDENCIES
   honeybadger
   image_processing
   invisible_captcha
-  jbuilder (~> 2.7)
   kamal
   letter_opener
   letter_opener_web
@@ -596,7 +590,6 @@ DEPENDENCIES
   standard
   stimulus-rails
   stripe
-  thruster
   turbo-rails
   web-console
   webmock

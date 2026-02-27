@@ -83,8 +83,8 @@ corsego/
 │   ├── controllers/
 │   ├── system/               # Browser tests
 │   └── fixtures/             # Test data
-├── Procfile                  # Heroku deployment
-└── app.json                  # Heroku app configuration (stack: heroku-24)
+├── Dockerfile                # Production Docker image (multi-stage)
+└── config/deploy.yml         # Kamal deployment configuration
 ```
 
 ## Core Domain Models
@@ -364,25 +364,20 @@ From README.md:
 - Make system tests work
 - Code linting improvements
 - ~~Upgrade Ruby to 3.2.3~~ (DONE - upgraded to Ruby 3.4.5)
-- ~~Upgrade Heroku stack to 24~~ (DONE - added app.json with heroku-24 stack)
 - ~~Upgrade to Rails 8.1 and Ruby 3.4.5~~ (DONE)
 - ~~Replace SCSS with modern CSS~~ (DONE - migrated to PostCSS with CSS custom properties and nesting)
 - ~~Fix Turbo/Stimulus fetch conflict breaking forms~~ (DONE - added `format: 'iife'` to Bun build config)
 
-## Deployment (Heroku)
+## Deployment (Kamal + Hetzner)
+
+Deployed to a Hetzner VPS via [Kamal 2](https://kamal-deploy.org/). See `DEPLOYMENT.md` for full details.
 
 ```bash
-heroku create
-heroku rename <app-name>
-heroku git:remote -a <app-name>
-heroku buildpacks:add https://github.com/jakeg/heroku-buildpack-bun
-heroku buildpacks:add heroku/ruby
-heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
-git push heroku master
-heroku run rake db:migrate
+kamal setup    # First-time: provisions server, boots all containers
+kamal deploy   # Subsequent deploys
+kamal console  # Rails console on production
+kamal logs     # Tail production logs
 ```
-
-Note: The app uses Bun for package management, JavaScript bundling, and CSS bundling (via PostCSS). The `app.json` file is pre-configured with the Bun buildpack for Heroku deployments.
 
 ## AI Assistant Guidelines
 

@@ -50,9 +50,6 @@ Rails.application.routes.draw do
     resources :lessons, except: [:index] do
       resources :comments, except: [:index, :show, :new, :edit, :update]
       put :sort
-      member do
-        delete :delete_video
-      end
     end
     resources :enrollments, only: [:new, :create]
     resources :access_grants, only: [:new, :create], controller: "courses/access_grants"
@@ -73,8 +70,4 @@ Rails.application.routes.draw do
     get "course_popularity"
     get "money_makers"
   end
-  # get 'charts/users_per_day', to: 'charts#users_per_day'
-  # get 'charts/enrollments_per_day', to: 'charts#enrollments_per_day'
-  # get 'charts/course_popularity', to: 'charts#course_popularity'
-  # get 'charts/money_makers', to: 'charts#money_makers'
 end

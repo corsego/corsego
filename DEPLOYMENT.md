@@ -218,46 +218,6 @@ ssh root@188.245.75.73 'docker exec -i corsego-db pg_restore --no-owner --no-pri
 ssh root@188.245.75.73 'docker start corsego-web-latest'
 ```
 
-## Migrating from Heroku
-
-### 1. Dump the Heroku database
-
-```bash
-# Get the Heroku database URL
-heroku pg:credentials:url -a <heroku-app-name>
-
-# Dump using Docker to avoid pg_dump version mismatch
-docker run --rm postgres:17 pg_dump --format=custom --no-owner --no-privileges \
-  "postgresql://USER:PASS@HOST:PORT/DBNAME" > ~/Desktop/corsego_heroku.dump
-```
-
-### 2. Restore to Hetzner
-
-Follow the "Restore" instructions above using the Heroku dump file.
-
-### 3. Verify
-
-```bash
-# Check database
-ssh root@188.245.75.73 'docker exec corsego-db psql -U corsego -d corsego_production -c "SELECT COUNT(*) FROM users;"'
-
-# Check app health
-curl https://corsego.com/up
-```
-
-### 4. Post-Migration Checklist
-
-After the app is running on Hetzner and DNS has propagated:
-
-- [ ] **Update Stripe webhook URL** — In [Stripe Dashboard → Webhooks](https://dashboard.stripe.com/webhooks), change endpoint to `https://corsego.com/webhooks/create`
-- [ ] **Update OAuth callback URLs** — Update redirect URIs for each provider to `corsego.com`:
-  - Google: [Google Cloud Console](https://console.cloud.google.com/) → Credentials → OAuth client
-  - GitHub: GitHub → Settings → Developer settings → OAuth Apps
-  - Facebook: Facebook Developers → App settings
-- [ ] **Verify key flows** — Sign in, OAuth login, Stripe checkout, email delivery (SES), S3 file uploads
-- [ ] **Decommission Heroku** — Remove the Heroku app once everything is confirmed working
-- [ ] **Push to GitHub** — `git push origin main`
-
 ## Architecture Diagram
 
 ```
@@ -298,7 +258,7 @@ DNS is managed via **Namecheap** (Advanced DNS tab).
 
 Keep all other records (blog CNAME, DKIM/SES CNAMEs, TXT records) unchanged.
 
-**Important:** If migrating from another host (e.g., Heroku), delete any existing CNAME records for `@` and `www` **before** adding the A records. CNAME records take priority over A records and will prevent the new A records from working.
+**Important:** If migrating from another host, delete any existing CNAME records for `@` and `www` **before** adding the A records. CNAME records take priority over A records and will prevent the new A records from working.
 
 After DNS changes, browsers may cache the old DNS for a while. Use incognito mode or flush DNS cache to verify:
 

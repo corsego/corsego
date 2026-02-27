@@ -1,11 +1,6 @@
 = render layout: 'courses/course_wizard/step' do
   = simple_form_for @course, url: course_course_wizard_path, method: :put do |f|
 
-    /= f.input :published
-
-    /.form-check.form-switch
-    /  %input#customSwitch1.form-check-input{:type => "checkbox"}/
-    /  %label.form-check-label{:for => "customSwitch1"} Toggle this switch element
     .form-check.form-switch
       = f.check_box :published, class: "form-check-input", id: "publishSwitch1"
       %label.form-check-label{:for => "publishSwitch1"} Publish

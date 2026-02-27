@@ -10,10 +10,6 @@ class Tag < ApplicationRecord
     name
   end
 
-  def popular_name
-    "#{name}: #{course_tags_count}"
-  end
-
   def self.ransackable_attributes(_auth_object = nil)
     %w[name course_tags_count created_at updated_at]
   end

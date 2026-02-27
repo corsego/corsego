@@ -112,16 +112,6 @@ class LessonTest < ActiveSupport::TestCase
     assert_equal 'introduction-to-variables', lesson.slug
   end
 
-  test 'impressions_count returns sum of user_lesson impressions' do
-    lesson = lessons(:lesson_one)
-    student = users(:student)
-
-    student.view_lesson(lesson)
-    student.view_lesson(lesson)
-
-    assert_equal 2, lesson.impressions_count
-  end
-
   test 'prev returns previous lesson in course' do
     lesson_two = lessons(:lesson_two)
     lesson_one = lessons(:lesson_one)
@@ -186,7 +176,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = 'https://vimeo.com/123456789'
     assert_equal :vimeo, lesson.video_platform
     assert_equal '123456789', lesson.video_id
-    assert_equal 'https://player.vimeo.com/video/123456789', lesson.video_embed_url
+    assert_equal 'https://player.vimeo.com/video/123456789?byline=0&portrait=0&title=0&dnt=1', lesson.video_embed_url
     assert lesson.has_video?
   end
 
@@ -195,7 +185,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = 'https://player.vimeo.com/video/123456789'
     assert_equal :vimeo, lesson.video_platform
     assert_equal '123456789', lesson.video_id
-    assert_equal 'https://player.vimeo.com/video/123456789', lesson.video_embed_url
+    assert_equal 'https://player.vimeo.com/video/123456789?byline=0&portrait=0&title=0&dnt=1', lesson.video_embed_url
   end
 
   test 'detects vimeo platform from legacy ID-only value' do
@@ -203,7 +193,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = '123456789'
     assert_equal :vimeo, lesson.video_platform
     assert_equal '123456789', lesson.video_id
-    assert_equal 'https://player.vimeo.com/video/123456789', lesson.video_embed_url
+    assert_equal 'https://player.vimeo.com/video/123456789?byline=0&portrait=0&title=0&dnt=1', lesson.video_embed_url
   end
 
   test 'detects youtube platform from watch URL' do
@@ -211,7 +201,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
     assert_equal :youtube, lesson.video_platform
     assert_equal 'dQw4w9WgXcQ', lesson.video_id
-    assert_equal 'https://www.youtube.com/embed/dQw4w9WgXcQ', lesson.video_embed_url
+    assert_equal 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&iv_load_policy=3', lesson.video_embed_url
     assert lesson.has_video?
   end
 
@@ -220,7 +210,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = 'https://youtu.be/dQw4w9WgXcQ'
     assert_equal :youtube, lesson.video_platform
     assert_equal 'dQw4w9WgXcQ', lesson.video_id
-    assert_equal 'https://www.youtube.com/embed/dQw4w9WgXcQ', lesson.video_embed_url
+    assert_equal 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&iv_load_policy=3', lesson.video_embed_url
   end
 
   test 'detects youtube platform from embed URL' do
@@ -228,7 +218,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = 'https://www.youtube.com/embed/dQw4w9WgXcQ'
     assert_equal :youtube, lesson.video_platform
     assert_equal 'dQw4w9WgXcQ', lesson.video_id
-    assert_equal 'https://www.youtube.com/embed/dQw4w9WgXcQ', lesson.video_embed_url
+    assert_equal 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&iv_load_policy=3', lesson.video_embed_url
   end
 
   test 'detects loom platform from share URL' do
@@ -236,7 +226,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = 'https://www.loom.com/share/abc123def456'
     assert_equal :loom, lesson.video_platform
     assert_equal 'abc123def456', lesson.video_id
-    assert_equal 'https://www.loom.com/embed/abc123def456', lesson.video_embed_url
+    assert_equal 'https://www.loom.com/embed/abc123def456?hide_owner=true&hide_share=true&hide_title=true', lesson.video_embed_url
     assert lesson.has_video?
   end
 
@@ -245,7 +235,7 @@ class LessonTest < ActiveSupport::TestCase
     lesson.video_url = 'https://www.loom.com/embed/abc123def456'
     assert_equal :loom, lesson.video_platform
     assert_equal 'abc123def456', lesson.video_id
-    assert_equal 'https://www.loom.com/embed/abc123def456', lesson.video_embed_url
+    assert_equal 'https://www.loom.com/embed/abc123def456?hide_owner=true&hide_share=true&hide_title=true', lesson.video_embed_url
   end
 
   test 'returns nil for unsupported video URLs' do

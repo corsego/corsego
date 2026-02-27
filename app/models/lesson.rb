@@ -32,11 +32,6 @@ class Lesson < ApplicationRecord
     title
   end
 
-  def impressions_count
-    # to be replaced with counter_culture gem (conter cache)
-    user_lessons.map(&:impressions).sum
-  end
-
   def prev
     course.lessons.where('row_order < ?', row_order).order(:row_order).last
   end

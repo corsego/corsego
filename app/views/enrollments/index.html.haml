@@ -29,26 +29,16 @@
         %th ID
         %th
           = sort_link(@q, :user_email, "User")
-          /.fa.fa-user
-          /User
         %th
           = sort_link(@q, :created_at)
-          /.fa.fa-clock
-          /.fa.fa-lock-open
-          /bought
         %th
           = sort_link(@q, :course_title, "Course")
-          /.fa.fa-graduation-cap
-          /Course
         %th Teacher
         %th 
           = sort_link(@q, :price)
-          /.fa.fa-dollar-sign
-          /Price
         %th 
           .text-warning.fa.fa-clock
           = sort_link(@q, :updated_at, 'Reviewed')
-          /Reviewed on
         %th 
           .text-warning.fa.fa-star
           = sort_link(@q, :rating)
