@@ -31,14 +31,8 @@ class Users::ConfirmationsControllerTest < ActionDispatch::IntegrationTest
     assert user.confirmed?
     assert_not_nil user.confirmed_at
 
-    # Follow redirect and verify user is signed in
-    follow_redirect!
-    assert_response :success
-
-    # Verify user is signed in by checking they can access authenticated content
-    # The controller should have called sign_in, so current_user should be set
-    assert controller.current_user.present?, 'User should be signed in after confirmation'
-    assert_equal user.id, controller.current_user.id
+    # Verify user is signed in by checking the Warden session
+    assert_equal user.id, session["warden.user.user.key"].first.first
   end
 
   test 'user with invalid confirmation token is not signed in' do
