@@ -14,7 +14,7 @@
       .card-body
         %p Enter the email address of the person you want to grant access to. If they don't have an account, they will receive an invitation.
         = form_with scope: :access_grant, url: course_access_grants_path(@course), method: :post, local: true do |f|
-          .form-group
+          .mb-3
             = f.label :email, "Email address"
             = f.email_field :email, class: "form-control", placeholder: "student@example.com", required: true, autofocus: true
           = f.submit "Grant Access", class: "btn btn-primary"

@@ -30,22 +30,22 @@ module ApplicationHelper
   def boolean_label(value)
     case value
     when true
-      content_tag(:span, value, class: 'badge badge-success')
+      content_tag(:span, value, class: 'badge text-bg-success')
     when false
-      content_tag(:span, value, class: 'badge badge-danger')
+      content_tag(:span, value, class: 'badge text-bg-danger')
     end
   end
 
   # link_to "homepage", root_path
   def active_link_to(name, path)
-    content_tag(:li, class: "#{'active font-weight-bold' if current_page?(path)} nav-item") do
+    content_tag(:li, class: "#{'active fw-bold' if current_page?(path)} nav-item") do
       link_to name, path, class: 'nav-link'
     end
   end
 
   # link_to root_path do "homepage"
   def long_active_link_to(path, &block)
-    content_tag(:li, class: "#{'active font-weight-bold' if current_page?(path)} nav-item") do
+    content_tag(:li, class: "#{'active fw-bold' if current_page?(path)} nav-item") do
       link_to path, class: 'nav-link', &block
     end
   end

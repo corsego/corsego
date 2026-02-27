@@ -1,6 +1,6 @@
 %h3.text-center
   Tags
-  .badge.badge-info
+  .badge.text-bg-info
     = @tags.count
 .card.shadow
   .card-body
@@ -9,7 +9,7 @@
       .btn-group
         = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}), class: "btn btn-lg btn-info mt-1" do
           = tag.name
-          .badge.badge-light
+          .badge.text-bg-light
             = tag.course_tags_count
         - if policy(tag).destroy?
           = link_to 'Destory', tag, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: "btn btn-lg btn-danger mt-1"

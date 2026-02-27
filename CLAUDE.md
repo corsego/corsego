@@ -8,7 +8,7 @@ Corsego is a **Udemy-like online learning platform** built with Ruby on Rails. I
 
 - **Backend**: Ruby 3.4.5, Rails 8.1
 - **Database**: PostgreSQL
-- **Frontend**: Bun 1.3.6 (JS + CSS bundler), PostCSS, Sprockets (asset serving), Bootstrap 4.5, jQuery, Hotwire (Turbo)
+- **Frontend**: Bun 1.3.6 (JS + CSS bundler), PostCSS, Sprockets (asset serving), Bootstrap 5.3, jQuery, Hotwire (Turbo)
 - **Views**: HAML templates with Simple Form
 - **Rich Text**: ActionText with Trix editor
 - **Authentication**: Devise with OmniAuth (Google, GitHub, Facebook)

@@ -12,6 +12,6 @@
           = f.input :password, label: "New password", required: true, autofocus: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }
           = f.input :password_confirmation, label: "Confirm new password", required: true, input_html: { autocomplete: "new-password" }
         .form-actions
-          = f.button :submit, "Change my password", class: "btn btn-primary btn-block"
+          = f.button :submit, "Change my password", class: "btn btn-primary w-100"
     .card-footer
       = render "devise/shared/links"

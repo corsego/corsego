@@ -12,6 +12,6 @@
           = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
           = invisible_captcha :subtitle
         .form-actions
-          = f.button :submit, "Sign up", class: "btn btn-primary btn-block"
+          = f.button :submit, "Sign up", class: "btn btn-primary w-100"
     .card-footer
       = render "devise/shared/links"
