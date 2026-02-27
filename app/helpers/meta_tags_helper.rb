@@ -191,6 +191,42 @@ module MetaTagsHelper
     }.compact
   end
 
+  # Build JSON-LD for a Lesson (Schema.org LearningResource type)
+  def lesson_json_ld(lesson)
+    schema = {
+      '@context' => 'https://schema.org',
+      '@type' => 'LearningResource',
+      'name' => lesson.title,
+      'description' => truncate_description(strip_tags(lesson.content.to_s)),
+      'learningResourceType' => 'Lesson',
+      'isPartOf' => {
+        '@type' => 'Course',
+        'name' => lesson.course.title,
+        'url' => course_url(lesson.course)
+      },
+      'provider' => organization_json_ld,
+      'inLanguage' => course_language_code(lesson.course.language),
+      'url' => course_lesson_url(lesson.course, lesson)
+    }
+    if lesson.has_video?
+      schema['video'] = video_object_json_ld(lesson)
+    end
+    schema.compact
+  end
+
+  # Build JSON-LD for a VideoObject
+  def video_object_json_ld(lesson)
+    return nil unless lesson.has_video?
+
+    {
+      '@type' => 'VideoObject',
+      'name' => lesson.title,
+      'description' => truncate_description(strip_tags(lesson.content.to_s)),
+      'embedUrl' => lesson.video_embed_url,
+      'uploadDate' => lesson.created_at.iso8601
+    }.compact
+  end
+
   # Build breadcrumb JSON-LD
   def breadcrumb_json_ld(items)
     {

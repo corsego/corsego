@@ -1,5 +1,11 @@
 - content_for :title do
-  = @course.title
+  = "#{@lesson.title} | #{@course.title}"
+- set_meta_tags(title: "#{@lesson.title} - #{@course.title}",
+                description: truncate_description(strip_tags(@lesson.content.to_s)),
+                keywords: @course.tags.pluck(:name).join(", "),
+                type: "article",
+                url: course_lesson_url(@course, @lesson),
+                json_ld: [lesson_json_ld(@lesson), breadcrumb_json_ld([{ name: "Home", url: root_url }, { name: "Courses", url: courses_url }, { name: @course.title, url: course_url(@course) }, { name: @lesson.title, url: course_lesson_url(@course, @lesson) }])])
 .row
   .col-lg-8
     .card.shadow
