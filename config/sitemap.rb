@@ -20,6 +20,10 @@ SitemapGenerator::Sitemap.create do
   add courses_path, priority: 0.7, changefreq: 'daily'
   
   Course.where(approved: true, published: true).find_each do |course|
-    add course_path(course), :lastmod => course.updated_at
+    add course_path(course), lastmod: course.updated_at, priority: 0.8, changefreq: 'weekly'
+
+    course.lessons.find_each do |lesson|
+      add course_lesson_path(course, lesson), lastmod: lesson.updated_at, priority: 0.6, changefreq: 'monthly'
+    end
   end
 end
