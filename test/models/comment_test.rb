@@ -21,6 +21,24 @@ class CommentTest < ActiveSupport::TestCase
     assert_includes comment.errors[:content], "can't be blank"
   end
 
+  test 'comment requires user' do
+    comment = Comment.new(
+      lesson: lessons(:lesson_one),
+      content: 'A comment'
+    )
+    assert_not comment.valid?
+    assert_includes comment.errors[:user], 'must exist'
+  end
+
+  test 'comment requires lesson' do
+    comment = Comment.new(
+      user: users(:student),
+      content: 'A comment'
+    )
+    assert_not comment.valid?
+    assert_includes comment.errors[:lesson], 'must exist'
+  end
+
   test 'belongs to user' do
     comment = comments(:student_comment)
     assert_equal users(:student), comment.user

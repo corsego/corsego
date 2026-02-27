@@ -2,7 +2,7 @@
 
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :trackable, :confirmable, :invitable, :lockable,
+         :recoverable, :rememberable, :validatable, :trackable, :confirmable, :lockable,
          :omniauthable, omniauth_providers: %i[google_oauth2 github facebook]
 
   rolify
@@ -110,12 +110,12 @@ class User < ApplicationRecord
   end
 
   def calculate_course_income
-    update_column :course_income, courses.map(&:income).sum
+    update_column :course_income, courses.sum(:income)
     update_column :balance, (course_income - enrollment_expences)
   end
 
   def calculate_enrollment_expences
-    update_column :enrollment_expences, enrollments.map(&:price).sum
+    update_column :enrollment_expences, enrollments.sum(:price)
     update_column :balance, (course_income - enrollment_expences)
   end
 

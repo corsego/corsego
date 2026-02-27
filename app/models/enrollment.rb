@@ -12,7 +12,6 @@ class Enrollment < ApplicationRecord
   validates :review, presence: { if: :rating? }
 
   validates :user_id, uniqueness: { scope: :course_id } # user cant be subscribed to the same course twice
-  validates :course_id, uniqueness: { scope: :user_id } # user cant be subscribed to the same course twice
 
   validate :cant_subscribe_to_own_course # user can't create a subscription if course.user == current_user.id
 
