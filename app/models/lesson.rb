@@ -25,6 +25,9 @@ class Lesson < ApplicationRecord
   include RankedModel
   ranks :row_order, with_same: %i[course_id chapter_id]
 
+  after_create :recalculate_enrollment_completions
+  after_destroy :recalculate_enrollment_completions
+
   def to_s
     title
   end
@@ -40,5 +43,11 @@ class Lesson < ApplicationRecord
 
   def next
     course.lessons.where('row_order > ?', row_order).order(:row_order).first
+  end
+
+  private
+
+  def recalculate_enrollment_completions
+    course.enrollments.find_each(&:update_completion_percentage!)
   end
 end

@@ -30,15 +30,15 @@ module VideoEmbed
   PLATFORM_CONFIGS = {
     vimeo: {
       regex: VIMEO_REGEX,
-      embed_url: ->(id) { "https://player.vimeo.com/video/#{id}" }
+      embed_url: ->(id) { "https://player.vimeo.com/video/#{id}?byline=0&portrait=0&title=0&dnt=1" }
     },
     youtube: {
       regex: YOUTUBE_REGEX,
-      embed_url: ->(id) { "https://www.youtube.com/embed/#{id}" }
+      embed_url: ->(id) { "https://www.youtube-nocookie.com/embed/#{id}?rel=0&modestbranding=1&iv_load_policy=3" }
     },
     loom: {
       regex: LOOM_REGEX,
-      embed_url: ->(id) { "https://www.loom.com/embed/#{id}" }
+      embed_url: ->(id) { "https://www.loom.com/embed/#{id}?hide_owner=true&hide_share=true&hide_title=true" }
     }
   }.freeze
 

@@ -146,6 +146,30 @@ class LessonTest < ActiveSupport::TestCase
     assert_nil lesson_two.next
   end
 
+  # Completion percentage recalculation tests
+
+  test 'adding a lesson recalculates enrollment completion_percentage' do
+    enrollment = enrollments(:student_enrollment)
+    student = enrollment.user
+    course = enrollment.course
+
+    # Student completes both existing lessons -> 100%
+    UserLesson.create!(user: student, lesson: lessons(:lesson_one))
+    UserLesson.create!(user: student, lesson: lessons(:lesson_two))
+    enrollment.reload
+    assert_in_delta 100.0, enrollment.completion_percentage, 0.01
+
+    # Adding a 3rd lesson should dilute to 2/3 ~ 66.67%
+    Lesson.create!(
+      title: 'New Lesson',
+      content: 'New content',
+      course: course,
+      chapter: chapters(:chapter_one)
+    )
+    enrollment.reload
+    assert_in_delta 66.67, enrollment.completion_percentage, 0.1
+  end
+
   # VideoEmbed concern tests
 
   test 'has_video? returns false when video_url is blank' do

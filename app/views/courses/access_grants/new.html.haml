@@ -1,0 +1,21 @@
+-# frozen_string_literal: true
+- content_for :title do
+  Grant Access - #{@course.title}
+
+.row.justify-content-center
+  .col-md-8
+    .card.shadow
+      .card-header
+        %h4
+          .fa.fa-user-plus
+          Grant Access
+          %small.text-muted
+            = @course.title
+      .card-body
+        %p Enter the email address of the person you want to grant access to. If they don't have an account, they will receive an invitation.
+        = form_with scope: :access_grant, url: course_access_grants_path(@course), method: :post, local: true do |f|
+          .form-group
+            = f.label :email, "Email address"
+            = f.email_field :email, class: "form-control", placeholder: "student@example.com", required: true, autofocus: true
+          = f.submit "Grant Access", class: "btn btn-primary"
+          = link_to "Cancel", course_path(@course), class: "btn btn-link"

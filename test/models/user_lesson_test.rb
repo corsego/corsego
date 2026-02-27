@@ -74,4 +74,24 @@ class UserLessonTest < ActiveSupport::TestCase
 
     assert_equal initial_count + 1, lesson.user_lessons_count
   end
+
+  test 'creating user_lesson updates enrollment completion_percentage' do
+    student = users(:student)
+    enrollment = enrollments(:student_enrollment)
+
+    assert_equal 0.0, enrollment.completion_percentage
+
+    UserLesson.create!(user: student, lesson: lessons(:lesson_one))
+    enrollment.reload
+
+    assert_in_delta 50.0, enrollment.completion_percentage, 0.01
+  end
+
+  test 'creating user_lesson without enrollment does not error' do
+    # admin has no enrollment in published_course — callback should silently skip
+    admin = users(:admin)
+    assert_nothing_raised do
+      UserLesson.create!(user: admin, lesson: lessons(:lesson_one))
+    end
+  end
 end
