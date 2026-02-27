@@ -100,6 +100,54 @@ class EnrollmentTest < ActiveSupport::TestCase
     assert_equal 5.0, course.average_rating
   end
 
+  # --- completion_percentage tests ---
+
+  test 'completion_percentage defaults to 0' do
+    enrollment = enrollments(:student_enrollment)
+    assert_equal 0.0, enrollment.completion_percentage
+  end
+
+  test 'update_completion_percentage! calculates correct value' do
+    enrollment = enrollments(:student_enrollment)
+    student = enrollment.user
+    course = enrollment.course
+
+    # Complete 1 of 2 lessons -> 50%
+    UserLesson.create!(user: student, lesson: lessons(:lesson_one))
+    enrollment.reload
+    assert_in_delta 50.0, enrollment.completion_percentage, 0.01
+
+    # Complete 2 of 2 lessons -> 100%
+    UserLesson.create!(user: student, lesson: lessons(:lesson_two))
+    enrollment.reload
+    assert_in_delta 100.0, enrollment.completion_percentage, 0.01
+  end
+
+  test 'update_completion_percentage! handles course with no lessons' do
+    student = users(:admin)
+    student.add_role(:student)
+    course = courses(:free_course)
+    # Set lessons_count to 0 to simulate empty course
+    course.update_column(:lessons_count, 0)
+
+    enrollment = Enrollment.create!(user: student, course: course, price: 0)
+    enrollment.update_completion_percentage!
+    assert_equal 0.0, enrollment.completion_percentage
+  end
+
+  test 'destroying user_lesson decreases completion_percentage' do
+    enrollment = enrollments(:student_enrollment)
+    student = enrollment.user
+
+    ul = UserLesson.create!(user: student, lesson: lessons(:lesson_one))
+    enrollment.reload
+    assert_in_delta 50.0, enrollment.completion_percentage, 0.01
+
+    ul.destroy!
+    enrollment.reload
+    assert_in_delta 0.0, enrollment.completion_percentage, 0.01
+  end
+
   test 'calculate_balance updates course income and user expenses' do
     student = users(:admin) # Use admin who doesn't own the free course
     student.add_role(:student)

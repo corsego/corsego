@@ -278,6 +278,14 @@ end
 
 ## Testing
 
+### TDD Workflow
+Always practice Test-Driven Development (TDD) when making changes:
+1. **Write tests first** — before implementing a feature or fixing a bug, add failing tests that describe the expected behavior
+2. **Implement** — write the minimum code needed to make the tests pass
+3. **Refactor** — clean up while keeping tests green
+4. Every new model method, callback, or behavior change must have corresponding test coverage
+5. Run `rails test` after every change to verify nothing is broken
+
 ### Framework
 - Minitest (Rails default)
 - Parallel test execution enabled
@@ -292,6 +300,7 @@ rails test:system             # System/browser tests
 
 ### Test Files Location
 - `test/controllers/` - Controller tests
+- `test/models/` - Model unit tests
 - `test/system/` - Browser-based system tests
 - `test/fixtures/` - Test data fixtures
 
