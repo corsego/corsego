@@ -1,4 +1,4 @@
-%footer.site-footer
+%footer.site-footer.mt-auto
   .container
     .row
       .col-lg-4.col-md-6.footer-section
@@ -6,11 +6,11 @@
         %p.footer-tagline The online learning platform for creators and learners.
         .footer-social
           = mail_to 'hello@corsego.com', class: 'footer-social-link', title: 'Email' do
-            %i.fa.fa-envelope
+            %i.fa.fa-envelope{"aria-hidden": "true"}
           = link_to "https://twitter.com/yarotheslav", target: :_blank, rel: 'noopener noreferrer', class: 'footer-social-link', title: 'Twitter' do
-            %i.fab.fa-twitter
+            %i.fab.fa-twitter{"aria-hidden": "true"}
           = link_to "https://github.com/yshmarov", target: :_blank, rel: 'noopener noreferrer', class: 'footer-social-link', title: 'GitHub' do
-            %i.fab.fa-github
+            %i.fab.fa-github{"aria-hidden": "true"}
 
       .col-lg-2.col-md-6.footer-section
         %h5.footer-heading Platform
@@ -25,11 +25,11 @@
           %li
             = link_to "https://blog.corsego.com", target: :_blank, rel: 'noopener noreferrer' do
               Corsego Blog
-              %i.fa.fa-external-link-alt.footer-external-icon
+              %i.fa.fa-external-link-alt.footer-external-icon{"aria-hidden": "true"}
           %li
             = link_to "https://saas.corsego.com", target: :_blank, rel: 'noopener noreferrer' do
               SaaS Boilerplate
-              %i.fa.fa-external-link-alt.footer-external-icon
+              %i.fa.fa-external-link-alt.footer-external-icon{"aria-hidden": "true"}
 
       .col-lg-3.col-md-6.footer-section
         %h5.footer-heading Learn More
@@ -37,11 +37,11 @@
           %li
             = link_to "https://gumroad.com/l/ror6saas", target: :_blank, rel: 'noopener noreferrer' do
               Multi-Tenancy SaaS Course
-              %i.fa.fa-external-link-alt.footer-external-icon
+              %i.fa.fa-external-link-alt.footer-external-icon{"aria-hidden": "true"}
           %li
             = link_to "https://www.udemy.com/course/ruby-on-rails-6-learn-20-gems-build-an-e-learning-platform/?referralCode=4721E9D437DEE1734159", target: :_blank, rel: 'noopener noreferrer' do
               eLearning Platform Course
-              %i.fa.fa-external-link-alt.footer-external-icon
+              %i.fa.fa-external-link-alt.footer-external-icon{"aria-hidden": "true"}
 
   .footer-bottom
     .container

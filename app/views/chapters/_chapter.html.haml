@@ -1,14 +1,14 @@
 - if @course.user == current_user
   = link_to edit_course_chapter_path(@course, chapter), class: 'badge text-bg-warning me-1' do
-    %i.fa.fa-edit
+    %i.fa.fa-edit{"aria-hidden": "true"}
     %span.visually-hidden Edit
   = link_to [@course, chapter], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'badge text-bg-danger me-1' do
-    %i.fa.fa-trash
+    %i.fa.fa-trash{"aria-hidden": "true"}
     %span.visually-hidden Delete
-%i.far.fa-bookmark
+%i.far.fa-bookmark{"aria-hidden": "true"}
 Chapter
 #{chapter.row_order_rank + 1}.
 = chapter.title
 .text-center
-  %i.fa.fa-tasks
+  %i.fa.fa-tasks{"aria-hidden": "true"}
   = pluralize(chapter.lessons_count, 'lesson')

@@ -6,24 +6,24 @@ module ApplicationHelper
   def crud_label(key)
     case key
     when 'create'
-      "<i class='fa fa-plus'></i>".html_safe
+      "<i class='fa fa-plus' aria-hidden='true'></i>".html_safe
     when 'update'
-      "<i class='fa fa-pen'></i>".html_safe
+      "<i class='fa fa-pen' aria-hidden='true'></i>".html_safe
     when 'destroy'
-      "<i class='fa fa-trash'></i>".html_safe
+      "<i class='fa fa-trash' aria-hidden='true'></i>".html_safe
     end
   end
 
   def model_label(model)
     case model
     when 'Course'
-      "<i class='fa fa-graduation-cap'></i>".html_safe
+      "<i class='fa fa-graduation-cap' aria-hidden='true'></i>".html_safe
     when 'Lesson'
-      "<i class='fa fa-check-square'></i>".html_safe
+      "<i class='fa fa-check-square' aria-hidden='true'></i>".html_safe
     when 'Enrollment'
-      "<i class='fa fa-lock-open'></i>".html_safe
+      "<i class='fa fa-lock-open' aria-hidden='true'></i>".html_safe
     when 'Comment'
-      "<i class='fa fa-comment'></i>".html_safe
+      "<i class='fa fa-comment' aria-hidden='true'></i>".html_safe
     end
   end
 
@@ -38,15 +38,17 @@ module ApplicationHelper
 
   # link_to "homepage", root_path
   def active_link_to(name, path)
-    content_tag(:li, class: "#{'active fw-bold' if current_page?(path)} nav-item") do
-      link_to name, path, class: 'nav-link'
+    is_active = current_page?(path)
+    content_tag(:li, class: "#{'active fw-bold' if is_active} nav-item") do
+      link_to name, path, class: 'nav-link', 'aria-current': (is_active ? 'page' : nil)
     end
   end
 
   # link_to root_path do "homepage"
   def long_active_link_to(path, &block)
-    content_tag(:li, class: "#{'active fw-bold' if current_page?(path)} nav-item") do
-      link_to path, class: 'nav-link', &block
+    is_active = current_page?(path)
+    content_tag(:li, class: "#{'active fw-bold' if is_active} nav-item") do
+      link_to path, class: 'nav-link', 'aria-current': (is_active ? 'page' : nil), &block
     end
   end
 end

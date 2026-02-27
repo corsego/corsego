@@ -1,19 +1,19 @@
 - if @course.user == current_user
   = link_to edit_course_lesson_path(@course, lesson), class: 'badge text-bg-warning me-1' do
-    %i.fa.fa-edit
+    %i.fa.fa-edit{"aria-hidden": "true"}
     %span.visually-hidden Edit
   = link_to [@course, lesson], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'badge text-bg-danger' do
-    %i.fa.fa-trash
+    %i.fa.fa-trash{"aria-hidden": "true"}
     %span.visually-hidden Delete
 - elsif current_user.viewed?(lesson)
-  %i.text-success.fa.fa-check-square
+  %i.text-success.fa.fa-check-square{"aria-hidden": "true"}
 - else
-  %i.text-danger.fa.fa-check-square
+  %i.text-danger.fa.fa-check-square{"aria-hidden": "true"}
 
 = link_to course_lesson_path(@course, lesson, anchor: "current_lesson") do
   %b
     #{lesson.row_order_rank + 1}.
   = lesson.title
 - unless lesson.comments_count.zero?
-  %i.fa.fa-comment.ms-1
+  %i.fa.fa-comment.ms-1{"aria-hidden": "true"}
   = lesson.comments_count

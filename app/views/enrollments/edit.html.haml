@@ -7,7 +7,7 @@
 = link_to 'Courses', courses_path
 |
 = link_to course_path(@enrollment.course) do
-  %i.fa.fa-graduation-cap
+  %i.fa.fa-graduation-cap{"aria-hidden": "true"}
   = @enrollment.course.title
 |
 = link_to 'Add Review', edit_enrollment_path(@enrollment)
@@ -15,7 +15,7 @@
 .card.shadow
   .card-header
     %h3
-      %i.text-warning.fa.fa-star
+      %i.text-warning.fa.fa-star{"aria-hidden": "true"}
       Add a Review
   .card-body
     = render 'form'

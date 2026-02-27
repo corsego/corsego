@@ -1,18 +1,18 @@
 .card
   .card-header
     %h5.card-title
-      %i.text-warning.fa.fa-star
+      %i.text-warning.fa.fa-star{"aria-hidden": "true"}
       %b= enrollment.rating
     %h6.card-subtitle.mb-2.text-muted
-      %i.fa.fa-user
+      %i.fa.fa-user{"aria-hidden": "true"}
       = link_to enrollment.user.username, user_path(enrollment.user)
   .card-body
     %p.card-text
-    %i.fa.fa-comment
+    %i.fa.fa-comment{"aria-hidden": "true"}
     %b= enrollment.review
   .card-footer.text-muted
     %p.card-text
-    %i.fa.fa-clock
+    %i.fa.fa-clock{"aria-hidden": "true"}
     Reviewed
     #{time_ago_in_words(enrollment.updated_at)} ago
     - if policy(enrollment).edit?

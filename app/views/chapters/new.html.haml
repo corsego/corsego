@@ -3,18 +3,18 @@
   |
   New Chapter
 
-%i.fa.fa-graduation-cap
+%i.fa.fa-graduation-cap{"aria-hidden": "true"}
 = link_to course_path(@course) do
   = @course.title
 |
-%i.far.fa-bookmark
+%i.far.fa-bookmark{"aria-hidden": "true"}
 = link_to new_course_chapter_path(@course, @chapter) do
   New Chapter
 
 .card.shadow
   .card-header
     %h3
-      %i.far.fa-bookmark
+      %i.far.fa-bookmark{"aria-hidden": "true"}
       New chapter
   .card-body
     = render 'form'

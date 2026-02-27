@@ -9,13 +9,13 @@
         .col-md-5
           %b= link_to course.title, course_path(course)
           %small= simple_format(course.marketing_description)
-          %i.text-warning.fa.fa-star
+          %i.text-warning.fa.fa-star{"aria-hidden": "true"}
           %b= course.average_rating
           (
-          %i.fa.fa-user-graduate
+          %i.fa.fa-user-graduate{"aria-hidden": "true"}
           = course.enrollments_count
           )
-          %i.fa.fa-tasks
+          %i.fa.fa-tasks{"aria-hidden": "true"}
           = course.lessons_count
           %br
           - if course.tags.any?

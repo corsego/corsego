@@ -10,15 +10,13 @@
     .badge.text-bg-info
       = @users.count
 
-.d-flex
-  = search_form_for @q do |f|
-    = f.search_field :email_cont, placeholder: 'email'
-    = f.submit
-  .ms-2
-  = link_to 'refresh', users_path
+= search_form_for @q, html: { class: 'd-flex flex-wrap gap-2 align-items-end' } do |f|
+  = f.search_field :email_cont, placeholder: 'email', class: 'form-control form-control-sm'
+  = f.submit class: 'btn btn-sm btn-primary'
+  = link_to 'refresh', users_path, class: 'btn btn-sm btn-secondary'
 
 .table-responsive.mt-3
-  %table.table.table-bordered.table-striped.table-sm.table-hover
+  %table.table.table-bordered.table-striped.table-sm.table-hover.bg-white
     %thead
       %tr
         %th id
@@ -44,9 +42,11 @@
           %td= user.id
           %td
             - if user.online?
-              %i.text-success.fa.fa-signal
+              %i.text-success.fa.fa-signal{"aria-hidden": "true"}
+              %span.visually-hidden Online
             - else
-              %i.text-danger.fa.fa-signal
+              %i.text-danger.fa.fa-signal{"aria-hidden": "true"}
+              %span.visually-hidden Offline
             = link_to user.email, user_path(user)
           %td= user.created_at.strftime('%d/%m/%y, %H:%M')
           %td= boolean_label(user.confirmed?)

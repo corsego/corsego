@@ -12,46 +12,46 @@
     .card.shadow
       .card-body
         %h1.h3
-          %i.fa.fa-graduation-cap
+          %i.fa.fa-graduation-cap{"aria-hidden": "true"}
           = @course.title
         %hr
-        %i.far.fa-bookmark
+        %i.far.fa-bookmark{"aria-hidden": "true"}
         = pluralize(@course.chapters_count, 'Chapter')
         %br
-        %i.fa.fa-tasks
+        %i.fa.fa-tasks{"aria-hidden": "true"}
         = pluralize(@course.lessons_count, 'Lesson')
         %br
-        %i.far.fa-clock
+        %i.far.fa-clock{"aria-hidden": "true"}
         Created
         = @course.created_at.strftime("%m/%Y")
         %br
-        %i.far.fa-clock
+        %i.far.fa-clock{"aria-hidden": "true"}
         Last updated
         = @course.updated_at.strftime("%m/%Y")
         %br
-        %i.fa.fa-globe-africa
+        %i.fa.fa-globe-africa{"aria-hidden": "true"}
         = @course.language
         %br
-        %i.fa.fa-signal
+        %i.fa.fa-signal{"aria-hidden": "true"}
         = @course.level
         %br
-        %i.fa.fa-file-pdf
+        %i.fa.fa-file-pdf{"aria-hidden": "true"}
         Certificate of Completion
         %br
-        %i.far.fa-comment
+        %i.far.fa-comment{"aria-hidden": "true"}
         Access to Member-Only Q&A
         %br
-        %i.fa.fa-download
+        %i.fa.fa-download{"aria-hidden": "true"}
         Access to Member-Only Resources
         %br
-        %i.fa.fa-infinity
+        %i.fa.fa-infinity{"aria-hidden": "true"}
         Full Lifetime Access & Updates
         %hr
         = @course.description
     %h2.h4.text-center.mt-3
-      %i.far.fa-bookmark
+      %i.far.fa-bookmark{"aria-hidden": "true"}
       = pluralize(@course.chapters_count, 'chapter')
-      %i.fa.fa-tasks
+      %i.fa.fa-tasks{"aria-hidden": "true"}
       = pluralize(@course.lessons_count, 'lesson')
     - if current_user
       - if @course.user == current_user
@@ -65,7 +65,7 @@
 
     - if @reviews.any?
       %h2.h4.mt-3
-        %i.far.fa-comment
+        %i.far.fa-comment{"aria-hidden": "true"}
         = pluralize(@reviews.count, 'review')
       .list-group
         - @reviews.each do |enrollment|

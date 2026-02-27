@@ -89,10 +89,6 @@ body {
   background-color: var(--custom-purple);
 }
 
-/* White background for tables */
-.table {
-  background: white;
-}
 
 /* Hide simple_form checkmarks */
 .form-control.is-invalid {
@@ -136,6 +132,13 @@ body {
     background-color: color-mix(in srgb, var(--custom-purple), black 15%);
     border-color: color-mix(in srgb, var(--custom-purple), black 20%);
   }
+
+  &:focus-visible {
+    color: #fff;
+    background-color: color-mix(in srgb, var(--custom-purple), black 15%);
+    border-color: color-mix(in srgb, var(--custom-purple), black 20%);
+    box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--custom-purple), transparent 50%);
+  }
 }
 
 /* Rich text area input */
@@ -143,14 +146,6 @@ trix-editor.form-control {
   height: auto;
 }
 
-/* Footer on bottom */
-html {
-  margin: 0;
-}
-
-footer {
-  margin-top: auto;
-}
 
 /* ==========================================================================
    Footer Styles

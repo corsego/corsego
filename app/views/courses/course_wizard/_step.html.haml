@@ -6,7 +6,7 @@
 
 = link_to 'Courses', courses_path
 |
-%i.fa.fa-graduation-cap
+%i.fa.fa-graduation-cap{"aria-hidden": "true"}
 = link_to course_path(@course) do
   = @course.title
 |
@@ -38,9 +38,9 @@
   .card-footer
     .float-start
       = link_to previous_wizard_path, class: 'btn btn-sm btn-info' do
-        %i.fa.fa-arrow-left
+        %i.fa.fa-arrow-left{"aria-hidden": "true"}
         Previous
     .float-end
       = link_to next_wizard_path, class: 'btn btn-sm btn-info' do
-        %i.fa.fa-arrow-right
+        %i.fa.fa-arrow-right{"aria-hidden": "true"}
         Skip

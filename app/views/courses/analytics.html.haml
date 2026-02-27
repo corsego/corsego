@@ -9,11 +9,11 @@
 = link_to 'Courses', courses_path
 |
 = link_to course_path(@course) do
-  %i.fa.fa-graduation-cap
+  %i.fa.fa-graduation-cap{"aria-hidden": "true"}
   = @course.title
 |
 = link_to analytics_course_path(@course) do
-  %i.fa.fa-chart-bar
+  %i.fa.fa-chart-bar{"aria-hidden": "true"}
   Analtycs
 
 %h4.text-center

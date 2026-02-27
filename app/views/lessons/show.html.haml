@@ -11,7 +11,7 @@
     .card.shadow
       .card-header
         %h1.h5.mb-0
-          %i.text-success.fa.fa-check-square
+          %i.text-success.fa.fa-check-square{"aria-hidden": "true"}
           = link_to course_lesson_path(@course, @lesson, anchor: "current_lesson") do
             %b
               #{@lesson.chapter.row_order_rank + 1}.
@@ -25,24 +25,24 @@
       - if policy(@lesson).edit?
         .card-footer
           = link_to edit_course_lesson_path(@course, @lesson), class: 'btn btn-sm btn-warning me-1' do
-            %i.fa.fa-edit
+            %i.fa.fa-edit{"aria-hidden": "true"}
             %span.visually-hidden Edit
           = link_to [@course, @lesson], data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' do
-            %i.fa.fa-trash
+            %i.fa.fa-trash{"aria-hidden": "true"}
             %span.visually-hidden Delete
       .card-footer
         - unless @lesson.prev.nil?
           .float-start
             = link_to course_lesson_path(@course, @lesson.prev, anchor: "current_lesson"), class: 'btn btn-sm btn-info' do
-              %i.fa.fa-arrow-left
+              %i.fa.fa-arrow-left{"aria-hidden": "true"}
               Previous
         - unless @lesson.next.nil?
           .float-end
             = link_to course_lesson_path(@course, @lesson.next, anchor: "current_lesson"), class: 'btn btn-sm btn-info' do
-              %i.fa.fa-arrow-right
+              %i.fa.fa-arrow-right{"aria-hidden": "true"}
               Next
     %h2.h4.mt-3
-      %i.fa.fa-comment
+      %i.fa.fa-comment{"aria-hidden": "true"}
       Comments:
       = @lesson.comments_count
     .card.shadow
@@ -58,7 +58,7 @@
   .col-lg-4
     .list-group.shadow
       .list-group-item
-        %i.fa.fa-graduation-cap
+        %i.fa.fa-graduation-cap{"aria-hidden": "true"}
         = link_to course_path(@lesson.course) do
           = @lesson.course.title
         = render 'courses/progress', course: @lesson.course

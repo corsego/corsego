@@ -7,23 +7,23 @@
 
 %h3
   .text-center
-    %i.fa.fa-lock-open
+    %i.fa.fa-lock-open{"aria-hidden": "true"}
     = controller_name.humanize + ":"
     = action_name.humanize
     .badge.text-bg-info
       = @enrollments.count
 
-= search_form_for @q, url: @ransack_path do |f|
-  = f.search_field :user_email_cont, placeholder: 'user email'
-  = f.search_field :course_title_cont, placeholder: 'course title'
-  = f.search_field :course_user_email_cont, placeholder: 'teacher'
-  = f.search_field :price_eq, placeholder: 'price'
-  = f.search_field :rating_eq, placeholder: 'rating'
-  = f.submit
-= link_to 'refresh', @ransack_path
+= search_form_for @q, url: @ransack_path, html: { class: 'd-flex flex-wrap gap-2 align-items-end' } do |f|
+  = f.search_field :user_email_cont, placeholder: 'user email', class: 'form-control form-control-sm'
+  = f.search_field :course_title_cont, placeholder: 'course title', class: 'form-control form-control-sm'
+  = f.search_field :course_user_email_cont, placeholder: 'teacher', class: 'form-control form-control-sm'
+  = f.search_field :price_eq, placeholder: 'price', class: 'form-control form-control-sm'
+  = f.search_field :rating_eq, placeholder: 'rating', class: 'form-control form-control-sm'
+  = f.submit class: 'btn btn-sm btn-primary'
+  = link_to 'refresh', @ransack_path, class: 'btn btn-sm btn-secondary'
 
 .table-responsive.mt-3
-  %table.table.table-bordered.table-striped.table-sm.table-hover
+  %table.table.table-bordered.table-striped.table-sm.table-hover.bg-white
     %thead
       %tr
         %th ID
@@ -37,13 +37,13 @@
         %th
           = sort_link(@q, :price)
         %th
-          %i.text-warning.fa.fa-clock
+          %i.text-warning.fa.fa-clock{"aria-hidden": "true"}
           = sort_link(@q, :updated_at, 'Reviewed')
         %th
-          %i.text-warning.fa.fa-star
+          %i.text-warning.fa.fa-star{"aria-hidden": "true"}
           = sort_link(@q, :rating)
         %th
-          %i.text-warning.fa.fa-comment
+          %i.text-warning.fa.fa-comment{"aria-hidden": "true"}
           Review
         %th
           = sort_link(@q, :completion_percentage, "Progress")

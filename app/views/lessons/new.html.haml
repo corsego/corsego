@@ -3,18 +3,18 @@
   |
   New Lesson
 
-%i.fa.fa-graduation-cap
+%i.fa.fa-graduation-cap{"aria-hidden": "true"}
 = link_to course_path(@course) do
   = @course.title
 |
-%i.far.fa-check-square
+%i.far.fa-check-square{"aria-hidden": "true"}
 = link_to new_course_lesson_path(@course, @lesson) do
   New lesson
 
 .card.shadow
   .card-header
     %h3
-      %i.far.fa-check-square
+      %i.far.fa-check-square{"aria-hidden": "true"}
       New lesson
   .card-body
     = render 'form'

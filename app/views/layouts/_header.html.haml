@@ -8,88 +8,88 @@
     #navbarSupportedContent.collapse.navbar-collapse
       %ul.navbar-nav.me-auto
         = long_active_link_to root_path do
-          %i.fa.fa-home
+          %i.fa.fa-home{"aria-hidden": "true"}
           Home
         = long_active_link_to tags_path do
-          %i.fa.fa-tags
+          %i.fa.fa-tags{"aria-hidden": "true"}
           Tags
         = long_active_link_to courses_path do
-          %i.fa.fa-graduation-cap
+          %i.fa.fa-graduation-cap{"aria-hidden": "true"}
           Courses
         .d-flex
           - if @ransack_courses.present?
             = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
               .input-group
-                = f.search_field :title_cont, class: 'form-control form-control-sm', style: 'width: 150px; ', placeholder: 'Find a course', :autocomplete => :off
+                = f.search_field :title_cont, class: 'form-control form-control-sm', placeholder: 'Find a course', :autocomplete => :off
                 %button.btn.btn-primary.btn-sm{:type => "submit"}
                   %span.fa.fa-search{"aria-hidden" => "true"}
                   %span.visually-hidden Search
       - if current_user
         %ul.navbar-nav.me-auto
           = long_active_link_to new_user_invitation_path do
-            %i.fa.fa-plus
+            %i.fa.fa-plus{"aria-hidden": "true"}
             Invite User
           - if current_user.has_role?(:student)
             %li.nav-item.dropdown
               %a#studentDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
-                %i.fa.fa-graduation-cap
+                %i.fa.fa-graduation-cap{"aria-hidden": "true"}
                 Learn
               .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "studentDropdown"}
                 = link_to learning_courses_path, class: "dropdown-item #{'active' if current_page?(learning_courses_path)}" do
-                  %i.fa.fa-graduation-cap
+                  %i.fa.fa-graduation-cap{"aria-hidden": "true"}
                   Courses: Learning
                   .badge.text-bg-secondary
                     = current_user.enrollments_count
                 = link_to pending_review_courses_path, class: "dropdown-item #{'active' if current_page?(pending_review_courses_path)}" do
-                  %i.fa.fa-star
+                  %i.fa.fa-star{"aria-hidden": "true"}
                   Courses: Pending Review
                   .badge.text-bg-danger
                     = current_user.enrollments.pending_review.count
           - if current_user.has_role?(:teacher)
             %li.nav-item.dropdown
               %a#teacherDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
-                %i.fa.fa-chalkboard-teacher
+                %i.fa.fa-chalkboard-teacher{"aria-hidden": "true"}
                 Teach
               .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "teacherDropdown"}
                 = link_to new_course_path, class: "dropdown-item #{'active' if current_page?(new_course_path)}" do
-                  %i.fa.fa-plus
+                  %i.fa.fa-plus{"aria-hidden": "true"}
                   Create Course
                 = link_to teaching_courses_path, class: "dropdown-item #{'active' if current_page?(teaching_courses_path)}" do
-                  %i.fa.fa-graduation-cap
+                  %i.fa.fa-graduation-cap{"aria-hidden": "true"}
                   Courses: Teaching
                   .badge.text-bg-secondary
                     = current_user.courses_count
                 = link_to teaching_enrollments_path, class: "dropdown-item #{'active' if current_page?(teaching_enrollments_path)}" do
-                  %i.fa.fa-lock-open
+                  %i.fa.fa-lock-open{"aria-hidden": "true"}
                   Enrollments: Teaching
                   .badge.text-bg-secondary
                     = current_user.students.count
           - if current_user.has_role?(:admin)
             %li.nav-item.dropdown
               %a#adminDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-bs-toggle" => "dropdown", :href => "#", :role => "button"}
-                %i.fa.fa-cog
+                %i.fa.fa-cog{"aria-hidden": "true"}
                 Admin
               .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "adminDropdown"}
                 = link_to unapproved_courses_path, class: "dropdown-item #{'active' if current_page?(unapproved_courses_path)}" do
-                  %i.fa.fa-graduation-cap
+                  %i.fa.fa-graduation-cap{"aria-hidden": "true"}
                   Courses: Unapproved
                   .badge.text-bg-danger
                     = Course.unapproved.published.count
                 = link_to users_path, class: "dropdown-item #{'active' if current_page?(users_path)}" do
-                  %i.fa.fa-users
+                  %i.fa.fa-users{"aria-hidden": "true"}
                   Users
                   .badge.text-bg-secondary
                     = User.count
                 = link_to enrollments_path, class: "dropdown-item #{'active' if current_page?(enrollments_path)}" do
-                  %i.fa.fa-lock-open
+                  %i.fa.fa-lock-open{"aria-hidden": "true"}
                   Enrollments
                   .badge.text-bg-secondary
                     = Enrollment.count
                 = link_to activity_path, class: "dropdown-item #{'active' if current_page?(activity_path)}" do
-                  %i.fa.fa-bell
+                  %i.fa.fa-bell{"aria-hidden": "true"}
                   Activity
                 = link_to analytics_path, class: "dropdown-item #{'active' if current_page?(analytics_path)}" do
-                  %i.fa.fa-chart-line
+                  %i.fa.fa-chart-line{"aria-hidden": "true"}
                   Analytics
         %ul.navbar-nav.ms-auto
           %li.nav-item.dropdown
@@ -97,16 +97,16 @@
               - if current_user.image?
                 = image_tag current_user.image, size: '30x30', alt: "#{current_user.email}", class: 'rounded-circle'
               - else
-                %i.fa.fa-user
+                %i.fa.fa-user{"aria-hidden": "true"}
               %b= current_user.username
             .dropdown-menu.dropdown-menu-end{"aria-labelledby" => "navbarDropdown"}
               = link_to user_path(current_user), class: "dropdown-item #{'active' if current_page?(user_path(current_user))}" do
-                %i.fa.fa-user
+                %i.fa.fa-user{"aria-hidden": "true"}
                 %b My profile
               = link_to edit_user_registration_path, class: "dropdown-item #{'active' if current_page?(edit_user_registration_path)}" do
-                %i.fa.fa-cog
+                %i.fa.fa-cog{"aria-hidden": "true"}
                 %b Account settings
-              = button_to destroy_user_session_path, method: :delete, class: "dropdown-item", form: { style: "display: inline;" } do
+              = button_to destroy_user_session_path, method: :delete, class: "dropdown-item", form: { class: "d-inline" } do
                 %span.fa.fa-sign-out-alt
                 %b Sign out
       - else

@@ -1,7 +1,7 @@
-%i.fa.fa-lock
+%i.fa.fa-lock{"aria-hidden": "true"}
 %b
   #{lesson.row_order_rank + 1}.
 = lesson.title
 - unless lesson.comments_count.zero?
-  %i.fa.fa-comment.ms-1
+  %i.fa.fa-comment.ms-1{"aria-hidden": "true"}
   = lesson.comments_count

@@ -4,11 +4,11 @@
   Edit Lesson
   = @lesson.title
 
-%i.fa.fa-graduation-cap
+%i.fa.fa-graduation-cap{"aria-hidden": "true"}
 = link_to course_path(@course) do
   = @course.title
 |
-%i.fa.fa-check-square
+%i.fa.fa-check-square{"aria-hidden": "true"}
 = link_to course_lesson_path(@course, @lesson, anchor: "current_lesson") do
   = @lesson.title
 |
@@ -17,7 +17,7 @@
 .card.shadow
   .card-header
     %h3
-      %i.far.fa-check-square
+      %i.far.fa-check-square{"aria-hidden": "true"}
       Edit lesson
   .card-body
     = render 'form'

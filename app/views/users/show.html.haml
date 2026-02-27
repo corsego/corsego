@@ -7,16 +7,18 @@
   .col-md-6
     .card.shadow
       .card-header
-        %i.fa.fa-user
+        %i.fa.fa-user{"aria-hidden": "true"}
         - if @user.online?
-          %i.text-success.fa.fa-signal
+          %i.text-success.fa.fa-signal{"aria-hidden": "true"}
+          %span.visually-hidden Online
         - else
-          %i.text-danger.fa.fa-signal
+          %i.text-danger.fa.fa-signal{"aria-hidden": "true"}
+          %span.visually-hidden Offline
         = link_to @user.username, user_path(@user)
       .card-footer
         - if @user == current_user && @user.uid.nil?
           = button_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-outline-primary btn-sm' do
-            %span.fab.fa-google
+            %span.fab.fa-google{"aria-hidden": "true"}
             Sync with Google
         - if @user.image?
           .mb-2
@@ -26,57 +28,61 @@
         Signed up
         = time_ago_in_words(@user.created_at)
         ago
-      - if current_user.has_role?(:admin) || @user = current_user
+      - if current_user.has_role?(:admin) || @user == current_user
         .card-footer
-          %b= 'email'.humanize + ":"
-          = @user.email
-          %br
-          %b= 'sign_in_count'.humanize + ":"
-          = @user.sign_in_count
-          %br
-          %b= 'current_sign_in_at'.humanize + ":"
-          = @user.current_sign_in_at
-          %br
-          %b= 'last_sign_in_at'.humanize + ":"
-          = @user.last_sign_in_at
-          %br
-          %b= 'current_sign_in_ip'.humanize + ":"
-          = @user.current_sign_in_ip
-          %br
-          %b= 'last_sign_in_ip'.humanize + ":"
-          = @user.last_sign_in_ip
+          %p.mb-1
+            %b= 'email'.humanize + ":"
+            = @user.email
+          %p.mb-1
+            %b= 'sign_in_count'.humanize + ":"
+            = @user.sign_in_count
+          %p.mb-1
+            %b= 'current_sign_in_at'.humanize + ":"
+            = @user.current_sign_in_at
+          %p.mb-1
+            %b= 'last_sign_in_at'.humanize + ":"
+            = @user.last_sign_in_at
+          %p.mb-1
+            %b= 'current_sign_in_ip'.humanize + ":"
+            = @user.current_sign_in_ip
+          %p.mb-0
+            %b= 'last_sign_in_ip'.humanize + ":"
+            = @user.last_sign_in_ip
+      - if current_user.has_role?(:admin)
         .card-footer
           %b= 'stripe_customer_id'.humanize + ":"
           = @user.stripe_customer_id
         .card-footer
-          %b= 'course_income'.humanize + ":"
-          = @user.course_income
-          %br
-          %b= 'enrollment_expences'.humanize + ":"
-          = @user.enrollment_expences
-          %br
-          %b= 'balance'.humanize + ":"
-          = @user.balance
+          %p.mb-1
+            %b= 'course_income'.humanize + ":"
+            = @user.course_income
+          %p.mb-1
+            %b= 'enrollment_expences'.humanize + ":"
+            = @user.enrollment_expences
+          %p.mb-0
+            %b= 'balance'.humanize + ":"
+            = @user.balance
       .card-footer
-        %i.fa.fa-graduation-cap
-        Courses created:
-        = @user.courses_count
-        %br
-        %i.fa.fa-lock-open
-        Enrollments:
-        = @user.enrollments_count
-        %br
-        %i.fa.fa-comment
-        Comments:
-        = @user.comments_count
-        %br
-        %i.fa.fa-eye
-        Lessons viewed:
-        = @user.user_lessons_count
-        %br
-        %i.fa.fa-user-graduate
-        Students:
-        = @user.students.count
+        %p.mb-1
+          %i.fa.fa-graduation-cap{"aria-hidden": "true"}
+          Courses created:
+          = @user.courses_count
+        %p.mb-1
+          %i.fa.fa-lock-open{"aria-hidden": "true"}
+          Enrollments:
+          = @user.enrollments_count
+        %p.mb-1
+          %i.fa.fa-comment{"aria-hidden": "true"}
+          Comments:
+          = @user.comments_count
+        %p.mb-1
+          %i.fa.fa-eye{"aria-hidden": "true"}
+          Lessons viewed:
+          = @user.user_lessons_count
+        %p.mb-0
+          %i.fa.fa-user-graduate{"aria-hidden": "true"}
+          Students:
+          = @user.students.count
       .card-footer
         Confirmed email?
         = boolean_label(@user.confirmed?)
