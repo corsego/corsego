@@ -86,7 +86,9 @@ After editing, run `source ~/.zshrc` or open a new terminal.
 |---|---|
 | `config/deploy.yml` | Kamal deployment config (servers, services, accessories) |
 | `.kamal/secrets` | Maps env vars/files to Kamal secrets (never commit raw credentials) |
-| `Dockerfile` | Multi-stage production Docker image |
+| `Dockerfile` | Multi-stage production Docker image (Ruby, Bun, assets) |
+| `.dockerignore` | Files excluded from Docker build context |
+| `bin/docker-entrypoint` | Container startup script (jemalloc, db:migrate) |
 | `config/storage.yml` | ActiveStorage services (AWS S3 for production) |
 
 ## First-Time Setup Checklist
@@ -112,9 +114,15 @@ Follow these steps in order to go from a bare Hetzner server to a running produc
 
 ## Deploying
 
-Kamal deploys whatever commit is currently checked out on your **local machine** — it clones from your local git repo, not GitHub.
+Kamal deploys whatever commit is currently checked out on your **local machine** — it clones from your local git repo, not GitHub. **All changes must be committed** before deploying; Kamal ignores uncommitted files.
 
 **Before every deploy**, ensure the required env vars are exported in your current shell session (deploy will fail with `flag needs an argument: 'p' in -p` if these are missing):
+
+```bash
+source ~/.zshrc    # Load env vars if not already set
+```
+
+Or export them manually:
 
 ```bash
 export KAMAL_REGISTRY_PASSWORD=<docker-hub-access-token>
@@ -136,7 +144,7 @@ kamal setup
 
 Kamal builds the Docker image remotely on the Hetzner server (`builder.remote` in `deploy.yml`), so no cross-compilation or QEMU emulation is needed.
 
-**Database migrations** run automatically on every deploy — the Rails Docker entrypoint runs `db:prepare` on boot (migrations only, not seeds).
+**Database migrations** run automatically on every deploy — the Docker entrypoint (`bin/docker-entrypoint`) runs `db:migrate` on boot. We use `db:migrate` instead of `db:prepare` because `db:prepare` also runs seeds, which can fail in production (e.g., seed mailers requiring SMTP).
 
 ### Rollback
 
@@ -237,6 +245,19 @@ ssh root@188.245.75.73 'docker exec corsego-db psql -U corsego -d corsego_produc
 curl https://corsego.com/up
 ```
 
+### 4. Post-Migration Checklist
+
+After the app is running on Hetzner and DNS has propagated:
+
+- [ ] **Update Stripe webhook URL** — In [Stripe Dashboard → Webhooks](https://dashboard.stripe.com/webhooks), change endpoint to `https://corsego.com/webhooks/create`
+- [ ] **Update OAuth callback URLs** — Update redirect URIs for each provider to `corsego.com`:
+  - Google: [Google Cloud Console](https://console.cloud.google.com/) → Credentials → OAuth client
+  - GitHub: GitHub → Settings → Developer settings → OAuth Apps
+  - Facebook: Facebook Developers → App settings
+- [ ] **Verify key flows** — Sign in, OAuth login, Stripe checkout, email delivery (SES), S3 file uploads
+- [ ] **Decommission Heroku** — Remove the Heroku app once everything is confirmed working
+- [ ] **Push to GitHub** — `git push origin main`
+
 ## Architecture Diagram
 
 ```
@@ -268,7 +289,7 @@ curl https://corsego.com/up
 
 ## DNS Configuration
 
-DNS is managed via **Namecheap** (Advanced DNS tab). Replace the old Heroku CNAME records with A records pointing to the Hetzner server.
+DNS is managed via **Namecheap** (Advanced DNS tab).
 
 | Type | Host | Value | TTL |
 |---|---|---|---|
@@ -277,10 +298,19 @@ DNS is managed via **Namecheap** (Advanced DNS tab). Replace the old Heroku CNAM
 
 Keep all other records (blog CNAME, DKIM/SES CNAMEs, TXT records) unchanged.
 
-Check current DNS resolution:
+**Important:** If migrating from another host (e.g., Heroku), delete any existing CNAME records for `@` and `www` **before** adding the A records. CNAME records take priority over A records and will prevent the new A records from working.
+
+After DNS changes, browsers may cache the old DNS for a while. Use incognito mode or flush DNS cache to verify:
 
 ```bash
+# Check current DNS resolution
 dig +short corsego.com A
+
+# Flush macOS DNS cache if needed
+sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+
+# Test the Hetzner server directly (bypasses DNS)
+curl -s -o /dev/null -w "%{http_code}" --resolve corsego.com:443:188.245.75.73 https://corsego.com/up
 ```
 
 ## Monitoring
@@ -401,6 +431,22 @@ curl -vI https://corsego.com 2>&1 | grep -E 'subject:|issuer:|expire'
 # kamal-proxy auto-provisions Let's Encrypt certs when DNS resolves to the server
 # If DNS recently changed, redeploy to trigger cert provisioning:
 kamal deploy
+```
+
+**Missing assets (`application.js` or `application.css` not in asset pipeline):**
+
+The Dockerfile has a two-step asset build: first `bun run build:production` compiles JS/CSS into `app/assets/builds/`, then `rails assets:precompile` fingerprints them into `public/assets/`. If you see this error, verify both steps are present in the Dockerfile and that `.dockerignore` excludes `app/assets/builds/*` (the Docker build regenerates them).
+
+```bash
+# Check if assets exist in the running container
+kamal shell
+ls /rails/public/assets/
+```
+
+If assets are missing, force a clean rebuild:
+
+```bash
+kamal build push --no-cache && kamal deploy
 ```
 
 **Disk space:**
