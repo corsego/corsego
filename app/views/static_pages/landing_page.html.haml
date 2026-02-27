@@ -10,70 +10,71 @@
 .shadow.parallax.p-5.mb-4.rounded-3
   %h1.text-shadow
     %b Turn what you know into a course — or pick up a new skill
-  .p-4
   - if current_user
-    .p-3
+    .mt-4
     = search_form_for @ransack_courses, as: :courses_search, url: courses_path do |f|
       .input-group
         = f.search_field :title_cont, class: 'form-control form-control-lg', style: 'width: 200px; ', placeholder: 'Find a course', :autocomplete => :off
         %button.btn.btn-primary.btn-lg{:type => "submit"}
           %span.fa.fa-search{"aria-hidden" => "true"}
-    .p-2
+          %span.visually-hidden Search
   - else
     %h3.text-shadow Publish your own course or enroll in one today
-    .p-2
+    .mt-3
     = link_to 'Register', new_user_registration_path, class: 'btn btn-custom-purple btn-lg'
     = link_to 'Login', new_user_session_path, class: 'btn btn-custom-purple btn-lg'
-    .row.mt-1
+    .mt-2
     = button_to user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-danger btn-lg me-1' do
       Continue with
       %span.fab.fa-google
-    .row.mt-1
+    .mt-2
     = button_to user_github_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-dark btn-lg me-1' do
       Continue with
       %span.fab.fa-github
-    .row.mt-1
+    .mt-2
     = button_to user_facebook_omniauth_authorize_path, data: { turbo: false }, class: 'btn btn-primary btn-lg me-1' do
       Continue with
       %span.fab.fa-facebook
 
-.card-group.shadow
-  .card
-    .card-body
-      %h1
-        .fa.fa-graduation-cap
-      = pluralize(Course.approved.published.count, 'course')
-      published
-      .row
-      %small From cooking to coding — new courses added regularly
-  .card
-    .card-body
-      %h1
-        .fa.fa-chalkboard-teacher
-      = pluralize(Course.distinct.count(:user_id), 'instructor')
-      already teaching
-      .row
-      %small Anyone with expertise can create a course and earn
-  .card
-    .card-body
-      %h1
-        .fa.fa-user-graduate
-      = pluralize(User.count, 'learner')
-      enrolled
-      .row
-      %small Enroll once, keep access forever
-  .card
-    .card-body
-      %h1
-        .fa.fa-infinity
-      Lifetime access
-      .row
-      %small No subscriptions, no deadlines — learn at your pace
+.row.g-3.shadow.mb-4
+  .col-sm-6.col-lg-3
+    .card.h-100
+      .card-body
+        %h1
+          %i.fa.fa-graduation-cap
+        = pluralize(Course.approved.published.count, 'course')
+        published
+        %br
+        %small From cooking to coding — new courses added regularly
+  .col-sm-6.col-lg-3
+    .card.h-100
+      .card-body
+        %h1
+          %i.fa.fa-chalkboard-teacher
+        = pluralize(Course.distinct.count(:user_id), 'instructor')
+        already teaching
+        %br
+        %small Anyone with expertise can create a course and earn
+  .col-sm-6.col-lg-3
+    .card.h-100
+      .card-body
+        %h1
+          %i.fa.fa-user-graduate
+        = pluralize(User.count, 'learner')
+        enrolled
+        %br
+        %small Enroll once, keep access forever
+  .col-sm-6.col-lg-3
+    .card.h-100
+      .card-body
+        %h1
+          %i.fa.fa-infinity
+        Lifetime access
+        %br
+        %small No subscriptions, no deadlines — learn at your pace
 
-%p
-
-%h2 
-  .fa.fa-tags
+%h2.mt-4
+  %i.fa.fa-tags
   Top Categories
 - @popular_tags.each do |tag|
   = link_to courses_path(courses_search: {course_tags_tag_id_eq: tag.id}) do
@@ -84,40 +85,40 @@
 %hr
 
 %h2
-  .fa.fa-chart-line
+  %i.fa.fa-chart-line
   = link_to 'Popular courses', courses_path(courses_search: {s: 'enrollments_count desc'})
 .row
   - @courses.each do |course|
     = render 'courses/course_landscape', course: course
-    %p
 
-.card-group.shadow
-  .card
-    .card-body
-      %b
-        .fa.fa-clock
-        Start learning in minutes
-      %br
-      %small
-        Pick a course, enroll, and begin — no waiting
-  .card
-    .card-body
-      %b
-        .far.fa-check-circle
-        Earn a certificate when you finish
-      %br
-      %small
-        Complete all lessons and download your certificate
-  .card
-    .card-body
-      %b
-        .far.fa-play-circle
-        Teach what you know and get paid
-      %br
-      %small
-        Create your course, set a price, and reach students worldwide
-
--# Stimulus smoke test element (hidden from visual UI)
+.row.g-3.shadow.mt-4
+  .col-md-4
+    .card.h-100
+      .card-body
+        %b
+          %i.fa.fa-clock
+          Start learning in minutes
+        %br
+        %small
+          Pick a course, enroll, and begin — no waiting
+  .col-md-4
+    .card.h-100
+      .card-body
+        %b
+          %i.far.fa-check-circle
+          Earn a certificate when you finish
+        %br
+        %small
+          Complete all lessons and download your certificate
+  .col-md-4
+    .card.h-100
+      .card-body
+        %b
+          %i.far.fa-play-circle
+          Teach what you know and get paid
+        %br
+        %small
+          Create your course, set a price, and reach students worldwide
 
 - if Rails.env.local?
   %div{data: {controller: "hello"}, id: "stimulus-smoke-test"}
