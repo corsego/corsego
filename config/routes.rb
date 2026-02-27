@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       end
     end
     resources :enrollments, only: [:new, :create]
+    resources :access_grants, only: [:new, :create], controller: "courses/access_grants"
     resources :course_wizard, controller: "courses/course_wizard"
   end
   resources :youtube, only: :show
