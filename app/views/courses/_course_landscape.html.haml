@@ -5,7 +5,7 @@
         .col-md-4
           - if course.avatar.attached?
             = link_to course_path(course) do
-              = image_tag course.avatar, loading: "lazy", height: "auto", width: "100%"
+              = image_tag course.avatar, alt: "#{course.title} course thumbnail", loading: "lazy", height: "auto", width: "100%"
         .col-md-5
           %b= link_to course.title, course_path(course)
           %small= simple_format(course.marketing_description)

@@ -3,7 +3,7 @@
     = f.input :title, input_html: { autocomplete: 'off' }
     - if @course.avatar.attached? && @course.avatar.blob&.persisted?
       .mb-2
-      = image_tag @course.avatar, width: "200px"
+      = image_tag @course.avatar, alt: "#{@course.title} course thumbnail", width: "200px"
       %br
       = @course.avatar.filename
     = f.input :avatar
