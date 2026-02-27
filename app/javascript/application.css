@@ -15,9 +15,8 @@
 /* Trix editor */
 @import "trix/dist/trix.css";
 
-/* Selectize dropdowns */
-@import "selectize/dist/css/selectize.css";
-@import "selectize/dist/css/selectize.default.css";
+/* Tom Select dropdowns (jQuery-free selectize replacement) */
+@import "tom-select/dist/css/tom-select.bootstrap4.css";
 
 /* jQuery UI (base theme) */
 @import "jquery-ui-dist/jquery-ui.css";
