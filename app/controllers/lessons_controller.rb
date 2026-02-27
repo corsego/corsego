@@ -66,6 +66,6 @@ class LessonsController < ApplicationController
   end
 
   def lesson_params
-    params.require(:lesson).permit(:title, :content, :row_order_position, :chapter_id, :video_url)
+    params.expect(lesson: [:title, :content, :row_order_position, :chapter_id, :video_url])
   end
 end

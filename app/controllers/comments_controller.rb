@@ -15,7 +15,10 @@ class CommentsController < ApplicationController
 
     if @comment.save
       CommentMailer.new_comment(@comment).deliver_later if @comment.user_id != @course.user_id
-      redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Your comment was successfully added.'
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Your comment was successfully added.' }
+      end
     else
       render 'lessons/comments/new'
     end
@@ -27,12 +30,16 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     authorize @comment
     @comment.destroy
-    redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Comment was successfully destroyed.'
+
+    respond_to do |format|
+      format.turbo_stream
+      format.html { redirect_to course_lesson_path(@course, @lesson, anchor: 'current_lesson'), notice: 'Comment was successfully destroyed.' }
+    end
   end
 
   private
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.expect(comment: [:content])
   end
 end

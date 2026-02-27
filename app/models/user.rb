@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   rolify
 
+  normalizes :email, with: ->(email) { email.strip.downcase }
+
   has_many :courses, dependent: :nullify
   has_many :enrollments, dependent: :nullify
   has_many :user_lessons, dependent: :nullify

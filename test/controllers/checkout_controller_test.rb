@@ -14,19 +14,19 @@ class CheckoutControllerTest < ActionDispatch::IntegrationTest
 
   # CREATE
   test 'unauthenticated user cannot create checkout session' do
-    post checkout_create_url, params: { id: @published_course.id }, xhr: true
-    assert_response :unauthorized
+    post checkout_create_url, params: { id: @published_course.id }
+    assert_redirected_to new_user_session_path
   end
 
   test 'authenticated user can create checkout session' do
     sign_in @student
 
     # Stub Stripe Checkout Session creation
-    mock_session = OpenStruct.new(id: 'cs_test_123')
+    mock_session = OpenStruct.new(id: 'cs_test_123', url: 'https://checkout.stripe.com/pay/cs_test_123')
     Stripe::Checkout::Session.stubs(:create).returns(mock_session)
 
-    post checkout_create_url, params: { id: @published_course.id }, xhr: true
-    assert_response :success
+    post checkout_create_url, params: { id: @published_course.id }
+    assert_redirected_to 'https://checkout.stripe.com/pay/cs_test_123'
   end
 
   # SUCCESS

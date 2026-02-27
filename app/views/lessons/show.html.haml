@@ -44,16 +44,15 @@
     %h2.h4.mt-3
       %i.fa.fa-comment{"aria-hidden": "true"}
       Comments:
-      = @lesson.comments_count
+      %span#comments_count= @lesson.comments_count
     .card.shadow
       .card-header
         New comment
-      .card-body
+      .card-body#comment_form
         = render 'lessons/comments/form'
-    .list-group
+    .list-group#comments
       - @comments.each do |comment|
-        .list-group-item
-          = render 'lessons/comments/comment', comment: comment
+        = render 'lessons/comments/comment', comment: comment
 
   .col-lg-4
     .list-group.shadow

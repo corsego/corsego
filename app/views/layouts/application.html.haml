@@ -12,7 +12,6 @@
     = render_meta_tags
     = auto_discovery_link_tag(:rss, courses_url(format: :rss), title: "Corsego Courses RSS Feed")
 
-    %script{:src => "https://js.stripe.com/v3/"}
     %link{:rel => "stylesheet", :href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css", :integrity => "sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==", :crossorigin => "anonymous", :referrerpolicy => "no-referrer"}
     %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js", :integrity => "sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==", :crossorigin => "anonymous", :referrerpolicy => "no-referrer"}
     = javascript_tag "window.require = function(name) { if (name === 'jquery') return window.jQuery; throw new Error('Module not found: ' + name); };", nonce: true

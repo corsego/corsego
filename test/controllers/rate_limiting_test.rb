@@ -82,22 +82,22 @@ class RateLimitingTest < ActionDispatch::IntegrationTest
   test 'checkout endpoint is accessible under rate limit' do
     sign_in @student
 
-    mock_session = OpenStruct.new(id: 'cs_test_123')
+    mock_session = OpenStruct.new(id: 'cs_test_123', url: 'https://checkout.stripe.com/pay/cs_test_123')
     Stripe::Checkout::Session.stubs(:create).returns(mock_session)
 
-    post checkout_create_url, params: { id: @published_course.id }, xhr: true
+    post checkout_create_url, params: { id: @published_course.id }
     assert_not_equal 429, response.status
   end
 
   test 'checkout rate limit triggers after exceeded attempts' do
     sign_in @student
 
-    mock_session = OpenStruct.new(id: 'cs_test_123')
+    mock_session = OpenStruct.new(id: 'cs_test_123', url: 'https://checkout.stripe.com/pay/cs_test_123')
     Stripe::Checkout::Session.stubs(:create).returns(mock_session)
 
     # Checkout: 10 attempts per 5 minutes per user
     11.times do
-      post checkout_create_url, params: { id: @published_course.id }, xhr: true
+      post checkout_create_url, params: { id: @published_course.id }
     end
     assert_response :too_many_requests
   end

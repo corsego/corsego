@@ -1,0 +1,7 @@
+= turbo_stream.prepend "comments" do
+  = render 'lessons/comments/comment', comment: @comment
+
+= turbo_stream.update "comments_count", @lesson.comments_count
+
+= turbo_stream.replace "comment_form" do
+  = render 'lessons/comments/form'

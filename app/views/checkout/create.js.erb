@@ -1,7 +1,0 @@
-var stripe = Stripe("<%= Rails.application.credentials.dig(Rails.env.to_sym, :stripe, :publishable) %>");
-
-stripe.redirectToCheckout({
-  sessionId: '<%= @session.id %>'
-}).then(function (result) {
-  console.log(result.error.message);
-});

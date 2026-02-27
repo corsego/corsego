@@ -56,14 +56,14 @@ module Courses
     end
 
     def course_params
-      params.require(:course).permit(
+      params.expect(course: [
         :title, :avatar, :marketing_description, :description,
         :language, :level,
         :price,
         :published,
         tag_ids: [],
-        chapters_attributes: %i[id title _destroy]
-      )
+        chapters_attributes: [[:id, :title, :_destroy]]
+      ])
     end
   end
 end

@@ -35,6 +35,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit({ role_ids: [] })
+    params.expect(user: [role_ids: []])
   end
 end

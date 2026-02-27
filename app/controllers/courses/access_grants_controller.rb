@@ -41,7 +41,7 @@ module Courses
     end
 
     def access_grant_params
-      params.require(:access_grant).permit(:email)
+      params.expect(access_grant: [:email])
     end
   end
 end

@@ -57,6 +57,6 @@ class ChaptersController < ApplicationController
   end
 
   def chapter_params
-    params.require(:chapter).permit(:title, :row_order_position)
+    params.expect(chapter: [:title, :row_order_position])
   end
 end

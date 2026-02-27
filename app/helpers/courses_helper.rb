@@ -10,7 +10,7 @@ module CoursesHelper
       elsif current_user.bought?(course)
         render 'courses/progress', course: course
       elsif course.price.positive?
-        button_to number_to_currency(course.price), checkout_create_path, params: { id: course.id }, remote: true, data: { disable_with: 'validating...' }, class: 'btn btn-success'
+        button_to number_to_currency(course.price), checkout_create_path, params: { id: course.id }, data: { disable_with: 'validating...' }, class: 'btn btn-success'
       else
         form_tag course_enrollments_path(course) do
           submit_tag 'Enroll for free!', data: { disable_with: 'validating...' }, class: 'btn btn-success'

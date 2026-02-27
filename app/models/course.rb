@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Course < ApplicationRecord
+  normalizes :title, with: ->(title) { title.strip }
+
   validates :title, :description, :marketing_description, :language, :price, :level, presence: true
   validates :description, length: { minimum: 5 }
   validates :marketing_description, length: { maximum: 300 }

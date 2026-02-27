@@ -104,6 +104,6 @@ class CoursesController < ApplicationController
   end
 
   def course_params
-    params.require(:course).permit(:title)
+    params.expect(course: [:title])
   end
 end
