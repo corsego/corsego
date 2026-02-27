@@ -84,3 +84,7 @@ gem 'honeybadger'
 
 # Background jobs
 gem 'good_job', '~> 4.0'
+
+# Deployment
+gem 'kamal', require: false
+gem 'thruster', require: false

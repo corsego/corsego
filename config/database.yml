@@ -28,6 +28,4 @@ production:
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  database: corsego_production
-  username: corsego
-  password: <%= ENV['corsego_DATABASE_PASSWORD'] %>
+  url: <%= ENV["DATABASE_URL"] %>

@@ -1,0 +1,75 @@
+# Name of your application. Used to uniquely configure containers.
+service: corsego
+
+# Name of the container image.
+image: yshmarov/corsego
+
+# Deploy to these servers.
+servers:
+  web:
+    - 188.245.75.73
+
+# Enable SSL auto certification via Let's Encrypt.
+# Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
+proxy:
+  ssl: true
+  host: corsego.com,www.corsego.com
+  forward_headers: true
+
+# Credentials for your image host.
+registry:
+  username: yshmarov
+
+  # Always use an access token rather than real password when possible.
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+# Inject ENV variables into containers (secrets come from .kamal/secrets).
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - DATABASE_URL
+  clear:
+    HOST: corsego.com
+    # Set number of cores available to the application on each server (default: 1).
+    WEB_CONCURRENCY: 2
+    # Log everything from Rails
+    # RAILS_LOG_LEVEL: debug
+
+# Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
+# "bin/kamal logs" will tail logs from the first server in the web section.
+aliases:
+  console: app exec --interactive --reuse "bin/rails console"
+  shell: app exec --interactive --reuse "bash"
+  logs: app logs -f
+  dbc: app exec --interactive --reuse "bin/rails dbconsole"
+
+# Use a persistent storage volume for local Active Storage files.
+volumes:
+  - 'corsego_storage:/rails/storage'
+
+# Bridge fingerprinted assets, like JS and CSS, between versions to avoid
+# hitting 404 on in-flight requests. Combines all files from new and old
+# version inside the asset_path.
+asset_path: /rails/public/assets
+
+# Configure the image builder.
+# Build on the remote server (native x86_64, no QEMU emulation needed).
+builder:
+  arch: amd64
+  remote: ssh://root@188.245.75.73
+
+# Use accessory services (secrets come from .kamal/secrets).
+accessories:
+  db:
+    image: postgres:17
+    host: 188.245.75.73
+    port: '127.0.0.1:5432:5432'
+    env:
+      clear:
+        POSTGRES_USER: corsego
+        POSTGRES_DB: corsego_production
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - corsego_postgres_data:/var/lib/postgresql
