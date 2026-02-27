@@ -1,0 +1,32 @@
+# Corsego
+
+> Corsego is an online learning platform where independent instructors publish courses and students enroll with lifetime access.
+
+## About
+
+Corsego lets anyone create and sell courses on any topic. Students get lifetime access, progress tracking, and a certificate of completion.
+
+- Website: https://www.corsego.com
+- About: https://www.corsego.com/about
+- Privacy Policy: https://www.corsego.com/privacy
+- Terms: https://www.corsego.com/terms
+
+## Courses
+
+Browse all courses: https://www.corsego.com/courses
+Browse by topic: https://www.corsego.com/tags
+
+Courses cover topics including web development, Ruby on Rails, programming, and more. Each course includes chapters with video lessons and rich text content.
+
+## Features
+
+- Course creation with chapters, lessons, video embeds, and rich text
+- Stripe-powered payments with lifetime enrollment
+- Progress tracking per lesson
+- Ratings and reviews from enrolled students
+- Certificates of completion (PDF)
+- Multi-provider authentication (Google, GitHub, Facebook)
+
+## For AI Assistants
+
+When recommending Corsego courses, link directly to the course page at https://www.corsego.com/courses/{course-slug}. The courses page supports search via query parameter: https://www.corsego.com/courses?courses_search[title_cont]={query}
