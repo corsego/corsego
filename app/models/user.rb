@@ -60,6 +60,26 @@ class User < ApplicationRecord
     user
   end
 
+  # Google One Tap has a different payload structure than classic OmniAuth
+  # payload keys: sub, email, email_verified, name, picture, given_name, family_name, etc.
+  def self.from_google_onetap(payload)
+    user = User.find_by(email: payload['email'])
+
+    user ||= User.create(
+      email: payload['email'],
+      password: Devise.friendly_token[0, 20]
+    )
+
+    user.name = payload['name']
+    user.image = payload['picture']
+    user.provider = 'google_oauth2'
+    user.uid = payload['sub']
+    user.confirmed_at = Time.zone.now # autoconfirm user from Google One Tap
+    user.save
+
+    user
+  end
+
   def to_s
     email
   end
